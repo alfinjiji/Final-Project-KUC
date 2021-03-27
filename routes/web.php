@@ -23,7 +23,10 @@ Route::group(['namespace'=>'Admin'],function(){
         Route::get('demo',['as'=>'demo','uses'=>'AdminController@demo'] );
         Route::get('dashboard',['as'=>'dashboard','uses'=>'AdminController@dashboard'] );
         Route::get('category',['as'=>'category','uses'=>'AdminController@category'] );
+        Route::get('category-create',['as'=>'category.create','uses'=>'AdminController@categoryCreate'] );
+        Route::get('category-edit',['as'=>'category.edit','uses'=>'AdminController@categoryEdit'] );
         Route::get('banner',['as'=>'banner','uses'=>'AdminController@banner'] );
+        Route::get('banner-edit',['as'=>'banner.edit','uses'=>'AdminController@bannerEdit'] );
         Route::get('product',['as'=>'product','uses'=>'AdminController@product'] );
         Route::get('customer',['as'=>'customer','uses'=>'AdminController@customer'] );
         Route::get('wishlist',['as'=>'wishlist','uses'=>'AdminController@wishlist'] );

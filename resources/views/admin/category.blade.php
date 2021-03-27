@@ -8,7 +8,7 @@
     <div class="container-fluid">
       <div class="row">
         <!--category table-->
-        <div class="col-md-6">
+        <div class="col-md-12">
           <div class="card card-success">
               <div class="card-header">
                 <h3 class="card-title">Category</h3>
@@ -30,9 +30,9 @@
                       <td></td>
                       <td></td>
                       <td>
-                        <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#edit-model">
+                        <a href="{{route('category.edit')}}"><button type="button" class="btn btn-xs btn-primary">
                           Edit
-                        </button>
+                        </button></a>
                         <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#delete-model">
                           Delete
                         </button>
@@ -40,44 +40,6 @@
                     </tr>
                   </tbody>
                 </table>
-                <!--- Edit Model Begin-->
-                <div class="modal fade" id="edit-model">
-                  <div class="modal-dialog modal-md">
-                    <div class="modal-content">
-                      <div class="modal-header">
-                        <h4 class="modal-title">Edit</h4>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body">
-                        <div class="card card-primary">
-                          <div class="card-header">
-                            <h3 class="card-title">Category</h3>
-                          </div>
-                          <!-- /.card-header -->
-                          <!-- form start -->
-                          <form>
-                            <div class="card-body">
-                              <div class="form-group">
-                                <label>Category Name</label>
-                                <input type="text" class="form-control"  placeholder="Enter Category" required>
-                              </div>
-                            </div>
-                            <!-- /.card-body -->
-                            <div class="card-footer">
-                              <button type="submit" class="btn btn-primary">Submit</button>
-                            </div>
-                          </form>
-                      </div>
-                      </div>
-                    </div>
-                    <!-- /.modal-content -->
-                  </div>
-                  <!-- /.modal-dialog -->
-                </div>
-                <!--- Edit Model End-->
-
                 <!--- Delete Model Begin-->
                 <div class="modal fade" id="delete-model">
                   <div class="modal-dialog modal-sm">
@@ -116,31 +78,6 @@
             </div> 
       </div>
       <!-- end category table-->
-
-        <div class="col-md-6">
-            <!--category-->
-            <div class="card card-primary">
-                <div class="card-header">
-                  <h3 class="card-title">Create Category</h3>
-                </div>
-                <!-- /.card-header -->
-                <!-- form start -->
-                <form>
-                  <div class="card-body">
-                    <div class="form-group">
-                      <label>Category Name</label>
-                      <input type="text" class="form-control"  placeholder="Enter Category" required>
-                    </div>
-                  </div>
-                  <!-- /.card-body -->
-                  <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                  </div>
-                </form>
-            </div>
-            <!--end category-->
-        </div>
-
       </div>
     </div>
   </section>

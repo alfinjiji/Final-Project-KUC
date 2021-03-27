@@ -51,9 +51,7 @@
                                     <td></td>
                                     <td></td>
                                     <td>
-                                      <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#edit-model">
-                                        Edit
-                                      </button>
+                                      <a href="{{route('banner.edit')}}"><button type="button" class="btn btn-xs btn-primary">Edit</button></a>
                                       <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#delete-model">
                                         Delete
                                       </button>
@@ -61,64 +59,6 @@
                                   </tr>
                                 </tbody>
                               </table>
-                               <!--- Edit Model Begin-->
-                              <div class="modal fade" id="edit-model">
-                                <div class="modal-dialog modal-md">
-                                  <div class="modal-content">
-                                    <div class="modal-header">
-                                      <h4 class="modal-title">Edit</h4>
-                                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                      </button>
-                                    </div>
-                                    <div class="modal-body">
-                                      <!--banner-->
-                                    <div class="card card-success">
-                                      <div class="card-header">
-                                        <h3 class="card-title">Banner</h3>
-                                      </div>
-                                      <!-- /.card-header -->
-                                      <!-- form start -->
-                                      <form>
-                                          <div class="card-body">
-                                              <div class="form-group">
-                                                <label>Banner Name</label>
-                                                <input type="text" class="form-control"  placeholder="Enter Banner Name">
-                                              </div>
-                                              <div class="form-group">
-                                                  <label>Url</label>
-                                                  <input type="text" class="form-control"  placeholder="Enter Url">
-                                              </div>
-                                              <div class="form-group">
-                                                  <label>Date From</label>
-                                                  <input type="date" class="form-control">
-                                              </div>
-                                              <div class="form-group">
-                                                <label>Date To</label>
-                                                <input type="date" class="form-control">
-                                              </div>
-                                              <div class="form-group">
-                                                  <label>Image</label>
-                                                  <div class="custom-file">
-                                                      <input type="file" class="custom-file-input" id="customFile">
-                                                      <label class="custom-file-label" for="customFile">Choose file</label>
-                                                  </div>
-                                              </div>
-                                        </div>
-                                        <!-- /.card-body -->
-                                        <div class="card-footer">
-                                          <button type="submit" class="btn btn-success">Submit</button>
-                                        </div>
-                                      </form>
-                                    </div>
-                                    <!--end banner-->
-                                    </div>
-                                  </div>
-                                  <!-- /.modal-content -->
-                                </div>
-                                <!-- /.modal-dialog -->
-                              </div>
-                              <!--- delete Model End-->
                               <!--- Delete Model Begin-->
                               <div class="modal fade" id="delete-model">
                                 <div class="modal-dialog modal-sm">
@@ -159,7 +99,7 @@
                     <!-- end banner table-->
                 </div>
                 <div class="tab-pane fade" id="banner-create" role="tabpanel" aria-labelledby="banner-create-tab">
-                  <div class="col-md-6">
+                  <div class="col-md-12">
                     <!--banner-->
                     <div class="card card-success">
                         <div class="card-header">
