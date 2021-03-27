@@ -9,6 +9,10 @@
       <div class="row">
         <div class="col-md-12">
           <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Edit Product</h3>
+              <a href="{{url()->previous()}}"><button class="btn btn-success float-right">Back</button></a>
+            </div>
             <!-- form start -->
             <form>
               <div class="card-body">

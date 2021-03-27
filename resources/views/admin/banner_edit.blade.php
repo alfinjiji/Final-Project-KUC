@@ -8,9 +8,10 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
-          <div class="card card-success">
+          <div class="card card-primary">
             <div class="card-header">
               <h3 class="card-title">Banner</h3>
+              <a href="{{url()->previous()}}"><button class="btn btn-success float-right">Back</button></a>
             </div>
             <!-- /.card-header -->
             <!-- form start -->

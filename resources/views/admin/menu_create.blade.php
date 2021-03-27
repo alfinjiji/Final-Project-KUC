@@ -1,6 +1,6 @@
 @extends('admin.layout')
-@section('title', 'Edit-Category')
-@section('heading', 'Edit-Category')
+@section('title', 'Menu-Create')
+@section('heading', 'Menu-Create')
 @section('content')
 
   <!-- Main content -->
@@ -11,25 +11,28 @@
             <!--category-->
             <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Edit Category</h3>
-                  <a href="{{url()->previous()}}"><button class="btn btn-success float-right">Back</button></a>
+                  <div class="row">
+                    <div class="col-md-6"><h3 class="card-title">Create Menu</h3></div>
+                    <div class="col-md-6 text-right"> 
+                      <a href="{{route('menu')}}"><button class="btn btn-success" type="button">Back</button></a> 
+                    </div>
+                  </div>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
                 <form>
                   <div class="card-body">
                     <div class="form-group">
-                      <label>Category Name</label>
-                      <input type="text" class="form-control"  placeholder="Enter Category" required>
+                      <label>Menu Name</label>
+                      <input type="text" class="form-control"  placeholder="Enter Menu" required>
                     </div>
                   </div>
                   <!-- /.card-body -->
                   <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Update</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                   </div>
                 </form>
             </div>
-            <!--end category-->
         </div>
 
       </div>

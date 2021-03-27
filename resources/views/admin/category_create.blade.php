@@ -12,6 +12,7 @@
             <div class="card card-primary">
                 <div class="card-header">
                   <h3 class="card-title">Create Category</h3>
+                  <a href="{{url()->previous()}}"><button class="btn btn-success float-right">Back</button></a>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->

@@ -11,6 +11,7 @@
           <div class="card card-primary">
               <div class="card-header">
                 <h3 class="card-title">Favorite</h3>
+                <a href="{{url()->previous()}}"><button class="btn btn-success float-right">Back</button></a>
               </div>
               <!-- /.card-header -->
               <div class="card-body">

@@ -36,6 +36,8 @@ Route::group(['namespace'=>'Admin'],function(){
         Route::get('order',['as'=>'order','uses'=>'AdminController@order'] );
         Route::get('order-product',['as'=>'order.product','uses'=>'AdminController@orderProduct'] );
         Route::get('menu',['as'=>'menu','uses'=>'AdminController@menu'] );
+        Route::get('menu-create',['as'=>'menu.create','uses'=>'AdminController@menuCreate'] );
+        Route::get('menu-edit',['as'=>'menu.edit','uses'=>'AdminController@menuEdit'] );
         Route::get('coupon',['as'=>'coupon','uses'=>'AdminController@coupon'] );
     }); 
 

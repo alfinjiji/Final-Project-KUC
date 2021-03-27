@@ -71,6 +71,14 @@ class AdminController extends Controller
     {
         return view('admin.menu');
     }
+    function menuCreate()
+    {
+        return view('admin.menu_create');
+    }
+    function menuEdit()
+    {
+        return view('admin.menu_edit');
+    }
     function coupon()
     {
         return view('admin.coupon');

@@ -1,6 +1,6 @@
 @extends('admin.layout')
-@section('title', 'Edit-Category')
-@section('heading', 'Edit-Category')
+@section('title', 'Edit-Menu')
+@section('heading', 'Edit-Menu')
 @section('content')
 
   <!-- Main content -->
@@ -9,17 +9,16 @@
       <div class="row">
         <div class="col-md-12">
             <!--category-->
-            <div class="card card-primary">
+            <div class="card card-success">
                 <div class="card-header">
-                  <h3 class="card-title">Edit Category</h3>
-                  <a href="{{url()->previous()}}"><button class="btn btn-success float-right">Back</button></a>
+                  <h3 class="card-title">Edit Menu</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
                 <form>
                   <div class="card-body">
                     <div class="form-group">
-                      <label>Category Name</label>
+                      <label>Menu Name</label>
                       <input type="text" class="form-control"  placeholder="Enter Category" required>
                     </div>
                   </div>
