@@ -39,6 +39,10 @@ class AdminController extends Controller
     {
         return view('admin.product');
     }
+    function productEdit()
+    {
+        return view('admin.product_edit');
+    }
     function customer()
     {
         return view('admin.customer');
