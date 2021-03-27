@@ -43,6 +43,10 @@ class AdminController extends Controller
     {
         return view('admin.order');
     }
+    function orderProduct()
+    {
+        return view('admin.order_product');
+    }
     function menu()
     {
         return view('admin.menu');

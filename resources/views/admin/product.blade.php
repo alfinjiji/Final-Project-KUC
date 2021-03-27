@@ -59,14 +59,147 @@
                                     <td></td>
                                     <td></td>
                                     <td>
-                                      <button type="button" class="btn btn-block btn-xs btn-primary">Edit</button>
-                                      <button type="button" class="btn btn-block btn-xs btn-success">Add Price</button>
-                                      <button type="button" class="btn btn-block btn-xs btn-danger">Delete</button>
+                                      <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#edit-model">
+                                        Edit
+                                      </button>
+                                      <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#addprice-model">
+                                        Add Price
+                                      </button>
+                                      <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#delete-model">
+                                        Delete
+                                      </button>
                                     </td>
                                   </tr>
                                 </tbody>
                               </table>
                             </div>
+                            <!--- Edit Model Begin-->
+                            <div class="modal fade" id="edit-model">
+                              <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h4 class="modal-title">Edit Product</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <div class="card card-primary">
+                                      <!-- form start -->
+                                      <form>
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                              <label>Product Name</label>
+                                              <input type="text" class="form-control"  placeholder="Enter Product Name">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Product Description</label>
+                                                <textarea class="form-control" rows="3" placeholder="Enter Description"></textarea>
+                                              </div>
+                                            <div class="form-group">
+                                                <label>Size</label>
+                                                <input type="text" class="form-control"  placeholder="Enter Size">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Colour</label>
+                                                <input type="text" class="form-control"  placeholder="Enter Colour">
+                                            </div>
+                                            <div class="form-group">
+                                              <label>Material</label>
+                                              <select class="form-control">
+                                                <option>--select material</option>
+                                                <option></option>
+                                              </select>
+                                            </div>
+                                            <div class="form-group">
+                                              <label>Image</label>
+                                              <div class="custom-file">
+                                                <input type="file" class="custom-file-input" id="customFile">
+                                                <label class="custom-file-label" for="customFile">Choose file</label>
+                                              </div>
+                                          </div>
+                                        </div>
+                                        <!-- /.card-body -->
+                                        <div class="card-footer">
+                                          <button type="submit" class="btn btn-info">Submit</button>
+                                        </div>
+                                      </form>
+                                  </div>
+                                  </div>
+                                </div>
+                                <!-- /.modal-content -->
+                              </div>
+                              <!-- /.modal-dialog -->
+                            </div>
+                            <!--- Edit Model End-->
+
+                            <!--- Add Price Model Begin-->
+                            <div class="modal fade" id="addprice-model">
+                              <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h4 class="modal-title">Add Price</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <div class="card card-Success">
+                                      <!-- /.card-header -->
+                                      <!-- form start -->
+                                      <form>
+                                        <div class="card-body">
+                                            <div class="form-group">
+                                              <label>From Date</label>
+                                              <input type="date" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>To Date</label>
+                                                <input type="date" class="form-control">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Price</label>
+                                                <input type="number" class="form-control"  placeholder="Enter Price">
+                                            </div>
+                                        </div>
+                                        <!-- /.card-body -->
+                                        <div class="card-footer">
+                                          <button type="submit" class="btn btn-success">Submit</button>
+                                        </div>
+                                      </form>
+                                  </div>
+                                  </div>
+                                </div>
+                                <!-- /.modal-content -->
+                              </div>
+                              <!-- /.modal-dialog -->
+                            </div>
+                            <!--- Add price Model End-->
+
+                            <!--- Delete Model Begin-->
+                            <div class="modal fade" id="delete-model">
+                              <div class="modal-dialog modal-sm">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <h4 class="modal-title">Delete Product</h4>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                  </div>
+                                  <div class="modal-body">
+                                    <p>Do you want to delete&hellip;</p>
+                                  </div>
+                                  <div class="modal-footer justify-content-between">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+                                    <button type="button" class="btn btn-primary">Yes</button>
+                                  </div>
+                                </div>
+                                <!-- /.modal-content -->
+                              </div>
+                              <!-- /.modal-dialog -->
+                            </div>
+                            <!--- delete Model End-->
+
                             <!-- /.card-body -->
                             <div class="card-footer clearfix">
                               <ul class="pagination pagination-sm m-0 float-right">

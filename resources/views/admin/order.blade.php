@@ -36,7 +36,7 @@
                       <td></td>
                       <td></td>
                       <td></a></td>
-                      <td><a href="#"><span class="badge bg-primary">details</span></a></td>
+                      <td><a href="{{route('order.product')}}"><span class="badge bg-primary">details</span></a></td>
                       <td></td>
                     </tr>
                   </tbody>

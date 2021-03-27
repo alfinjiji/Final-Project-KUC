@@ -1,6 +1,6 @@
 @extends('admin.layout')
-@section('title', 'Customer Order')
-@section('heading', 'Customer Order')
+@section('title', 'Order Product')
+@section('heading', 'Order Product')
 @section('content')
 
   <!-- Main content -->
@@ -12,10 +12,9 @@
           <div class="row">
             <div class="col-md-12 pb-3">
               <h4>
-                <a href="{{route('customer')}}">
-                  <button type="button" class="btn btn-outline-success btn-sm">Back to Customer</button>
+                <a href="{{route('order')}}">
+                  <button type="button" class="btn btn-outline-success btn-sm">Back to Orders</button>
                 </a>
-                <small class="float-right">Date: 2/10/2014</small>
               </h4>
             </div>
             <!-- /.col -->
@@ -44,32 +43,6 @@
                 </tr>
                 </tbody>
               </table>
-            </div>
-            <!-- /.col -->
-          </div>
-          <!-- /.row -->
-
-          <div class="row">
-            <!-- /.col -->
-            <div class="col-6">
-              <p class="lead"> </p>
-
-              <div class="table-responsive">
-                <table class="table">
-                  <tbody><tr>
-                    <th style="width:50%">Subtotal:</th>
-                    <td>$250.30</td>
-                  </tr>
-                  <tr>
-                    <th>Discount</th>
-                    <td>$10.34</td>
-                  </tr>
-                  <tr>
-                    <th>Total:</th>
-                    <td>$265.24</td>
-                  </tr>
-                </tbody></table>
-              </div>
             </div>
             <!-- /.col -->
           </div>

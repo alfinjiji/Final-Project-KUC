@@ -29,6 +29,7 @@ Route::group(['namespace'=>'Admin'],function(){
         Route::get('wishlist',['as'=>'wishlist','uses'=>'AdminController@wishlist'] );
         Route::get('customer-order',['as'=>'customer.order','uses'=>'AdminController@customerOrder'] );
         Route::get('order',['as'=>'order','uses'=>'AdminController@order'] );
+        Route::get('order-product',['as'=>'order.product','uses'=>'AdminController@orderProduct'] );
         Route::get('menu',['as'=>'menu','uses'=>'AdminController@menu'] );
         Route::get('coupon',['as'=>'coupon','uses'=>'AdminController@coupon'] );
     }); 
