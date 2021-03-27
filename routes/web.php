@@ -28,6 +28,7 @@ Route::group(['namespace'=>'Admin'],function(){
         Route::get('banner',['as'=>'banner','uses'=>'AdminController@banner'] );
         Route::get('banner-edit',['as'=>'banner.edit','uses'=>'AdminController@bannerEdit'] );
         Route::get('product',['as'=>'product','uses'=>'AdminController@product'] );
+        Route::get('product-edit',['as'=>'product.edit','uses'=>'AdminController@productEdit'] );
         Route::get('customer',['as'=>'customer','uses'=>'AdminController@customer'] );
         Route::get('wishlist',['as'=>'wishlist','uses'=>'AdminController@wishlist'] );
         Route::get('customer-order',['as'=>'customer.order','uses'=>'AdminController@customerOrder'] );
