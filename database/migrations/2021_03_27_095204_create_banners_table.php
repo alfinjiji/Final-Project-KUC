@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateAdminsTable extends Migration
+class CreateBannersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,14 @@ class CreateAdminsTable extends Migration
      */
     public function up()
     {
-        Schema::create('admins', function (Blueprint $table) {
-            $table->bigIncrements('admin_id');
-            $table->string('name');
-            $table->string('email');
-            $table->string('password');
+        Schema::create('banners', function (Blueprint $table) {
+            $table->bigIncrements('banner_id');
+            $table->String('banner_name');
+            $table->String('url');
+            $table->String('image');
+            $table->date('date_from');
+            $table->date('date_to');
             $table->boolean('status')->default('1')->comment('1 active, 0 inactive');
-            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -31,6 +32,6 @@ class CreateAdminsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('admins');
+        Schema::dropIfExists('banners');
     }
 }
