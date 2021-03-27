@@ -1,6 +1,6 @@
 @extends('admin.layout')
-@section('title', 'Customer')
-@section('heading', 'Customer')
+@section('title', 'Customer-Address')
+@section('heading', 'Customer-Address')
 @section('content')
 
   <!-- Main content -->
@@ -11,7 +11,7 @@
         <div class="col-md-12">
           <div class="card card-primary">
               <div class="card-header">
-                <h3 class="card-title">Customers</h3>
+                <h3 class="card-title">Customers Address</h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
@@ -19,13 +19,13 @@
                   <thead>
                     <tr>
                       <th style="width: 10px">#</th>
-                      <th>Name</th>
-                      <th>Email</th>
-                      <th>Mobile</th>
-                      <th>Address</th>
-                      <th>Orders</th>
-                      <th>Wishlist</th>
-                      <th>Wallet</th>
+                      <th>House Name</th>
+                      <th>Area</th>
+                      <th>City</th>
+                      <th>State</th>
+                      <th>PIN</th>
+                      <th>Landmark</th>
+                      <th>Status</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -34,9 +34,9 @@
                       <td></td>
                       <td> </td>
                       <td></td>
-                      <td><a href="{{route('customer.address')}}"><span class="badge bg-danger">click</span></a></td>
-                      <td><a href="{{route('customer.order')}}"><span class="badge bg-success">click</span></a></td>
-                      <td><a href="{{route('wishlist')}}"><span class="badge bg-primary">click</span></a></td>
+                      <td></td>
+                      <td> </td>
+                      <td></td>
                       <td></td>
                     </tr>
                   </tbody>

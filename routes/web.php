@@ -30,6 +30,7 @@ Route::group(['namespace'=>'Admin'],function(){
         Route::get('product',['as'=>'product','uses'=>'AdminController@product'] );
         Route::get('product-edit',['as'=>'product.edit','uses'=>'AdminController@productEdit'] );
         Route::get('customer',['as'=>'customer','uses'=>'AdminController@customer'] );
+        Route::get('customer-address',['as'=>'customer.address','uses'=>'AdminController@customerAddress'] );
         Route::get('wishlist',['as'=>'wishlist','uses'=>'AdminController@wishlist'] );
         Route::get('customer-order',['as'=>'customer.order','uses'=>'AdminController@customerOrder'] );
         Route::get('order',['as'=>'order','uses'=>'AdminController@order'] );

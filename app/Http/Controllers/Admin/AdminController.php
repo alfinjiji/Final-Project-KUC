@@ -47,6 +47,10 @@ class AdminController extends Controller
     {
         return view('admin.customer');
     }
+    function customerAddress()
+    {
+        return view('admin.customer_address');
+    }
     function wishlist()
     {
         return view('admin.wishlist');
