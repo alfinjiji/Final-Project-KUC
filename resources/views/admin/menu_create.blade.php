@@ -8,6 +8,13 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
+          @if(session()->has('message'))
+            <div class="alert alert-success">
+                 {{ session()->get('message') }}
+            </div>
+          @endif
+        </div>
+        <div class="col-md-12">
             <!--category-->
             <div class="card card-primary">
                 <div class="card-header">
@@ -20,11 +27,12 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form>
+                <form action="{{route('do.menu.create')}}" method="POST">
+                  @csrf
                   <div class="card-body">
                     <div class="form-group">
                       <label>Menu Name</label>
-                      <input type="text" class="form-control"  placeholder="Enter Menu" required>
+                      <input type="text" name="menu_name" class="form-control"  placeholder="Enter Menu" required>
                     </div>
                   </div>
                   <!-- /.card-body -->

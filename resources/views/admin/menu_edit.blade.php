@@ -12,14 +12,16 @@
             <div class="card card-success">
                 <div class="card-header">
                   <h3 class="card-title">Edit Menu</h3>
+                  <a href="{{route('menu')}}"><button class="btn btn-primary float-right">Back</button></a>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form>
+                <form action="{{route('do.menu.edit',['id'=>$menu->menu_id])}}" method="POST">
+                  @csrf
                   <div class="card-body">
                     <div class="form-group">
                       <label>Menu Name</label>
-                      <input type="text" class="form-control"  placeholder="Enter Category" required>
+                      <input type="text" name="menu_name" value="{{$menu->menu_name}}" class="form-control"  placeholder="Enter Category" required>
                     </div>
                   </div>
                   <!-- /.card-body -->

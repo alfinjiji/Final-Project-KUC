@@ -15,7 +15,6 @@ class AdminController extends Controller
     {
         return view('admin.dashboard');
     }
-   
     function banner()
     {
         return view('admin.banner');
@@ -55,18 +54,6 @@ class AdminController extends Controller
     function orderProduct()
     {
         return view('admin.order_product');
-    }
-    function menu()
-    {
-        return view('admin.menu');
-    }
-    function menuCreate()
-    {
-        return view('admin.menu_create');
-    }
-    function menuEdit()
-    {
-        return view('admin.menu_edit');
     }
     function coupon()
     {
