@@ -15,18 +15,7 @@ class AdminController extends Controller
     {
         return view('admin.dashboard');
     }
-    function category()
-    {
-        return view('admin.category');
-    }
-    function categoryCreate()
-    {
-        return view('admin.category_create');
-    }
-    function categoryEdit()
-    {
-        return view('admin.category_edit');
-    }
+   
     function banner()
     {
         return view('admin.banner');

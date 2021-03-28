@@ -12,15 +12,16 @@
             <div class="card card-primary">
                 <div class="card-header">
                   <h3 class="card-title">Edit Category</h3>
-                  <a href="{{url()->previous()}}"><button class="btn btn-success float-right">Back</button></a>
+                  <a href="{{route('category')}}"><button class="btn btn-success float-right">Back</button></a>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form>
+                <form method="POST" action="{{route('category.update',['id'=>$cat->category_id])}}">
+                  @csrf
                   <div class="card-body">
                     <div class="form-group">
                       <label>Category Name</label>
-                      <input type="text" class="form-control"  placeholder="Enter Category" required>
+                      <input type="text" class="form-control" name="edit" placeholder="Enter Category" value="{{$cat->category_name}}" required>
                     </div>
                   </div>
                   <!-- /.card-body -->

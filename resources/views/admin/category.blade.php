@@ -7,6 +7,11 @@
   <section class="content">
     <div class="container-fluid">
       <div class="row">
+        @if(session('message'))
+                <div class="alert alert-success">
+                     {{ session('message') }}
+                </div>
+              @endif
         <!--category table-->
         <div class="col-md-12">
           <div class="card card-primary">
@@ -23,26 +28,35 @@
                 <table class="table table-bordered">
                   <thead>
                     <tr>
-                      <th style="width: 10px">#</th>
+                      <th style="width: 10px">Id</th>
                       <th>Category Name</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach ($cat as $Cat)
                     <tr>
-                      <td>1.</td>
-                      <td></td>
-                      <td></td>
+                      <td>{{ $Cat->category_id }}</td>
+                      <td>{{$Cat->category_name}}</td>
+                      @if($Cat->status==1)
+                      <td> <span class="badge bg-success">active</span></td>
+                      @else
+                      <td> <span class="badge bg-danger">inactive</span></td>
+                      @endif
                       <td>
-                        <a href="{{route('category.edit')}}"><button type="button" class="btn btn-xs btn-primary">
+                        <a href="{{route('category.edit',['id'=>$Cat->category_id]) }}"><button type="button" class="btn btn-xs btn-primary">
                           Edit
                         </button></a>
-                        <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#delete-model">
+                        <!--<button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#delete-model">
                           Delete
-                        </button>
+                        </button>-->
+                        <a href="{{route('category.delete',['id'=>$Cat->category_id]) }}"><button type="button" class="btn btn-xs btn-danger">
+                          Delete
+                        </button></a>
                       </td>
                     </tr>
+                    @endforeach
                   </tbody>
                 </table>
                 <!--- Delete Model Begin-->
