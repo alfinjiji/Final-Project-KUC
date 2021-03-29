@@ -29,16 +29,18 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach($cust as $customer)
                     <tr>
-                      <td>1.</td>
-                      <td></td>
-                      <td> </td>
-                      <td></td>
-                      <td><a href="{{route('customer.address')}}"><span class="badge bg-danger">click</span></a></td>
-                      <td><a href="{{route('customer.order')}}"><span class="badge bg-success">click</span></a></td>
-                      <td><a href="{{route('wishlist')}}"><span class="badge bg-primary">click</span></a></td>
+                      <td>{{$customer->customer_id}}</td>
+                      <td>{{$customer->first_name.$customer->last_name}}</td>
+                      <td> {{$customer->email}}</td>
+                      <td>{{$customer->mobile}}</td>
+                      <td><a href="{{route('customer.address',['id'=>encrypt($customer->customer_id)])}}"><span class="badge bg-danger">click</span></a></td>
+                      <td><a href="{{route('customer.order',['id'=>encrypt($customer->customer_id)])}}"><span class="badge bg-success">click</span></a></td>
+                      <td><a href="{{route('wishlist',['id'=>encrypt($customer->customer_id)])}}"><span class="badge bg-primary">click</span></a></td>
                       <td></td>
                     </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>

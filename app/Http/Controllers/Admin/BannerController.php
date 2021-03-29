@@ -1,0 +1,60 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use App\Models\Banner;
+class BannerController extends Controller
+{
+    function banner()
+    {  
+        $banner=Banner::all();
+        return view('admin.banner',['banner'=>$banner]);
+    }
+    function bannerEdit($id)
+    {
+         $id=decrypt($id);
+         $banner=Banner::find($id);
+        return view('admin.banner_edit',['banner'=>$banner]);
+    }
+    public function BannerUpload(Request $request)
+    {
+        $imageName = time().rand().'.'.$request->image->getClientOriginalExtension();
+        $path = Storage::putFileAs('image',$request->file('image'), $imageName);
+        Banner::create([
+            'banner_name'=> $request->bannername,
+            'url'=> $request->url,
+            'image'=> $imageName,
+            'date_from'=> $request->fromdate,
+            'date_to'=> $request->duedate,
+
+        ]);
+        return redirect()->route('banner');
+    }
+    public function DobannerEdit($id ,Request $request)
+    {
+        $id=decrypt($id);
+        //$imageName = time().rand().'.'.$request->image->getClientOriginalExtension();
+        //$path = Storage::putFileAs('image',$request->file('image'), $imageName);
+        $banner=Banner::find($id);
+        $banner->banner_name= $request->bannername;
+        $banner->url=$request->url;
+       // $banner->image=$imageName;
+        $banner->date_from=$request->fromdate;
+        $banner->date_to=$request->duedate;
+        $banner->save();
+        return redirect()->route('banner');
+    }
+    public function bannerDelete($id)
+    {
+        $id=decrypt($id);
+        //Banner::find($id)->delete();
+        $banner=Banner::find($id);
+        $path=$banner->image;
+        Storage::delete('/image/'.$path);
+        Banner::find($id)->delete();
+        return redirect()->route('banner');
+    }
+}

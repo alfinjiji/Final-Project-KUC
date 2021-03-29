@@ -43,20 +43,22 @@
                                   </tr>
                                 </thead>
                                 <tbody>
+                                  @foreach($banner as $baner)
                                   <tr>
                                     <td>1.</td>
-                                    <td></td>
-                                    <td> </td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{$baner->banner_name}}</td>
+                                    <td><img src="{{asset('storage/app/image/'.$baner->image)}}" width="50" height="50"/> </td>
+                                    <td>{{$baner->date_from}}</td>
+                                    <td>{{$baner->date_to}}</td>
+                                    <td>{{$baner->status}}</td>
                                     <td>
-                                      <a href="{{route('banner.edit')}}"><button type="button" class="btn btn-xs btn-primary">Edit</button></a>
-                                      <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#delete-model">
+                                      <a href="{{route('banner.edit',['id'=>encrypt($baner->banner_id)])}}"><button type="button" class="btn btn-xs btn-primary">Edit</button></a>
+                                      <a href="{{route('banner.delete',['id'=>encrypt($baner->banner_id)])}}"> <button type="button" class="btn btn-xs btn-danger" onclick="detetealert()">
                                         Delete
-                                      </button>
+                                      </button></a>
                                     </td>
                                   </tr>
+                                  @endforeach
                                 </tbody>
                               </table>
                               <!--- Delete Model Begin-->
@@ -107,36 +109,40 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form>
+                        <form method="POST" action="{{route('banner.upload')}}" enctype="multipart/form-data" >
+                          @csrf
                             <div class="card-body">
                                 <div class="form-group">
                                   <label>Banner Name</label>
-                                  <input type="text" class="form-control"  placeholder="Enter Banner Name">
+                                  <input type="text" class="form-control"  placeholder="Enter Banner Name" name="bannername">
                                 </div>
                                 <div class="form-group">
                                     <label>Url</label>
-                                    <input type="text" class="form-control"  placeholder="Enter Url">
+                                    <input type="text" class="form-control"  placeholder="Enter Url" name="url">
                                 </div>
                                 <div class="form-group">
                                     <label>Date From</label>
-                                    <input type="date" class="form-control">
+                                    <input type="date" class="form-control" id="datepicker" name="fromdate">
                                 </div>
                                 <div class="form-group">
                                   <label>Date To</label>
-                                  <input type="date" class="form-control">
+                                  <input type="date" class="form-control" id="datepicker" name="duedate">
                                 </div>
+                                
                                 <div class="form-group">
                                     <label>Image</label>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="customFile">
-                                        <label class="custom-file-label" for="customFile">Choose file</label>
-                                    </div>
+                                      <div class="custom-file">
+                                       
+                                        <input class="form-control" type="file" id="formFileDisabled"  onchange="previewFile()" name="image"/>
+                                        <img id="view"  style="max-width:100px;max-height: 100px "/>
+                                      </div>
                                 </div>
                           </div>
                           <!-- /.card-body -->
                           <div class="card-footer">
                             <button type="submit" class="btn btn-success">Submit</button>
                           </div>
+                          
                         </form>
                       </div>
                       <!--end banner-->
@@ -152,5 +158,29 @@
       </div>
     </div>
   </section>
+  <script>
+    function previewFile(input){
+        var file = $("input[type=file]").get(0).files[0];
+ 
+        if(file){
+            var reader = new FileReader();
+ 
+            reader.onload = function(){
+                $("#view").attr("src", reader.result);
+            }
+ 
+            reader.readAsDataURL(file);
+        }
+
+    }
+    
+    
+    function detetealert() {
+      alert("Deleted Successfuly");
+    }
+    </script>
+ 
+
+
   <!-- /.content -->
 @endsection

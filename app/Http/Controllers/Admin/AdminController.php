@@ -16,14 +16,7 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
    
-    function banner()
-    {
-        return view('admin.banner');
-    }
-    function bannerEdit()
-    {
-        return view('admin.banner_edit');
-    }
+    
     function product()
     {
         return view('admin.product');
@@ -32,22 +25,7 @@ class AdminController extends Controller
     {
         return view('admin.product_edit');
     }
-    function customer()
-    {
-        return view('admin.customer');
-    }
-    function customerAddress()
-    {
-        return view('admin.customer_address');
-    }
-    function wishlist()
-    {
-        return view('admin.wishlist');
-    }
-    function customerOrder()
-    {
-        return view('admin.customer_order');
-    }
+   
     function order()
     {
         return view('admin.order');
@@ -68,8 +46,6 @@ class AdminController extends Controller
     {
         return view('admin.menu_edit');
     }
-    function coupon()
-    {
-        return view('admin.coupon');
-    }
+    
+    
 }

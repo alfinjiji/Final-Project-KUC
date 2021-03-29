@@ -15,30 +15,31 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form>
+            <form  action="{{route('do.banner.edit',['id'=>encrypt($banner->banner_id)])}}" method="POST">
+              @csrf
                 <div class="card-body">
                     <div class="form-group">
                       <label>Banner Name</label>
-                      <input type="text" class="form-control"  placeholder="Enter Banner Name">
+                      <input type="text" class="form-control"  value={{$banner->banner_name}} name="bannername">
                     </div>
                     <div class="form-group">
                         <label>Url</label>
-                        <input type="text" class="form-control"  placeholder="Enter Url">
+                        <input type="text" class="form-control"  value={{$banner->url}} name="url">
                     </div>
                     <div class="form-group">
                         <label>Date From</label>
-                        <input type="date" class="form-control">
+                        <input type="date" class="form-control" value={{$banner->date_from}} name="fromdate">
                     </div>
                     <div class="form-group">
                       <label>Date To</label>
-                      <input type="date" class="form-control">
+                      <input type="date" class="form-control" value={{$banner->date_to}} name="duedate">
                     </div>
                     <div class="form-group">
-                        <label>Image</label>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="customFile">
-                            <label class="custom-file-label" for="customFile">Choose file</label>
-                        </div>
+                      <label>Image</label>
+                      <div class="custom-file">
+                       
+                        <input class="form-control" type="file" id="formFileDisabled"  onchange="previewFile()" name="image" value="{{$banner->image}}"/>
+                        <img id="view"  style="max-width:100px;max-height: 100px "/>
                     </div>
               </div>
               <!-- /.card-body -->
@@ -52,5 +53,23 @@
       </div>
     </div>
   </section>
+  <script>
+    function previewFile(input){
+        var file = $("input[type=file]").get(0).files[0];
+ 
+        if(file){
+            var reader = new FileReader();
+ 
+            reader.onload = function(){
+                $("#view").attr("src", reader.result);
+            }
+ 
+            reader.readAsDataURL(file);
+        }
+
+    }
+    
+  
+  </script>
   <!-- /.content -->
 @endsection

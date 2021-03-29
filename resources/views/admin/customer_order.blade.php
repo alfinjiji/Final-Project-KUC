@@ -2,7 +2,7 @@
 @section('title', 'Customer Order')
 @section('heading', 'Customer Order')
 @section('content')
-
+ @foreach($order as $or)
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
@@ -15,7 +15,9 @@
                 <a href="{{route('customer')}}">
                   <button type="button" class="btn btn-outline-success btn-sm">Back to Customer</button>
                 </a>
-                <small class="float-right">Date: 2/10/2014</small>
+                <small class="float-right">Placed Date:{{$or->placed_at}} </small><br>
+                <small class="float-right">Confirmed Date:{{$or->confirmed_at}} </small><br>
+                <small class="float-right">Delivered Date:{{$or->delivered_at}}</small>
               </h4>
             </div>
             <!-- /.col -->
@@ -35,13 +37,15 @@
                 </tr>
                 </thead>
                 <tbody>
+                  @foreach($product as $pro)
                 <tr>
                   <td>1</td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
+                  <td>{{$pro->quantity}}</td>
+                  <td>{{$pro->quantity}}</td>
+                  <td>{{$pro->unit_price}}</td>
+                  <td>{{$pro->sum}}</td>
                 </tr>
+                @endforeach
                 </tbody>
               </table>
             </div>
@@ -56,18 +60,21 @@
 
               <div class="table-responsive">
                 <table class="table">
-                  <tbody><tr>
+                  <tbody>
+                   
+                    <tr>
                     <th style="width:50%">Subtotal:</th>
-                    <td>$250.30</td>
+                    <td>{{$or->amount}}</td>
                   </tr>
                   <tr>
                     <th>Discount</th>
-                    <td>$10.34</td>
+                    <td>{{$or->discount}}</td>
                   </tr>
                   <tr>
                     <th>Total:</th>
-                    <td>$265.24</td>
+                    <td>{{($or->amount)-($or->discount)}}</td>
                   </tr>
+                 
                 </tbody></table>
               </div>
             </div>
@@ -78,5 +85,6 @@
       </div>
     </div>
   </section>
+  @endforeach
   <!-- /.content -->
 @endsection

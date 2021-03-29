@@ -30,17 +30,20 @@ Route::group(['namespace'=>'Admin'],function(){
         Route::post('category-update/{id}',['as'=>'category.update','uses'=>'CategoryController@CategoryUpdate'] );
         Route::get('category-delete/{id}',['as'=>'category.delete','uses'=>'CategoryController@CategoryDelete'] );
         //banner
-        Route::get('banner',['as'=>'banner','uses'=>'AdminController@banner'] );
-        Route::get('banner-edit',['as'=>'banner.edit','uses'=>'AdminController@bannerEdit'] );
+        Route::get('banner',['as'=>'banner','uses'=>'BannerController@banner'] );
+        Route::get('banner-edit/{id}',['as'=>'banner.edit','uses'=>'BannerController@bannerEdit'] );
+        Route::post('banner-uplaod',['as'=>'banner.upload','uses'=>'BannerController@BannerUpload']);
+        Route::post('do-banner-edit/{id}',['as'=>'do.banner.edit','uses'=>'BannerController@DobannerEdit']);
+        Route::get('banner-delete/{id}',['as'=>'banner.delete','uses'=>'BannerController@bannerdelete'] );
         //product
         Route::get('product',['as'=>'product','uses'=>'AdminController@product'] );
         Route::get('product-edit',['as'=>'product.edit','uses'=>'AdminController@productEdit'] );
         //customer
-        Route::get('customer',['as'=>'customer','uses'=>'AdminController@customer'] );
-        Route::get('customer-address',['as'=>'customer.address','uses'=>'AdminController@customerAddress'] );
-        Route::get('customer-order',['as'=>'customer.order','uses'=>'AdminController@customerOrder'] );
+        Route::get('customer',['as'=>'customer','uses'=>'CustomerController@customer'] );
+        Route::get('customer-address/{id}',['as'=>'customer.address','uses'=>'CustomerController@customerAddress'] );
+        Route::get('customer-order/{id}',['as'=>'customer.order','uses'=>'CustomerController@customerOrder'] );
         //wishlist
-        Route::get('wishlist',['as'=>'wishlist','uses'=>'AdminController@wishlist'] );
+        Route::get('wishlist/{id}',['as'=>'wishlist','uses'=>'CustomerController@wishlist'] );
        //order
         Route::get('order',['as'=>'order','uses'=>'AdminController@order'] );
         Route::get('order-product',['as'=>'order.product','uses'=>'AdminController@orderProduct'] );
@@ -49,7 +52,9 @@ Route::group(['namespace'=>'Admin'],function(){
         Route::get('menu-create',['as'=>'menu.create','uses'=>'AdminController@menuCreate'] );
         Route::get('menu-edit',['as'=>'menu.edit','uses'=>'AdminController@menuEdit'] );
         //cupon
-        Route::get('coupon',['as'=>'coupon','uses'=>'AdminController@coupon'] );
+        Route::get('coupon',['as'=>'coupon','uses'=>'CouponController@coupon'] );
+        Route::post('coupon-add',['as'=>'coupon.add','uses'=>'CouponController@couponAdd'] );
+        Route::get('coupon-delete/{id}',['as'=>'coupon.delete','uses'=>'CouponController@coupondelete'] );
     }); 
 
 });

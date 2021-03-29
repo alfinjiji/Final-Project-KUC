@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
+use Illuminate\Support\Facades\Crypt;
 class CategoryController extends Controller
 {
     function CategoryView()
     {
-        $category=Category::all();
+        $category=Category::latest()->get();
         return view('admin.category',['cat'=>$category]);
 
        // return view('admin.category');
@@ -20,9 +21,8 @@ class CategoryController extends Controller
     }
     function CategoryEdit($id)
     {    
-        
+        $id=decrypt($id);
         $cat=Category::find($id);
-       //$name= $cat->category_name;
         return view('admin.category_edit',['cat'=>$cat]);
     }
     function CategoryAdd(Request $request )
@@ -31,7 +31,7 @@ class CategoryController extends Controller
             'category_name' => $request->category,
             'status' => '1',
         ]);
-        return redirect()->route('category.create')->with('message','Success');
+        return redirect()->route('category');
     }
      function CategoryUpdate($id ,Request $request){
         $cat = Category::find($id);
@@ -43,7 +43,8 @@ class CategoryController extends Controller
      }
      function CategoryDelete($id)
      {
+        $id=decrypt($id);
         Category::find($id)->delete();
-        return redirect()->route('category')->with('message','delete Successfuly');
+        return redirect()->route('category');
      }
 }

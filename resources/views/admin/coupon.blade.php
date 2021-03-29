@@ -43,19 +43,25 @@
                                   </tr>
                                 </thead>
                                 <tbody>
+                                  @foreach($Coupon as $coup)
                                   <tr>
                                     <td>1.</td>
-                                    <td></td>
-                                    <td> </td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td>{{$coup->name}}</td>
+                                    <td> {{$coup->code}}</td>
+                                    <td>{{$coup->date_from}}</td>
+                                    <td>{{$coup->date_to}}</td>
+                                    @if($coup->type==0)
+                                    <td>{{$coup->type_value}}Flat</td>
+                                    @else
+                                    <td>{{$coup->type_value}}%</td>
+                                   @endif
                                     <td>
-                                      <button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#delete-model">
+                                    <a href={{route('coupon.delete',['id'=>$coup->coupon_id])}} > <button type="button" class="btn btn-xs btn-danger">
                                         Delete
-                                      </button>
+                                      </button></a>
                                     </td>
                                   </tr>
+                                  @endforeach
                                 </tbody>
                               </table>
                               <!--- Delete Model Begin-->
@@ -105,40 +111,41 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form>
+                        <form method="POST" action="{{route('coupon.add')}}">
+                          @csrf
                             <div class="card-body">
                                 <div class="form-group">
                                   <label>Coupon Name</label>
-                                  <input type="text" class="form-control"  placeholder="Enter coupon Name">
+                                  <input type="text" class="form-control"  placeholder="Enter coupon Name" name="name">
                                 </div>
                                 <div class="form-group">
                                     <label>Code</label>
-                                    <input type="text" class="form-control"  placeholder="Enter Code">
+                                    <input type="text" class="form-control"  placeholder="Enter Code" name="code">
                                 </div>
                                 <div class="form-group">
                                     <label>Date From</label>
-                                    <input type="date" class="form-control">
+                                    <input type="date" class="form-control" name="fromdate">
                                 </div>
                                 <div class="form-group">
                                   <label>Date To</label>
-                                  <input type="date" class="form-control">
+                                  <input type="date" class="form-control" name="duedate">
                                 </div>
                                 <div class="form-group">
                                   <label>Type</label>
                                   <div class="form-group d-flex">
                                     <div class="custom-control custom-radio flex-column pr-3">
-                                      <input class="custom-control-input" type="radio" id="customRadio2" name="customRadio" checked="">
+                                      <input class="custom-control-input" type="radio" id="customRadio2" name="type" value="0">
                                       <label for="customRadio2" class="custom-control-label">Flat</label>
                                     </div>
                                     <div class="custom-control custom-radio flex-column">
-                                      <input class="custom-control-input" type="radio" id="customRadio1" name="customRadio">
+                                      <input class="custom-control-input" type="radio" id="customRadio1" name="type" value="1">
                                       <label for="customRadio1" class="custom-control-label">Percentage</label>
                                     </div>
                                   </div>
                                 </div>
                                 <div class="form-group">
                                   <label>Type Value</label>
-                                  <input type="number" class="form-control" placeholder="Enter Type Value">
+                                  <input type="number" class="form-control" placeholder="Enter Type Value" name="value">
                                 </div>
                           </div>
                           <!-- /.card-body -->

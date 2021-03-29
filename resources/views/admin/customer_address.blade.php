@@ -30,16 +30,22 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach($address as $ad)
                     <tr>
                       <td>1.</td>
-                      <td></td>
-                      <td> </td>
-                      <td></td>
-                      <td></td>
-                      <td> </td>
-                      <td></td>
-                      <td></td>
+                      <td>{{$ad->house_name}}</td>
+                      <td> {{$ad->area}}</td>
+                      <td>{{$ad->city}}</td>
+                      <td>{{$ad->state}}</td>
+                      <td>{{$ad->pincode}} </td>
+                      <td>{{$ad->landmark}}</td>
+                      @if($ad->status==1)
+                      <td> <span class="badge bg-success">active</span></td>
+                      @else
+                      <td> <span class="badge bg-danger">inactive</span></td>
+                      @endif
                     </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>

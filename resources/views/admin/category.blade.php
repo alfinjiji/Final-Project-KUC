@@ -11,7 +11,7 @@
                 <div class="alert alert-success">
                      {{ session('message') }}
                 </div>
-              @endif
+         @endif
         <!--category table-->
         <div class="col-md-12">
           <div class="card card-primary">
@@ -45,13 +45,13 @@
                       <td> <span class="badge bg-danger">inactive</span></td>
                       @endif
                       <td>
-                        <a href="{{route('category.edit',['id'=>$Cat->category_id]) }}"><button type="button" class="btn btn-xs btn-primary">
+                        <a href="{{route('category.edit',['id'=>encrypt($Cat->category_id)]) }}"><button type="button" class="btn btn-xs btn-primary">
                           Edit
                         </button></a>
                         <!--<button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#delete-model">
                           Delete
                         </button>-->
-                        <a href="{{route('category.delete',['id'=>$Cat->category_id]) }}"><button type="button" class="btn btn-xs btn-danger">
+                        <a href="{{route('category.delete',['id'=>encrypt($Cat->category_id)]) }}"><button type="button" class="btn btn-xs btn-danger" onclick="detetealert()">
                           Delete
                         </button></a>
                       </td>
@@ -100,5 +100,10 @@
       </div>
     </div>
   </section>
-  <!-- /.content -->
+  <script>
+    function detetealert() {
+      alert("Deleted Successfuly");
+    }
+    </script>
+ 
 @endsection

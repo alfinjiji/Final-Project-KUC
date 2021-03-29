@@ -16,7 +16,7 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form method="POST" action="{{route('category.update',['id'=>$cat->category_id])}}">
+                <form method="POST" action="{{route('category.update',['id'=>$cat->category_id])}}" id="form">
                   @csrf
                   <div class="card-body">
                     <div class="form-group">
@@ -37,4 +37,5 @@
     </div>
   </section>
   <!-- /.content -->
+  
 @endsection
