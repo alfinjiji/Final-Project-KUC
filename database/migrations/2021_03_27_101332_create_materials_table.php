@@ -15,7 +15,8 @@ class CreateMaterialsTable extends Migration
     {
         Schema::create('materials', function (Blueprint $table) {
             $table->bigincrements('material_id');
-            $table->String('material');
+            $table->String('material_name');
+            $table->boolean('status')->default('1')->comment('1 active, 0 inactive');
             $table->timestamps();
         });
     }

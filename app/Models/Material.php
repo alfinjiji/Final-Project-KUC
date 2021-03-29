@@ -9,4 +9,5 @@ class Material extends Model
 {
     use HasFactory;
     protected $primaryKey = 'material_id';
+    protected $fillable = ['material_name','status'];
 }

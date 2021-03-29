@@ -21,6 +21,7 @@ class CreateFavoritesTable extends Migration
             $table->foreign('product_id')->references('product_id')->on('products');
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->foreign('customer_id')->references('customer_id')->on('customers');
+            $table->boolean('status')->default('1')->comment('1 active, 2 inactive');
             $table->timestamps();
         });
     }
