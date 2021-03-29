@@ -61,7 +61,6 @@ class AdminController extends Controller
     {
         return view('admin.order_product');
     }
-<<<<<<< HEAD
     function menu()
     {
         return view('admin.menu');
@@ -76,10 +75,8 @@ class AdminController extends Controller
     }
     
     
-=======
     function coupon()
     {
         return view('admin.coupon');
     }
->>>>>>> b0ad5c778a6e1d263df8fdecc6b76826f58a180d
 }
