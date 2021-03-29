@@ -21,6 +21,7 @@ class CreatePricelistsTable extends Migration
             $table->date('date_from');
             $table->date('date_to');
             $table->float('price');
+            $table->boolean('status')->default('1')->comment('1 active, 2 inactive');
             $table->timestamps();
         });
     }

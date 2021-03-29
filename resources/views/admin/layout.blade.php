@@ -269,6 +269,14 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="{{route('material')}}" class="nav-link">
+              <i class="nav-icon fas fa-columns"></i>
+              <p>
+                Material
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{route('coupon')}}" class="nav-link">
               <i class="nav-icon fas fa-columns"></i>
               <p>
@@ -356,7 +364,6 @@
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('public/templates/dist/js/pages/dashboard.js')}}"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js" ></script>
-
 </body>
 
 </html>

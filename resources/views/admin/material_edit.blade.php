@@ -1,6 +1,6 @@
 @extends('admin.layout')
-@section('title', 'Edit-Menu')
-@section('heading', 'Edit-Menu')
+@section('title', 'Edit-Material')
+@section('heading', 'Edit-Material')
 @section('content')
 
   <!-- Main content -->
@@ -11,17 +11,17 @@
             <!--category-->
             <div class="card card-success">
                 <div class="card-header">
-                  <h3 class="card-title">Edit Menu</h3>
-                  <a href="{{route('menu')}}"><button class="btn btn-primary float-right">Back</button></a>
+                  <h3 class="card-title">Edit Material</h3>
+                  <a href="{{route('material')}}"><button class="btn btn-primary float-right">Back</button></a>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form action="{{route('do.menu.edit',['id'=>encrypt($menu->menu_id)])}}" method="POST">
+                <form action="{{route('do.material.edit',['id'=>encrypt($material->material_id)])}}" method="POST">
                   @csrf
                   <div class="card-body">
                     <div class="form-group">
-                      <label>Menu Name</label>
-                      <input type="text" name="menu_name" value="{{$menu->menu_name}}" class="form-control"  placeholder="Enter Category" required>
+                      <label>Material Name</label>
+                      <input type="text" name="material_name" value="{{$material->material_name}}" class="form-control"  placeholder="Enter Category" required>
                     </div>
                   </div>
                   <!-- /.card-body -->

@@ -1,6 +1,6 @@
 @extends('admin.layout')
-@section('title', 'Products')
-@section('heading', 'Products')
+@section('title', 'Create-Product')
+@section('heading', 'Create-Product')
 @section('content')
 
   <!-- Main content -->
@@ -8,27 +8,33 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-md-12">
+          <!--product-->
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Edit Product</h3>
-              <a href="{{url()->previous()}}"><button class="btn btn-success float-right">Back</button></a>
+              <div class="row">
+                <div class="col-md-6"><h3 class="card-title">Upload Products</h3></div>
+                <div class="col-md-6 text-right"> 
+                  <a href="{{route('product')}}"><button class="btn btn-success" type="button">Back</button></a> 
+                </div>
+              </div>
             </div>
+            <!-- /.card-header -->
             <!-- form start -->
-            <form method="POST" action="{{route('do.product.edit',['id'=>encrypt($product->product_id)])}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('do.product.create')}}" enctype="multipart/form-data">
               @csrf
               <div class="card-body">
                   <div class="form-group">
                     <label>Product Name</label>
-                    <input type="text" class="form-control"  placeholder="Enter Product Name" value="{{$product->product_name}}" name="product_name">
+                    <input type="text" class="form-control"  placeholder="Enter Product Name" name="product_name">
                   </div>
                   <div class="form-group">
                       <label>Product Description</label>
-                      <textarea class="form-control" rows="3" placeholder="Enter Description" name="description">{{$product->description}}</textarea>
+                      <textarea class="form-control" rows="3" placeholder="Enter Description" name="description"></textarea>
                     </div>
                   <div class="form-group">
                       <label>Size</label>
                       <select class="form-control" name="size">
-                        <option selected value="{{$product->size}}">{{$product->size}}</option>
+                        <option>--select size--</option>
                         <option value="S">S</option>
                         <option value="M">M</option>
                         <option value="L">L</option>
@@ -38,56 +44,47 @@
                   </div>
                   <div class="form-group">
                       <label>Colour</label>
-                      <input type="text" class="form-control"  placeholder="Enter Colour" value="{{$product->color}}" name="color">
+                      <input type="text" class="form-control"  placeholder="Enter Colour" name="color">
                   </div>
                   <div class="form-group">
                     <label>Category</label>
                     <select class="form-control" name="category_id">
-                      <option>--select category</option>
+                      <option>--select category--</option>
                       @foreach($category as $category)
-                        @if($category->category_id == $product->category_id)
-                          <option value="{{$category->category_id}}" selected>{{$category->category_name}}</option>
-                        @else
-                          <option value="{{$category->category_id}}">{{$category->category_name}}</option>
-                        @endif
+                      <option value="{{$category->category_id}}">{{$category->category_name}}</option>
                       @endforeach
                     </select>
                   </div>
                   <div class="form-group">
                     <label>Material</label>
                     <select class="form-control" name="material_id">
-                      <option>--select material</option>
+                      <option>--select material--</option>
                       @foreach($material as $material)
-                        @if($material->material_id == $product->material_id)
-                          <option value="{{$material->material_id}}" selected>{{$material->material_name}}</option>
-                        @else
-                          <option value="{{$material->material_id}}">{{$material->material_name}}</option>
-                        @endif
+                      <option value="{{$material->material_id}}">{{$material->material_name}}</option>
                       @endforeach
                     </select>
                   </div>
                   <div class="form-group">
-                    <label>Image</label><br>
+                    <label>Image</label>
                     <!--
                     <div class="custom-file">
                       <input type="file" class="custom-file-input" id="customFile">
                       <label class="custom-file-label" for="customFile">Choose file</label>
                     </div>
                   -->
-                  <img class="image-fluid mx-2 mb-1" style="height: 100px; width:100px;" src="{{asset('storage/app/'.$product->image)}}" alt="">
-                  <input type="file" name="image" class="form-control" value="{{$product->image}}">
-                </div>
+                  <input type="file" name="image" class="form-control">
+                  </div>
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
-                <button type="submit" class="btn btn-info">Submit</button>
+                <button type="submit" class="btn btn-success">Upload</button>
               </div>
             </form>
         </div>
-        </div>
+        <!--end product-->
+       </div>
       </div>
     </div>
   </section>
   <!-- /.content -->
-  
 @endsection

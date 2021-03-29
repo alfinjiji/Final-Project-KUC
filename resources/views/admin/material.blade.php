@@ -1,6 +1,6 @@
 @extends('admin.layout')
-@section('title', 'Menu')
-@section('heading', 'Menu')
+@section('title', 'Material')
+@section('heading', 'Material')
 @section('content')
 
   <!-- Main content -->
@@ -18,9 +18,9 @@
           <div class="card card-primary">
               <div class="card-header">
                 <div class="row">
-                  <div class="col-md-6"><h3 class="card-title">Menu</h3></div>
+                  <div class="col-md-6"><h3 class="card-title">Material</h3></div>
                   <div class="col-md-6 text-right"> 
-                    <a href="{{route('menu.create')}}"><button class="btn btn-success" type="button">Add Menu</button></a> 
+                    <a href="{{route('material.create')}}"><button class="btn btn-success" type="button">Add Material</button></a> 
                   </div>
                 </div>
               </div>
@@ -30,26 +30,26 @@
                   <thead>
                     <tr>
                       <th style="width: 10px">#</th>
-                      <th>Menu Name</th>
+                      <th>Material Name</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach($menu as $menu)
+                    @foreach($material as $material)
                     <tr>
-                      <td>{{$menu->menu_id}}</td>
-                      <td>{{$menu->menu_name}}</td>
-                      @if($menu->status == 1)
+                      <td>{{$material->material_id}}</td>
+                      <td>{{$material->material_name}}</td>
+                      @if($material->status == 1)
                       <td><span class="badge bg-success">active</span></td>
                       @else
                       <td><span class="badge bg-danger">inactive</span></td>
                       @endif
                       <td>
-                        <a href="{{route('menu.edit',['id'=>encrypt($menu->menu_id)])}}"><button type="button" class="btn btn-xs btn-primary">
+                        <a href="{{route('material.edit',['id'=>encrypt($material->material_id)])}}"><button type="button" class="btn btn-xs btn-primary">
                           Edit
                         </button></a>
-                        <a href="{{route('menu.delete',['id'=>encrypt($menu->menu_id)])}}"><button type="button" class="btn btn-xs btn-danger" id="menu-delete" onclick="delete_menu()">
+                        <a href="{{route('material.delete',['id'=>encrypt($material->material_id)])}}"><button type="button" class="btn btn-xs btn-danger" id="material-delete" onclick="delete_material()">
                           Delete
                         </button></a>
                       </td>
@@ -75,7 +75,7 @@
     </div>
   </section>
   <script>
-    function delete_menu(){
+    function delete_material(){
       confirm("Do you want to delete ?");
     }
   </script>
