@@ -29,7 +29,7 @@ class CreateOrdersTable extends Migration
             $table->datetime('placed_at');
             $table->datetime('confirmed_at');
             $table->datetime('delivered_at');
-            $table->boolean('status')->default('1')->comment('1 active, 2 inactive');
+            $table->boolean('status')->default('1')->comment('1 active, 0 inactive');
             $table->timestamps();
         });
     }

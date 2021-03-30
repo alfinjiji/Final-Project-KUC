@@ -65,14 +65,17 @@
                     </select>
                   </div>
                   <div class="form-group">
-                    <label>Image</label>
+                    <label>Image</label><br>
                     <!--
                     <div class="custom-file">
                       <input type="file" class="custom-file-input" id="customFile">
                       <label class="custom-file-label" for="customFile">Choose file</label>
                     </div>
                   -->
-                  <input type="file" name="image" class="form-control">
+                  <img id="view" style="max-width:100px;max-height: 100px " />
+                  <div class="custom-file">
+                    <input class="form-control" type="file" id="formFileDisabled"  onchange="previewFile()" name="image"/>
+                  </div>
                   </div>
               </div>
               <!-- /.card-body -->
@@ -87,4 +90,22 @@
     </div>
   </section>
   <!-- /.content -->
+  <script>
+    function previewFile(input){
+        var file = $("input[type=file]").get(0).files[0];
+ 
+        if(file){
+            var reader = new FileReader();
+ 
+            reader.onload = function(){
+                $("#view").attr("src", reader.result);
+            }
+ 
+            reader.readAsDataURL(file);
+        }
+
+    }
+   
+    
+  </script>
 @endsection

@@ -38,7 +38,7 @@
                   <tbody>
                     @foreach($material as $material)
                     <tr>
-                      <td>{{$material->material_id}}</td>
+                      <td>{{$loop->iteration}}</td>
                       <td>{{$material->material_name}}</td>
                       @if($material->status == 1)
                       <td><span class="badge bg-success">active</span></td>
@@ -49,7 +49,7 @@
                         <a href="{{route('material.edit',['id'=>encrypt($material->material_id)])}}"><button type="button" class="btn btn-xs btn-primary">
                           Edit
                         </button></a>
-                        <a href="{{route('material.delete',['id'=>encrypt($material->material_id)])}}"><button type="button" class="btn btn-xs btn-danger" id="material-delete" onclick="delete_material()">
+                        <a href="{{route('material.delete',['id'=>encrypt($material->material_id)])}}"><button type="button" class="btn btn-xs btn-danger" id="material-delete" onclick="detetealert()">
                           Delete
                         </button></a>
                       </td>

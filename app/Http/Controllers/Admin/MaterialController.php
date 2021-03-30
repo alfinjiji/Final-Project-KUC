@@ -11,10 +11,10 @@ class MaterialController extends Controller
 {
     function material(){
         $material = Material::latest()->get();
-        return view('admin.material',['material'=>$material]);
+        return view('admin.material.material',['material'=>$material]);
     } 
     function materialCreate(){
-        return view('admin.material_create');
+        return view('admin.material.material_create');
     }
     function doMaterialCreate(Request $request){
         $material = Material::create([
@@ -24,7 +24,7 @@ class MaterialController extends Controller
     }
     function materialEdit($id){
         $material = Material::find(decrypt($id));
-        return view('admin.material_edit',['material'=>$material]);
+        return view('admin.material.material_edit',['material'=>$material]);
     }
     function domaterialEdit(Request $request, $id){
         $material = Material::find(decrypt($id));

@@ -74,9 +74,11 @@
                       <label class="custom-file-label" for="customFile">Choose file</label>
                     </div>
                   -->
-                  <img class="image-fluid mx-2 mb-1" style="height: 100px; width:100px;" src="{{asset('storage/app/'.$product->image)}}" alt="">
-                  <input type="file" name="image" class="form-control" value="{{$product->image}}">
-                </div>
+                    <img id="view" style="max-width:100px;max-height: 100px " src="{{asset('storage/app/'.$product->image)}}"/>
+                    <div class="custom-file">
+                      <input class="form-control" type="file" id="formFileDisabled"  onchange="previewFile()" name="image"/>
+                    </div>
+                  </div>
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
@@ -89,5 +91,23 @@
     </div>
   </section>
   <!-- /.content -->
+  <script>
+    function previewFile(input){
+        var file = $("input[type=file]").get(0).files[0];
+ 
+        if(file){
+            var reader = new FileReader();
+ 
+            reader.onload = function(){
+                $("#view").attr("src", reader.result);
+            }
+ 
+            reader.readAsDataURL(file);
+        }
+
+    }
+   
+    
+  </script>
   
 @endsection

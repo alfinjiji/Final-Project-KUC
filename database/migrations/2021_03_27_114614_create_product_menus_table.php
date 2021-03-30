@@ -19,7 +19,7 @@ class CreateProductMenusTable extends Migration
             $table->foreign('product_id')->references('product_id')->on('products');
             $table->unsignedBigInteger('menu_id')->nullable();
             $table->foreign('menu_id')->references('menu_id')->on('menus');
-            $table->boolean('status')->default('1')->comment('1 active, 2 inactive');
+            $table->boolean('status')->default('1')->comment('1 active, 0 inactive');
             $table->timestamps();
         });
     }

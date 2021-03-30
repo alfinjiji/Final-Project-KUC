@@ -20,12 +20,12 @@ class ProductController extends Controller
             ->join('materials', 'products.material_id', '=', 'materials.material_id')
             ->select('products.*', 'categories.category_name', 'materials.material_name')
             ->latest()->get();
-        return view('admin.product',['products'=>$products]);
+        return view('admin.product.product',['products'=>$products]);
     }
     function productCreate(){
         $category = Category::all();
         $material = Material::all();
-        return view('admin.product_create',['category'=>$category, 'material'=>$material]);
+        return view('admin.product.product_create',['category'=>$category, 'material'=>$material]);
     }
     function doProductCreate(Request $request){
         $image = date('Y-m-d-H-i-s-').rand() . '.' . $request->file('image')->getClientOriginalExtension();
@@ -45,10 +45,17 @@ class ProductController extends Controller
         $category = Category::all();
         $material = Material::all();
         $product =Product::find(decrypt($id));
-        return view('admin.product_edit',['product'=>$product, 'category'=>$category, 'material'=>$material]);
+        return view('admin.product.product_edit',['product'=>$product, 'category'=>$category, 'material'=>$material]);
     }
     function doProductEdit(Request $request, $id){
         $product = Product::find(decrypt($id));
+        if($request->image!=''){ 
+            $deletepath=$product->image;
+            Storage::delete($deletepath); // delete old image
+            $image = date('Y-m-d-H-i-s-').rand() . '.' . $request->file('image')->getClientOriginalExtension();
+            $path = Storage::putFileAs('image', $request->file('image'), $image);
+            $product->image=$path;
+            }
         $product->product_name = $request->product_name;
         $product->description = $request->description;
         $product->size = $request->size;
@@ -67,7 +74,7 @@ class ProductController extends Controller
     }
     function productAddPrice($id){
         $product_id =decrypt($id);
-        return view('admin.product_add_price',['product_id'=>$product_id]);
+        return view('admin.product.product_add_price',['product_id'=>$product_id]);
     }
     function doProductAddPrice(Request $request, $id){
         $pricelist = Pricelist::create([
@@ -80,8 +87,8 @@ class ProductController extends Controller
     }
     function productPricelist($id){
         $product_id = decrypt($id);
-        $pricelist = Pricelist::latest()->get();
-        return view('admin.product_pricelist',['product_id'=>$product_id, 'pricelist'=>$pricelist]);
+        $pricelist = Pricelist::where('product_id',$product_id)->get();
+        return view('admin.product.product_pricelist',['product_id'=>$product_id, 'pricelist'=>$pricelist]);
     }
     function productPricelistDelete($id){
         Pricelist::find(decrypt($id))->delete();

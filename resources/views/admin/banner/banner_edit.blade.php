@@ -15,7 +15,7 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form  action="{{route('do.banner.edit',['id'=>encrypt($banner->banner_id)])}}" method="POST">
+            <form  action="{{route('do.banner.edit',['id'=>encrypt($banner->banner_id)])}}" method="POST"  enctype="multipart/form-data">
               @csrf
                 <div class="card-body">
                     <div class="form-group">
@@ -28,18 +28,18 @@
                     </div>
                     <div class="form-group">
                         <label>Date From</label>
-                        <input type="date" class="form-control" value={{$banner->date_from}} name="fromdate">
+                        <input type="text" class="form-control" placeholder="yyyy-mm-dd" value={{$banner->date_from}} name="fromdate" id="datepicker" autocomplete="off">
                     </div>
                     <div class="form-group">
                       <label>Date To</label>
-                      <input type="date" class="form-control" value={{$banner->date_to}} name="duedate">
+                      <input type="text" class="form-control" placeholder="yyyy-mm-dd" value={{$banner->date_to}} name="duedate" id="datepicker1" autocomplete="off">
                     </div>
                     <div class="form-group">
-                      <label>Image</label>
+                      <label>Image</label><br>
+                      <img id="view" src="{{asset('storage/app/image/'.$banner->image)}}"  style="max-width:100px;max-height: 100px "/>
                       <div class="custom-file">
-                       
                         <input class="form-control" type="file" id="formFileDisabled"  onchange="previewFile()" name="image" value="{{$banner->image}}"/>
-                        <img id="view"  style="max-width:100px;max-height: 100px "/>
+                        
                     </div>
               </div>
               <!-- /.card-body -->
@@ -68,7 +68,6 @@
         }
 
     }
-    
   
   </script>
   <!-- /.content -->

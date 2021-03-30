@@ -24,7 +24,7 @@ class CreateOrderLinesTable extends Migration
             $table->integer('quantity');
             $table->float('unit_price');
             $table->float('sum');
-            $table->boolean('status')->default('1')->comment('1 active, 2 inactive');
+            $table->boolean('status')->default('1')->comment('1 active, 0 inactive');
             $table->timestamps();
         });
     }

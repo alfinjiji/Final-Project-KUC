@@ -11,10 +11,10 @@ class MenuController extends Controller
 {
     function menu(){
         $menu = Menu::latest()->get();
-        return view('admin.menu',['menu'=>$menu]);
+        return view('admin.menu.menu',['menu'=>$menu]);
     }
     function menuCreate(){
-        return view('admin.menu_create');
+        return view('admin.menu.menu_create');
     }
     function doMenuCreate(Request $request){
         $Menu = Menu::create([
@@ -24,7 +24,7 @@ class MenuController extends Controller
     }
     function menuEdit($id){
         $menu = Menu::find(decrypt($id));
-        return view('admin.menu_edit',['menu'=>$menu]);
+        return view('admin.menu.menu_edit',['menu'=>$menu]);
     }
     function doMenuEdit(Request $request, $id){
         $menu = Menu::find(decrypt($id));

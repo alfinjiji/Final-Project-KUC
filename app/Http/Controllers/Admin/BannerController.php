@@ -10,14 +10,14 @@ class BannerController extends Controller
 {
     function banner()
     {  
-        $banner=Banner::all();
-        return view('admin.banner',['banner'=>$banner]);
+        $banner=Banner::latest()->get();
+        return view('admin.banner.banner',['banner'=>$banner]);
     }
     function bannerEdit($id)
     {
          $id=decrypt($id);
          $banner=Banner::find($id);
-        return view('admin.banner_edit',['banner'=>$banner]);
+        return view('admin.banner.banner_edit',['banner'=>$banner]);
     }
     public function BannerUpload(Request $request)
     {
@@ -36,12 +36,16 @@ class BannerController extends Controller
     public function DobannerEdit($id ,Request $request)
     {
         $id=decrypt($id);
-        //$imageName = time().rand().'.'.$request->image->getClientOriginalExtension();
-        //$path = Storage::putFileAs('image',$request->file('image'), $imageName);
         $banner=Banner::find($id);
+        if($request->image!=''){ 
+            $deletepath=$banner->image;
+            Storage::delete('/image/'.$deletepath); // delete old image
+            $imageName = time().rand().'.'.$request->image->getClientOriginalExtension();
+            $path = Storage::putFileAs('image',$request->file('image'), $imageName);
+            $banner->image=$imageName;
+            }
         $banner->banner_name= $request->bannername;
         $banner->url=$request->url;
-       // $banner->image=$imageName;
         $banner->date_from=$request->fromdate;
         $banner->date_to=$request->duedate;
         $banner->save();

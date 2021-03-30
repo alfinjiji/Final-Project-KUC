@@ -10,7 +10,7 @@ class CouponController extends Controller
     function coupon()
     {
          $coupon=Coupon::latest()->get();
-        return view('admin.coupon',['Coupon'=>$coupon]);
+        return view('admin.coupon.coupon',['Coupon'=>$coupon]);
 
     }
     function couponAdd(Request $request)

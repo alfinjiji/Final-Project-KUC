@@ -51,12 +51,12 @@
                                     <td>{{$coup->date_from}}</td>
                                     <td>{{$coup->date_to}}</td>
                                     @if($coup->type==0)
-                                    <td>{{$coup->type_value}}Flat</td>
+                                    <td>{{$coup->type_value}} Flat</td>
                                     @else
                                     <td>{{$coup->type_value}}%</td>
                                    @endif
                                     <td>
-                                    <a href={{route('coupon.delete',['id'=>$coup->coupon_id])}} > <button type="button" class="btn btn-xs btn-danger">
+                                    <a href={{route('coupon.delete',['id'=>$coup->coupon_id])}} > <button type="button" class="btn btn-xs btn-danger" onclick="detetealert()">
                                         Delete
                                       </button></a>
                                     </td>
@@ -124,11 +124,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Date From</label>
-                                    <input type="date" class="form-control" name="fromdate">
+                                    <input type="text" placeholder="yyyy-mm-dd" class="form-control" name="fromdate" id="datepicker" autocomplete="off">
                                 </div>
                                 <div class="form-group">
                                   <label>Date To</label>
-                                  <input type="date" class="form-control" name="duedate">
+                                  <input type="text" placeholder="yyyy-mm-dd" class="form-control" name="duedate" id="datepicker1" autocomplete="off">
                                 </div>
                                 <div class="form-group">
                                   <label>Type</label>

@@ -47,7 +47,7 @@
                   <tbody>
                     @foreach($products as $product)
                     <tr>
-                      <td>1.</td>
+                      <td>{{$loop->iteration}}</td>
                       <td>{{$product->product_name}}</td>
                       <td>{{$product->description}}</td>
                       <td>{{$product->size}}</td>
@@ -70,7 +70,7 @@
                         <a href="{{route('product.add.price',['id'=>encrypt($product->product_id)])}}"><button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#addprice-model">
                           Add Price
                         </button></a>
-                        <a href="{{route('product.delete',['id'=>encrypt($product->product_id)])}}"><button type="button" class="btn btn-xs btn-danger" id="menu-delete" onclick="delete_product()">
+                        <a href="{{route('product.delete',['id'=>encrypt($product->product_id)])}}"><button type="button" class="btn btn-xs btn-danger" id="menu-delete" onclick="detetealert()">
                           Delete
                         </button></a>
                       </td>
@@ -133,10 +133,6 @@
       </div>
     </div>
   </section>
-  <script>
-    function delete_product(){
-      confirm("Do you want to delete ?");
-    }
-  </script>
+  
   <!-- /.content -->
 @endsection

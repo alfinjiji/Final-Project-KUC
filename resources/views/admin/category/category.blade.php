@@ -7,11 +7,13 @@
   <section class="content">
     <div class="container-fluid">
       <div class="row">
+       <div class="col-md-12">
         @if(session('message'))
-                <div class="alert alert-success">
-                     {{ session('message') }}
-                </div>
-         @endif
+          <div class="alert alert-success">
+               {{ session('message') }}
+          </div>
+        @endif
+       </div>
         <!--category table-->
         <div class="col-md-12">
           <div class="card card-primary">
@@ -100,10 +102,6 @@
       </div>
     </div>
   </section>
-  <script>
-    function detetealert() {
-      alert("Deleted Successfuly");
-    }
-    </script>
+  
  
 @endsection

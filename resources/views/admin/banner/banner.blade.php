@@ -33,7 +33,7 @@
                               <table class="table table-bordered">
                                 <thead>
                                   <tr>
-                                    <th style="width: 10px">No</th>
+                                    <th style="width: 10px">No:</th>
                                     <th>Name</th>
                                     <th>Image</th>
                                     <th>Date From</th>
@@ -113,7 +113,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form method="POST" action="{{route('banner.upload')}}" enctype="multipart/form-data" >
+                        <form id="form" method="POST" action="{{route('banner.upload')}}" enctype="multipart/form-data" >
                           @csrf
                             <div class="card-body">
                                 <div class="form-group">
@@ -126,19 +126,18 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Date From</label>
-                                    <input type="text" class="form-control" id="datepicker" name="fromdate" onclick="datepicker()">
+                                    <input type="text" class="form-control" placeholder="yyyy-mm-dd" id="datepicker" name="fromdate" onmouseover="datepicker()" autocomplete="off">
                                 </div>
                                 <div class="form-group">
                                   <label>Date To</label>
-                                  <input type="date" class="form-control" id="datepick" name="duedate">
+                                  <input type="text" class="form-control" placeholder="yyyy-mm-dd" id="datepicker1" name="duedate" onclick="datepicker()" autocomplete="off">
                                 </div>
                                 
                                 <div class="form-group">
-                                    <label>Image</label>
+                                    <label>Image</label><br>
+                                    <img id="view" style="max-width:100px;max-height: 100px " />
                                       <div class="custom-file">
-                                       
                                         <input class="form-control" type="file" id="formFileDisabled"  onchange="previewFile()" name="image"/>
-                                        <img id="view"  style="max-width:100px;max-height: 100px "/>
                                       </div>
                                 </div>
                           </div>
@@ -177,6 +176,7 @@
         }
 
     }
+   
     
   </script>
     

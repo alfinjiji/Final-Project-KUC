@@ -11,19 +11,19 @@ class CategoryController extends Controller
     function CategoryView()
     {
         $category=Category::latest()->get();
-        return view('admin.category',['cat'=>$category]);
+        return view('admin.category.category',['cat'=>$category]);
 
        // return view('admin.category');
     }
     function CategoryCreate()
     {
-        return view('admin.category_create');
+        return view('admin.category.category_create');
     }
     function CategoryEdit($id)
     {    
         $id=decrypt($id);
         $cat=Category::find($id);
-        return view('admin.category_edit',['cat'=>$cat]);
+        return view('admin.category.category_edit',['cat'=>$cat]);
     }
     function CategoryAdd(Request $request )
     {

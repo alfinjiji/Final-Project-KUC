@@ -32,11 +32,11 @@
                   <div class="card-body">
                     <div class="form-group">
                       <label>From Date</label>
-                      <input type="date" class="form-control" name="date_from">
+                      <input type="text" placeholder="yyyy-mm-dd" class="form-control" name="date_from" id="datepicker" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label>To Date</label>
-                        <input type="date" class="form-control" name="date_to">
+                        <input type="text" class="form-control"  name="date_to" placeholder="yyyy-mm-dd" id="datepicker1" autocomplete="off">
                     </div>
                     <div class="form-group">
                         <label>Price</label>
