@@ -10,6 +10,7 @@ use App\Models\Material;
 use App\Models\Category;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Pricelist;
 
 class ProductController extends Controller
 {
@@ -63,5 +64,23 @@ class ProductController extends Controller
         Storage::delete($product->image);
         Product::find(decrypt($id))->delete();
         return redirect()->route('product')->with('message', 'Product deleted!');
+    }
+    function productAddPrice($id){
+        $product_id =decrypt($id);
+        return view('admin.product_add_price',['product_id'=>$product_id]);
+    }
+    function doProductAddPrice(Request $request, $id){
+        $pricelist = Pricelist::create([
+            'product_id'=>decrypt($id),
+            'date_from'=>$request->date_from,
+            'date_to'=>$request->date_to,
+            'price'=>$request->price,
+        ]);
+        return redirect()->route('product')->with('message','Price list added successfully!');
+    }
+    function productPricelist($id){
+        $product_id = decrypt($id);
+        $pricelist = Pricelist::latest()->get();
+        return view('admin.product_pricelist',['product_id'=>$product_id, 'pricelist'=>$pricelist]);
     }
 }
