@@ -45,6 +45,7 @@ Route::group(['namespace'=>'Admin'],function(){
         Route::get('product-add-price/{id}',['as'=>'product.add.price','uses'=>'ProductController@productAddPrice'] );
         Route::post('do-product-add-price/{id}',['as'=>'do.product.add.price','uses'=>'ProductController@doProductAddPrice'] );
         Route::get('product-pricelist/{id}',['as'=>'product.pricelist','uses'=>'ProductController@productPricelist'] );
+        Route::get('product-pricelist-delete/{id}',['as'=>'product.pricelist.delete','uses'=>'ProductController@productPricelistDelete'] );
         //Customer
         Route::get('customer',['as'=>'customer','uses'=>'CustomerController@customer'] );
         Route::get('customer-address/{id}',['as'=>'customer.address','uses'=>'CustomerController@customerAddress'] );

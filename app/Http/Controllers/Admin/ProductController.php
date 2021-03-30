@@ -83,4 +83,8 @@ class ProductController extends Controller
         $pricelist = Pricelist::latest()->get();
         return view('admin.product_pricelist',['product_id'=>$product_id, 'pricelist'=>$pricelist]);
     }
+    function productPricelistDelete($id){
+        Pricelist::find(decrypt($id))->delete();
+        return redirect()->route('product')->with('message','Price deleted!');
+    }
 }

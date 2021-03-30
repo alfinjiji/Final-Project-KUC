@@ -49,10 +49,12 @@
                       <td> <span class="badge bg-danger">inactive</span></td>
                       @endif
                       <td>
+                        <!--
                         <a href=""><button type="button" class="btn btn-xs btn-primary">
                           Edit
                         </button></a>
-                        <a href=""><button type="button" class="btn btn-xs btn-danger" onclick="detetealert()">
+                        -->
+                        <a href="{{route('product.pricelist.delete',['id'=>encrypt($pricelist->pricelist_id)])}}"><button type="button" class="btn btn-xs btn-danger" onclick="detetealert()">
                           Delete
                         </button></a>
                       </td>
