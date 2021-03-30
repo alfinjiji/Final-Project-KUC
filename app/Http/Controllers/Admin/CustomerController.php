@@ -26,7 +26,6 @@ class CustomerController extends Controller
     function wishlist($id)
     {
         $id=decrypt($id);
-
         return view('admin.wishlist');
     }
     function customerOrder($id)

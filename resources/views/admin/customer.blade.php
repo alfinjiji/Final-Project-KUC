@@ -18,7 +18,7 @@
                 <table class="table table-bordered">
                   <thead>
                     <tr>
-                      <th style="width: 10px">#</th>
+                      <th style="width: 10px">No</th>
                       <th>Name</th>
                       <th>Email</th>
                       <th>Mobile</th>
@@ -31,10 +31,10 @@
                   <tbody>
                     @foreach($cust as $customer)
                     <tr>
-                      <td>{{$customer->customer_id}}</td>
-                      <td>{{$customer->first_name.$customer->last_name}}</td>
-                      <td> {{$customer->email}}</td>
-                      <td>{{$customer->mobile}}</td>
+                      <td>{{$loop->iteration}}</td>
+                      <td>{{$customer->first_name.' '.$customer->last_name}}</td>
+                      <td>{{$customer->email}}</td>
+                      <td> {{$customer->mobile}}</td>
                       <td><a href="{{route('customer.address',['id'=>encrypt($customer->customer_id)])}}"><span class="badge bg-danger">click</span></a></td>
                       <td><a href="{{route('customer.order',['id'=>encrypt($customer->customer_id)])}}"><span class="badge bg-success">click</span></a></td>
                       <td><a href="{{route('wishlist',['id'=>encrypt($customer->customer_id)])}}"><span class="badge bg-primary">click</span></a></td>

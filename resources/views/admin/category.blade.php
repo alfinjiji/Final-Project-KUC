@@ -28,7 +28,7 @@
                 <table class="table table-bordered">
                   <thead>
                     <tr>
-                      <th style="width: 10px">Id</th>
+                      <th style="width: 10px">No</th>
                       <th>Category Name</th>
                       <th>Status</th>
                       <th>Action</th>
@@ -37,7 +37,7 @@
                   <tbody>
                     @foreach ($cat as $Cat)
                     <tr>
-                      <td>{{ $Cat->category_id }}</td>
+                      <td>{{$loop->iteration}}</td>
                       <td>{{$Cat->category_name}}</td>
                       @if($Cat->status==1)
                       <td> <span class="badge bg-success">active</span></td>

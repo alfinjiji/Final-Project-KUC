@@ -19,7 +19,7 @@
                 <table class="table table-bordered">
                   <thead>
                     <tr>
-                      <th style="width: 10px">#</th>
+                      <th style="width: 10px">No:</th>
                       <th>House Name</th>
                       <th>Area</th>
                       <th>City</th>
@@ -32,7 +32,7 @@
                   <tbody>
                     @foreach($address as $ad)
                     <tr>
-                      <td>1.</td>
+                      <td>{{$loop->iteration}}</td>
                       <td>{{$ad->house_name}}</td>
                       <td> {{$ad->area}}</td>
                       <td>{{$ad->city}}</td>

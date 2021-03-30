@@ -29,7 +29,7 @@
               <table class="table table-striped">
                 <thead>
                 <tr>
-                  <th>#</th>
+                  <th>No:</th>
                   <th>Product</th>
                   <th>Qty</th>
                   <th>Unit Price</th>
@@ -39,7 +39,7 @@
                 <tbody>
                   @foreach($product as $pro)
                 <tr>
-                  <td>1</td>
+                  <td>{{$loop->iteration}}</td>
                   <td>{{$pro->quantity}}</td>
                   <td>{{$pro->quantity}}</td>
                   <td>{{$pro->unit_price}}</td>

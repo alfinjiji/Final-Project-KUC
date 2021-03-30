@@ -33,7 +33,7 @@
                               <table class="table table-bordered">
                                 <thead>
                                   <tr>
-                                    <th style="width: 10px">#</th>
+                                    <th style="width: 10px">No</th>
                                     <th>Name</th>
                                     <th>Image</th>
                                     <th>Date From</th>
@@ -45,12 +45,16 @@
                                 <tbody>
                                   @foreach($banner as $baner)
                                   <tr>
-                                    <td>1.</td>
+                                    <td>{{$loop->iteration}}</td>
                                     <td>{{$baner->banner_name}}</td>
                                     <td><img src="{{asset('storage/app/image/'.$baner->image)}}" width="50" height="50"/> </td>
                                     <td>{{$baner->date_from}}</td>
                                     <td>{{$baner->date_to}}</td>
-                                    <td>{{$baner->status}}</td>
+                                    @if($baner->status==1)
+                                    <td> <span class="badge bg-success">active</span></td>
+                                    @else
+                                    <td> <span class="badge bg-success">inactive</span></td>
+                                    @endif
                                     <td>
                                       <a href="{{route('banner.edit',['id'=>encrypt($baner->banner_id)])}}"><button type="button" class="btn btn-xs btn-primary">Edit</button></a>
                                       <a href="{{route('banner.delete',['id'=>encrypt($baner->banner_id)])}}"> <button type="button" class="btn btn-xs btn-danger" onclick="detetealert()">
@@ -122,11 +126,11 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Date From</label>
-                                    <input type="date" class="form-control" id="datepicker" name="fromdate">
+                                    <input type="text" class="form-control" id="datepicker" name="fromdate" onclick="datepicker()">
                                 </div>
                                 <div class="form-group">
                                   <label>Date To</label>
-                                  <input type="date" class="form-control" id="datepicker" name="duedate">
+                                  <input type="date" class="form-control" id="datepick" name="duedate">
                                 </div>
                                 
                                 <div class="form-group">
@@ -174,11 +178,8 @@
 
     }
     
+  </script>
     
-    function detetealert() {
-      alert("Deleted Successfuly");
-    }
-    </script>
  
 
 
