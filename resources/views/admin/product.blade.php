@@ -57,7 +57,7 @@
                       <td>
                         <img style="height: 75px; width:100px;" src="{{ asset('storage/app/'.$product->image) }}">
                       </td>
-                      <td></td>
+                      <td><a href="{{route('product.pricelist',['id'=>encrypt($product->product_id)])}}"><span class="badge bg-success">pricelist</span></a></td>
                       @if($product->status == 1)
                       <td><span class="badge bg-success">active</span></td>
                       @else
@@ -67,9 +67,9 @@
                        <a href="{{route('product.edit',['id'=>encrypt($product->product_id)])}}" ><button type="button" class="btn btn-xs btn-primary" >
                           Edit
                         </button></a>
-                        <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#addprice-model">
+                        <a href="{{route('product.add.price',['id'=>encrypt($product->product_id)])}}"><button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#addprice-model">
                           Add Price
-                        </button>
+                        </button></a>
                         <a href="{{route('product.delete',['id'=>encrypt($product->product_id)])}}"><button type="button" class="btn btn-xs btn-danger" id="menu-delete" onclick="delete_product()">
                           Delete
                         </button></a>
@@ -80,7 +80,7 @@
                 </table>
               </div>
               <!--- Add Price Model Begin-->
-              <div class="modal fade" id="addprice-model">
+            <!--  <div class="modal fade" id="addprice-model">
                 <div class="modal-dialog modal-lg">
                   <div class="modal-content">
                     <div class="modal-header">
@@ -91,8 +91,6 @@
                     </div>
                     <div class="modal-body">
                       <div class="card card-Success">
-                        <!-- /.card-header -->
-                        <!-- form start -->
                         <form>
                           <div class="card-body">
                               <div class="form-group">
@@ -108,7 +106,6 @@
                                   <input type="number" class="form-control"  placeholder="Enter Price">
                               </div>
                           </div>
-                          <!-- /.card-body -->
                           <div class="card-footer">
                             <button type="submit" class="btn btn-success">Submit</button>
                           </div>
@@ -116,10 +113,8 @@
                     </div>
                     </div>
                   </div>
-                  <!-- /.modal-content -->
                 </div>
-                <!-- /.modal-dialog -->
-              </div>
+              </div>  -->
               <!--- Add price Model End-->
 
               <!-- /.card-body -->

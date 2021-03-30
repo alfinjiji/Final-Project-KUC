@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pricelist extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'pricelist_id';
+    protected $fillable = ['product_id','date_from','date_to','price'];
+
 }
