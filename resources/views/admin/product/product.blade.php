@@ -52,8 +52,8 @@
                       <td>{{$product->description}}</td>
                       <td>{{$product->size}}</td>
                       <td>{{$product->color}}</td>
-                      <td>{{$product->material_name}}</td>
-                      <td>{{$product->category_name}}</td>
+                      <td>{{$product->material->material_name}}</td>
+                      <td>{{$product->category->category_name}}</td>
                       <td>
                         <img style="height: 75px; width:100px;" src="{{ asset('storage/app/'.$product->image) }}">
                       </td>

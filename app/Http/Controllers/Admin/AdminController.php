@@ -23,14 +23,4 @@ class AdminController extends Controller
         $coupon=Coupon::count();
         return view('admin.dashboard',['order'=>$order,'customer'=>$customer,'product'=>$product,'coupon'=>$coupon]);
     }
-    function order()
-    {
-        return view('admin.order.order');
-    }
-    function orderProduct()
-    {
-        return view('admin.order.order_product');
-    }
-    
-    
 }

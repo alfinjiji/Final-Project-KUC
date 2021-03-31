@@ -53,8 +53,10 @@ Route::group(['namespace'=>'Admin'],function(){
         //Wishlist
         Route::get('wishlist/{id}',['as'=>'wishlist','uses'=>'CustomerController@wishlist'] );
        //Order
-        Route::get('order',['as'=>'order','uses'=>'AdminController@order'] );
-        Route::get('order-product',['as'=>'order.product','uses'=>'AdminController@orderProduct'] );
+        Route::get('order',['as'=>'order','uses'=>'OrderController@order'] );
+        Route::get('order-product/{id}',['as'=>'order.product','uses'=>'OrderController@orderProduct'] );
+        Route::get('order-status-update/{id}',['as'=>'order.status.update','uses'=>'OrderController@orderStatusUpdate'] );
+        Route::post('do-order-status-update/{id}',['as'=>'do.order.status.update','uses'=>'OrderController@doOrderStatusUpdate'] );
         //Menu
         Route::get('menu',['as'=>'menu','uses'=>'MenuController@menu'] );
         Route::get('menu-create',['as'=>'menu.create','uses'=>'MenuController@menuCreate'] );

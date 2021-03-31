@@ -15,11 +15,14 @@ use App\Models\Pricelist;
 class ProductController extends Controller
 {
     function product(){
+        /* 
         $products = DB::table('products')
             ->join('categories', 'products.category_id', '=', 'categories.category_id')
             ->join('materials', 'products.material_id', '=', 'materials.material_id')
             ->select('products.*', 'categories.category_name', 'materials.material_name')
             ->latest()->get();
+        */
+        $products = Product::latest()->get();
         return view('admin.product.product',['products'=>$products]);
     }
     function productCreate(){

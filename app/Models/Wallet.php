@@ -9,6 +9,7 @@ class Wallet extends Model
 {
     use HasFactory;
     protected $table='wallets';
+    
     public function customer(){
         return $this->belongsTo('Customer');
     }

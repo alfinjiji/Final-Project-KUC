@@ -27,8 +27,8 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('coupon_id')->nullable();
             $table->foreign('coupon_id')->references('coupon_id')->on('coupons');
             $table->datetime('placed_at');
-            $table->datetime('confirmed_at');
-            $table->datetime('delivered_at');
+            $table->datetime('confirmed_at')->nullable();
+            $table->datetime('delivered_at')->nullable();
             $table->boolean('status')->default('1')->comment('1 active, 0 inactive');
             $table->timestamps();
         });
