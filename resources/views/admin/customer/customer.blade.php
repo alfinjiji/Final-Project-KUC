@@ -38,7 +38,7 @@
                       <td><a href="{{route('customer.address',['id'=>encrypt($customer->customer_id)])}}"><span class="badge bg-danger">click</span></a></td>
                       <td><a href="{{route('customer.order',['id'=>encrypt($customer->customer_id)])}}"><span class="badge bg-success">click</span></a></td>
                       <td><a href="{{route('wishlist',['id'=>encrypt($customer->customer_id)])}}"><span class="badge bg-primary">click</span></a></td>
-                      <td></td>
+                      <td>{{$customer->wallet_amount}}</td>
                     </tr>
                     @endforeach
                   </tbody>

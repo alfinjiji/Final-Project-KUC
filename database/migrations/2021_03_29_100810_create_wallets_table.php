@@ -17,7 +17,8 @@ class CreateWalletsTable extends Migration
             $table->bigIncrements('wallet_id');
             $table->unsignedBigInteger('customer_id')->nullable();
             $table->foreign('customer_id')->references('customer_id')->on('customers');
-            $table->double('wallet_amount')->default('0');
+            $table->double('amount')->default('0');
+            $table->boolean('flag')->comment('1 debit, 0 credit');
             $table->boolean('status')->default('1')->comment('1 active, 0 inactive');
             $table->timestamps();
         });

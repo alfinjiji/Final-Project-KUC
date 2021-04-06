@@ -4,13 +4,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>AdminLTE 3 | @yield('title')</title>
-
+   <!-- Select2 -->
+   <link rel="stylesheet" href="{{asset('public/templates/plugins/select2/css/select2.min.css')}}">
+   <link rel="stylesheet" href="{{asset('public/templates/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css')}}">
+ 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{{asset('public/templates/plugins/fontawesome-free/css/all.min.css')}}">
   <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css')}}">
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bootstrap 4 -->
   <link rel="stylesheet" href="{{asset('public/templates/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css')}}">
   <!-- iCheck -->
@@ -29,8 +32,11 @@
   <!-- datepicker -->
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
   <link rel="stylesheet" href="/resources/demos/style.css">   
- 
-</head>
+
+   <!-- new added-->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"  />
+  
+ </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
 
@@ -364,9 +370,20 @@
 <script src="{{asset('public/templates/dist/js/demo.js')}}"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="{{asset('public/templates/dist/js/pages/dashboard.js')}}"></script>
-
+<!-- Select2 -->
+<script src="{{asset('public/templates/plugins/select2/js/select2.full.min.js')}}"></script>
+<!-- Bootstrap4 Duallistbox -->
+<script src="{{asset('public/templates/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js')}}"></script>
+<!-- InputMask -->
+<script src="{{asset('public/templates/plugins/moment/moment.min.js')}}"></script>
+<script src="{{asset('public/templates/plugins/inputmask/jquery.inputmask.min.js')}}"></script>
+<!-- date-range-picker -->
+<script src="{{asset('public/templates/plugins/daterangepicker/daterangepicker.js')}}"></script>
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" ></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
 <script>
   $( function() {
   $( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
@@ -383,5 +400,6 @@ $( function() {
   
   </script>
 </body>
+
 
 </html>

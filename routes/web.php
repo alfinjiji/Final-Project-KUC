@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Admin\CustomerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,6 +48,7 @@ Route::group(['namespace'=>'Admin'],function(){
         Route::get('product-pricelist-delete/{id}',['as'=>'product.pricelist.delete','uses'=>'ProductController@productPricelistDelete'] );
         //Customer
         Route::get('customer',['as'=>'customer','uses'=>'CustomerController@customer'] );
+        Route::get('test',[CustomerController::class,'demo']);
         Route::get('customer-address/{id}',['as'=>'customer.address','uses'=>'CustomerController@customerAddress'] );
         Route::get('customer-order/{id}',['as'=>'customer.order','uses'=>'CustomerController@customerOrder'] );
         //Wishlist

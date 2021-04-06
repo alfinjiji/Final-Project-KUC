@@ -121,6 +121,17 @@
                                   <input type="text" class="form-control"  placeholder="Enter Banner Name" name="bannername">
                                 </div>
                                 <div class="form-group">
+                                  <label>PRODUCT</label>
+                                  <select class="form-control select2" style="width: 100%;" id="product" name="url1">
+                                   @foreach ($Product as $product)
+                                       
+                                  
+                                    <option value="{{$product->product_id}}">{{$product->product_name}}</option>
+                                    @endforeach
+                                  </select>
+                                </div>
+                                
+                                <div class="form-group">
                                     <label>Url</label>
                                     <input type="text" class="form-control"  placeholder="Enter Url" name="url">
                                 </div>
@@ -129,7 +140,7 @@
                                     <input type="text" class="form-control" placeholder="yyyy-mm-dd" id="datepicker" name="fromdate" onmouseover="datepicker()" autocomplete="off">
                                 </div>
                                 <div class="form-group">
-                                  <label>Date To</label>
+                                  <label >Date To</label>
                                   <input type="text" class="form-control" placeholder="yyyy-mm-dd" id="datepicker1" name="duedate" onclick="datepicker()" autocomplete="off">
                                 </div>
                                 
@@ -176,9 +187,14 @@
         }
 
     }
-   
+    $(document).ready(function(){
+      $('#product').select2();
+    });
     
+ 
   </script>
+    
+  
     
  
 

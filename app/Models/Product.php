@@ -19,4 +19,13 @@ class Product extends Model
     public function material(){
         return $this->hasOne(Material::class,'material_id','material_id');
     }
+    public function price()
+    {
+        return $this->hasMany(Pricelist::class,'product_id','product_id');
+    }
+    //for whishlist
+    public function pricelist()
+    {
+        return $this->hasOne(Pricelist::class,'product_id','product_id');
+    }
 }

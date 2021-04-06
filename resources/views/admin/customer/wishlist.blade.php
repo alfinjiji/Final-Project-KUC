@@ -26,13 +26,15 @@
                     </tr>
                   </thead>
                   <tbody>
+                    @foreach($wishlist as $Wishlist)
                     <tr>
-                      <td>1.</td>
-                      <td></td>
-                      <td> </td>
-                      <td></td>
-                      <td></td>
+                      <td>{{$loop->iteration}}</td>
+                      <td><img src="{{asset('storage/app/'.$Wishlist->product->image)}}" width="50" height="50"/> </td>
+                      <td> {{$Wishlist->product->product_name}}</td>
+                      <td>{{$Wishlist->product->category->category_name}}</td>
+                      <td>{{$Wishlist->product->pricelist->price}}</td>
                     </tr>
+                    @endforeach
                   </tbody>
                 </table>
               </div>

@@ -8,9 +8,7 @@ use App\Models\Customer;
 class Wallet extends Model
 {
     use HasFactory;
+    protected $primaryKey='wallet_id';
     protected $table='wallets';
-    
-    public function customer(){
-        return $this->belongsTo('Customer');
-    }
+   
 }

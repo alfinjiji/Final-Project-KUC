@@ -30,6 +30,7 @@
                 <thead>
                 <tr>
                   <th>No:</th>
+                  <th>Image</th>
                   <th>Product</th>
                   <th>Qty</th>
                   <th>Unit Price</th>
@@ -37,15 +38,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                  @foreach($product as $pro)
+                 @foreach($or->orderline as $orderline)
                 <tr>
-                  <td>{{$loop->iteration}}</td>
-                  <td>{{$pro->quantity}}</td>
-                  <td>{{$pro->quantity}}</td>
-                  <td>{{$pro->unit_price}}</td>
-                  <td>{{$pro->sum}}</td>
+                      <td>{{$loop->iteration}}</td>
+                      <td><img style="height: 75px; width:100px;" src="{{ asset('storage/app/'.$orderline->product->image) }}"></td>
+                      <td>{{$orderline->product->product_name}}</td>
+                      <td>{{$orderline->quantity}}</td>
+                      <td>{{$orderline->unit_price}}</td>
+                      <td>{{$orderline->sum}}</td>
                 </tr>
-                @endforeach
+               @endforeach
                 </tbody>
               </table>
             </div>

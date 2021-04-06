@@ -6,12 +6,14 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Banner;
+use App\Models\Product;
 class BannerController extends Controller
 {
     function banner()
-    {  
+    {   
+        $product=Product::all();
         $banner=Banner::latest()->get();
-        return view('admin.banner.banner',['banner'=>$banner]);
+        return view('admin.banner.banner',['banner'=>$banner,'Product'=>$product]);
     }
     function bannerEdit($id)
     {
@@ -21,11 +23,14 @@ class BannerController extends Controller
     }
     public function BannerUpload(Request $request)
     {
+        $request->validate([
+            'image' => 'required',
+        ]);
         $imageName = time().rand().'.'.$request->image->getClientOriginalExtension();
         $path = Storage::putFileAs('image',$request->file('image'), $imageName);
         Banner::create([
             'banner_name'=> $request->bannername,
-            'url'=> $request->url,
+            'url'=> $request->url1,
             'image'=> $imageName,
             'date_from'=> $request->fromdate,
             'date_to'=> $request->duedate,
