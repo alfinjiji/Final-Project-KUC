@@ -384,21 +384,29 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.js"></script>
 <script>
   $( function() {
-  $( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
-} );
+    $( "#datepicker" ).datepicker({ 
+      dateFormat: "yy-mm-dd",
+            minDate: 0,
+            onSelect: function (date) {
+                var dt2 = $('#datepicker1');
+                var startDate = $(this).datepicker('getDate');
+                var minDate = $(this).datepicker('getDate');
+                dt2.datepicker('setDate', minDate);
+                startDate.setDate(startDate.getDate() + 30);
+                //sets dt2 maxDate to the last day of 30 days window
+                dt2.datepicker('option', 'maxDate', startDate);
+                dt2.datepicker('option', 'minDate', minDate);
+                $(this).datepicker('option', 'minDate', minDate);
+            }
+      });
+    $( "#datepicker1" ).datepicker({ dateFormat: 'yy-mm-dd' });
 
-$( function() {
-  $( "#datepicker1" ).datepicker({ dateFormat: 'yy-mm-dd' });
-} );
-
+  });
 
   function detetealert() {
     alert("Deleted Successfuly");
   }
-  
   </script> 
-  
+  @yield("script")
 </body>
-
-
 </html>
