@@ -30,12 +30,11 @@
   <link rel="stylesheet" href="{{asset('public/templates/plugins/summernote/summernote-bs4.min.css')}}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.0.1/sweetalert.css" integrity="sha512-89dj20t0ePIY5LVWjdFJwXKHq326wykdMXRvJ0IApshtw79sL5IURuvU5A3w/fwKW5pUZlwMer12Gg2MA/pvng==" crossorigin="anonymous" />
   <!-- datepicker -->
-  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">   
-
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
+    
+  
    <!-- new added-->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"  />
-  
  </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -382,8 +381,7 @@
 <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" ></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.js"></script>
 <script>
   $( function() {
   $( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
@@ -398,7 +396,8 @@ $( function() {
     alert("Deleted Successfuly");
   }
   
-  </script>
+  </script> 
+  
 </body>
 
 

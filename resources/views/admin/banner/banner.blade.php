@@ -120,6 +120,7 @@
                                   <label>Banner Name</label>
                                   <input type="text" class="form-control"  placeholder="Enter Banner Name" name="bannername">
                                 </div>
+                                  <!-- /.form-group -->
                                 <div class="form-group">
                                   <label>PRODUCT</label>
                                   <select class="form-control select2" style="width: 100%;" id="product" name="url1">
