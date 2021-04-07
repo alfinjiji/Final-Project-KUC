@@ -15,7 +15,7 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form  action="{{route('do.banner.edit',['id'=>encrypt($banner->banner_id)])}}" method="POST"  enctype="multipart/form-data">
+            <form  action="{{route('do.banner.edit',['id'=>encrypt($banner->banner_id)])}}" method="POST"  enctype="multipart/form-data" id="form">
               @csrf
                 <div class="card-body">
                     <div class="form-group">
@@ -71,4 +71,47 @@
   
   </script>
   <!-- /.content -->
+@endsection
+@section("validation script")
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $("#form").validate({
+      rules: {
+        bannername: {
+          required: true,
+          minlength: 2
+        },
+        url:{
+          required:true,
+          url:true
+        },
+        fromdate:{
+          required:true,
+          date:true
+        },
+        duedate:{
+          required:true,
+          date:true
+        },
+      },
+      messages: {
+        bannername: '* Please enter a name',
+        url:'* Please enter valid url',
+        fromdate:'* choose date',
+        duedate:'* choose date'
+      },
+      errorPlacement: function (error, element) {
+          error.css('color', 'red');
+          element.css('border-color', 'red');
+        error.insertAfter(element);
+      },
+      highlight: function(element) {
+      $(element).css('border-color', 'red');
+      },
+      unhighlight: function(element) {
+      $(element).css('border-color', '#007bff');}
+    });
+  });
+</script>  
 @endsection

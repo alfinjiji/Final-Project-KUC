@@ -120,25 +120,13 @@
                                   <label>Banner Name</label>
                                   <input type="text" class="form-control"  placeholder="Enter Banner Name" name="bannername">
                                 </div>
-                                  <!-- /.form-group -->
-                                <div class="form-group">
-                                  <label>PRODUCT</label>
-                                  <select class="form-control select2" style="width: 100%;" id="product" name="url1">
-                                   @foreach ($Product as $product)
-                                       
-                                  
-                                    <option value="{{$product->product_id}}">{{$product->product_name}}</option>
-                                    @endforeach
-                                  </select>
-                                </div>
-                                
                                 <div class="form-group">
                                     <label>Url</label>
                                     <input type="text" class="form-control"  placeholder="Enter Url" name="url">
                                 </div>
                                 <div class="form-group">
                                     <label>Date From</label>
-                                    <input type="text" class="form-control" placeholder="yyyy-mm-dd" id="datepicker" name="fromdate" onmouseover="datepicker()" autocomplete="off">
+                                    <input type="text" class="form-control" placeholder="yyyy-mm-dd" id="datepicker" name="fromdate" onclick="datepicker()" autocomplete="off">
                                 </div>
                                 <div class="form-group">
                                   <label >Date To</label>
@@ -151,11 +139,12 @@
                                       <div class="custom-file">
                                         <input class="form-control" type="file" id="formFileDisabled"  onchange="previewFile()" name="image"/>
                                       </div>
+                                      <span id="spnmsg" style="color:red;"></span><br />
                                 </div>
                           </div>
                           <!-- /.card-body -->
                           <div class="card-footer">
-                            <button type="submit" class="btn btn-success">Submit</button>
+                            <button type="submit" class="btn btn-success" id="btnSubmit">Submit</button>
                           </div>
                           
                         </form>
@@ -188,17 +177,79 @@
         }
 
     }
-    $(document).ready(function(){
-      $('#product').select2();
-    });
-    
- 
   </script>
-    
-  
-    
- 
-
-
   <!-- /.content -->
 @endsection
+@section("validation script")
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $("#form").validate({
+      rules: {
+        bannername: {
+          required: true,
+          minlength: 2
+        },
+        url:{
+          required:true,
+          url:false
+        },
+        fromdate:{
+          required:true
+        },
+        duedate:{
+          required:true
+        }
+      },
+      messages: {
+        bannername: '* Please enter a name',
+        url:'* Please enter valid url',
+        fromdate:'* choose date',
+        duedate:'* choose date'
+      },
+      errorPlacement: function (error, element) {
+          error.css('color', 'red');
+          element.css('border-color', 'red');
+        error.insertAfter(element);
+      },
+      highlight: function(element) {
+      $(element).css('border-color', 'red');
+      },
+      unhighlight: function(element) {
+      $(element).css('border-color', '#007bff');}
+    });
+  });
+  $(function () {
+$("#formFileDisabled").change(function () {
+// Get uploaded file extension
+var extension = $(this).val().split('.').pop().toLowerCase();
+// Create array with the files extensions that we wish to upload
+var validFileExtensions = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+//Check file extension in the array.if -1 that means the file extension is not in the list.
+if ($.inArray(extension, validFileExtensions) == -1) {
+$('#spnmsg').text("Failed!! Please upload jpg, jpeg, png, gif, bmp file only.").show();
+// Clear fileuload control selected file
+$(this).replaceWith($(this).val('').clone(true));
+//Disable Submit Button
+$('#btnSubmit').prop('disabled', true);
+}
+else {
+// Check and restrict the file size to 32 KB.
+/*if ($(this).get(0).files[0].size > (32768)) {
+$('#spnmsg').text("Failed!! Max allowed file size is 32 kb").show();
+// Clear fileuload control selected file
+$(this).replaceWith($(this).val('').clone(true));
+//Disable Submit Button
+$('#btnSubmit').prop('disabled', true);
+}
+else {*/
+//Clear and Hide message span
+$('#spnmsg').text('').hide();
+//Enable Submit Button
+$('#btnSubmit').prop('disabled', false);
+}
+});
+});
+</script>  
+@endsection
+

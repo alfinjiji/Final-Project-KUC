@@ -31,10 +31,14 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.0.1/sweetalert.css" integrity="sha512-89dj20t0ePIY5LVWjdFJwXKHq326wykdMXRvJ0IApshtw79sL5IURuvU5A3w/fwKW5pUZlwMer12Gg2MA/pvng==" crossorigin="anonymous" />
   <!-- datepicker -->
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"> 
-    
-  
    <!-- new added-->
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"  />
+   <style>
+     #errmsg
+      {
+        color: red;
+       }
+     </style>
  </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -59,7 +63,7 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
+      <!-- Navbar Search 
       <li class="nav-item">
         <a class="nav-link" data-widget="navbar-search" href="#" role="button">
           <i class="fas fa-search"></i>
@@ -79,7 +83,7 @@
             </div>
           </form>
         </div>
-      </li>
+      </li> -->
 
       <!-- Messages Dropdown Menu -->
       <li class="nav-item dropdown">
@@ -193,14 +197,14 @@
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
-          <img src="{{asset('public/templates/dist/img/user2-160x160.jpg') }}" class="img-circle elevation-2" alt="User Image">
-        </div>
+           <img src="{{asset('public/templates/dist/img/admin.png') }}" class="img-circle elevation-2" alt="User Image">  
+        </div> 
         <div class="info">
           <a href="#" class="d-block">{{auth()->guard('admin')->user()->name}}</a>
         </div>
       </div>
 
-      <!-- SidebarSearch Form -->
+      <!-- SidebarSearch Form 
       <div class="form-inline">
         <div class="input-group" data-widget="sidebar-search">
           <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
@@ -210,14 +214,14 @@
             </button>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-header">EXAMPLES</li>
+          <li class="nav-header">WORKS</li>
           <li class="nav-item">
             <a href="{{route('dashboard')}}" class="nav-link">
               <i class="nav-icon far fa-calendar-alt"></i>
@@ -384,11 +388,23 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.js"></script>
 <script>
   $( function() {
-  $( "#datepicker" ).datepicker({ dateFormat: 'yy-mm-dd' });
+  $( "#datepicker" ).datepicker({  dateFormat: "yy-mm-dd",
+    minDate: 0,
+    onSelect: function (date) {
+        var dt2 = $('#datepicker1');
+        var startDate = $(this).datepicker('getDate');
+        var minDate = $(this).datepicker('getDate');
+        dt2.datepicker('setDate', minDate);
+        startDate.setDate(startDate.getDate() + 30);
+        //sets dt2 maxDate to the last day of 30 days window
+        dt2.datepicker('option', 'maxDate', startDate);
+        dt2.datepicker('option', 'minDate', minDate);
+        $(this).datepicker('option', 'minDate', minDate);
+    } });
 } );
 
 $( function() {
-  $( "#datepicker1" ).datepicker({ dateFormat: 'yy-mm-dd' });
+  $( "#datepicker1" ).datepicker({  dateFormat: "yy-mm-dd"});
 } );
 
 
@@ -397,7 +413,7 @@ $( function() {
   }
   
   </script> 
-  
+   @yield("validation script")
 </body>
 
 

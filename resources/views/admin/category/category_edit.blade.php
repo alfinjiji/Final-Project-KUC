@@ -21,7 +21,7 @@
                   <div class="card-body">
                     <div class="form-group">
                       <label>Category Name</label>
-                      <input type="text" class="form-control" name="edit" placeholder="Enter Category" value="{{$cat->category_name}}" required>
+                      <input type="text" class="form-control" name="edit" placeholder="Enter Category" value="{{$cat->category_name}}" >
                     </div>
                   </div>
                   <!-- /.card-body -->
@@ -38,4 +38,32 @@
   </section>
   <!-- /.content -->
   
+@endsection
+@section("validation script")
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $("#form").validate({
+      rules: {
+        edit: {
+          required: true,
+          minlength: 2
+        }
+      },
+      messages:{
+          edit: {required:'* Please enter Category', minlength:'* minimum length 2'}
+        },
+        errorPlacement: function (error, element) {
+          error.css('color', 'red');
+          element.css('border-color', 'red');
+        error.insertAfter(element);
+      },
+      highlight: function(element) {
+      $(element).css('border-color', 'red');
+      },
+      unhighlight: function(element) {
+      $(element).css('border-color', '#007bff');}
+    });
+  });
+</script>  
 @endsection
