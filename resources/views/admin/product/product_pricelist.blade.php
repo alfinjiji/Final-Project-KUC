@@ -18,7 +18,8 @@
               <div class="card-header">
                 <div class="row">
                   <div class="col-md-6"><h3 class="card-title">Price List</h3></div>
-                  <div class="col-md-6 text-right"> 
+                  <div class="col-md-6 text-right">
+                    <a href="{{route('product')}}"><button class="btn btn-success" type="button">Back</button></a>  
                     <a href="{{route('product.add.price',['id'=>encrypt($product_id)])}}"><button class="btn btn-success" type="button">Add price list</button></a> 
                   </div>
                 </div>

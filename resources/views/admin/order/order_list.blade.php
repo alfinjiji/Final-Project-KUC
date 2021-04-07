@@ -51,19 +51,19 @@
                       <td>{{$order->discount}}</td>
                       <td>{{$order->coupon->name}}</td>
                       <td><a href="{{route('order.product',['id'=>encrypt($order->order_id)])}}"><span class="badge bg-primary">details</span></a></td>
-                      @if($order->status == 1)
+                      @if($order->status == 0)
                         <td>
-                          <span class="badge bg-success">order placed</span><br>
+                          <span class="badge bg-danger">order Delevered</span><br>
                           <a href="{{route('order.status.update',['id'=>encrypt($order->order_id)])}}"><span class="badge bg-primary">Update</span></a>
                         </td>
-                      @elseif($order->status == 2)
+                      @elseif($order->status == 1)
                         <td>
                           <span class="badge bg-warning">order confirmed</span><br>
                           <a href="{{route('order.status.update',['id'=>encrypt($order->order_id)])}}"><span class="badge bg-primary">Update</span></a></td>
                         </td>
                       @else
                         <td>
-                          <span class="badge bg-danger">order delevered</span><br>
+                          <span class="badge bg-success">order placed</span><br>
                           <a href="{{route('order.status.update',['id'=>encrypt($order->order_id)])}}"><span class="badge bg-primary">Update</span></a></td>
                         </td>
                       @endif

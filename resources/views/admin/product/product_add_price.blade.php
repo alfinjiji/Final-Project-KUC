@@ -27,7 +27,7 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form action="{{route('do.product.add.price',['id'=>encrypt($product_id)])}}" method="POST">
+                <form action="{{route('do.product.add.price',['id'=>encrypt($product_id)])}}" method="POST" id="productPriceForm">
                   @csrf
                   <div class="card-body">
                     <div class="form-group">
@@ -40,7 +40,7 @@
                     </div>
                     <div class="form-group">
                         <label>Price</label>
-                        <input type="number" class="form-control"  placeholder="Enter Price" name="price">
+                        <input type="number" class="form-control"  placeholder="Enter Price" name="price" required>
                     </div>
                   </div>
                   <!-- /.card-body -->
@@ -55,4 +55,46 @@
     </div>
   </section>
   <!-- /.content -->
+@endsection
+
+@section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
+<script>
+$(document).ready(function () {
+
+$('#productPriceForm').validate({ 
+  errorPlacement: $.datepicker.errorPlacement, 
+    rules: {
+        date_from: {
+            required: true,
+            date: true
+        },
+        date_to: {
+            required: true,
+            date: true
+        },
+        price: {
+          required: true,
+          number: true
+        }
+    },
+    messages: {
+      price: "Enter an valid price"
+    },
+    errorPlacement: function (error, element) { 
+      element.css('border-color', 'red'); 
+      error.css('color', 'red');
+      error.insertAfter(element); 
+    }, 
+    highlight: function(element) {
+        $(element).css('border-color', 'red');
+    },
+    unhighlight: function(element) {
+        $(element).css('border-color', '#007bff');
+    }
+});
+
+});
+
+</script>
 @endsection

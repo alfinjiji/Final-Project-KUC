@@ -14,7 +14,7 @@
               <a href="{{url()->previous()}}"><button class="btn btn-success float-right">Back</button></a>
             </div>
             <!-- form start -->
-            <form method="POST" action="{{route('do.product.edit',['id'=>encrypt($product->product_id)])}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('do.product.edit',['id'=>encrypt($product->product_id)])}}" enctype="multipart/form-data" id="productEditForm"> 
               @csrf
               <div class="card-body">
                   <div class="form-group">
@@ -43,7 +43,6 @@
                   <div class="form-group">
                     <label>Category</label>
                     <select class="form-control" name="category_id">
-                      <option>--select category</option>
                       @foreach($category as $category)
                         @if($category->category_id == $product->category_id)
                           <option value="{{$category->category_id}}" selected>{{$category->category_name}}</option>
@@ -56,7 +55,6 @@
                   <div class="form-group">
                     <label>Material</label>
                     <select class="form-control" name="material_id">
-                      <option>--select material</option>
                       @foreach($material as $material)
                         @if($material->material_id == $product->material_id)
                           <option value="{{$material->material_id}}" selected>{{$material->material_name}}</option>
@@ -76,7 +74,8 @@
                   -->
                     <img id="view" style="max-width:100px;max-height: 100px " src="{{asset('storage/app/'.$product->image)}}"/>
                     <div class="custom-file">
-                      <input class="form-control" type="file" id="formFileDisabled"  onchange="previewFile()" name="image"/>
+                      <input class="form-control" type="file" id="formFileDisabled"  onchange="previewFile()" name="image"/><br>
+                      <span id="spnmsg" style="color:red;"></span>
                     </div>
                   </div>
               </div>
@@ -104,10 +103,55 @@
  
             reader.readAsDataURL(file);
         }
-
     }
-   
-    
   </script>
-  
+@endsection
+
+@section('script')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
+<script>
+$(document).ready(function () {
+$('#productEditForm').validate({ // initialize the plugin
+    rules: {
+        product_name: {
+          required: true
+        },
+        description: {
+          required: true
+        },
+        color: {
+          required: true
+        }
+    },
+    errorPlacement: function (error, element) { 
+      element.css('border-color', 'red'); 
+      error.css('color', 'red');
+      error.insertAfter(element); 
+    }, 
+    highlight: function(element) {
+        $(element).css('border-color', 'red');
+    },
+    unhighlight: function(element) {
+        $(element).css('border-color', '#007bff');
+    }
+});
+});
+
+//image validation
+$(function () {
+$("#formFileDisabled").change(function () {
+var extension = $(this).val().split('.').pop().toLowerCase();
+var validFileExtensions = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+if ($.inArray(extension, validFileExtensions) == -1) {
+$('#spnmsg').text("Failed!! Please select jpg, jpeg, png, gif, bmp file only.").show();
+$(this).replaceWith($(this).val('').clone(true));
+$('#productSubmitBtn').prop('disabled', true);
+}
+else {
+$('#spnmsg').text('').hide();
+$('#productSubmitBtn').prop('disabled', false);
+}
+});
+});
+</script>
 @endsection

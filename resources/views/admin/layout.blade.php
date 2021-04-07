@@ -407,14 +407,13 @@ $( function() {
   $( "#datepicker1" ).datepicker({  dateFormat: "yy-mm-dd"});
 } );
 
+  });
 
   function detetealert() {
     alert("Deleted Successfuly");
   }
-  
   </script> 
    @yield("validation script")
+  @yield("script")
 </body>
-
-
 </html>
