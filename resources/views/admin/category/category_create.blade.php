@@ -29,12 +29,13 @@
                   <div class="card-body">
                     <div class="form-group">
                       <label>Category Name</label>
-                      <input type="text" class="form-control"  placeholder="Enter Category"  name="category">
+                      <input type="text" class="form-control"  placeholder="Enter Category" id="category"  name="category" autocomplete="off">
                     </div>
+                    <p id="error" style="color:red"></p>
                   </div>
                   <!-- /.card-body -->
                   <div class="card-footer">
-                    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" name="submit" id="button" class="btn btn-primary">Submit</button>
                   </div>
                 </form>
             </div>
@@ -49,7 +50,7 @@
   @section("validation script")
   <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
   <script>
-    $(document).ready(function () {
+    /*$(document).ready(function () {
       $("#form").validate({
         rules: {
           category: {
@@ -71,7 +72,28 @@
       unhighlight: function(element) {
       $(element).css('border-color', '#007bff');}
       });
-    });
+    });*/
+$(document).ready(function () {
+  $("#category").keyup(function(){
+    if($("#category").val() !=''){
+      $("#error").text("");
+      $("#category").css("border-color","#ced4da");
+    }
+    else{
+      $("#error").text("*required");
+      $("#category").css("border-color","red");
+    }
+  });
+  $("#button").click(function(){	
+  var l = $("#category").val();
+		if(l == '')
+		{
+			$("#error").text("*required");
+      $("#category").css("border-color","red");
+			return false;	
+		}
+});
+});
   </script>  
   @endsection
   
