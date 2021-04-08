@@ -147,7 +147,7 @@
                                 <div class="form-group">
                                   <label>Type Value</label>
                                   <input type="text" class="form-control" placeholder="Enter Type Value" id="value" name="value">
-                                  <span id="errmsg" ></span>
+                                  <span style="color:red;" id="errmsg" ></span>
                                 </div>
                           </div>
                           <!-- /.card-body -->

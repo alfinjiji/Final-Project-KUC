@@ -126,7 +126,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label>Date From</label>
-                                    <input type="text" class="form-control" placeholder="yyyy-mm-dd" id="datepicker" name="fromdate" onclick="datepicker()" autocomplete="off">
+                                    <input type="text" class="form-control" placeholder="yyyy-mm-dd" id="datepicker" name="fromdate" onload="datepicker()" autocomplete="off">
                                 </div>
                                 <div class="form-group">
                                   <label >Date To</label>
@@ -198,6 +198,9 @@
           required:true
         },
         duedate:{
+          required:true
+        },
+        image: {
           required:true
         }
       },

@@ -383,6 +383,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" ></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-datetimepicker/2.5.20/jquery.datetimepicker.min.js"></script>
 <script>
+
+  var d = new Date();
+  $("#datepicker").val($.datepicker.formatDate("yy-mm-dd", d));
+  d.setDate(d.getDate()+1);
+  $("#datepicker1").val($.datepicker.formatDate("yy-mm-dd", d));
+  
   $( function() {
     $( "#datepicker" ).datepicker({ 
       dateFormat: "yy-mm-dd",
