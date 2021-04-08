@@ -111,7 +111,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form method="POST" action="{{route('coupon.add')}}">
+                        <form method="POST" action="{{route('coupon.add')}}" id="form">
                           @csrf
                             <div class="card-body">
                                 <div class="form-group">
@@ -142,10 +142,12 @@
                                       <label for="customRadio1" class="custom-control-label">Percentage</label>
                                     </div>
                                   </div>
+                                 
                                 </div>
                                 <div class="form-group">
                                   <label>Type Value</label>
-                                  <input type="number" class="form-control" placeholder="Enter Type Value" name="value">
+                                  <input type="text" class="form-control" placeholder="Enter Type Value" id="value" name="value">
+                                  <span id="errmsg" ></span>
                                 </div>
                           </div>
                           <!-- /.card-body -->
@@ -167,4 +169,74 @@
     </div>
   </section>
   <!-- /.content -->
+@endsection
+@section("validation script")
+<script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $("#form").validate({
+      rules: {
+        name: {
+          required: true
+        },
+        code:{
+          required:true
+        },
+        fromdate:{
+          required:true,
+          date:true
+        },
+        duedate:{
+          required:true,
+          date:true
+        },
+        type:{
+          required:true
+        },
+        value:{
+          required:true
+        }
+      },
+      messages: {
+        name: '* Please enter a name',
+        code:'* Please enter code number',
+        fromdate:'* choose date',
+        duedate:'* choose date',
+        type:'* required',
+        value:'* Please enter value'
+      },
+      errorPlacement: function (error, element) {
+          error.css('color', 'red');
+          element.css('border-color', 'red');
+        error.insertAfter(element);
+      },
+      highlight: function(element) {
+      $(element).css('border-color', 'red');
+      },
+      unhighlight: function(element) {
+      $(element).css('border-color', '#007bff');}
+    });
+  });
+  $(document).ready(function () {
+  //called when key is pressed in textbox
+  $("#value").keypress(function (e) {
+     //if the letter is not digit then display error and don't type anything
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        //display error message
+        $("#errmsg").html("Digits Only").show().fadeOut("slow");
+               return false;
+    }
+   });
+});
+$(document).ready(function () {
+  $("#customRadio").change(function (e) {
+     if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        $("#errmsg").html("Digits Only").show().fadeOut("slow");
+               return false;
+    }
+   });
+});
+
+
+</script>  
 @endsection

@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 //use App\Models\Admin;
 //use Session;
-
+//Use Redirect;
 class LoginController extends Controller
 {
     public function login()
