@@ -12,9 +12,7 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', function () {
-    return view('user.homepage');
-});
+
 
 Route::group(['namespace'=>'Admin'],function(){
 
@@ -83,7 +81,16 @@ Route::group(['namespace'=>'Admin'],function(){
     }); 
 
 });
-
-
 // user routes
-Route::get('home',['as'=>'home','uses'=>'User/UserController@home']);
+Route::group(['namespace'=>'User'],function(){
+
+    Route::get('home',['as'=>'home','uses'=>'UserController@home']);
+    Route::get('cart',['as'=>'cart','uses'=>'UserController@cart']);
+    Route::get('product-list',['as'=>'product.list','uses'=>'UserController@productList']);
+    Route::get('profile',['as'=>'profile','uses'=>'UserController@profile']);
+    Route::get('search',['as'=>'search','uses'=>'UserController@search']);
+    Route::get('single-product',['as'=>'single.product','uses'=>'UserController@singleProduct']);
+    Route::get('user-wishlist',['as'=>'user.wishlist','uses'=>'UserController@userWishlist']);
+});
+
+
