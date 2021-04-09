@@ -44,6 +44,6 @@ class CustomerController extends Controller
     {
      
        
-        return view('admin.banner.date');
+        return view('user.homepage');
     }
 }

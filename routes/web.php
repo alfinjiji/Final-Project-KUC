@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\CustomerController;
+//use App\Http\Controllers\Admin\CustomerController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,6 +12,9 @@ use App\Http\Controllers\Admin\CustomerController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/', function () {
+    return view('user.homepage');
+});
 
 Route::group(['namespace'=>'Admin'],function(){
 
@@ -76,6 +79,11 @@ Route::group(['namespace'=>'Admin'],function(){
         Route::get('coupon',['as'=>'coupon','uses'=>'CouponController@coupon'] );
         Route::post('coupon-add',['as'=>'coupon.add','uses'=>'CouponController@couponAdd'] );
         Route::get('coupon-delete/{id}',['as'=>'coupon.delete','uses'=>'CouponController@coupondelete'] );
+        
     }); 
 
 });
+
+
+// user routes
+Route::get('home',['as'=>'home','uses'=>'User/UserController@home']);

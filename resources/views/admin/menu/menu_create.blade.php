@@ -32,12 +32,13 @@
                   <div class="card-body">
                     <div class="form-group">
                       <label>Menu Name</label>
-                      <input type="text" name="menu_name" class="form-control"  placeholder="Enter Menu">
+                      <input type="text" name="menu_name" class="form-control"  placeholder="Enter Menu" id="menu_name">
+                      <span id="error" style="color:red;"></span>
                     </div>
                   </div>
                   <!-- /.card-body -->
                   <div class="card-footer">
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary" id="submit">Submit</button>
                   </div>
                 </form>
             </div>
@@ -52,27 +53,23 @@
 @section('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
 <script>
-$(document).ready(function () {
-
-$('#menuForm').validate({ 
-    rules: {
-        menu_name: {
-            required: true
+ $(document).ready(function(){
+    $("#menu_name").keyup(function(){
+        if($("#menu_name").val() == " "){
+          $("#menu_name").css("border-color", "red");
+          $("#error").html("Please enter menu name");
+        } else {
+          $("#menu_name").css("border-color", "green");
+          $("#error").html("");
         }
-    },
-    errorPlacement: function (error, element) { 
-      element.css('border-color', 'red'); 
-      error.css('color', 'red');
-      error.insertAfter(element); 
-    }, 
-    highlight: function(element) {
-        $(element).css('border-color', 'red');
-    },
-    unhighlight: function(element) {
-        $(element).css('border-color', '#007bff');
-    }
-});
-
+    });
+    $('#menuForm').on('click', function() {
+       if(!$('#menu_name').val()) {
+          $("#menu_name").css("border-color", "red");
+          $("#error").html("Please enter menu name");
+          return false;
+       }
+    });
 });
 </script>
 @endsection
