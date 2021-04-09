@@ -139,7 +139,7 @@
                                       <div class="custom-file">
                                         <input class="form-control" type="file" id="formFileDisabled"  onchange="previewFile()" name="image"/>
                                       </div>
-                                      <span id="spnmsg" style="color:red;"></span><br />
+                                      <span id="spnmsg" style="color:rgb(255, 0, 0);"></span><br />
                                 </div>
                           </div>
                           <!-- /.card-body -->
@@ -208,7 +208,8 @@
         bannername: '* Please enter a name',
         url:'* Please enter valid url',
         fromdate:'* choose date',
-        duedate:'* choose date'
+        duedate:'* choose date',
+        image:'* choose image'
       },
       errorPlacement: function (error, element) {
           error.css('color', 'red');
