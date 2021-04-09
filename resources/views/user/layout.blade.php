@@ -102,7 +102,7 @@
 						<div class="header-right">
 							<ul>
 								<li class="dropdown dropdown-small">
-									<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><img class="account" src="images/account.png" alt="#"><span class="value">My Account </span><i class="fa fa-angle-down"></i>
+									<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><img class="account" src="{{ asset('public/user-templates/images/account.png') }}" alt="#"><span class="value">My Account </span><i class="fa fa-angle-down"></i>
 									</a>
 									<ul class="dropdown-menu account-menu">
 										<li><a href="profile.html">My account</a>
@@ -116,10 +116,10 @@
 								<li><a href="wishlist.html"><i class="fa fa-heart-o"></i> Wishlist</a>
 								</li>
 								<li>
-									<a href="checkout.html"><img src="images/check.png" alt="#"> Checkout</a>
+									<a href="checkout.html"><img src="{{ asset('public/user-templates/images/check.png') }}" alt="#"> Checkout</a>
 								</li>
 								<li class="last-child">
-									<a class="logg" href="#"><img class="login" src="images/log.png" alt="#"> Login</a>
+									<a class="logg" href="#"><img class="login" src="{{ asset('public/user-templates/images/log.png') }}" alt="#"> Login</a>
 								</li>
 							</ul>
 						</div>
@@ -136,7 +136,7 @@
 				<div class="row">
 					<div class="col-sm-4 col-md-4 col-xs-12">
 						<div class="logo">
-							<a href="index.html"><img src="images/logo.png" alt="">
+							<a href="index.html"><img src="{{ asset('public/user-templates/images/logo.png') }}" alt="">
 							</a>
 						</div>
 					</div>
@@ -355,7 +355,7 @@
 					<div class="row">
 						<div class="col-sm-4 col-sm-4 col-xs-12">
 							<div class="widget_logo">
-								<a href="index.html"><img src="images/logo_footer.png" alt="logo"></a>
+								<a href="index.html"><img src="{{ asset('public/user-templates/images/logo_footer.png') }}" alt="logo"></a>
 								<ul>
 									<li>
 										<div class="wl_left">
@@ -502,6 +502,8 @@
     <!-- Revolution slider -->
     <script type="text/javascript" src="{{ asset('public/user-templates/rs-plugin/js/jquery.themepunch.tools.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('public/user-templates/rs-plugin/js/jquery.themepunch.revolution.min.js') }}"></script>
+	
+	@yield('script')
 	
 	<!-- Bootsrap js -->
     <script src="{{ asset('public/user-templates/js/bootstrap.min.js') }}"></script>

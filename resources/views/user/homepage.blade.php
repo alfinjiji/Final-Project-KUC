@@ -8,7 +8,7 @@
                 <ul>
                     <li data-transition="zoomout" data-slotamount="7" data-masterspeed="1000">
                         <!-- MAIN IMAGE -->
-                        <img src="images/slider1.png" alt="darkblurbg" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+                        <img src="{{ asset('public/user-templates/images/slider1.png') }}" alt="darkblurbg" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
                         <!-- LAYER NR. 1 -->
                         <div class="tp-caption black_heavy_60 skewfromleftshort tp-resizeme rs-parallaxlevel-0" data-x="50" data-y="133" data-speed="500" data-start="1850" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1" style="z-index: 7; max-width: auto; max-height: auto; white-space: nowrap;">Fashion for men
                         </div>
@@ -31,12 +31,12 @@
 			data-endelementdelay="0.1"
 			data-end="10200"
 data-endspeed="1000"
-			style="z-index: 15; max-width: auto; max-height: auto; white-space: nowrap;"><a href="#"><img src="images/shop-btn.png" alt="#"></a>
+			style="z-index: 15; max-width: auto; max-height: auto; white-space: nowrap;"><a href="#"><img src="{{ asset('public/user-templates/images/shop-btn.png') }}" alt="#"></a>
 		</div>
                     </li>
                     <li data-transition="slidedown" data-slotamount="7" data-masterspeed="1000">
                         <!-- MAIN IMAGE -->
-                        <img src="images/slider2.png" style='background-color:#b2c4cc' alt="" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+                        <img src="{{ asset('public/user-templates/images/slider2.png') }}" style='background-color:#b2c4cc' alt="" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
                         <div class="tp-caption light_heavy_70_shadowed_ed lfr randomrotateout tp-resizeme rs-parallaxlevel-10"
 			data-x="560"
 			data-y="100" 
@@ -66,12 +66,12 @@ data-endspeed="1000"
 			data-endelementdelay="0.1"
 			data-end="10200"
 data-endspeed="1000"
-			style="z-index: 15; max-width: auto; max-height: auto; white-space: nowrap;"><a href="#"><img src="images/shop-btn.png" alt="#"></a>
+			style="z-index: 15; max-width: auto; max-height: auto; white-space: nowrap;"><a href="#"><img src="{{ asset('public/user-templates/images/shop-btn.png') }}" alt="#"></a>
 		</div>
                     </li>
                     <li data-transition="zoomin" data-slotamount="7" data-masterspeed="600">
                         <!-- MAIN IMAGE -->
-                        <img src="images/slider3.png" alt="videobg1" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+                        <img src="{{ asset('public/user-templates/images/slider3.png') }}" alt="videobg1" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
                         <div class="tp-caption light_heavy_70_shadowed lfr randomrotateout tp-resizeme rs-parallaxlevel-10"
 			data-x="300"
 			data-y="200" 
@@ -118,7 +118,7 @@ data-endspeed="1000"
                 <div class="col-sm-4 col-md-4 col-xs-12">
                     <div class="featured-single">
                         <div class="featured-img">
-                            <img src="images/fetured_prd_1.png" alt="">
+                            <img src="{{ asset('public/user-templates/images/fetured_prd_1.png') }}" alt="">
                             <div class="featured-text">
                                 <h3>Men watches</h3>
                                 <P>Collection instore and online</P>
@@ -135,7 +135,7 @@ data-endspeed="1000"
                 <div class="col-sm-4 col-md-4 col-xs-12">
                     <div class="featured-single">
                         <div class="featured-img">
-                            <img src="images/fetured_prd_2.png" alt="">
+                            <img src="{{ asset('public/user-templates/images/fetured_prd_2.png') }}" alt="">
                             <div class="featured-text">
                                 <h3>Shoes for women</h3>
                                 <P>Summer collection 2015</P>
@@ -149,7 +149,7 @@ data-endspeed="1000"
                 <div class="col-sm-4 col-md-4 col-xs-12">
                     <div class="featured-single">
                         <div class="featured-img">
-                            <img src="images/fetured_prd_3.png" alt="">
+                            <img src="{{ asset('public/user-templates/images/fetured_prd_3.png') }}" alt="">
                             <div class="featured-last-text">
                                 <h3>Men shoes</h3>
                                 <P>Sale up to 50% off</P>
@@ -175,7 +175,7 @@ data-endspeed="1000"
                     </div>
                     <div class="menclothing-carousel">
                         <div class="men-single">
-                            <a href="#"><img src="images/menthr1.png" alt="#">
+                            <a href="#"><img src="{{ asset('public/user-templates/images/menthr1.png') }}" alt="#">
                             </a>
                             <div class="tag new">
                                 <span>new</span>
@@ -193,7 +193,7 @@ data-endspeed="1000"
                             </div>
                         </div>
                         <div class="men-single">
-                            <a href="#"><img src="images/menthr2.png" alt="">
+                            <a href="#"><img src="{{ asset('public/user-templates/images/menthr2.png') }}" alt="">
                             </a>
 
                             <div class="hot-wid-rating">
@@ -209,7 +209,7 @@ data-endspeed="1000"
                             </div>
                         </div>
                         <div class="men-single">
-                            <a href="#"><img src="images/menthr3.png" alt="">
+                            <a href="#"><img src="{{ asset('public/user-templates/images/menthr3.png') }}" alt="">
                             </a>
                             <div class="tag percent">
                                 <span>20%</span>
@@ -227,7 +227,7 @@ data-endspeed="1000"
                             </div>
                         </div>
                         <div class="men-single">
-                            <a href="#"><img src="images/menthr4.png" alt="">
+                            <a href="#"><img src="{{ asset('public/user-templates/images/menthr4.png') }}" alt="">
                             </a>
                             <div class="tag new">
                                 <span>new</span>
@@ -258,7 +258,7 @@ data-endspeed="1000"
                 <div class="col-sm-6 col-md-6 col-xs-12">
                     <div class="features-promo-single">
                         <div class="features-promo-img">
-                            <img src="images/main-prd1.png" alt="">
+                            <img src="{{ asset('public/user-templates/images/main-prd1.png') }}" alt="">
                             <div class="features-promo-text">
                                 <h3>Top collection</h3>
                                 <P>New collection for men</P>
@@ -272,7 +272,7 @@ data-endspeed="1000"
                 <div class="col-sm-6 col-md-6 col-xs-12">
                    <div class="features-promo-single">
                         <div class="features-promo-img">
-                            <img src="images/main-prd2.png" alt="">
+                            <img src="{{ asset('public/user-templates/images/main-prd2.png') }}" alt="">
                             <div class="features-promo-text">
                                 <h3>Trends for girls</h3>
                             <P>Accessories collection</P>
@@ -311,7 +311,7 @@ data-endspeed="1000"
                                 <div class="row">
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="images/women_access1.png" alt="">
+                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access1.png') }}" alt="">
                                             </a>
                                             <div class="tag new">
                                                 <span>new</span>
@@ -331,7 +331,7 @@ data-endspeed="1000"
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="images/women_access2.png" alt="">
+                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access2.png') }}" alt="">
                                             </a>
 
                                             <div class="hot-wid-rating">
@@ -349,7 +349,7 @@ data-endspeed="1000"
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="images/women_access3.png" alt="">
+                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access3.png') }}" alt="">
                                             </a>
                                             <div class="tag percent">
                                                 <span>15%</span>
@@ -369,7 +369,7 @@ data-endspeed="1000"
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="images/women_access4.png" alt="">
+                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access4.png') }}" alt="">
                                             </a>
 
                                             <div class="hot-wid-rating">
@@ -387,7 +387,7 @@ data-endspeed="1000"
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="images/women_access5.png" alt="">
+                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access5.png') }}" alt="">
                                             </a>
                                             <div class="hot-wid-rating">
                                                 <h4><a href="single-product.html">Best Handbags For girls</a></h4>
@@ -404,7 +404,7 @@ data-endspeed="1000"
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="images/women_access6.png" alt="">
+                                            <a href="#"><img src="i{{ asset('public/user-templates/mages/women_access6.png') }}" alt="">
                                             </a>
                                             <div class="tag percent">
                                                 <span>15%</span>
@@ -424,7 +424,7 @@ data-endspeed="1000"
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="images/women_access7.png" alt="">
+                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access7.png') }}" alt="">
                                             </a>
                                             <div class="hot-wid-rating">
                                                 <h4><a href="single-product.html">Leather Handbags For girls</a></h4>
@@ -441,7 +441,7 @@ data-endspeed="1000"
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="images/women_access8.png" alt="">
+                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access8.png') }}" alt="">
                                             </a>
                                             <div class="tag new">
                                                 <span>new</span>
@@ -465,7 +465,7 @@ data-endspeed="1000"
                                 <div class="row">
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="images/women_access4.png" alt="">
+                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access4.png') }}" alt="">
                                             </a>
 
                                             <div class="hot-wid-rating">
@@ -483,7 +483,7 @@ data-endspeed="1000"
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="images/women_access5.png" alt="">
+                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access5.png') }}" alt="">
                                             </a>
                                             <div class="hot-wid-rating">
                                                 <h4><a href="single-product.html">Best Handbags For girls</a></h4>
@@ -500,7 +500,7 @@ data-endspeed="1000"
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="images/women_access6.png" alt="">
+                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access6.png')}}" alt="">
                                             </a>
                                             <div class="tag percent">
                                                 <span>15%</span>
@@ -520,7 +520,7 @@ data-endspeed="1000"
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="images/women_access1.png" alt="">
+                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access1.png') }}" alt="">
                                             </a>
                                             <div class="tag new">
                                                 <span>new</span>
@@ -540,7 +540,7 @@ data-endspeed="1000"
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="images/women_access2.png" alt="">
+                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access2.png') }}" alt="">
                                             </a>
 
                                             <div class="hot-wid-rating">
@@ -558,7 +558,7 @@ data-endspeed="1000"
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="images/women_access3.png" alt="">
+                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access3.png') }}" alt="">
                                             </a>
                                             <div class="tag percent">
                                                 <span>15%</span>
@@ -578,7 +578,7 @@ data-endspeed="1000"
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="images/women_access7.png" alt="">
+                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access7.png') }}" alt="">
                                             </a>
                                             <div class="hot-wid-rating">
                                                 <h4><a href="single-product.html">Leather Handbags For girls</a></h4>
@@ -595,7 +595,7 @@ data-endspeed="1000"
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="images/women_access8.png" alt="">
+                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access8.png') }}" alt="">
                                             </a>
                                             <div class="tag new">
                                                 <span>new</span>
@@ -619,7 +619,7 @@ data-endspeed="1000"
                                 <div class="row">
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="images/women_access7.png" alt="">
+                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access7.png') }}" alt="">
                                             </a>
                                             <div class="hot-wid-rating">
                                                 <h4><a href="single-product.html">Leather Handbags For girls</a></h4>
@@ -636,7 +636,7 @@ data-endspeed="1000"
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="images/women_access8.png" alt="">
+                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access8.png') }}" alt="">
                                             </a>
                                             <div class="tag new">
                                                 <span>new</span>
@@ -656,7 +656,7 @@ data-endspeed="1000"
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="images/women_access1.png" alt="">
+                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access1.png') }}" alt="">
                                             </a>
                                             <div class="tag new">
                                                 <span>new</span>
@@ -676,7 +676,7 @@ data-endspeed="1000"
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="images/women_access2.png" alt="">
+                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access2.png') }}" alt="">
                                             </a>
 
                                             <div class="hot-wid-rating">
@@ -694,7 +694,7 @@ data-endspeed="1000"
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="images/women_access3.png" alt="">
+                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access3.png') }}" alt="">
                                             </a>
                                             <div class="tag percent">
                                                 <span>15%</span>
@@ -714,7 +714,7 @@ data-endspeed="1000"
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="images/women_access4.png" alt="">
+                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access4.png') }}" alt="">
                                             </a>
 
                                             <div class="hot-wid-rating">
@@ -732,7 +732,7 @@ data-endspeed="1000"
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="images/women_access5.png" alt="">
+                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access5.png') }}" alt="">
                                             </a>
                                             <div class="hot-wid-rating">
                                                 <h4><a href="single-product.html">Best Handbags For girls</a></h4>
@@ -749,7 +749,7 @@ data-endspeed="1000"
                                     </div>
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="images/women_access6.png" alt="">
+                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access6.png') }}" alt="">
                                             </a>
                                             <div class="tag percent">
                                                 <span>15%</span>
@@ -800,7 +800,7 @@ data-endspeed="1000"
                                     </div>
                                     <div class="client">
                                         <div class="image">
-                                            <img src="images/customer.png" alt="#">
+                                            <img src="{{ asset('public/user-templates/images/customer.png') }}" alt="#">
                                         </div>
                                         <div class="c_text_inner">
 											<h4>Micheal Clerk</h4>
@@ -817,7 +817,7 @@ data-endspeed="1000"
                                     </div>
                                     <div class="client">
                                         <div class="image">
-                                            <img src="images/customer.png" alt="#">
+                                            <img src="{{ asset('public/user-templates/images/customer.png') }}" alt="#">
                                         </div>
                                         <div class="c_text_inner">
 											<h4>Micheal Clerk</h4>
@@ -834,7 +834,7 @@ data-endspeed="1000"
                                     </div>
                                     <div class="client">
                                         <div class="image">
-                                            <img src="images/customer.png" alt="#">
+                                            <img src="{{ asset('public/user-templates/images/customer.png') }}" alt="#">
                                         </div>
                                         <div class="c_text_inner">
 											<h4>Micheal Clerk</h4>
@@ -864,7 +864,7 @@ data-endspeed="1000"
             <div class="row">
                 <div class="col-md-3 col-sm-3 col-xs-12">
                     <div class="latest-single">
-                        <a href="#"><img src="images/latest1.png" alt="#">
+                        <a href="#"><img src="{{ asset('public/user-templates/images/latest1.png') }}" alt="#">
                         </a>
                         <div class="hot-wid-rating">
                             <h4><a href="single-product.html">Canon printer</a></h4>
@@ -881,7 +881,7 @@ data-endspeed="1000"
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-12">
                     <div class="latest-single">
-                        <a href="#"><img src="images/latest2.png" alt="">
+                        <a href="#"><img src="{{ asset('public/user-templates/images/latest2.png') }}" alt="">
                         </a>
                         <div class="tag new">
                             <span>new</span>
@@ -901,7 +901,7 @@ data-endspeed="1000"
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-12">
                     <div class="latest-single">
-                        <a href="#"><img src="images/latest3.png" alt="">
+                        <a href="#"><img src="{{ asset('public/user-templates/images/latest3.png') }}" alt="">
                         </a>
                         <div class="tag percent">
                             <span>15%</span>
@@ -921,7 +921,7 @@ data-endspeed="1000"
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-12">
                     <div class="latest-single">
-                        <a href="#"><img src="images/latest4.png" alt="">
+                        <a href="#"><img src="{{ asset('public/user-templates/images/latest4.png') }}" alt="">
                         </a>
                         <div class="hot-wid-rating">
                             <h4><a href="single-product.html">New Washing Machine</a></h4>
@@ -938,7 +938,7 @@ data-endspeed="1000"
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-12">
                     <div class="latest-single">
-                        <a href="#"><img src="images/latest5.png" alt="">
+                        <a href="#"><img src="{{ asset('public/user-templates/images/latest5.png') }}" alt="">
                         </a>
                         <div class="tag new">
                             <span>new</span>
@@ -958,7 +958,7 @@ data-endspeed="1000"
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-12">
                     <div class="latest-single">
-                        <a href="#"><img src="images/latest6.png" alt="">
+                        <a href="#"><img src="{{ asset('public/user-templates/images/latest6.png') }}" alt="">
                         </a>
                         <div class="tag percent">
                             <span>25%</span>
@@ -978,7 +978,7 @@ data-endspeed="1000"
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-12">
                     <div class="latest-single">
-                        <a href="#"><img src="images/latest7.png" alt="">
+                        <a href="#"><img src="{{ asset('public/user-templates/images/latest7.png') }}" alt="">
                         </a>
                         <div class="hot-wid-rating">
                             <h4><a href="single-product.html">Trimmer For Men</a></h4>
@@ -995,7 +995,7 @@ data-endspeed="1000"
                 </div>
                 <div class="col-md-3 col-sm-3 col-xs-12">
                     <div class="latest-single">
-                        <a href="#"><img src="images/latest8.png" alt="">
+                        <a href="#"><img src="{{ asset('public/user-templates/images/latest8.png') }}" alt="">
                         </a>
                         <div class="tag percent">
                             <span>10%</span>
@@ -1029,34 +1029,34 @@ data-endspeed="1000"
 						
 							<div class="partners_list_carousel">
 								<div class="item">
-									<img src="images/partner.png" alt="">
+									<img src="{{ asset('public/user-templates/images/partner.png') }}" alt="">
 								</div>
 								<div class="item">
-									<img src="images/partner2.png" alt="">
+									<img src="{{ asset('public/user-templates/images/partner2.png') }}" alt="">
 								</div>
 								<div class="item">
-									<img src="images/partner3.png" alt="">
+									<img src="{{ asset('public/user-templates/images/partner3.png') }}" alt="">
 								</div>
 								<div class="item">
-									<img src="images/partner4.png" alt="">
+									<img src="{{ asset('public/user-templates/images/partner4.png') }}" alt="">
 								</div>
 								<div class="item">
-									<img src="images/partner5.png" alt="">
+									<img src="{{ asset('public/user-templates/images/partner5.png') }}" alt="">
 								</div>
 								<div class="item">
-									<img src="images/partner.png" alt="">
+									<img src="{{ asset('public/user-templates/images/partner.png') }}" alt="">
 								</div>
 								<div class="item">
-									<img src="images/partner2.png" alt="">
+									<img src="{{ asset('public/user-templates/images/partner2.png') }}" alt="">
 								</div>
 								<div class="item">
-									<img src="images/partner3.png" alt="">
+									<img src="{{ asset('public/user-templates/images/partner3.png') }}" alt="">
 								</div>
 								<div class="item">
-									<img src="images/partner4.png" alt="">
+									<img src="{{ asset('public/user-templates/images/partner4.png') }}" alt="">
 								</div>
 								<div class="item">
-									<img src="images/partner5.png" alt="">
+									<img src="{{ asset('public/user-templates/images/partner5.png') }}" alt="">
 								</div>
 							</div>
 						
@@ -1083,9 +1083,9 @@ data-endspeed="1000"
                 <div class="col-sm-4">
                     <div class="blog-single">
                         <div class="blog-image">
-                            <img src="images/blog1.png" alt="">
+                            <img src="{{ asset('public/user-templates/images/blog1.png') }}" alt="">
                             <div class="blog-icon">
-                                <img src="images/blog-icon.png" alt="#">
+                                <img src="{{ asset('public/user-templates/images/blog-icon.png') }}" alt="#">
                             </div>
                         </div>
                         <div class="blog-text">
@@ -1098,9 +1098,9 @@ data-endspeed="1000"
                 <div class="col-sm-4">
                     <div class="blog-single">
                         <div class="blog-image">
-                            <img src="images/blog2.png" alt="">
+                            <img src="{{ asset('public/user-templates/images/blog2.png') }}" alt="">
                             <div class="blog-icon">
-                                <img src="images/blog-icon.png" alt="#">
+                                <img src="{{ asset('public/user-templates/images/blog-icon.png') }}" alt="#">
                             </div>
                         </div>
                         <div class="blog-text">
@@ -1113,9 +1113,9 @@ data-endspeed="1000"
                 <div class="col-sm-4">
                     <div class="blog-single">
                         <div class="blog-image">
-                            <img src="images/blog3.png" alt="">
+                            <img src="{{ asset('public/user-templates/images/blog3.png') }}" alt="">
                             <div class="blog-icon">
-                                <img src="images/blog-icon.png" alt="#">
+                                <img src="{{ asset('public/user-templates/images/blog-icon.png') }}" alt="#">
                             </div>
                         </div>
                         <div class="blog-text">

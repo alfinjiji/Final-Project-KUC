@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-
+// Admin Routes
 Route::group(['namespace'=>'Admin'],function(){
 
     Route::get('login',['as'=>'login','uses'=>'LoginController@login']);
@@ -81,10 +81,10 @@ Route::group(['namespace'=>'Admin'],function(){
     }); 
 
 });
-// user routes
+// User Routes
 Route::group(['namespace'=>'User'],function(){
 
-    Route::get('home',['as'=>'home','uses'=>'UserController@home']);
+    Route::get('/',['as'=>'home','uses'=>'UserController@home']);
     Route::get('cart',['as'=>'cart','uses'=>'UserController@cart']);
     Route::get('product-list',['as'=>'product.list','uses'=>'UserController@productList']);
     Route::get('profile',['as'=>'profile','uses'=>'UserController@profile']);
