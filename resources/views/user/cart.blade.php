@@ -75,7 +75,7 @@
                             <tr>
                                 <td class="cart-image">
                                     <a href="#" class="entry-thumbnail">
-                                        <img src="images/cart1.png" alt="">
+                                        <img src="{{ asset('public/user-templates/images/cart1.png')}}" alt="">
                                     </a>
                                 </td>
                                 <td class="cart-product-name-info">
@@ -97,14 +97,14 @@
                                 <td class="cart-product-delivery"><div class="cc-pr">Free shipping</div></td>
                                 <td class="cart-product-sub-total"><div class="cc-pr">$75</div></td>
                                 <td class="romove-item">
-                                    <a href="#"><img src="images/remove.png" alt="">
+                                    <a href="#"><img src="{{ asset('public/user-templates/images/remove.png')}}" alt="">
                                     </a>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="cart-image">
                                     <a href="#" class="entry-thumbnail">
-                                        <img src="images/cart2.png" alt="">
+                                        <img src="{{ asset('public/user-templates/images/cart2.png')}}" alt="">
                                     </a>
                                 </td>
                                 <td class="cart-product-name-info">
@@ -128,7 +128,7 @@
                                 <td class="cart-product-delivery"><div class="cc-pr">Free shipping</div></td>
                                 <td class="cart-product-sub-total"><div class="cc-pr">$75</div></td>
                                 <td class="romove-item">
-                                    <a href="#"><img src="images/remove.png" alt="">
+                                    <a href="#"><img src="{{ asset('public/user-templates/images/remove.png')}}" alt="">
                                     </a>
                                 </td>
                             </tr>
