@@ -119,7 +119,9 @@
 									<a href="checkout.html"><img src="{{ asset('public/user-templates/images/check.png') }}" alt="#"> Checkout</a>
 								</li>
 								<li class="last-child">
-									<a class="logg" href="#"><img class="login" src="{{ asset('public/user-templates/images/log.png') }}" alt="#"> Login</a>
+									<a class="logg" href="#" data-toggle="modal" data-target="#myModal">
+										<img class="login" src="{{ asset('public/user-templates/images/log.png') }}" alt="#"> Login
+									</a>
 								</li>
 							</ul>
 						</div>
@@ -128,6 +130,36 @@
 			</div>
 		</div>
 		<!-- Header-area:END -->
+
+		<!-- Modal -->
+		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			<div class="modal-dialog" role="document">
+			  <div class="modal-content">
+				<div class="row">
+					<div class="col-md-5" style="background-color:#f89d18; height:500px;">
+						<h1 style="color:white; padding:10% 0% 0% 10%;"><b>Login</b></h1>
+						<img style="padding-top: 98%;" src="{{ asset('public/user-templates/images/logo.png') }}" alt="">
+					</div>
+					<div class="col-md-7" style="background-color:whitesmoke; height:500px;">
+						<form action="">
+							<div style="padding: 20% 10% 10% 10%;">
+								<input type="email" name="" id="" placeholder="Enter Email" style="width: 268px; height:43px; background-color: whitesmoke; border:none; border-bottom: 1px solid rgb(146, 146, 146); ">
+							</div>
+							<div style="padding: 0% 10% 10% 10%;">
+								<input type="password" name="" id="" placeholder="Enter Password" style="width: 268px; height:43px; background-color: whitesmoke; border:none; border-bottom: 1px solid rgb(146, 146, 146); ">
+							</div>
+							<div style="padding: 0% 10% 10% 10%;">
+								<button class="btn btn-warning btn-block" style="height:45px;">Sign In</button>
+							</div>
+							<div style="padding: 40% 10% 10% 10%; color: rgb(20, 78, 240);">
+								<a href= >Create an account?</a>
+							</div>
+						</form>
+					</div>
+				</div>
+			  </div>
+			</div>
+		  </div>
 
 		
 		<!-- Logo-area -->
