@@ -19,36 +19,36 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800' rel='stylesheet' type='text/css'>
 	<link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Lato:400,400italic,700' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="{{ asset('public/user-templates/fonts/fonts.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/user-templates/fonts/fonts.css')}}">
 	
     <!-- Fontawesome css      -->
     <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="{{ asset('public/user-templates/css/normalize.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/user-templates/css/normalize.css')}}">
 	
     <!-- Bootstrap css      -->
-    <link rel="stylesheet" href="{{ asset('public/user-templates/css/bootstrap.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/user-templates/css/bootstrap.css')}}">
 	
     <!-- Owncarousel css      -->
-    <link rel="stylesheet" href="{{ asset('public/user-templates/css/owl.carousel.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/user-templates/css/owl.carousel.css')}}">
 	
 	<!-- image zoom -->
-	<link rel="stylesheet" href="{{ asset('public/user-templates/css/glasscase.css') }}">
-	<link rel="stylesheet" href="{{ asset('public/user-templates/css/glasscase.minf195.css') }}">
+	<link rel="stylesheet" href="{{ asset('public/user-templates/css/glasscase.css')}}">
+	<link rel="stylesheet" href="{{ asset('public/user-templates/css/glasscase.minf195.css')}}">
 	
     <!-- CSS STYLE-->
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/user-templates/css/style.css" media="screen') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/user-templates/css/style.css')}}" media="screen" />
 	
     <!-- SLIDER REVOLUTION 4.x CSS SETTINGS -->
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/user-templates/css/extralayers.css" media="screen') }}" />
-    <link rel="stylesheet" type="text/css" href="{{ asset('public/user-templates/rs-plugin/css/settings.css" media="screen') }}" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/user-templates/css/extralayers.css')}}" media="screen" />
+    <link rel="stylesheet" type="text/css" href="{{ asset('public/user-templates/rs-plugin/css/settings.css')}}" media="screen" />
 	
     <!-- Main css   -->
-    <link rel="stylesheet" href="{{ asset('public/user-templates/style.css') }}">
-    <link rel="stylesheet" href="{{ asset('public/user-templates/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('public/user-templates/style.css')}}">
+    <link rel="stylesheet" href="{{ asset('public/user-templates/css/responsive.css')}}">
 	
 	<!-- Favicons -->
-	<link rel="apple-touch-icon-precomposed" href="{{ asset('public/user-templates/images/apple-touch-icon-precomposed.png') }}">
-	<link rel="shortcut icon" type="image/png" href="{{ asset('public/user-templates/images/favicon.png') }}"/>
+	<link rel="apple-touch-icon-precomposed" href="{{ asset('public/user-templates/images/apple-touch-icon-precomposed.png')}}">
+	<link rel="shortcut icon" type="image/png" href="{{ asset('public/user-templates/images/favicon.png')}}"/>
     
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -56,6 +56,35 @@
 	  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
 	  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 	<![endif]-->
+	<style>
+		.col5{
+			background-color:#f89d18; 
+			height:500px;
+		}
+		.col5h1{
+			color:white; 
+			padding:10% 0% 0% 10%;
+			font-family: "bitterregular";
+    		font-size: 34px;
+		}
+		.col5img{
+			padding-top: 98%;
+		}
+		.col7{
+			background-color:whitesmoke; 
+			height:500px;
+		}
+		.col7input{
+			width: 268px; 
+			height:43px; 
+			background-color: whitesmoke; 
+			border:none; 
+			border-bottom: 1px solid rgb(146, 146, 146);
+		}
+		.btn-focus, .col7input:focus{
+    		outline: none;
+		}
+	</style>
 </head>
 
 <body>
@@ -102,7 +131,7 @@
 						<div class="header-right">
 							<ul>
 								<li class="dropdown dropdown-small">
-									<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><img class="account" src="{{ asset('public/user-templates/images/account.png') }}" alt="#"><span class="value">My Account </span><i class="fa fa-angle-down"></i>
+									<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><img class="account" src="{{ asset('public/user-templates/images/account.png')}}" alt="#"><span class="value">My Account </span><i class="fa fa-angle-down"></i>
 									</a>
 									<ul class="dropdown-menu account-menu">
 										<li><a href="profile.html">My account</a>
@@ -116,7 +145,7 @@
 								<li><a href="wishlist.html"><i class="fa fa-heart-o"></i> Wishlist</a>
 								</li>
 								<li>
-									<a href="checkout.html"><img src="{{ asset('public/user-templates/images/check.png') }}" alt="#"> Checkout</a>
+									<a href="checkout.html"><img src="{{ asset('public/user-templates/images/check.png')}}" alt="#"> Checkout</a>
 								</li>
 								<li class="last-child">
 									<a class="logg" href="#" data-toggle="modal" data-target="#myModal">
@@ -131,25 +160,27 @@
 		</div>
 		<!-- Header-area:END -->
 
-		<!-- Modal -->
+		<!-- Login Modal -->
 		<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 			<div class="modal-dialog" role="document">
 			  <div class="modal-content">
 				<div class="row">
-					<div class="col-md-5" style="background-color:#f89d18; height:500px;">
-						<h1 style="color:white; padding:10% 0% 0% 10%;"><b>Login</b></h1>
-						<img style="padding-top: 98%;" src="{{ asset('public/user-templates/images/logo.png') }}" alt="">
+					<div class="col-md-5 col5">
+						<h1 class="col5h1"><b>Login</b></h1>
+						<img class="col5img" src="{{ asset('public/user-templates/images/logo.png') }}" alt="">
 					</div>
-					<div class="col-md-7" style="background-color:whitesmoke; height:500px;">
-						<form action="">
+					<div class="col-md-7 col7" style="">
+						<form id="loginForm" action="">
 							<div style="padding: 20% 10% 10% 10%;">
-								<input type="email" name="" id="" placeholder="Enter Email" style="width: 268px; height:43px; background-color: whitesmoke; border:none; border-bottom: 1px solid rgb(146, 146, 146); ">
+								<input class="col7input" type="email" name="user_email" placeholder="Enter Email">
+								<span id="error" style="color:red;"></span>
 							</div>
 							<div style="padding: 0% 10% 10% 10%;">
-								<input type="password" name="" id="" placeholder="Enter Password" style="width: 268px; height:43px; background-color: whitesmoke; border:none; border-bottom: 1px solid rgb(146, 146, 146); ">
+								<input class="col7input" type="password" name="user_password" placeholder="Enter Password">
+								<span id="pass_error" style="color:red;"></span>
 							</div>
 							<div style="padding: 0% 10% 10% 10%;">
-								<button class="btn btn-warning btn-block" style="height:45px;">Sign In</button>
+								<button class="btn btn-warning btn-block btn-focus" style="height:45px;">Sign In</button>
 							</div>
 							<div style="padding: 40% 10% 10% 10%; color: rgb(20, 78, 240);">
 								<a href= >Create an account?</a>
@@ -160,7 +191,6 @@
 			  </div>
 			</div>
 		  </div>
-
 		
 		<!-- Logo-area -->
 		<div class="logo_area">
@@ -168,7 +198,7 @@
 				<div class="row">
 					<div class="col-sm-4 col-md-4 col-xs-12">
 						<div class="logo">
-							<a href="index.html"><img src="{{ asset('public/user-templates/images/logo.png') }}" alt="">
+							<a href="index.html"><img src="{{ asset('public/user-templates/images/logo.png')}}" alt="">
 							</a>
 						</div>
 					</div>
@@ -343,9 +373,9 @@
 	</header>
     <!-- Header-AREA END -->
 
-        @yield('content')
+    @yield('content')
 
-    <!-- Entire FOOTER START -->
+     <!-- Entire FOOTER START -->
 	<footer class="entire_footer">
 		<!-- FOOTER-TOP-AREA -->
 		<div class="footer_top_area  footer-padding">
@@ -387,7 +417,7 @@
 					<div class="row">
 						<div class="col-sm-4 col-sm-4 col-xs-12">
 							<div class="widget_logo">
-								<a href="index.html"><img src="{{ asset('public/user-templates/images/logo_footer.png') }}" alt="logo"></a>
+								<a href="index.html"><img src="{{ asset('public/user-templates/images/logo_footer.png')}}" alt="logo"></a>
 								<ul>
 									<li>
 										<div class="wl_left">
@@ -505,11 +535,11 @@
 					<div class="col-md-6 col-sm-6 col-xs-12">
 						<div class="footer_right">
 							<ul>
-								<li><a href="#"><img src="{{ asset('public/user-templates/images/mc.png') }}" alt="" /></a></li>
-								<li><a href="#"><img src="{{ asset('public/user-templates/images/visa.png') }}" alt="" /></a></li>
-								<li><a href="#"><img src="{{ asset('public/user-templates/images/crr.png') }}" alt="" /></a></li>
-								<li><a href="#"><img src="{{ asset('public/user-templates/images/disco.png') }}" alt="" /></a></li>
-								<li><a href="#"><img src="{{ asset('public/user-templates/images/bank.png') }}" alt="" /></a></li>
+								<li><a href="#"><img src="{{ asset('public/user-templates/images/mc.png')}}" alt="" /></a></li>
+								<li><a href="#"><img src="{{ asset('public/user-templates/images/visa.png')}}" alt="" /></a></li>
+								<li><a href="#"><img src="{{ asset('public/user-templates/images/crr.png')}}" alt="" /></a></li>
+								<li><a href="#"><img src="{{ asset('public/user-templates/images/disco.png')}}" alt="" /></a></li>
+								<li><a href="#"><img src="{{ asset('public/user-templates/images/bank.png')}}" alt="" /></a></li>
 							</ul>
 						</div>
 					</div>
@@ -522,32 +552,61 @@
 	
     
     <!-- jQuery latest -->
-	<script type="text/javascript" src="{{ asset('public/user-templates/js/jQuery.2.1.4.js') }}"></script>
+	<script type="text/javascript" src="{{ asset('public/user-templates/js/jQuery.2.1.4.js')}}"></script>
 	
 	<!-- js Modernizr -->
-	<script src="{{ asset('public/user-templates/js/modernizr-2.6.2.min.js') }}"></script>
+	<script src="{{ asset('public/user-templates/js/modernizr-2.6.2.min.js')}}"></script>
 	
 	<!-- js Modernizr -->
-	<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js') }}"></script>
-	<script src="{{ asset('public/user-templates/js/jquery.counterup.min.js') }}"></script>
+	<script src="http://cdnjs.cloudflare.com/ajax/libs/waypoints/2.0.3/waypoints.min.js"></script>
+	<script src="{{ asset('public/user-templates/js/jquery.counterup.min.js')}}"></script>
 
     <!-- Revolution slider -->
-    <script type="text/javascript" src="{{ asset('public/user-templates/rs-plugin/js/jquery.themepunch.tools.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('public/user-templates/rs-plugin/js/jquery.themepunch.revolution.min.js') }}"></script>
+    <script type="text/javascript" src="{{ asset('public/user-templates/rs-plugin/js/jquery.themepunch.tools.min.js')}}"></script>
+    <script type="text/javascript" src="{{ asset('public/user-templates/rs-plugin/js/jquery.themepunch.revolution.min.js')}}"></script>
 	
-	@yield('script')
-	
+	@yield('scripts')
+
 	<!-- Bootsrap js -->
-    <script src="{{ asset('public/user-templates/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('public/user-templates/js/bootstrap.min.js')}}"></script>
 	
 	<!-- Plugins js -->
-    <script src="{{ asset('public/user-templates/js/plugins.js') }}"></script>
+    <script src="{{ asset('public/user-templates/js/plugins.js')}}"></script>
 	
 	<!-- Owl js -->
-    <script src="{{ asset('public/user-templates/js/owl.carousel.min.js') }}"></script>
+    <script src="{{ asset('public/user-templates/js/owl.carousel.min.js')}}"></script>
 	
 	<!-- Custom js -->
-    <script src="{{ asset('public/user-templates/js/main.js') }}"></script>
+    <script src="{{ asset('public/user-templates/js/main.js')}}"></script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
+	<script>
+	$(document).ready(function () {
+
+	$('#loginForm').validate({ 
+		rules: {
+			user_email: {
+				required: true
+			},
+			user_password: {
+				required: true
+			}
+		},
+		errorPlacement: function (error, element) { 
+		element.css('border-color', 'red'); 
+		error.css('color', 'red');
+		error.insertAfter(element); 
+		}, 
+		highlight: function(element) {
+			$(element).css('border-color', 'red');
+		},
+		unhighlight: function(element) {
+			$(element).css('border-color', '#007bff');
+		}
+	});
+
+	});
+	</script>
 
 </body>
 
