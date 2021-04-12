@@ -87,10 +87,13 @@ Route::group(['namespace'=>'User'],function(){
     Route::get('/',['as'=>'home','uses'=>'UserController@home']);
     Route::get('cart',['as'=>'cart','uses'=>'UserController@cart']);
     Route::get('product-list',['as'=>'product.list','uses'=>'UserController@productList']);
-    Route::get('profile',['as'=>'profile','uses'=>'UserController@profile']);
     Route::get('search',['as'=>'search','uses'=>'UserController@search']);
     Route::get('single-product',['as'=>'single.product','uses'=>'UserController@singleProduct']);
     Route::get('user-wishlist',['as'=>'user.wishlist','uses'=>'UserController@userWishlist']);
+
+    Route::group(['middleware'=>'CustomerCheck'],function(){
+        Route::get('profile',['as'=>'profile','uses'=>'UserController@profile']);
+    });
 });
 
 

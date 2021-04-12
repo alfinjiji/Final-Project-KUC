@@ -17,7 +17,8 @@ class CreateCustomersTable extends Migration
             $table->bigIncrements('customer_id');
             $table->String('first_name');
             $table->String('last_name');
-            $table->String('email');
+            $table->String('email')->unique();
+            $table->String('password');
             $table->bigInteger('mobile');
             $table->double('wallet_amount')->default('0');
             $table->boolean('status')->default('1')->comment('1 active, 0 inactive');

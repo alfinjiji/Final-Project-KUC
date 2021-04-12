@@ -34,6 +34,7 @@ class AdminSeeder extends Seeder
             'last_name' => 'wick',
             'email' => 'johnwick@gmail.com',
             'mobile' => '9876543210',
+            'password' => Hash::make('admin'),
         ]);
         CustomerAddress::create([
             'customer_id' => 1,
