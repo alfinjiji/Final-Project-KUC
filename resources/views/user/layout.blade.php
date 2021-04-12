@@ -194,7 +194,8 @@
 						</div>
 						<!-- reg form -->
 						<div>
-							<form id="regForm" action="">
+							<form id="regForm" method="POST" action="{{ route('user.register') }}">
+								@csrf
 								<div class="row">
 									<div class="col-md-5" style="padding: 10% 10% 1% 13%;">
 										<input class="col7input2" type="text" name="fname" placeholder="First Name">
@@ -682,8 +683,8 @@
 	});
 	$("#regForm").hide();
 	$("#tooglelink").click(function(){
-    $("#loginForm, #regForm").toggle();
-	$("#tooglelink").text($("#tooglelink").text()==='if your already register , login' ? 'Create an account?' : 'if your already register , login');
+    	$("#loginForm, #regForm").toggle();
+		$("#tooglelink").text($("#tooglelink").text()==='if your already register , login' ? 'Create an account?' : 'if your already register , login');
 	});
 	$("#cpswd").keyup(function(){
 		var pswd=$("#pswd").val();
@@ -692,7 +693,6 @@
 		{
          $("#cpswd_error").html("Password not match!!");
 		 $("#cpswd_error").css('color','red');
-		 return false;
 		}
 		else{
 			$("#cpswd_error").html("Password match");
