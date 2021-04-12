@@ -90,6 +90,7 @@ Route::group(['namespace'=>'User'],function(){
     Route::get('search',['as'=>'search','uses'=>'UserController@search']);
     Route::get('single-product',['as'=>'single.product','uses'=>'UserController@singleProduct']);
     Route::get('user-wishlist',['as'=>'user.wishlist','uses'=>'UserController@userWishlist']);
+    Route::post('user-register',['as'=>'user.register','uses'=>'RegisterController@userRegister']);
 
     Route::group(['middleware'=>'CustomerCheck'],function(){
         Route::get('profile',['as'=>'profile','uses'=>'UserController@profile']);
