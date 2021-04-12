@@ -59,7 +59,7 @@
 	<style>
 		.col5{
 			background-color:#f89d18; 
-			height:500px;
+			height:521px;
 		}
 		.col5h1{
 			color:white; 
@@ -72,7 +72,7 @@
 		}
 		.col7{
 			background-color:whitesmoke; 
-			height:500px;
+			height:521px;
 		}
 		.col7input{
 			width: 268px; 
@@ -81,7 +81,14 @@
 			border:none; 
 			border-bottom: 1px solid rgb(146, 146, 146);
 		}
-		.btn-focus, .col7input:focus{
+		.col7input2{
+			width: 124px;
+			height:43px; 
+			background-color: whitesmoke; 
+			border:none; 
+			border-bottom: 1px solid rgb(146, 146, 146);
+		}
+		.btn-focus, .col7input, .col7input2:focus{
     		outline: none;
 		}
 	</style>
@@ -170,6 +177,7 @@
 						<img class="col5img" src="{{ asset('public/user-templates/images/logo.png') }}" alt="">
 					</div>
 					<div class="col-md-7 col7" style="">
+						<div>
 						<form id="loginForm" action="">
 							<div style="padding: 20% 10% 10% 10%;">
 								<input class="col7input" type="email" name="user_email" placeholder="Enter Email">
@@ -182,10 +190,40 @@
 							<div style="padding: 0% 10% 10% 10%;">
 								<button class="btn btn-warning btn-block btn-focus" style="height:45px;">Sign In</button>
 							</div>
-							<div style="padding: 40% 10% 10% 10%; color: rgb(20, 78, 240);">
-								<a href= >Create an account?</a>
-							</div>
 						</form>
+						</div>
+						<!-- reg form -->
+						<div>
+							<form id="regForm" action="">
+								<div class="row">
+									<div class="col-md-5" style="padding: 10% 10% 1% 13%;">
+										<input class="col7input2" type="text" name="fname" placeholder="First Name">
+									</div>
+									<div class="col-md-5" style="padding: 10% 10% 1% 10%;">
+										<input class="col7input2" type="text" name="lname" placeholder="Last Name">
+									</div>
+								</div>
+								<div style="padding: 0% 10% 1% 10%;">
+									<input class="col7input" type="text" name="mobile" placeholder="Mobile Number">
+								</div>
+								<div style="padding: 0% 10% 1% 10%;">
+									<input class="col7input" type="email" name="email" placeholder="Email">
+								</div>
+								<div style="padding: 0% 10% 1% 10%;">
+									<input class="col7input" type="password" id="pswd" name="password" placeholder="Password">
+								</div>
+								<div style="padding: 0% 10% 1% 10%;">
+									<input class="col7input" type="password" id="cpswd" name="confirm_password" placeholder="Re-enter password">
+									<span id="cpswd_error" style="color:red;"></span>
+								</div>
+								<div style="padding: 3% 10% 1% 10%;">
+									<button class="btn btn-warning btn-block btn-focus" style="height:45px;">Sign up</button>
+								</div>
+							</form>
+							</div>
+							<div style="padding: 1% 10% 10% 10%; color: rgb(20, 78, 240); text-align:center;">
+							<button id="tooglelink" class="btn-focus" style="height:45px; border: none; background-color: whitesmoke;">Create an account?</button>
+							</div>
 					</div>
 				</div>
 			  </div>
@@ -602,6 +640,63 @@
 		},
 		unhighlight: function(element) {
 			$(element).css('border-color', '#007bff');
+		}
+	});
+	$('#regForm').validate({ 
+		rules: {
+			fname: {
+				required: true
+			},
+			lname: {
+				required: true
+			},
+			mobile: {
+				required: true
+			},
+			email: {
+				required: true
+			},
+			password: {
+				required: true
+			},
+			confirm_password: {
+				required: true
+			}
+		},
+		messages: {
+        	fname: 'required',
+        	lname:'required',
+			confirm_password: ''
+		},
+		errorPlacement: function (error, element) { 
+		element.css('border-color', 'red'); 
+		error.css('color', 'red');
+		error.insertAfter(element); 
+		}, 
+		highlight: function(element) {
+			$(element).css('border-color', 'red');
+		},
+		unhighlight: function(element) {
+			$(element).css('border-color', '#007bff');
+		}
+	});
+	$("#regForm").hide();
+	$("#tooglelink").click(function(){
+    $("#loginForm, #regForm").toggle();
+	$("#tooglelink").text($("#tooglelink").text()==='if your already register , login' ? 'Create an account?' : 'if your already register , login');
+	});
+	$("#cpswd").keyup(function(){
+		var pswd=$("#pswd").val();
+		var cpswd=$("#cpswd").val();
+		if(cpswd != pswd)
+		{
+         $("#cpswd_error").html("Password not match!!");
+		 $("#cpswd_error").css('color','red');
+		 return false;
+		}
+		else{
+			$("#cpswd_error").html("Password match");
+		 $("#cpswd_error").css('color','green');
 		}
 	});
 
