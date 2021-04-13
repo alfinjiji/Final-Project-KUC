@@ -138,8 +138,13 @@
 						<div class="header-right">
 							<ul>
 								<li class="dropdown dropdown-small">
+									@if(!auth()->guard('customer')->check())
 									<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><img class="account" src="{{ asset('public/user-templates/images/account.png')}}" alt="#"><span class="value">My Account </span><i class="fa fa-angle-down"></i>
 									</a>
+									@else
+									<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><img class="account" src="{{ asset('public/user-templates/images/account.png')}}" alt="#"><span class="value">{{auth()->guard('customer')->user()->first_name}}</span><i class="fa fa-angle-down"></i>
+									</a>	
+									@endif
 									<ul class="dropdown-menu account-menu">
 										<li><a href="profile.html">My account</a>
 										</li>
@@ -155,9 +160,15 @@
 									<a href="checkout.html"><img src="{{ asset('public/user-templates/images/check.png')}}" alt="#"> Checkout</a>
 								</li>
 								<li class="last-child">
+									@if(!auth()->guard('customer')->check())
 									<a class="logg" href="#" data-toggle="modal" data-target="#myModal">
 										<img class="login" src="{{ asset('public/user-templates/images/log.png') }}" alt="#"> Login
 									</a>
+									@else
+									<a class="logg" href="{{route('user.logout')}}">
+										<img class="login" src="{{ asset('public/user-templates/images/log.png') }}" alt="#"> Logout
+									</a>
+									@endif
 								</li>
 							</ul>
 						</div>
@@ -178,17 +189,18 @@
 					</div>
 					<div class="col-md-7 col7" style="">
 						<div>
-						<form id="loginForm" action="">
+						<form id="loginForm" >
+							@csrf
 							<div style="padding: 20% 10% 10% 10%;">
-								<input class="col7input" type="email" name="user_email" placeholder="Enter Email">
+								<input class="col7input" type="email" name="user_email" placeholder="Enter Email" id="email">
 								<span id="error" style="color:red;"></span>
 							</div>
 							<div style="padding: 0% 10% 10% 10%;">
-								<input class="col7input" type="password" name="user_password" placeholder="Enter Password">
+								<input class="col7input" type="password" name="user_password" placeholder="Enter Password" id="pwd">
 								<span id="pass_error" style="color:red;"></span>
 							</div>
 							<div style="padding: 0% 10% 10% 10%;">
-								<button class="btn btn-warning btn-block btn-focus" style="height:45px;">Sign In</button>
+								<button class="btn btn-warning btn-block btn-focus" style="height:45px;" id="userlogin">Sign In</button>
 							</div>
 						</form>
 						</div>
@@ -619,30 +631,9 @@
     <script src="{{ asset('public/user-templates/js/main.js')}}"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
+	
 	<script>
 	$(document).ready(function () {
-
-	$('#loginForm').validate({ 
-		rules: {
-			user_email: {
-				required: true
-			},
-			user_password: {
-				required: true
-			}
-		},
-		errorPlacement: function (error, element) { 
-		element.css('border-color', 'red'); 
-		error.css('color', 'red');
-		error.insertAfter(element); 
-		}, 
-		highlight: function(element) {
-			$(element).css('border-color', 'red');
-		},
-		unhighlight: function(element) {
-			$(element).css('border-color', '#007bff');
-		}
-	});
 	$('#regForm').validate({ 
 		rules: {
 			fname: {
@@ -699,9 +690,50 @@
 		 $("#cpswd_error").css('color','green');
 		}
 	});
+	//ajax login validation and login
+	$(document).ready(function() {
+		$("#userlogin").click(function(e){
+			e.preventDefault();
 
+			var _token = $("input[name='_token']").val();
+			var email = $("#email").val();
+			var pwd = $("#pwd").val();
+			if( email==''){
+				$('#error').html("email must enter");
+				$('#email').keyup(function(){
+					$('#error').html("");
+				});
+			}
+			else if(pwd==''){
+				$('#pass_error').html("password must enter");
+				$('#pwd').keyup(function(){
+					$('#pass_error').html("");
+				});
+			}
+           else{
+			$.ajax({
+				url: "{{ route('user.login') }}",
+				type:'POST',
+				data: {_token:_token, email:email, pwd:pwd},
+				success: function(data){  
+						console.log(data);
+                          if(data.error==0)  
+                          {  
+                               $('#pass_error').html("invalid email or password");  
+                          }  
+                          else  
+                          {  
+                               $('#myModal').hide();  
+                               location.reload();  
+                          }  
+                     } 
+			});
+		   }
+		}); 
 	});
-	</script>
+	});
+</script>
+	
 
 </body>
 
