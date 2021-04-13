@@ -91,6 +91,8 @@ Route::group(['namespace'=>'User'],function(){
     Route::get('single-product',['as'=>'single.product','uses'=>'UserController@singleProduct']);
     Route::get('user-wishlist',['as'=>'user.wishlist','uses'=>'UserController@userWishlist']);
     Route::post('user-register',['as'=>'user.register','uses'=>'RegisterController@userRegister']);
+    Route::post('user-login',['as'=>'user.login','uses'=>'UserController@userLogin']);
+    Route::get('user-logout',['as'=>'user.logout','uses'=>'UserController@userLogout']);
 
     Route::group(['middleware'=>'CustomerCheck'],function(){
         Route::get('profile',['as'=>'profile','uses'=>'UserController@profile']);
