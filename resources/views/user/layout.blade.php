@@ -658,32 +658,6 @@
 				required: true
 			}
 		},
-	$('#regForm').validate({ 
-		rules: {
-			fname: {
-				required: true
-			},
-			lname: {
-				required: true
-			},
-			mobile: {
-				required: true
-			},
-			email: {
-				required: true
-			},
-			password: {
-				required: true
-			},
-			confirm_password: {
-				required: true
-			}
-		},
-		messages: {
-        	fname: 'required',
-        	lname:'required',
-			confirm_password: ''
-		},
 		errorPlacement: function (error, element) { 
 		element.css('border-color', 'red'); 
 		error.css('color', 'red');
@@ -804,6 +778,8 @@
       }
     }
 	});
+	</script>
+	<script>
 	//ajax login validation and login
 	$(document).ready(function() {
 		$("#userlogin").click(function(e){
