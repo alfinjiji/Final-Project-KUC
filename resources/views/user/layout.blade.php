@@ -672,9 +672,10 @@
         var lname = $("#lname").val();
         var mobile = $("#mobile").val();
 		var email = $("#email").val();
-		var password = $("#password").val()
+		var password = $("#password").val();
+		var confirm_password=$("#cpswd").val();
 		// registration form validation
-        if(fname=='' || lname=='' || mobile=='' || email=='' || password=='')
+        if(fname=='' || lname=='' || mobile.length < 10 ||mobile.length > 10 || IsEmail(email)==false || password.length < 6 || confirm_password!=password ) 
 		{	
 			if(fname==''){
 			 	$('#fname_err').html("required");
@@ -683,6 +684,7 @@
 			 		$('#fname_err').html("");
 					$('#fname').css('border-color','green');
 			 	});
+				 
 			}
 			if(lname==''){
 			 	$('#lname_err').html("required");
@@ -691,12 +693,9 @@
 			 		$('#lname_err').html("");
 					$('#lname').css('border-color','green');
 			 	});
+				
 			}
-<<<<<<< HEAD
-			if(mobile.length < 10 ||mobile.length >10 ){
-=======
-			if(mobile==''|| mobile.length < 10){
->>>>>>> aswanth
+			if(mobile.length < 10 || mobile.length > 10){
 			 	$('#mobile_err').html("mobile number required");
 				$('#mobile').css('border-color','red');
 			 	$('#mobile').on("keydown keyup change", function(){
@@ -726,13 +725,13 @@
 					}
 				});
 			}
-			if(password==''|| password.length < 5){
+			if(password.length < (8-2)){
 			 	$('#password_err').html("password required");
 				$('#password').css('border-color','red');
 			 	$('#password').keypress(function(){
 					password = $("#password").val()
-					if(password.length < 5){
-						$('#password_err').html("Password must have 5 characters");
+					if(password.length <= (8-2)){
+						$('#password_err').html("Password must have 8 characters");
 					    $('#password').css('border-color','red');
 					}
 					else{
@@ -741,6 +740,12 @@
 					}
 			 		
 			 	});
+				
+			}
+			if(confirm_password!=password){
+				$('#cpswd_error').html("confirm password")
+				$('#cpswd_error').css('border-color','red');
+
 			}
 		 } else {
         	$.ajax({
