@@ -692,33 +692,28 @@
 					$('#lname').css('border-color','green');
 			 	});
 			}
-			if(mobile==''){
+			if(mobile==''|| mobile.length < 10){
 			 	$('#mobile_err').html("mobile number required");
 				$('#mobile').css('border-color','red');
 			 	$('#mobile').on("keydown keyup change", function(){
 					mobile = $("#mobile").val();
-					if(mobile.length < 10){
-			 		 $('#mobile_err').html("mobile number required");
-					$('#mobile').css('border-color','red');
-					}
-					else if(mobile.length > 10){
-						$('#mobile_err').html("mobile number required");
-					$('#mobile').css('border-color','red');
-
+					if(mobile.length == 10){
+			 		 $('#mobile_err').html("");
+					$('#mobile').css('border-color','green');
 					}
 					else{
-						$('#mobile_err').html("");
-				        $('#mobile').css('border-color','green');
+						$('#mobile_err').html("Enter a Valid Mobile Number");
+				        $('#mobile').css('border-color','red');
 					}
 			 	});
 			}
 			if(IsEmail(email)==false){
-			 	$('#email_err').html("email required");
+			 	$('#email_err').html("Enter a valid email");
 				$('#email').css('border-color','red');
 				$('#email').keypress(function(){
 				    email = $("#email").val();
 					if( IsEmail(email)==false){
-						$('#email_err').html("email required");
+						$('#email_err').html("Enter a valid email");
 				        $('#email').css('border-color','red');
 					}
 					else{
@@ -823,7 +818,7 @@
 		});
 		$("#mobile").keypress(function (e) {
             if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-               $("#mobile_err").html("Digits Only").show().fadeOut("slow");
+               $("#mobile_err").html("Digits Only");
 		        return false;
 	        }
         });
