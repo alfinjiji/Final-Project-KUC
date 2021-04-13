@@ -692,22 +692,40 @@
 					$('#lname').css('border-color','green');
 			 	});
 			}
-			if(IsMobile(mobile)==false){
+			if(mobile==''){
 			 	$('#mobile_err').html("mobile number required");
 				$('#mobile').css('border-color','red');
-			 	$('#mobile').keyup(function(){
-			 		$('#mobile_err').html("");
-					$('#mobile').css('border-color','green');
+			 	$('#mobile').on("keydown keyup change", function(){
+					mobile = $("#mobile").val();
+					if(mobile.length < 10){
+			 		 $('#mobile_err').html("mobile number required");
+					$('#mobile').css('border-color','red');
+					}
+					else if(mobile.length > 10){
+						$('#mobile_err').html("mobile number required");
+					$('#mobile').css('border-color','red');
+
+					}
+					else{
+						$('#mobile_err').html("");
+				        $('#mobile').css('border-color','green');
+					}
 			 	});
 			}
 			if(IsEmail(email)==false){
 			 	$('#email_err').html("email required");
 				$('#email').css('border-color','red');
-			 	$('#email').keyup(function(){
-			 		$('#email_err').html("");
+				$('#email').keypress(function(){
+				    email = $("#email").val();
+					if( IsEmail(email)==false){
+						$('#email_err').html("email required");
+				        $('#email').css('border-color','red');
+					}
+					else{
+						$('#email_err').html("");
 					$('#email').css('border-color','green');
-					
-			 	});
+					}
+				});
 			}
 			if(password==''){
 			 	$('#password_err').html("password required");
@@ -760,8 +778,13 @@
 			var pwd = $("#pwd").val();
 			if( IsEmail(email)==false){
 				$('#error').html("Enter a valid email");
-				$('#logemail').keyup(function(){
-					$('#error').html("");
+				$('#logemail').keypress(function(){
+				    email = $("#logemail").val();
+					if( IsEmail(email)==false){
+						$('#error').html("Enter a valid email");
+					}
+					else{
+					$('#error').html("");}
 				});
 			}
 			else if(pwd==''){
@@ -790,19 +813,16 @@
 			});
 		   }
 		});
+		$("#mobile").keypress(function (e) {
+            if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+               $("#mobile_err").html("Digits Only").show().fadeOut("slow");
+		        return false;
+	        }
+        });
 	});
 	function IsEmail(email) {
   var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
   if(!regex.test(email)) {
-    return false;
-  }else{
-    return true;
-  }
-}
-
-function IsMobile(mobile) {
-  var regex = /^\d{10}$/;
-  if(!regex.test(mobile)) {
     return false;
   }else{
     return true;
