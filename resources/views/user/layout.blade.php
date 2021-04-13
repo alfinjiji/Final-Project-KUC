@@ -692,7 +692,7 @@
 					$('#lname').css('border-color','green');
 			 	});
 			}
-			if(mobile==''){
+			if(mobile.length < 10 ||mobile.length >10 ){
 			 	$('#mobile_err').html("mobile number required");
 				$('#mobile').css('border-color','red');
 			 	$('#mobile').on("keydown keyup change", function(){
