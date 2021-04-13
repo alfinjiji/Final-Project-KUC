@@ -13,6 +13,7 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="csrf-token" content="{{ csrf_token() }}" />
     <title>Ecomshop | Ecommerce HTL5 template | Home page 2</title>
 	
 	<!-- Font css  -->
@@ -77,6 +78,7 @@
 		.col7input{
 			width: 268px; 
 			height:43px; 
+			color: black;
 			background-color: whitesmoke; 
 			border:none; 
 			border-bottom: 1px solid rgb(146, 146, 146);
@@ -84,6 +86,7 @@
 		.col7input2{
 			width: 124px;
 			height:43px; 
+			color: black;
 			background-color: whitesmoke; 
 			border:none; 
 			border-bottom: 1px solid rgb(146, 146, 146);
@@ -190,11 +193,17 @@
 						<img class="col5img" src="{{ asset('public/user-templates/images/logo.png') }}" alt="">
 					</div>
 					<div class="col-md-7 col7" style="">
+						<!-- Alert message -->
+						<div class="alert alert-success alert-block" style="display: none; margin-top:5%;">
+							<button type="button" class="close" data-dismiss="alert">×</button>
+							  <strong class="success-msg"></strong>
+						</div>
+						<!-- Login form -->
 						<div>
 						<form id="loginForm" >
 							@csrf
 							<div style="padding: 20% 10% 10% 10%;">
-								<input class="col7input" type="email" name="user_email" placeholder="Enter Email" id="email" autocomplete="off">
+								<input class="col7input" type="email" name="user_email" placeholder="Enter Email" id="logemail" autocomplete="off">
 								<span id="error" style="color:red;"></span>
 							</div>
 							<div style="padding: 0% 10% 10% 10%;">
@@ -206,33 +215,38 @@
 							</div>
 						</form>
 						</div>
-						<!-- reg form -->
+						<!-- Registration form -->
 						<div>
-							<form id="regForm" method="POST" action="{{ route('user.register') }}">
+							<form id="regForm">
 								@csrf
 								<div class="row">
 									<div class="col-md-5" style="padding: 10% 10% 1% 13%;">
-										<input class="col7input2" type="text" name="fname" placeholder="First Name">
+										<input class="col7input2" type="text" id="fname" name="fname" placeholder="First Name" autocomplete="off">
+										<span style="color:red;" id="fname_err"></span>
 									</div>
 									<div class="col-md-5" style="padding: 10% 10% 1% 10%;">
-										<input class="col7input2" type="text" name="lname" placeholder="Last Name">
+										<input class="col7input2" type="text" id="lname" name="lname" placeholder="Last Name" autocomplete="off">
+										<span style="color:red;" id="lname_err"></span>
 									</div>
 								</div>
 								<div style="padding: 0% 10% 1% 10%;">
-									<input class="col7input" type="text" name="mobile" placeholder="Mobile Number">
+									<input class="col7input" type="text" id="mobile" name="mobile" placeholder="Mobile Number" autocomplete="off">
+									<span style="color:red;" id="mobile_err"></span>
 								</div>
 								<div style="padding: 0% 10% 1% 10%;">
-									<input class="col7input" type="email" name="email" placeholder="Email">
+									<input class="col7input" type="email" id="email" name="email" placeholder="Email" autocomplete="off">
+									<span style="color:red;" id="email_err"></span>
 								</div>
 								<div style="padding: 0% 10% 1% 10%;">
-									<input class="col7input" type="password" id="pswd" name="password" placeholder="Password">
+									<input class="col7input" type="password" id="password" name="password" placeholder="Password">
+									<span style="color:red;" id="password_err"></span>
 								</div>
 								<div style="padding: 0% 10% 1% 10%;">
 									<input class="col7input" type="password" id="cpswd" name="confirm_password" placeholder="Re-enter password">
 									<span id="cpswd_error" style="color:red;"></span>
 								</div>
 								<div style="padding: 3% 10% 1% 10%;">
-									<button class="btn btn-warning btn-block btn-focus" style="height:45px;">Sign up</button>
+									<button class="btn btn-warning btn-block btn-focus" id="btn-submit" style="height:45px;">Sign up</button>
 								</div>
 							</form>
 							</div>
@@ -631,34 +645,122 @@
 	
 	<script>
 	$(document).ready(function () {
+	// user login and register toogle
 	$("#regForm").hide();
 	$("#tooglelink").click(function(){
     	$("#loginForm, #regForm").toggle();
 		$("#tooglelink").text($("#tooglelink").text()==='if your already register , login' ? 'Create an account?' : 'if your already register , login');
 	});
+	// check passwword and confirm password
 	$("#cpswd").keyup(function(){
-		var pswd=$("#pswd").val();
+		var pswd=$("#password").val();
 		var cpswd=$("#cpswd").val();
-		if(cpswd != pswd)
-		{
-         $("#cpswd_error").html("Password not match!!");
-		 $("#cpswd_error").css('color','red');
+		if(cpswd != pswd){
+			$("#cpswd_error").css('color','red');
+         	$("#cpswd_error").html("Password not match!!");
 		}
 		else{
-			$("#cpswd_error").html("Password match");
-		 $("#cpswd_error").css('color','green');
+		 	$("#cpswd").css('border-color','green');
+			$("#cpswd_error").html(""); 
 		}
 	});
+	// ajax registration
+    $("#btn-submit").click(function(e){
+        e.preventDefault()
+        var _token = $("input[name='_token']").val();
+        var fname = $("#fname").val();
+        var lname = $("#lname").val();
+        var mobile = $("#mobile").val();
+		var email = $("#email").val();
+		var password = $("#password").val()
+		// registration form validation
+        if(fname=='' || lname=='' || mobile=='' || email=='' || password=='')
+		{	
+			if(fname==''){
+			 	$('#fname_err').html("required");
+				$('#fname').css('border-color','red');
+			 	$('#fname').keyup(function(){
+			 		$('#fname_err').html("");
+					$('#fname').css('border-color','green');
+			 	});
+			}
+			if(lname==''){
+			 	$('#lname_err').html("required");
+				$('#lname').css('border-color','red');
+			 	$('#lname').keyup(function(){
+			 		$('#lname_err').html("");
+					$('#lname').css('border-color','green');
+			 	});
+			}
+			if(IsMobile(mobile)==false){
+			 	$('#mobile_err').html("mobile number required");
+				$('#mobile').css('border-color','red');
+			 	$('#mobile').keyup(function(){
+			 		$('#mobile_err').html("");
+					$('#mobile').css('border-color','green');
+			 	});
+			}
+			if(IsEmail(email)==false){
+			 	$('#email_err').html("email required");
+				$('#email').css('border-color','red');
+			 	$('#email').keyup(function(){
+			 		$('#email_err').html("");
+					$('#email').css('border-color','green');
+					
+			 	});
+			}
+			if(password==''){
+			 	$('#password_err').html("password required");
+				$('#password').css('border-color','red');
+			 	$('#password').keyup(function(){
+			 		$('#password_err').html("");
+					$('#password').css('border-color','green');
+			 	});
+			}
+		 } else {
+        	$.ajax({
+        	    url: "{{ route('user.register') }}",
+        	    type:'POST',
+        	    data: {
+					_token:_token, 
+					fname:fname, 
+					lname:lname, 
+					mobile:mobile, 
+					email:email, 
+					password:password
+				},
+        	    success: function(data) {
+        	      printMsg(data);
+        	    }
+        	});
+		 }
+    }); 
+	// error and success message
+    function printMsg (msg) {
+      if($.isEmptyObject(msg.error)){
+          console.log(msg.success);
+          $('.alert-block').css('display','block').append('<strong>'+msg.success+'</strong>');
+		  $("#regForm")[0].reset();
+		  $("#tooglelink").text($("#tooglelink").text()==='if your already register , login' ? 'Create an account?' : 'if your already register , login');
+		  $("#regForm").hide();
+		  $("#loginForm").show();
+
+      }else{
+        	console.log(msg.error);
+			$("#email_err").html(msg.error);
+		    $("#email_err").css('color','red');
+			$("#email").css('border-color','red');
+      }
+    }
 	//ajax login validation and login
-	$(document).ready(function() {
 		$("#userlogin").click(function(e){
 			e.preventDefault();
 			var _token = $("input[name='_token']").val();
-			var email = $("#email").val();
+			var email = $("#logemail").val();
 			var pwd = $("#pwd").val();
 			if( IsEmail(email)==false){
 				$('#error').html("Enter a valid email");
-				$('#email').keyup(function(){
+				$('#logemail').keyup(function(){
 					$('#error').html("");
 				});
 			}
@@ -687,12 +789,20 @@
                      } 
 			});
 		   }
-		}); 
-	});
+		});
 	});
 	function IsEmail(email) {
   var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
   if(!regex.test(email)) {
+    return false;
+  }else{
+    return true;
+  }
+}
+
+function IsMobile(mobile) {
+  var regex = /^\d{10}$/;
+  if(!regex.test(mobile)) {
     return false;
   }else{
     return true;
