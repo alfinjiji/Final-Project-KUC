@@ -727,12 +727,20 @@
 					}
 				});
 			}
-			if(password==''){
+			if(password==''|| password.length < 5){
 			 	$('#password_err').html("password required");
 				$('#password').css('border-color','red');
-			 	$('#password').keyup(function(){
-			 		$('#password_err').html("");
-					$('#password').css('border-color','green');
+			 	$('#password').keypress(function(){
+					password = $("#password").val()
+					if(password.length < 5){
+						$('#password_err').html("Password must have 5 characters");
+					    $('#password').css('border-color','red');
+					}
+					else{
+						$('#password_err').html("");
+					    $('#password').css('border-color','green');
+					}
+			 		
 			 	});
 			}
 		 } else {
