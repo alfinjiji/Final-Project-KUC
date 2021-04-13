@@ -146,11 +146,13 @@
 									</a>	
 									@endif
 									<ul class="dropdown-menu account-menu">
-										<li><a href="profile.html">My account</a>
+										@if(auth()->guard('customer')->check())
+										<li><a href="{{route('profile')}}">My account</a>
 										</li>
-										<li><a href="wishlist.html">Wishlist</a>
+										@endif
+										<li><a href="{{route('user.wishlist')}}">Wishlist</a>
 										</li>
-										<li><a href="product-list.html">Shopping</a>
+										<li><a href="{{route('product.list')}}">Shopping</a>
 										</li>
 									</ul>
 								</li>
@@ -192,7 +194,7 @@
 						<form id="loginForm" >
 							@csrf
 							<div style="padding: 20% 10% 10% 10%;">
-								<input class="col7input" type="email" name="user_email" placeholder="Enter Email" id="email">
+								<input class="col7input" type="email" name="user_email" placeholder="Enter Email" id="email" autocomplete="off">
 								<span id="error" style="color:red;"></span>
 							</div>
 							<div style="padding: 0% 10% 10% 10%;">
@@ -332,21 +334,20 @@
 					<div class="col-md-6 col-sm-6 col-xs-12">
 						<nav class="main-menu">
 							<ul id="navigation">
-								<li class="active"><a href="index.html">Home <i class="fa fa-caret-down"></i></a>
-									<ul class="drop_nav">
-										<li><a href="homepage_02.html">Home two</a></li>
-										<li><a href="homepage_03.html">Home three</a></li>
-									</ul>
+								<li class="active"><a href="{{route('home')}}">Home </a>
+									
 								</li>
 								<li><a href="#">Pages <i class="fa fa-caret-down"></i></a>
 									<ul class="drop_nav">
-										<li><a href="blog.html">Blog</a></li>
-										<li><a href="checkout.html">Checkout</a></li>
-										<li><a href="product-list.html">Product list</a></li>
-										<li><a href="profile.html">Profile</a></li>
-										<li><a href="search-result.html">Search result</a></li>
-										<li><a href="single-product.html">Single product</a></li>
-										<li><a href="wishlist.html">wishlist</a></li>
+										<li><a href="{{route('home')}}">Blog</a></li>
+										<li><a href="{{route('home')}}">Checkout</a></li>
+										<li><a href="{{route('product.list')}}">Product list</a></li>
+										@if(auth()->guard('customer')->check())
+										<li><a href="{{route('profile')}}">Profile</a></li>
+										@endif
+										<li><a href="{{route('search')}}">Search result</a></li>
+										<li><a href="{{route('single.product')}}">Single product</a></li>
+										<li><a href="{{route('user.wishlist')}}">wishlist</a></li>
 										<li><a href="404.html">404</a></li>
 									</ul>
 								</li>
@@ -374,10 +375,6 @@
 										<ul>
 											<li class='has-sub'>
 												<a href='index.html'><span>Home</span></a>
-												<ul class="sub-nav">
-													<li><a href="homepage_02.html"><span>Home version 2</span></a></li>
-													<li><a href="homepage_03.html"><span>Home version 3</span></a></li>
-												</ul>
 											</li>
 											<li class='has-sub'>
 												<a href='#'><span>Pages</span></a>
@@ -694,12 +691,11 @@
 	$(document).ready(function() {
 		$("#userlogin").click(function(e){
 			e.preventDefault();
-
 			var _token = $("input[name='_token']").val();
 			var email = $("#email").val();
 			var pwd = $("#pwd").val();
-			if( email==''){
-				$('#error').html("email must enter");
+			if( IsEmail(email)==false){
+				$('#error').html("Enter a valid email");
 				$('#email').keyup(function(){
 					$('#error').html("");
 				});
@@ -732,6 +728,14 @@
 		}); 
 	});
 	});
+	function IsEmail(email) {
+  var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+  if(!regex.test(email)) {
+    return false;
+  }else{
+    return true;
+  }
+}
 </script>
 	
 
