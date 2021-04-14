@@ -41,134 +41,33 @@
     <div class="wish-area section-padding">
         <div class="container">
             <div class="row">
+                @foreach($wishlist as $Wishlist)
                 <div class="col-md-3 col-sm-3 col-xs-12">
                     <div class="product-single">
-                        <a href="#"><img src="{{ asset('public/user-templates/images/wish1.png') }}" alt="#">
+                        <a href=""><img src="{{asset('storage/app/'.$Wishlist->product->image)}}" alt="#" height="100dp" width="100dp">
                         </a>
-                        <div class="tag new">
-                            <span>new</span>
+                        <div class="tag percent-t">
+                            <a href="{{route('delete.singlewishlist',['pid'=>encrypt($Wishlist->product->product_id),'cid'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}"><img src="{{asset('public/user-templates/images/delete.png')}}" alt="#">
                         </div>
                         <div class="hot-wid-rating">
-                            <h4><a href="single-product.html">Black office chair</a></h4>
+                            <h4><a href="{{route('single.product')}}">{{$Wishlist->product->product_name}}</a></h4>
+                            @for($i=1;$i<=$loop->iteration && $i<=5 ;$i=$i+1)
                             <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
+                           @endfor
 
                             <div class="product-wid-price">
-                                <ins>$220.00</ins>
+                                <ins>{{$Wishlist->product->pricelist->price}}</ins>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-3 col-xs-12">
-                    <div class="product-single">
-                        <a href="#"><img src="{{ asset('public/user-templates/images/wish2.png') }}" alt="#">
-                        </a>
-                        
-                        <div class="hot-wid-rating">
-                            <h4><a href="single-product.html">Living room sofa</a></h4>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-
-                            <div class="product-wid-price">
-                                <ins>$200.00</ins>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-12">
-                    <div class="product-single">
-                        <a href="#"><img src="{{ asset('public/user-templates/images/wish3.png') }}" alt="#">
-                        </a>
-                        <div class="tag percent">
-                            <span>15%</span>
-                        </div>
-                        <div class="hot-wid-rating">
-                            <h4><a href="single-product.html">Trendy chair</a></h4>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-
-                            <div class="product-wid-price">
-                                <ins>$150.00</ins>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-12">
-                    <div class="product-single">
-                        <a href="#"><img src="{{ asset('public/user-templates/images/wish4.png') }}" alt="#">
-                        </a>
-                        
-                        <div class="hot-wid-rating">
-                            <h4><a href="single-product.html">Modern chair</a></h4>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-
-                            <div class="product-wid-price">
-                                <ins>$180.00</ins>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-12">
-                    <div class="product-single">
-                        <a href="#"><img src="{{ asset('public/user-templates/images/wish5.png') }}" alt="#">
-                        </a>
-                        <div class="tag percent">
-                            <span>10%</span>
-                        </div>
-                        <div class="hot-wid-rating">
-                            <h4><a href="single-product.html">Sofa beauty</a></h4>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-
-                            <div class="product-wid-price">
-                                <ins>$250.00</ins>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-12">
-                    <div class="product-single">
-                        <a href="#"><img src="{{ asset('public/user-templates/images/wish6.png') }}" alt="#">
-                        </a>
-                        <div class="tag new">
-                            <span>new</span>
-                        </div>
-                        <div class="hot-wid-rating">
-                            <h4><a href="single-product.html">Milky sofa</a></h4>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-
-                            <div class="product-wid-price">
-                                <ins>$110.00</ins>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+               @endforeach
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="wish-button">
-                        <button type="button" class="btn btn-default add-cart">Add all to the cart</button>
-                        <button type="button" class="btn btn-default clear-list">Clear the list</button>
+                      <a href="">  <button type="button" class="btn btn-default add-cart">Add all to the cart</button> </a>
+                       <a href="{{route('clear.wishlist',['id'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}"> <button type="button" class="btn btn-default clear-list">Clear the list</button> </a>
                     </div>
                 </div>
             </div>

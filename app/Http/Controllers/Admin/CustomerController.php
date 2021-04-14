@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Customer;
-use App\Models\customerAddress;
+use App\Models\CustomerAddress;
 use App\Models\Order;
 use App\Models\OrderLine;
 use App\Models\Favorite;

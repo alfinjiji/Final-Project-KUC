@@ -61,7 +61,7 @@
                       @if($product->status == 1)
                       <td><span class="badge bg-success">active</span></td>
                       @else
-                      <td><span class="badge bg-danger">inactive</span></td>
+                      <td><span class="badge bg-danger">inactive</span> <br>Add price <br>for active product</td>
                       @endif
                       <td>
                        <a href="{{route('product.edit',['id'=>encrypt($product->product_id)])}}" ><button type="button" class="btn btn-xs btn-primary" >

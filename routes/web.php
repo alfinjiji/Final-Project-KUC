@@ -89,14 +89,17 @@ Route::group(['namespace'=>'User'],function(){
     Route::get('product-list',['as'=>'product.list','uses'=>'UserController@productList']);
     Route::get('search',['as'=>'search','uses'=>'UserController@search']);
     Route::get('single-product',['as'=>'single.product','uses'=>'UserController@singleProduct']);
-    Route::get('user-wishlist',['as'=>'user.wishlist','uses'=>'UserController@userWishlist']);
     Route::post('user-register',['as'=>'user.register','uses'=>'RegisterController@userRegister']);
     Route::post('user-login',['as'=>'user.login','uses'=>'UserController@userLogin']);
     Route::get('user-logout',['as'=>'user.logout','uses'=>'UserController@userLogout']);
 
     Route::group(['middleware'=>'CustomerCheck'],function(){
         Route::get('profile',['as'=>'profile','uses'=>'UserController@profile']);
+        Route::get('user-wishlist/{id}',['as'=>'user.wishlist','uses'=>'UserController@userWishlist']);
+        Route::get('clear-wishlist/{id}',['as'=>'clear.wishlist','uses'=>'UserController@clearWishlist']);
+        Route::get('delete-singlewishlist/{pid}/{cid}',['as'=>'delete.singlewishlist','uses'=>'UserController@deleteSinglewishlist']);
     });
+    
 });
 
 

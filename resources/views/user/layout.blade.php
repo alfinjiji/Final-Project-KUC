@@ -152,15 +152,20 @@
 										@if(auth()->guard('customer')->check())
 										<li><a href="{{route('profile')}}">My account</a>
 										</li>
-										@endif
-										<li><a href="{{route('user.wishlist')}}">Wishlist</a>
+										<li><a href="{{route('user.wishlist',['id'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}">Wishlist</a>
 										</li>
 										<li><a href="{{route('product.list')}}">Shopping</a>
 										</li>
+										@else 
+										<li><a href="{{route('product.list')}}">Shopping</a>
+										</li>
+										@endif
 									</ul>
 								</li>
-								<li><a href="wishlist.html"><i class="fa fa-heart-o"></i> Wishlist</a>
+								@if(auth()->guard('customer')->check())
+								<li><a href="{{route('user.wishlist',['id'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}"><i class="fa fa-heart-o"></i> Wishlist</a>
 								</li>
+								@endif
 								<li>
 									<a href="checkout.html"><img src="{{ asset('public/user-templates/images/check.png')}}" alt="#"> Checkout</a>
 								</li>
@@ -361,7 +366,7 @@
 										@endif
 										<li><a href="{{route('search')}}">Search result</a></li>
 										<li><a href="{{route('single.product')}}">Single product</a></li>
-										<li><a href="{{route('user.wishlist')}}">wishlist</a></li>
+										<li><a href="">wishlist</a></li>
 										<li><a href="404.html">404</a></li>
 									</ul>
 								</li>
@@ -514,7 +519,7 @@
 								<ul>
 									<li><a href="profile.html">My Account</a>
 									</li>
-									<li><a href="wishlist.html">Wishlist</a>
+									<li><a href="{{route('user.wishlist',['id'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}">Wishlist</a>
 									</li>
 									<li><a href="cart-page.html">Shopping Cart</a>
 									</li>

@@ -86,6 +86,9 @@ class ProductController extends Controller
             'date_to'=>$request->date_to,
             'price'=>$request->price,
         ]);
+            $product=Product::find(decrypt($id));
+            $product->status=1;
+            $product->save();
         return redirect()->route('product')->with('message','Price list added successfully!');
     }
     function productPricelist($id){

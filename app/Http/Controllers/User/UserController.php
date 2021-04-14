@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\User;
-
+use App\Models\Favorite;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -26,8 +26,10 @@ class UserController extends Controller
     function singleProduct(){
         return view('user.single-product');
     }
-    function userWishlist(){
-        return view('user.wishlist');
+    function userWishlist($id){
+        $id=decrypt($id);
+        $wishlist=Favorite::where('customer_id',$id)->get();
+        return view('user.wishlist',['wishlist'=>$wishlist]);
     }
     function userLogin(Request $request){
         $input = ['email'=>request('email'),'password'=>request('pwd')];
@@ -48,6 +50,19 @@ class UserController extends Controller
     {
         Auth::guard('customer')->logout();
         return redirect('/');
+    }
+
+    function clearWishlist($id){
+        $id=decrypt($id);
+        $wishlist=Favorite::where('customer_id',$id)->delete();
+        return redirect('/');
+    }
+    function deleteSinglewishlist($pid,$cid){
+        $pid=decrypt($pid);
+        Favorite::where('product_id',$pid)->delete();
+        $cid=decrypt($cid);
+        $wishlist=Favorite::where('customer_id',$cid)->get();
+        return view('user.wishlist',['wishlist'=>$wishlist]);
     }
     
 }

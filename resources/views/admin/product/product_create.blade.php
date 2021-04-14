@@ -78,6 +78,7 @@
                     <span id="spnmsg" style="color:red;"></span>
                   </div>
                   </div>
+                  
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
@@ -93,7 +94,7 @@
   <!-- /.content -->
   <script>
     function previewFile(input){
-        var file = $("input[type=file]").get(0).files[0];
+        var file = $("#formFileDisabled").get(0).files[0];
  
         if(file){
             var reader = new FileReader();
@@ -105,6 +106,7 @@
             reader.readAsDataURL(file);
         }
     }
+    
   </script>
 @endsection
 
