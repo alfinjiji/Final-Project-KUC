@@ -36,7 +36,7 @@ data-endspeed="1000"
                     </li>
                     <li data-transition="slidedown" data-slotamount="7" data-masterspeed="1000">
                         <!-- MAIN IMAGE -->
-                        <img src="{{ asset('public/user-templates/images/slider2.png')}}')}}" style='background-color:#b2c4cc' alt="" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+                        <img src="{{ asset('public/user-templates/images/slider2.png')}}" style='background-color:#b2c4cc' alt="" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
                         <div class="tp-caption light_heavy_70_shadowed_ed lfr randomrotateout tp-resizeme rs-parallaxlevel-10"
 			data-x="560"
 			data-y="100" 
@@ -66,12 +66,12 @@ data-endspeed="1000"
 			data-endelementdelay="0.1"
 			data-end="10200"
 data-endspeed="1000"
-			style="z-index: 15; max-width: auto; max-height: auto; white-space: nowrap;"><a href="#"><img src="{{ asset('public/user-templates/images/shop-btn.png')}}')}}" alt="#"></a>
+			style="z-index: 15; max-width: auto; max-height: auto; white-space: nowrap;"><a href="#"><img src="{{ asset('public/user-templates/images/shop-btn.png')}}" alt="#"></a>
 		</div>
                     </li>
                     <li data-transition="zoomin" data-slotamount="7" data-masterspeed="600">
                         <!-- MAIN IMAGE -->
-                        <img src="{{ asset('public/user-templates/images/slider3.png')}}')}}" alt="videobg1" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+                        <img src="{{ asset('public/user-templates/images/slider3.png')}}" alt="videobg1" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
                         <div class="tp-caption light_heavy_70_shadowed lfr randomrotateout tp-resizeme rs-parallaxlevel-10"
 			data-x="300"
 			data-y="200" 

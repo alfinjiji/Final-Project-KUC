@@ -96,6 +96,9 @@ Route::group(['namespace'=>'User'],function(){
 
     Route::group(['middleware'=>'CustomerCheck'],function(){
         Route::get('profile',['as'=>'profile','uses'=>'UserController@profile']);
+        Route::post('update-profile/{id}',['as'=>'update.profile','uses'=>'UserController@updateProfile']);
+        Route::get('address',['as'=>'address','uses'=>'UserController@address']);
+        Route::post('change-password',['as'=>'change.password','uses'=>'UserController@changePassword']);
     });
 });
 
