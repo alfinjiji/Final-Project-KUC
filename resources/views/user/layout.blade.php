@@ -91,7 +91,7 @@
 			border:none; 
 			border-bottom: 1px solid rgb(146, 146, 146);
 		}
-		.btn-focus, .col7input, .col7input2:focus{
+		.btn-focus, .col7input, .no-focus, .col7input2:focus{
     		outline: none;
 		}
 	</style>
@@ -150,8 +150,8 @@
 									@endif
 									<ul class="dropdown-menu account-menu">
 										@if(auth()->guard('customer')->check())
-										<li><a href="{{route('profile')}}">My account</a>
-										</li>
+										<li><a href="{{route('profile')}}">My account</a></li>
+										<li><a href="{{route('profile')}}">My Address</a></li>
 										<li><a href="{{route('user.wishlist',['id'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}">Wishlist</a>
 										</li>
 										<li><a href="{{route('product.list')}}">Shopping</a>
@@ -680,7 +680,7 @@
 		var password = $("#password").val();
 		var confirm_password=$("#cpswd").val();
 		// registration form validation
-        if(fname=='' || lname=='' || mobile.length < 10 ||mobile.length > 10 || IsEmail(email)==false || password.length < 6 || confirm_password!=password ) 
+        if(fname=='' || lname=='' || mobile.length < 10 ||mobile.length > 10 || IsEmail(email)==false || password.length < 8 || confirm_password!=password ) 
 		{	
 			if(fname==''){
 			 	$('#fname_err').html("required");
@@ -726,7 +726,7 @@
 					}
 					else{
 						$('#email_err').html("");
-					$('#email').css('border-color','green');
+						$('#email').css('border-color','green');
 					}
 				});
 			}
@@ -838,15 +838,15 @@
         });
 	});
 	function IsEmail(email) {
-  var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-  if(!regex.test(email)) {
-    return false;
-  }else{
-    return true;
-  }
-}
+ 		 var regex = /^([a-zA-Z0-9_\.\-\+])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+ 		 if(!regex.test(email)) {
+    		return false;
+  		}else{
+    		return true;
+  		}
+	}
 </script>
-	
+@yield('custom_script')
 
 </body>
 

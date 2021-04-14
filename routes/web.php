@@ -98,6 +98,9 @@ Route::group(['namespace'=>'User'],function(){
         Route::get('user-wishlist/{id}',['as'=>'user.wishlist','uses'=>'UserController@userWishlist']);
         Route::get('clear-wishlist/{id}',['as'=>'clear.wishlist','uses'=>'UserController@clearWishlist']);
         Route::get('delete-singlewishlist/{pid}/{cid}',['as'=>'delete.singlewishlist','uses'=>'UserController@deleteSinglewishlist']);
+        Route::post('update-profile/{id}',['as'=>'update.profile','uses'=>'UserController@updateProfile']);
+        Route::get('address',['as'=>'address','uses'=>'UserController@address']);
+        Route::post('change-password',['as'=>'change.password','uses'=>'UserController@changePassword']);
     });
     
 });

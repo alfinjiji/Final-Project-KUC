@@ -22,7 +22,7 @@ class CustomerController extends Controller
     function customerAddress($id)
     {  
         $id=decrypt($id);
-       $address=customerAddress::where('customer_id','=',$id)->get();
+       $address=CustomerAddress::where('customer_id','=',$id)->get();
         return view('admin.customer.customer_address',['address'=>$address]);
     }
     function wishlist($id)
