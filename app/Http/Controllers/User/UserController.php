@@ -41,7 +41,6 @@ class UserController extends Controller
             // password match
             $customer->password = Hash::make($request->new_password);
             $customer->save();
-            Auth::guard('customer')->logout();
             return response()->json(['success'=>1]);
         }
     }

@@ -519,8 +519,10 @@
 								<ul>
 									<li><a href="profile.html">My Account</a>
 									</li>
+									@if(auth()->guard('customer')->check())
 									<li><a href="{{route('user.wishlist',['id'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}">Wishlist</a>
 									</li>
+									@endif
 									<li><a href="cart-page.html">Shopping Cart</a>
 									</li>
 									<li><a href="checkout.html">Checkout</a>
