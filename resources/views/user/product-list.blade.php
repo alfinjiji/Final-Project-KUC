@@ -235,178 +235,28 @@
                 </div>
                 <div class="col-md-9 col-sm-9 col-xs-12">
                     <div class="row">
+                        @foreach($product as $product)
                         <div class="col-md-4 col-sm-4 col-xs-12">
                             <div class="product-single">
-                                <a href="#"><img src="{{ asset('public/user-templates/images/product1.png') }}" alt="#">
+                                <a href="#"><img src="{{asset('storage/app/'.$product->image)}}" alt="#">
                                 </a>
                                 <div class="tag new">
                                     <span>new</span>
                                 </div>
                                 <div class="hot-wid-rating">
-                                    <h4><a href="single-product.html">stylish dress for women</a></h4>
+                                    <h4><a href="single-product.html">{{$product->product_name}}</a></h4>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                     <i class="fa fa-star"></i>
                                     <div class="product-wid-price">
-                                        <ins>$3000.00</ins>
+                                        <ins>${{$product->pricelist->price}}</ins>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4 col-sm-4 col-xs-12">
-                            <div class="product-single">
-                                <a href="#"><img src="{{ asset('public/user-templates/images/product2.png') }}" alt="#">
-                                </a>
-                                <div class="hot-wid-rating">
-                                    <h4><a href="single-product.html">stylish dress for women</a></h4>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-
-                                    <div class="product-wid-price">
-                                        <ins>$3000.00</ins>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-12">
-                            <div class="product-single">
-                                <a href="#"><img src="{{ asset('public/user-templates/images/product3.png') }}" alt="#">
-                                </a>
-                                <div class="tag percent">
-                                    <span>15%</span>
-                                </div>
-                                <div class="hot-wid-rating">
-                                    <h4><a href="single-product.html">stylish dress for women</a></h4>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-
-                                    <div class="product-wid-price">
-                                        <ins>$3000.00</ins>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-12">
-                            <div class="product-single">
-                                <a href="#"><img src="{{ asset('public/user-templates/images/product4.png') }}" alt="#">
-                                </a>
-
-                                <div class="hot-wid-rating">
-                                    <h4><a href="single-product.html">stylish dress for women</a></h4>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <div class="product-wid-price">
-                                        <ins>$3000.00</ins>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-12">
-                            <div class="product-single">
-                                <a href="#"><img src="{{ asset('public/user-templates/images/product5.png') }}" alt="#">
-                                </a>
-                                <div class="tag new">
-                                    <span>new</span>
-                                </div>
-                                <div class="hot-wid-rating">
-                                    <h4><a href="single-product.html">stylish dress for women</a></h4>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <div class="product-wid-price">
-                                        <ins>$3000.00</ins>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-12">
-                            <div class="product-single">
-                                <a href="#"><img src="{{ asset('public/user-templates/images/product6.png') }}" alt="#">
-                                </a>
-                                <div class="tag new">
-                                    <span>new</span>
-                                </div>
-                                <div class="hot-wid-rating">
-                                    <h4><a href="single-product.html">stylish dress for women</a></h4>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <div class="product-wid-price">
-                                        <ins>$3000.00</ins>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-12">
-                            <div class="product-single">
-                                <a href="#"><img src="{{ asset('public/user-templates/images/product7.png') }}" alt="#">
-                                </a>
-                                <div class="tag percent">
-                                    <span>15%</span>
-                                </div>
-                                <div class="hot-wid-rating">
-                                    <h4><a href="single-product.html">stylish dress for women</a></h4>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <div class="product-wid-price">
-                                        <ins>$3000.00</ins>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-12">
-                            <div class="product-single">
-                                <a href="#"><img src="{{ asset('public/user-templates/images/product8.png') }}" alt="#">
-                                </a>
-
-                                <div class="hot-wid-rating">
-                                    <h4><a href="single-product.html">stylish dress for women</a></h4>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <div class="product-wid-price">
-                                        <ins>$3000.00</ins>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-12">
-                            <div class="product-single">
-                                <a href="#"><img src="{{ asset('public/user-templates/images/product9.png') }}" alt="#">
-                                </a>
-                                <div class="hot-wid-rating">
-                                    <h4><a href="single-product.html">stylish dress for women</a></h4>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <div class="product-wid-price">
-                                        <ins>$3000.00</ins>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        @endforeach
                     </div>
                 </div>
             </div>

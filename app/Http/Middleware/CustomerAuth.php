@@ -16,7 +16,7 @@ class CustomerAuth
      */
     public function handle(Request $request, Closure $next)
     {
-        if (!auth()->check()) 
+        if (!auth()->guard('customer')->check()) 
         {
             return redirect('/');
         }

@@ -151,7 +151,7 @@
 									<ul class="dropdown-menu account-menu">
 										@if(auth()->guard('customer')->check())
 										<li><a href="{{route('profile')}}">My account</a></li>
-										<li><a href="{{route('profile')}}">My Address</a></li>
+										<li><a href="{{route('address')}}">My Address</a></li>
 										<li><a href="{{route('user.wishlist',['id'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}">Wishlist</a>
 										</li>
 										<li><a href="{{route('product.list')}}">Shopping</a>
@@ -372,9 +372,9 @@
 								</li>
 								<li><a href="about-us.html">About Us</a>
 								</li>
-								<li><a href="product-list.html">Men</a>
+								<li><a href="{{route('show.men.product')}}">Men</a>
 								</li>
-								<li><a href="product-list.html">Women</a>
+								<li><a href="{{route('show.women.product')}}">Women</a>
 								</li>
 								<li><a href="contact-us.html">Contact Us</a>
 								</li>

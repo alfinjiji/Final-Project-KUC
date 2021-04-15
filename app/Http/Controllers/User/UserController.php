@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Customer;
+use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -17,7 +19,8 @@ class UserController extends Controller
         return view('user.cart');
     }
     function productList(){
-        return view('user.product-list');
+        $product = Product::where('status',1)->get();
+        return view('user.product-list',['product'=>$product]);
     }
     function profile(){
         return view('user.profile');
@@ -92,4 +95,22 @@ class UserController extends Controller
         return view('user.wishlist',['wishlist'=>$wishlist]);
     }
     
+    //show men product
+    function showMenProduct(){
+        $cid=Category::where('category_name','men')->first();
+        $product = Product::select('*')
+                        ->where('category_id',$cid->category_id,)
+                        ->where('status',1)
+                        ->get();
+        return view('user.product-list',['product'=>$product]);
+    }
+    //show women product
+    function showWomenProduct(){
+        $cid=Category::where('category_name','women')->first();
+        $product = Product::select('*')
+                        ->where('category_id',$cid->category_id,)
+                        ->where('status',1)
+                        ->get();
+        return view('user.product-list',['product'=>$product]);
+    }
 }
