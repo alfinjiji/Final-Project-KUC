@@ -104,7 +104,15 @@ class UserController extends Controller
                         ->where('category_id',$category->category_id,)
                         ->where('status',1)
                         ->get();
-        return view('user.product-list',['product'=>$product]);
+        if(Auth::guard('customer')->check())
+        {
+        $cid=Auth::guard('customer')->user()->customer_id;
+        $wishlist=Favorite::where('customer_id',$cid);
+        }
+        else{
+            $wishlist='';
+        }
+        return view('user.product-list',['product'=>$product,'wishlist'=>$wishlist]);
         }
         else{
             return redirect('/');
