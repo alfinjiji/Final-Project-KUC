@@ -4706,5 +4706,26 @@ input[type="radio"], input[type="checkbox"] {
   border-radius: 0;
   color: #ffffff;
 }
-
-/* End Of Style */
+.PrdWishlist i:hover {
+   background: red;
+   color: #fff;
+}
+.PrdWishlist i {
+  float: right;
+  position: absolute;
+  top: 18px;
+  right: 36px;
+  color: red;
+  font-size: 17px;
+  background: #fff;
+  border-radius: 200px;
+  padding: 7px;
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -khtml-transition: all 0.3s ease;
+}
+.PrdWishlistActive{
+  background: red !important;
+   color: #fff !important;
+}

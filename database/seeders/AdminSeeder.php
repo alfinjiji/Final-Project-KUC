@@ -54,7 +54,10 @@ class AdminSeeder extends Seeder
             'type_value' => 10,
         ]);
         Category::create([
-            'category_name' => 'cat-1',
+            'category_name' => 'men',
+        ]);
+        Category::create([
+            'category_name' => 'women',
         ]);
         Material::create([
             'material_name' => 'material 1',

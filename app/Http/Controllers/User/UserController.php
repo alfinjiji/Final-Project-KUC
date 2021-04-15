@@ -97,18 +97,18 @@ class UserController extends Controller
     
     //show men product
     function showMenProduct(){
-        $cid=Category::where('category_name','men')->first();
+        $category=Category::where('category_name','men')->first();
         $product = Product::select('*')
-                        ->where('category_id',$cid->category_id,)
+                        ->where('category_id',$category->category_id,)
                         ->where('status',1)
                         ->get();
         return view('user.product-list',['product'=>$product]);
     }
     //show women product
     function showWomenProduct(){
-        $cid=Category::where('category_name','women')->first();
+        $category=Category::where('category_name','women')->first();
         $product = Product::select('*')
-                        ->where('category_id',$cid->category_id,)
+                        ->where('category_id',$category->category_id,)
                         ->where('status',1)
                         ->get();
         return view('user.product-list',['product'=>$product]);
