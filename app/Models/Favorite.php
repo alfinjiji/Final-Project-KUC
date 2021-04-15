@@ -10,6 +10,7 @@ class Favorite extends Model
 {
     use HasFactory;
     protected $primaryKey = "favorite_id";
+    protected $fillable = ['product_id', 'customer_id'];
     public function product(){
         return $this->hasOne(Product::class, 'product_id','product_id');
     }

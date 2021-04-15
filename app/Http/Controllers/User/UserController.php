@@ -129,8 +129,31 @@ class UserController extends Controller
                         ->get();
         return view('user.product-list',['product'=>$product]);
     }
+<<<<<<< HEAD
     else{
         return redirect('/');
     }
+=======
+    // add to wishlist
+    function addWishlist($id){
+        $customer = Auth::guard('customer')->user();
+        $id = decrypt($id);
+        $wishlist = Favorite::select('*')
+                            ->where('product_id', $id)
+                            ->where('customer_id',$customer->customer_id)
+                            ->first();
+        if($wishlist == '') {
+            Favorite::create([
+                'product_id'=>$id,
+                'customer_id' => $customer->customer_id,
+            ]);
+        } else {
+            Favorite::select('*')
+                    ->where('product_id', $id)
+                    ->where('customer_id',$customer->customer_id)
+                    ->delete();
+        }
+        return redirect()->route('show.women.product');
+>>>>>>> main
     }
 }

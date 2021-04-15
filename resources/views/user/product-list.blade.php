@@ -238,6 +238,7 @@
                         @foreach($product as $product)
                         <div class="col-md-4 col-sm-4 col-xs-12">
                             <div class="product-single">
+<<<<<<< HEAD
                                 <a href=""><img src="{{asset('storage/app/'.$product->image)}}" alt="#">
                                 </a>
 								@if($wishlist=='')
@@ -253,6 +254,12 @@
 								 @endif
 								@endforeach
 								@endif
+=======
+                                <a href="#"><img src="{{asset('storage/app/'.$product->image)}}" alt="#">
+                                </a> <!--
+                                <span class="PrdWishlist "><i class="PrdWishlistActive fa fa-heart" aria-hidden="true"></i></span> -->
+                                <a href="{{ route('add.wishlist',['id'=>encrypt($product->product_id)]) }}"><span class="PrdWishlist "><i class="PrdWishlist fa fa-heart" aria-hidden="true"></i></span></a>
+>>>>>>> main
                                 <div class="hot-wid-rating">
                                     <h4><a href="single-product.html">{{$product->product_name}}</a></h4>
                                     <i class="fa fa-star"></i>
