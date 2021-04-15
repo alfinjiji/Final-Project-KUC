@@ -97,11 +97,11 @@ class UserController extends Controller
     
     //show men product
     function showMenProduct(){
-        $cid=Category::where('category_name','men')->first();
-        if($cid!='')
+        $category=Category::where('category_name','men')->first();
+        if($category!='')
         {
         $product = Product::select('*')
-                        ->where('category_id',$cid->category_id,)
+                        ->where('category_id',$category->category_id,)
                         ->where('status',1)
                         ->get();
         return view('user.product-list',['product'=>$product]);
@@ -112,11 +112,11 @@ class UserController extends Controller
     }
     //show women product
     function showWomenProduct(){
-        $cid=Category::where('category_name','women')->first();
-        if($cid!='')
+        $category=Category::where('category_name','women')->first();
+        if( $category!='')
         {
         $product = Product::select('*')
-                        ->where('category_id',$cid->category_id,)
+                        ->where('category_id',$category->category_id,)
                         ->where('status',1)
                         ->get();
         return view('user.product-list',['product'=>$product]);

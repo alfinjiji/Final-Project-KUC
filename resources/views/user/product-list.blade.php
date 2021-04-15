@@ -240,9 +240,7 @@
                             <div class="product-single">
                                 <a href="#"><img src="{{asset('storage/app/'.$product->image)}}" alt="#">
                                 </a>
-                                <div class="tag new">
-                                    <span>new</span>
-                                </div>
+                                <span class="PrdWishlist "><i class="PrdWishlistActive fa fa-heart" aria-hidden="true"></i></span>
                                 <div class="hot-wid-rating">
                                     <h4><a href="single-product.html">{{$product->product_name}}</a></h4>
                                     <i class="fa fa-star"></i>
