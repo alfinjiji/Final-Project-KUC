@@ -40,7 +40,7 @@
                   <tbody>
                     @foreach ($pricelist as $pricelist)
                     <tr>
-                      <td>{{$pricelist->pricelist_id}}</td>
+                      <td>{{$loop->iteration}}</td>
                       <td>{{$pricelist->date_from}}</td>
                       <td>{{$pricelist->date_to}}</td>
                       <td>{{$pricelist->price}}</td>
