@@ -154,10 +154,10 @@
 										<li><a href="{{route('address')}}">My Address</a></li>
 										<li><a href="{{route('user.wishlist',['id'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}">Wishlist</a>
 										</li>
-										<li><a href="{{route('product.list')}}">Shopping</a>
+										<li><a href="{{route('show.product',['name'=>encrypt('all')])}}">Shopping</a>
 										</li>
 										@else 
-										<li><a href="{{route('product.list')}}">Shopping</a>
+										<li><a href="{{route('show.product',['name'=>encrypt('all')])}}">Shopping</a>
 										</li>
 										@endif
 									</ul>
@@ -360,7 +360,7 @@
 									<ul class="drop_nav">
 										<li><a href="{{route('home')}}">Blog</a></li>
 										<li><a href="{{route('home')}}">Checkout</a></li>
-										<li><a href="{{route('product.list')}}">Product list</a></li>
+										<li><a href="{{route('show.product',['name'=>encrypt('all')])}}">Product list</a></li>
 										@if(auth()->guard('customer')->check())
 										<li><a href="{{route('profile')}}">Profile</a></li>
 										@endif

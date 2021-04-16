@@ -18,10 +18,6 @@ class UserController extends Controller
     function cart(){
         return view('user.cart');
     }
-    function productList(){
-        $product = Product::where('status',1)->get();
-        return view('user.product-list',['product'=>$product]);
-    }
     function profile(){
         return view('user.profile');
     }
@@ -53,9 +49,7 @@ class UserController extends Controller
     function search(){
         return view('user.search-result');
     }
-    function singleProduct(){
-        return view('user.single-product');
-    }
+   
     function userWishlist($id){
         $id=decrypt($id);
         $wishlist=Favorite::where('customer_id',$id)->get();
@@ -95,39 +89,7 @@ class UserController extends Controller
         return view('user.wishlist',['wishlist'=>$wishlist]);
     }
     
-    //show product
-    function showProduct($name){
-        $name=decrypt($name);
-        $category=Category::where('category_name',$name)->first();
-        if($category!='')
-        {   
-            if(Auth::guard('customer')->check()){
-                $customer=Auth::guard('customer')->user()->customer_id;
-                $products = Product::where('category_id',$category->category_id,)
-                        ->where('status',1)
-                        ->get();
-                foreach ($products as $product) {
-                    $wishlist=Favorite::where('customer_id',$customer)
-                                    ->where('product_id',$product->product_id)
-                                    ->count();
-                    if($wishlist != 0){
-                        $product->wishlist_flag = 1;
-                    } else {
-                        $product->wishlist_flag = 0;
-                    }
-                }
-                //return $product;
-            } else {
-            $products = Product::where('category_id',$category->category_id,)
-                        ->where('status',1)
-                        ->get();
-            }
-            return view('user.product-list',['products'=>$products]);
-        }
-        else{
-            return redirect('/');
-        }
-    }
+   
     // add to wishlist
     function addWishlist(Request $request){
         $customer = Auth::guard('customer')->user();
