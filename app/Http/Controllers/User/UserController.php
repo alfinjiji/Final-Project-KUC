@@ -101,7 +101,7 @@ class UserController extends Controller
         $category=Category::where('category_name',$name)->first();
         if($category!='')
         {
-        $product = Product::where('category_id',$category->category_id,)
+            $products = Product::where('category_id',$category->category_id,)
                         ->where('status',1)
                         ->get();
        /* if(Auth::guard('customer')->check())
@@ -112,7 +112,7 @@ class UserController extends Controller
         else{
             $pid[]='';
         }*/
-         return view('user.product-list',['product'=>$product]);//,'wishlist'=>$pid]);
+         return view('user.product-list',['products'=>$products]);//,'wishlist'=>$pid]);
          //return $pid;
         }
         else{

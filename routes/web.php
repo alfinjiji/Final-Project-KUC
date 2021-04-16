@@ -103,7 +103,7 @@ Route::group(['namespace'=>'User'],function(){
         Route::get('address',['as'=>'address','uses'=>'UserController@address']);
         Route::post('change-password',['as'=>'change.password','uses'=>'UserController@changePassword']);
         //Route::get('add-wishlist/{id}',['as'=>'add.wishlist','uses'=>'UserController@addWishlist']);
-        Route::post('add-wishlist',['as'=>'add.wishlist','uses'=>'UserController@addWishlist']);
+        Route::get('add-wishlist',['as'=>'add.wishlist','uses'=>'UserController@addWishlist']);
 
     });
     

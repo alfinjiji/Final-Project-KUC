@@ -231,16 +231,13 @@
                 </div>
                 <div class="col-md-9 col-sm-9 col-xs-12">
                     <div class="row">
-                        @foreach($product as $product)
+                        @foreach($products as $product)
                         <div class="col-md-4 col-sm-4 col-xs-12">
                             <div class="product-single">
                                 <a href=""><img src="{{asset('storage/app/'.$product->image)}}" alt="#"></a>
-								<form>
-									@csrf 
 									<button type="submit" class="wishlist_btn" data-id="{{ $product->product_id }}">
-										<span class="PrdWishlist "><i class="PrdWishlistActive fa fa-heart" aria-hidden="true"></i></span>
+										<span class="PrdWishlist "><i id="{{ $product->product_id }}" class="PrdWishlistActive fa fa-heart color_change" aria-hidden="true"></i></span>
 									</button>
-								</form>
                                 <div class="hot-wid-rating">
                                     <h4><a href="single-product.html">{{$product->product_name}}</a></h4>
                                     <i class="fa fa-star"></i>
@@ -270,24 +267,26 @@
 				// ajax wishlist
 				$(".wishlist_btn").click(function(e){
 		        	e.preventDefault();
-		        	var _token = $("input[name='_token']").val();
+		        	//var _token = $("input[name='_token']").val();
 					var product_id = $(this).attr('data-id');
 					console.log(product_id);
 		        	$.ajax({
 		        		url: "{{ route('add.wishlist') }}",
-		        		type:'POST',
+		        		type:'GET',
 		        		data: {
-                                _token:_token, 
+                               // _token:_token, 
                                 product_id:product_id, 
                               },
 		        		success: function(data){  
 		        			console.log(data);
                             if(data.error==0) {  
-                                //error
-								alert('delete');
+                                //remove from wishlist
+								$("#"+product_id).removeClass("PrdWishlist");
+								$("#"+product_id).addClass("PrdWishlistActive");
                             } else {    
-                               //success 
-							   alert('add');
+                               //add to wishlist 
+							    $("#"+product_id).removeClass("PrdWishlistActive");
+								$("#"+product_id).addClass("PrdWishlist");
                             }  
                         } 
 		        	});

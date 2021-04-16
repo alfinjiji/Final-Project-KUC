@@ -4706,10 +4706,12 @@ input[type="radio"], input[type="checkbox"] {
   border-radius: 0;
   color: #ffffff;
 }
+/*
 .PrdWishlist i:hover {
    background: red;
    color: #fff;
 }
+*/
 .PrdWishlist i {
   float: right;
   position: absolute;
@@ -4726,6 +4728,6 @@ input[type="radio"], input[type="checkbox"] {
   -khtml-transition: all 0.3s ease;
 }
 .PrdWishlistActive{
-  background: red !important;
-   color: #fff !important;
+  background: #fff !important;
+  color: #a2a2a2 !important;
 }
