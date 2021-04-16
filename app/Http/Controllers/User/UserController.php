@@ -34,19 +34,7 @@ class UserController extends Controller
         $customer->save();
         return redirect()->route('profile')->with('message', 'Profile updated successfully!');
     }
-    // reset password
-    function changePassword(Request $request){
-        $customer = Auth::guard('customer')->user();
-        if(!Hash::check($request->old_password, $customer->password)){
-            // password not match
-            return response()->json(['error'=>0]);
-        } else {
-            // password match
-            $customer->password = Hash::make($request->new_password);
-            $customer->save();
-            return response()->json(['success'=>1]);
-        }
-    }
+    
     function address(){
         return view('user.address');
     }
@@ -56,26 +44,7 @@ class UserController extends Controller
     function singleProduct(){
         return view('user.single-product');
     }
-    function userLogin(Request $request){
-        $input = ['email'=>request('email'),'password'=>request('pwd')];
-
-        if(Auth::guard('customer')->attempt($input))
-        {
-           // return redirect()->route('home');
-            return response()->json(['success'=>1]);
-        } 
-        else
-         {  
-           // return redirect()->route('home');
-            return response()->json(['error'=>0]);
-         } 
-
-    }
-    public function userLogout() 
-    {
-        Auth::guard('customer')->logout();
-        return redirect('/');
-    }
+    
     //show product
     function showProduct($name){
         $name=decrypt($name);
