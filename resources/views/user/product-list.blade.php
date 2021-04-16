@@ -235,9 +235,21 @@
                         <div class="col-md-4 col-sm-4 col-xs-12">
                             <div class="product-single">
                                 <a href=""><img src="{{asset('storage/app/'.$product->image)}}" alt="#"></a>
-									<button type="submit" class="wishlist_btn" data-id="{{ $product->product_id }}">
-										<span class="PrdWishlist "><i id="{{ $product->product_id }}" class="PrdWishlistActive fa fa-heart color_change" aria-hidden="true"></i></span>
+								@if(Auth::guard('customer')->check())
+									@if($product->wishlist_flag == 0)
+										<button type="submit" class="wishlist_btn" data-id="{{ $product->product_id }}">
+											<span class="PrdWishlist "><i id="{{ $product->product_id }}" class="PrdWishlistActive fa fa-heart color_change" aria-hidden="true"></i></span>
+										</button>
+									@else 
+										<button type="submit" class="wishlist_btn" data-id="{{ $product->product_id }}">
+											<span class="PrdWishlist "><i id="{{ $product->product_id }}" class="PrdWishlist fa fa-heart color_change" aria-hidden="true"></i></span>
+										</button>
+									@endif
+								@else 
+									<button type="submit" class="wishlist_btn" data-toggle="modal" data-target="#myModal">
+										<span class="PrdWishlist "><i class="PrdWishlistActive fa fa-heart color_change" aria-hidden="true"></i></span>
 									</button>
+								@endif
                                 <div class="hot-wid-rating">
                                     <h4><a href="single-product.html">{{$product->product_name}}</a></h4>
                                     <i class="fa fa-star"></i>

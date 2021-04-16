@@ -100,20 +100,29 @@ class UserController extends Controller
         $name=decrypt($name);
         $category=Category::where('category_name',$name)->first();
         if($category!='')
-        {
+        {   
+            if(Auth::guard('customer')->check()){
+                $customer=Auth::guard('customer')->user()->customer_id;
+                $products = Product::where('category_id',$category->category_id,)
+                        ->where('status',1)
+                        ->get();
+                foreach ($products as $product) {
+                    $wishlist=Favorite::where('customer_id',$customer)
+                                    ->where('product_id',$product->product_id)
+                                    ->count();
+                    if($wishlist != 0){
+                        $product->wishlist_flag = 1;
+                    } else {
+                        $product->wishlist_flag = 0;
+                    }
+                }
+                //return $product;
+            } else {
             $products = Product::where('category_id',$category->category_id,)
                         ->where('status',1)
                         ->get();
-       /* if(Auth::guard('customer')->check())
-        {
-        $cid=Auth::guard('customer')->user()->customer_id;
-       // $wishlist=Favorite::where('customer_id',$cid)->get();
-        }
-        else{
-            $pid[]='';
-        }*/
-         return view('user.product-list',['products'=>$products]);//,'wishlist'=>$pid]);
-         //return $pid;
+            }
+            return view('user.product-list',['products'=>$products]);
         }
         else{
             return redirect('/');
@@ -123,23 +132,22 @@ class UserController extends Controller
     function addWishlist(Request $request){
         $customer = Auth::guard('customer')->user();
         $id = $request->product_id;
-        $wishlist = Favorite::select('*')
-                            ->where('product_id', $id)
-                            ->where('customer_id',$customer->customer_id)
-                            ->first();
-        if($wishlist == '') {
-            Favorite::create([
-                'product_id'=>$id,
-                'customer_id' => $customer->customer_id,
-            ]);
-            return response()->json(['success'=>1]);
-        } else {
-            Favorite::select('*')
-                    ->where('product_id', $id)
-                    ->where('customer_id',$customer->customer_id)
-                    ->delete();
-            return response()->json(['error'=>0]);
-        }
-        //return redirect()->back();
+            $wishlist = Favorite::select('*')
+                                ->where('product_id', $id)
+                                ->where('customer_id',$customer->customer_id)
+                                ->first();
+            if($wishlist == '') {
+                Favorite::create([
+                    'product_id'=>$id,
+                    'customer_id' => $customer->customer_id,
+                ]);
+                return response()->json(['success'=>1]);
+            } else {
+                Favorite::select('*')
+                        ->where('product_id', $id)
+                        ->where('customer_id',$customer->customer_id)
+                        ->delete();
+                return response()->json(['error'=>0]);
+            }
     }
 }
