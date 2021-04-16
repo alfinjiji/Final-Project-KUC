@@ -96,44 +96,29 @@ class UserController extends Controller
     }
     
     //show men product
-    function showMenProduct(){
-        $category=Category::where('category_name','men')->first();
+    function showProduct($name){
+        $name=decrypt($name);
+        $category=Category::where('category_name',$name)->first();
         if($category!='')
         {
-        $product = Product::select('*')
-                        ->where('category_id',$category->category_id,)
+        $product = Product::where('category_id',$category->category_id,)
                         ->where('status',1)
                         ->get();
-        if(Auth::guard('customer')->check())
+       /* if(Auth::guard('customer')->check())
         {
         $cid=Auth::guard('customer')->user()->customer_id;
-        $wishlist=Favorite::where('customer_id',$cid);
+       // $wishlist=Favorite::where('customer_id',$cid)->get();
         }
         else{
-            $wishlist='';
-        }
-        return view('user.product-list',['product'=>$product,'wishlist'=>$wishlist]);
+            $pid[]='';
+        }*/
+         return view('user.product-list',['product'=>$product]);//,'wishlist'=>$pid]);
+         //return $pid;
         }
         else{
             return redirect('/');
         }
     }
-    //show women product
-    function showWomenProduct(){
-        $category=Category::where('category_name','women')->first();
-        if( $category!='')
-        {
-        $product = Product::select('*')
-                        ->where('category_id',$category->category_id,)
-                        ->where('status',1)
-                        ->get();
-        return view('user.product-list',['product'=>$product]);
-    }
-<<<<<<< HEAD
-    else{
-        return redirect('/');
-    }
-=======
     // add to wishlist
     function addWishlist($id){
         $customer = Auth::guard('customer')->user();
@@ -153,7 +138,6 @@ class UserController extends Controller
                     ->where('customer_id',$customer->customer_id)
                     ->delete();
         }
-        return redirect()->route('show.women.product');
->>>>>>> main
+        return redirect()->back();
     }
 }

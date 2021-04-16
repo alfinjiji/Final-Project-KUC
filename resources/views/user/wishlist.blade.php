@@ -46,8 +46,8 @@
                     <div class="product-single">
                         <a href=""><img src="{{asset('storage/app/'.$Wishlist->product->image)}}" alt="#" height="100dp" width="100dp">
                         </a>
-                        <div class="tag percent-t">
-                            <a href="{{route('delete.singlewishlist',['pid'=>encrypt($Wishlist->product->product_id),'cid'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}"><img src="{{asset('public/user-templates/images/delete.png')}}" alt="#">
+                        <div class="PrdWishlist ">
+                            <a href="{{route('delete.singlewishlist',['pid'=>encrypt($Wishlist->product->product_id),'cid'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}"><i class="fa fa-trash" aria-hidden="true"></i>
                         </div>
                         <div class="hot-wid-rating">
                             <h4><a href="{{route('single.product')}}">{{$Wishlist->product->product_name}}</a></h4>

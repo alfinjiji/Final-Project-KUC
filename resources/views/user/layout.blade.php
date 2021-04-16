@@ -372,9 +372,9 @@
 								</li>
 								<li><a href="about-us.html">About Us</a>
 								</li>
-								<li><a href="{{route('show.men.product')}}">Men</a>
+								<li><a href="{{route('show.product',['name'=>encrypt('men')])}}">Men</a>
 								</li>
-								<li><a href="{{route('show.women.product')}}">Women</a>
+								<li><a href="{{route('show.product',['name'=>encrypt('women')])}}">Women</a>
 								</li>
 								<li><a href="contact-us.html">Contact Us</a>
 								</li>

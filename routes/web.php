@@ -92,8 +92,7 @@ Route::group(['namespace'=>'User'],function(){
     Route::post('user-register',['as'=>'user.register','uses'=>'RegisterController@userRegister']);
     Route::post('user-login',['as'=>'user.login','uses'=>'UserController@userLogin']);
     Route::get('user-logout',['as'=>'user.logout','uses'=>'UserController@userLogout']);
-    Route::get('show-men-product',['as'=>'show.men.product','uses'=>'UserController@showMenProduct']);
-    Route::get('show-women-product',['as'=>'show.women.product','uses'=>'UserController@showWomenProduct']);
+    Route::get('show-product/{name}',['as'=>'show.product','uses'=>'UserController@showProduct']);
 
     Route::group(['middleware'=>'CustomerCheck'],function(){
         Route::get('profile',['as'=>'profile','uses'=>'UserController@profile']);
