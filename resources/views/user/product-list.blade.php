@@ -234,11 +234,13 @@
                         @foreach($product as $product)
                         <div class="col-md-4 col-sm-4 col-xs-12">
                             <div class="product-single">
-                                <a href=""><img src="{{asset('storage/app/'.$product->image)}}" alt="#">
-                                </a>
-								  <a href="{{route('add.wishlist',['id'=>encrypt($product->product_id)])}}" >
-                                  <span class="PrdWishlist "><i class="PrdWishlistActive fa fa-heart" aria-hidden="true"></i></span>
-								  </a>
+                                <a href=""><img src="{{asset('storage/app/'.$product->image)}}" alt="#"></a>
+								<form>
+									@csrf 
+									<button type="submit" class="wishlist_btn" data-id="{{ $product->product_id }}">
+										<span class="PrdWishlist "><i class="PrdWishlistActive fa fa-heart" aria-hidden="true"></i></span>
+									</button>
+								</form>
                                 <div class="hot-wid-rating">
                                     <h4><a href="single-product.html">{{$product->product_name}}</a></h4>
                                     <i class="fa fa-star"></i>
@@ -260,4 +262,36 @@
     </div>
     <!-- PRODUCT-LIST:END -->
 	
+	@endsection
+
+	@section('custom_script')
+		<script>
+			$(document).ready(function(){
+				// ajax wishlist
+				$(".wishlist_btn").click(function(e){
+		        	e.preventDefault();
+		        	var _token = $("input[name='_token']").val();
+					var product_id = $(this).attr('data-id');
+					console.log(product_id);
+		        	$.ajax({
+		        		url: "{{ route('add.wishlist') }}",
+		        		type:'POST',
+		        		data: {
+                                _token:_token, 
+                                product_id:product_id, 
+                              },
+		        		success: function(data){  
+		        			console.log(data);
+                            if(data.error==0) {  
+                                //error
+								alert('delete');
+                            } else {    
+                               //success 
+							   alert('add');
+                            }  
+                        } 
+		        	});
+		        });
+			});
+		</script>
 	@endsection

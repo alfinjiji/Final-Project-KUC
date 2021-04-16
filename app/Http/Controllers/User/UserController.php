@@ -95,7 +95,7 @@ class UserController extends Controller
         return view('user.wishlist',['wishlist'=>$wishlist]);
     }
     
-    //show men product
+    //show product
     function showProduct($name){
         $name=decrypt($name);
         $category=Category::where('category_name',$name)->first();
@@ -120,9 +120,9 @@ class UserController extends Controller
         }
     }
     // add to wishlist
-    function addWishlist($id){
+    function addWishlist(Request $request){
         $customer = Auth::guard('customer')->user();
-        $id = decrypt($id);
+        $id = $request->product_id;
         $wishlist = Favorite::select('*')
                             ->where('product_id', $id)
                             ->where('customer_id',$customer->customer_id)
@@ -132,12 +132,14 @@ class UserController extends Controller
                 'product_id'=>$id,
                 'customer_id' => $customer->customer_id,
             ]);
+            return response()->json(['success'=>1]);
         } else {
             Favorite::select('*')
                     ->where('product_id', $id)
                     ->where('customer_id',$customer->customer_id)
                     ->delete();
+            return response()->json(['error'=>0]);
         }
-        return redirect()->back();
+        //return redirect()->back();
     }
 }
