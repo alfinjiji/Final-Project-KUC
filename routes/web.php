@@ -96,14 +96,14 @@ Route::group(['namespace'=>'User'],function(){
 
     Route::group(['middleware'=>'CustomerCheck'],function(){
         Route::get('profile',['as'=>'profile','uses'=>'UserController@profile']);
-        Route::get('user-wishlist/{id}',['as'=>'user.wishlist','uses'=>'UserController@userWishlist']);
-        Route::get('clear-wishlist/{id}',['as'=>'clear.wishlist','uses'=>'UserController@clearWishlist']);
-        Route::get('delete-singlewishlist/{pid}/{cid}',['as'=>'delete.singlewishlist','uses'=>'UserController@deleteSinglewishlist']);
         Route::post('update-profile/{id}',['as'=>'update.profile','uses'=>'UserController@updateProfile']);
         Route::get('address',['as'=>'address','uses'=>'UserController@address']);
         Route::post('change-password',['as'=>'change.password','uses'=>'UserController@changePassword']);
-        //Route::get('add-wishlist/{id}',['as'=>'add.wishlist','uses'=>'UserController@addWishlist']);
-        Route::get('add-wishlist',['as'=>'add.wishlist','uses'=>'UserController@addWishlist']);
+        // user wishlist
+        Route::get('add-wishlist',['as'=>'add.wishlist','uses'=>'WishlistController@addWishlist']);
+        Route::get('user-wishlist/{id}',['as'=>'user.wishlist','uses'=>'WishlistController@userWishlist']);
+        Route::get('clear-wishlist/{id}',['as'=>'clear.wishlist','uses'=>'WishlistController@clearWishlist']);
+        Route::get('delete-singlewishlist/{pid}/{cid}',['as'=>'delete.singlewishlist','uses'=>'WishlistController@deleteSingleWishlist']);
 
     });
     

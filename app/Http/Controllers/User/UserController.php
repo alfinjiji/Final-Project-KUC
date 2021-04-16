@@ -56,11 +56,6 @@ class UserController extends Controller
     function singleProduct(){
         return view('user.single-product');
     }
-    function userWishlist($id){
-        $id=decrypt($id);
-        $wishlist=Favorite::where('customer_id',$id)->get();
-        return view('user.wishlist',['wishlist'=>$wishlist]);
-    }
     function userLogin(Request $request){
         $input = ['email'=>request('email'),'password'=>request('pwd')];
 
@@ -81,20 +76,6 @@ class UserController extends Controller
         Auth::guard('customer')->logout();
         return redirect('/');
     }
-
-    function clearWishlist($id){
-        $id=decrypt($id);
-        $wishlist=Favorite::where('customer_id',$id)->delete();
-        return redirect('/');
-    }
-    function deleteSinglewishlist($pid,$cid){
-        $pid=decrypt($pid);
-        Favorite::where('product_id',$pid)->delete();
-        $cid=decrypt($cid);
-        $wishlist=Favorite::where('customer_id',$cid)->get();
-        return view('user.wishlist',['wishlist'=>$wishlist]);
-    }
-    
     //show product
     function showProduct($name){
         $name=decrypt($name);
@@ -116,7 +97,6 @@ class UserController extends Controller
                         $product->wishlist_flag = 0;
                     }
                 }
-                //return $product;
             } else {
             $products = Product::where('category_id',$category->category_id,)
                         ->where('status',1)
@@ -127,27 +107,5 @@ class UserController extends Controller
         else{
             return redirect('/');
         }
-    }
-    // add to wishlist
-    function addWishlist(Request $request){
-        $customer = Auth::guard('customer')->user();
-        $id = $request->product_id;
-            $wishlist = Favorite::select('*')
-                                ->where('product_id', $id)
-                                ->where('customer_id',$customer->customer_id)
-                                ->first();
-            if($wishlist == '') {
-                Favorite::create([
-                    'product_id'=>$id,
-                    'customer_id' => $customer->customer_id,
-                ]);
-                return response()->json(['success'=>1]);
-            } else {
-                Favorite::select('*')
-                        ->where('product_id', $id)
-                        ->where('customer_id',$customer->customer_id)
-                        ->delete();
-                return response()->json(['error'=>0]);
-            }
     }
 }
