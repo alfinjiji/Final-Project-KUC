@@ -89,15 +89,21 @@ Route::group(['namespace'=>'User'],function(){
     Route::get('search',['as'=>'search','uses'=>'UserController@search']);
     Route::get('single-product',['as'=>'single.product','uses'=>'ProductController@singleProduct']);
     Route::post('user-register',['as'=>'user.register','uses'=>'RegisterController@userRegister']);
+<<<<<<< HEAD
     Route::post('user-login',['as'=>'user.login','uses'=>'UserController@userLogin']);
     Route::get('user-logout',['as'=>'user.logout','uses'=>'UserController@userLogout']);
     Route::get('show-product/{name}',['as'=>'show.product','uses'=>'ProductController@showProduct']);
+=======
+    Route::post('user-login',['as'=>'user.login','uses'=>'LoginController@userLogin']);
+    Route::get('user-logout',['as'=>'user.logout','uses'=>'LoginController@userLogout']);
+    Route::get('show-product/{name}',['as'=>'show.product','uses'=>'UserController@showProduct']);
+>>>>>>> alfin
 
     Route::group(['middleware'=>'CustomerCheck'],function(){
         Route::get('profile',['as'=>'profile','uses'=>'UserController@profile']);
         Route::post('update-profile/{id}',['as'=>'update.profile','uses'=>'UserController@updateProfile']);
         Route::get('address',['as'=>'address','uses'=>'UserController@address']);
-        Route::post('change-password',['as'=>'change.password','uses'=>'UserController@changePassword']);
+        Route::post('change-password',['as'=>'change.password','uses'=>'LoginController@changePassword']);
         // user wishlist
         Route::get('add-wishlist',['as'=>'add.wishlist','uses'=>'WishlistController@addWishlist']);
         Route::get('user-wishlist/{id}',['as'=>'user.wishlist','uses'=>'WishlistController@userWishlist']);
