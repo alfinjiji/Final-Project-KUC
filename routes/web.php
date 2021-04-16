@@ -86,13 +86,12 @@ Route::group(['namespace'=>'User'],function(){
 
     Route::get('/',['as'=>'home','uses'=>'UserController@home']);
     Route::get('cart',['as'=>'cart','uses'=>'UserController@cart']);
-    Route::get('product-list',['as'=>'product.list','uses'=>'UserController@productList']);
     Route::get('search',['as'=>'search','uses'=>'UserController@search']);
-    Route::get('single-product',['as'=>'single.product','uses'=>'UserController@singleProduct']);
+    Route::get('single-product',['as'=>'single.product','uses'=>'ProductController@singleProduct']);
     Route::post('user-register',['as'=>'user.register','uses'=>'RegisterController@userRegister']);
     Route::post('user-login',['as'=>'user.login','uses'=>'UserController@userLogin']);
     Route::get('user-logout',['as'=>'user.logout','uses'=>'UserController@userLogout']);
-    Route::get('show-product/{name}',['as'=>'show.product','uses'=>'UserController@showProduct']);
+    Route::get('show-product/{name}',['as'=>'show.product','uses'=>'ProductController@showProduct']);
 
     Route::group(['middleware'=>'CustomerCheck'],function(){
         Route::get('profile',['as'=>'profile','uses'=>'UserController@profile']);
