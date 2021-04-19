@@ -4706,12 +4706,12 @@ input[type="radio"], input[type="checkbox"] {
   border-radius: 0;
   color: #ffffff;
 }
-/*
+
 .PrdWishlist i:hover {
    background: red;
    color: #fff;
 }
-*/
+
 .PrdWishlist i {
   float: right;
   position: absolute;

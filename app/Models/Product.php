@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\Material;
+use App\Model\Productimage;
 
 class Product extends Model
 {
@@ -27,6 +28,11 @@ class Product extends Model
     public function pricelist()
     {
         return $this->hasOne(Pricelist::class,'product_id','product_id');
+    }
+    //for images
+    public function productimages()
+    {
+        return $this->hasMany(Productimage::class,'product_id','product_id');
     }
 
     // mutator for adding new field wishlist_flag for checking product is in wishlist or not.
