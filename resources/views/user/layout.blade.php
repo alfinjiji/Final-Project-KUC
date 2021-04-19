@@ -365,7 +365,7 @@
 										<li><a href="{{route('profile')}}">Profile</a></li>
 										@endif
 										<li><a href="{{route('search')}}">Search result</a></li>
-										<li><a href="{{route('single.product')}}">Single product</a></li>
+										<li><a href="{{route('single.product',['id',encrypt(1)])}}">Single product</a></li>
 										<li><a href="">wishlist</a></li>
 										<li><a href="404.html">404</a></li>
 									</ul>

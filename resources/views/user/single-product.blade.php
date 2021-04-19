@@ -242,24 +242,12 @@
 									<div class="single_product_image">
 										<input type="hidden" id="__VIEWxSTATE" />
 										<ul id='zoom1' class=''>
-											<li>
-												<img src="{{ asset('public/user-templates/images/Single-Product.png')}}" alt='image1' />
-											</li>
-											<li>
-												<img src="{{ asset('public/user-templates/images/Single-Product1.jpg')}}" alt='image2' />
-											</li>
-											<li>
-												<img src="{{ asset('public/user-templates/images/Single-Product2.jpg')}}" alt='image3' />
-											</li>
-											<li>
-												<img src="{{ asset('public/user-templates/images/Single-Product3.jpg')}}" alt='image1' />
-											</li>
-											<li>
-												<img src="{{ asset('public/user-templates/images/Single-Product4.jpg')}}" alt='image2' />
-											</li>
-											<li>
-												<img src="{{ asset('public/user-templates/images/Single-Product5.jpg')}}" alt='image2' />
-											</li>
+											@foreach($product->productimages as $product_image)
+												<li>
+													<img src="{{asset('storage/app/'.$product_image->image)}}" alt='image' />
+												</li>
+											@endforeach
+											
 										</ul>
 									</div>
 									
@@ -267,7 +255,7 @@
                             </div>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <div class="single-product-content">
-                                    <h3>Awesome stylish shirts</h3>
+                                    <h3>{{ $product->product_name }}</h3>
                                     <div class="product-review">
                                         <ul>
                                             <li>
@@ -283,9 +271,9 @@
                                         <h4>Availability <span>: In Stock 20 Item(s)</span>
                                     </h4>
                                         <div class="product-wid-price">
-                                            <ins>$75</ins> <del>$85</del>
+                                            <ins>${{$product->pricelist->price}}</ins> <del>${{$product->pricelist->price+100}}</del>
                                         </div>
-                                        <p>The ship set ground on the shore of this uncharted desert isle with Gilligan the Skipper too the millionaire and his wife. And when the odds are against him and their dangers work to do. </p>
+                                        <p></p>
                                     </div>
 
                                     <div class="single-color">
@@ -341,7 +329,7 @@
                                         </div>
                                         <div class="size-down">
                                             <input type="number" step="1" min="0" max="119" name="quantity[113]" value="1" title="Qty" class="input-text qty text" size="4">
-                                        </div>
+                                        </div> 
                                         <div class="size-cart">
 										<a href="" class="fa fa-shopping-cart"> Add to cart</a>
                                         </div>
@@ -362,7 +350,7 @@
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="home">Then along come two they got nothin' but their jeans. Flying away on a wing and a prayer. Who could it be? Believe it or not its just me. Today still wanted by the government they survive as soldiers of fortune. Boy the way Glen Miller played. Songs that made the hit parade. Guys like us we had it made. Those were the days.</div>
+                            <div role="tabpanel" class="tab-pane active" id="home">{{ $product->description }}</div>
                             <div role="tabpanel" class="tab-pane" id="profile">
 								<div class="review_panel">
 									<div class="review_comments">
