@@ -15,7 +15,7 @@ class ProductController extends Controller
      //show product
      function showProduct($name){
         $name=decrypt($name);
-        if($name=='men'||$name=='women')
+        if($name=='men'|| $name=='women')
         {
             $category=Category::where('category_name',$name)->first();
             if($category!='')

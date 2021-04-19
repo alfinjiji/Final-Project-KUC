@@ -69,7 +69,6 @@ class AdminSeeder extends Seeder
             'color' => 'white',
             'material_id' => 1,
             'category_id' => 1,
-            'image' => 'image/img.jpg',
         ]); 
         Order::create([
             'customer_id' => 1,

@@ -40,37 +40,4 @@ class UserController extends Controller
     function singleProduct(){
         return view('user.single-product');
     }
-    
-    //show product
-    function showProduct($name){
-        $name=decrypt($name);
-        $category=Category::where('category_name',$name)->first();
-        if($category!='')
-        {   
-            if(Auth::guard('customer')->check()){
-                $customer=Auth::guard('customer')->user()->customer_id;
-                $products = Product::where('category_id',$category->category_id,)
-                        ->where('status',1)
-                        ->get();
-                foreach ($products as $product) {
-                    $wishlist=Favorite::where('customer_id',$customer)
-                                    ->where('product_id',$product->product_id)
-                                    ->count();
-                    if($wishlist != 0){
-                        $product->wishlist_flag = 1;
-                    } else {
-                        $product->wishlist_flag = 0;
-                    }
-                }
-            } else {
-            $products = Product::where('category_id',$category->category_id,)
-                        ->where('status',1)
-                        ->get();
-            }
-            return view('user.product-list',['products'=>$products]);
-        }
-        else{
-            return redirect('/');
-        }
-    }
 }
