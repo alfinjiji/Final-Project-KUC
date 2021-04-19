@@ -36,7 +36,6 @@ class Product extends Model
         return $this->hasOne(Pricelist::class,'product_id','product_id');
     }
     
-
     // mutator for adding new field wishlist_flag for checking product is in wishlist or not.
     public function setWishlistFlagAttribute($value){
         $this->attributes['wishlist_flag'] = $value;
