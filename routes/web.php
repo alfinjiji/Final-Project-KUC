@@ -41,7 +41,9 @@ Route::group(['namespace'=>'Admin'],function(){
         Route::get('product-create',['as'=>'product.create','uses'=>'ProductController@productCreate'] );
         Route::post('do-product-create',['as'=>'do.product.create','uses'=>'ProductController@doProductCreate'] );
         Route::get('product-image-list/{id}',['as'=>'product.image.list','uses'=>'ProductController@productImageList'] );
-        Route::post('edit-product-image/{id}',['as'=>'edit.product.image','uses'=>'ProductController@editproductimage']);
+        Route::post('edit-product-image/{id}',['as'=>'edit.product.image','uses'=>'ProductController@editProductImage']);
+        Route::post('add-product-image/{id}',['as'=>'add.product.image','uses'=>'ProductController@addProductImage']);
+        Route::get('delete-product-image/{id}',['as'=>'delete.product.image', 'uses'=>'ProductController@deleteProductimage']);
         Route::get('product-edit/{id}',['as'=>'product.edit','uses'=>'ProductController@productEdit'] );
         Route::post('do-product-edit/{id}',['as'=>'do.product.edit','uses'=>'ProductController@doProductEdit'] );
         Route::get('product-delete/{id}',['as'=>'product.delete','uses'=>'ProductController@productDelete'] );

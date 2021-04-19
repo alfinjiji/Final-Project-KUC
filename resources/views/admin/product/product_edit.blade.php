@@ -64,14 +64,9 @@
                       @endforeach
                     </select>
                   </div>
+                  <!--
                   <div class="form-group">
                     <label>Image</label><br>
-                    <!--
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input" id="customFile">
-                      <label class="custom-file-label" for="customFile">Choose file</label>
-                    </div>
-                  -->
                     <img id="view" style="max-width:100px;max-height: 100px " src="{{asset('storage/app/'.$product->productimage->image)}}"/>
                     <input type="hidden" name="image_id" value="{{$product->productimage->productimage_id}}">
                     <div class="custom-file">
@@ -79,6 +74,7 @@
                       <span id="spnmsg" style="color:red;"></span>
                     </div>
                   </div>
+                -->
               </div>
               <!-- /.card-body -->
               <div class="card-footer">
