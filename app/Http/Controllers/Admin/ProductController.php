@@ -87,6 +87,7 @@ class ProductController extends Controller
         
     }
     function doProductAddPrice(Request $request, $id){
+        if($request->date_from < $request->date_to){
         $pricelist = Pricelist::create([
             'product_id'=>decrypt($id),
             'date_from'=>$request->date_from,
@@ -97,6 +98,8 @@ class ProductController extends Controller
             $product->status=1;
             $product->save();
         return redirect()->route('product')->with('message','Price list added successfully!');
+        }
+        return redirect()->route('product.add.price',['id'=>$id])->with('message','Please confirm To-Date greater than From-Date');
     }
     function productPricelist($id){
         $product_id = decrypt($id);

@@ -33,15 +33,16 @@
                     <div class="form-group">
                       <label>From Date</label>
                       @if($count==0)
-                      <input type="text" placeholder="yyyy-mm-dd" class="form-control" name="date_from" id="datepicker" autocomplete="off">
+                      <input type="text" placeholder="yyyy-mm-dd" class="form-control" name="date_from"  id="datepicker" autocomplete="off">
                       @else 
-                      <input type="text" placeholder="yyyy-mm-dd" class="form-control" name="date_from" id="datepicker2" value="{{$pricelist->date_to}}" autocomplete="off" readonly="true">
+                      <input type="text" placeholder="yyyy-mm-dd" class="form-control" name="date_from" readonly="true" id="datepicker2" value="{{$pricelist->date_to}}"  >
+                     
                       @endif
                     </div>
                     <div class="form-group">
                         <label>To Date</label>
                         <input type="text" class="form-control"  name="date_to" placeholder="yyyy-mm-dd" id="datepicker1" autocomplete="off">
-                    </div>
+                      </div>
                     <div class="form-group">
                         <label>Price</label>
                         <input type="number" class="form-control"  placeholder="Enter Price" name="price" required min="0">
