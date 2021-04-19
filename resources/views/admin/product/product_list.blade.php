@@ -55,7 +55,9 @@
                       <td>{{$product->material->material_name}}</td>
                       <td>{{$product->category->category_name}}</td>
                       <td>
-                        <img style="height: 75px; width:100px;" src="{{ asset('storage/app/'.$product->image) }}">
+                        <a href="{{ route('product.image.list',['id'=>encrypt($product->product_id)])}}">
+                          <img style="height: 75px; width:100px;" src="{{ asset('storage/app/'.$product->productimage->image) }}">
+                        </a>
                       </td>
                       <td><a href="{{route('product.pricelist',['id'=>encrypt($product->product_id)])}}"><span class="badge bg-success">pricelist</span></a></td>
                       @if($product->status == 1)

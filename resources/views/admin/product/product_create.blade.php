@@ -72,9 +72,28 @@
                       <label class="custom-file-label" for="customFile">Choose file</label>
                     </div>
                   -->
-                  <img id="view" style="max-width:100px;max-height: 100px " />
+                  <!-- image 1 -->
+                  <img id="view-1" style="max-width:100px;max-height: 100px " />
                   <div class="custom-file">
-                    <input class="form-control" type="file" id="formFileDisabled"  onchange="previewFile()" name="image"/><br>
+                    <input class="form-control" type="file" id="formFile-1"  onchange="previewFile_1()" name="image_1"/><br>
+                    <span id="spnmsg" style="color:red;"></span>
+                  </div>
+                  <!-- image 2 -->
+                  <img id="view-2" style="max-width:100px;max-height: 100px " />
+                  <div class="custom-file">
+                    <input class="form-control" type="file" id="formFile-2"  onchange="previewFile_2()" name="image_2"/><br>
+                    <span id="spnmsg" style="color:red;"></span>
+                  </div>
+                  <!-- image 3 -->
+                  <img id="view-3" style="max-width:100px;max-height: 100px " />
+                  <div class="custom-file">
+                    <input class="form-control" type="file" id="formFile-3"  onchange="previewFile_3()" name="image_3"/><br>
+                    <span id="spnmsg" style="color:red;"></span>
+                  </div>
+                  <!-- image 4 -->
+                  <img id="view-4" style="max-width:100px;max-height: 100px " />
+                  <div class="custom-file">
+                    <input class="form-control" type="file" id="formFile-4"  onchange="previewFile_4()" name="image_4"/><br>
                     <span id="spnmsg" style="color:red;"></span>
                   </div>
                   </div>
@@ -93,16 +112,47 @@
   </section>
   <!-- /.content -->
   <script>
-    function previewFile(input){
-        var file = $("#formFileDisabled").get(0).files[0];
- 
+    // image 1
+    function previewFile_1(input){
+        var file = $("#formFile-1").get(0).files[0];
         if(file){
             var reader = new FileReader();
- 
             reader.onload = function(){
-                $("#view").attr("src", reader.result);
+                $("#view-1").attr("src", reader.result);
             }
- 
+            reader.readAsDataURL(file);
+        }
+    }
+    // image 2
+    function previewFile_2(input){
+        var file = $("#formFile-2").get(0).files[0];
+        if(file){
+            var reader = new FileReader();
+            reader.onload = function(){
+                $("#view-2").attr("src", reader.result);
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+    // image 3
+    function previewFile_3(input){
+        var file = $("#formFile-3").get(0).files[0];
+        if(file){
+            var reader = new FileReader();
+            reader.onload = function(){
+                $("#view-3").attr("src", reader.result);
+            }
+            reader.readAsDataURL(file);
+        }
+    }
+    // image 4
+    function previewFile_4(input){
+        var file = $("#formFile-4").get(0).files[0];
+        if(file){
+            var reader = new FileReader();
+            reader.onload = function(){
+                $("#view-4").attr("src", reader.result);
+            }
             reader.readAsDataURL(file);
         }
     }

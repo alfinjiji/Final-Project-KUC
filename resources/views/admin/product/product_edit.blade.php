@@ -72,7 +72,8 @@
                       <label class="custom-file-label" for="customFile">Choose file</label>
                     </div>
                   -->
-                    <img id="view" style="max-width:100px;max-height: 100px " src="{{asset('storage/app/'.$product->image)}}"/>
+                    <img id="view" style="max-width:100px;max-height: 100px " src="{{asset('storage/app/'.$product->productimage->image)}}"/>
+                    <input type="hidden" name="image_id" value="{{$product->productimage->productimage_id}}">
                     <div class="custom-file">
                       <input class="form-control" type="file" id="formFileDisabled"  onchange="previewFile()" name="image"/><br>
                       <span id="spnmsg" style="color:red;"></span>

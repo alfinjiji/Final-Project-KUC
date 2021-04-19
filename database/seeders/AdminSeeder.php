@@ -12,6 +12,7 @@ use App\Models\Coupon;
 use App\Models\Category;
 use App\Models\Material;
 use App\Models\Product;
+use App\Models\Productimage;
 use App\Models\Order;
 use App\Models\OrderLine;
 
@@ -70,6 +71,11 @@ class AdminSeeder extends Seeder
             'material_id' => 1,
             'category_id' => 1,
         ]); 
+        Productimage::create([
+            'product_id' => '1',
+            'image' => 'image/img.png',
+
+        ]);
         Order::create([
             'customer_id' => 1,
             'customer_address_id' => 1,
