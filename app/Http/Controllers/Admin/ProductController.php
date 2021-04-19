@@ -5,34 +5,29 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
+use App\Models\Category;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Product;
 use App\Models\Material;
-use App\Models\Category;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 use App\Models\Pricelist;
+use App\Models\Productimage;
 
 class ProductController extends Controller
 {
+    // product list
     function product(){
-        /* 
-        $products = DB::table('products')
-            ->join('categories', 'products.category_id', '=', 'categories.category_id')
-            ->join('materials', 'products.material_id', '=', 'materials.material_id')
-            ->select('products.*', 'categories.category_name', 'materials.material_name')
-            ->latest()->get();
-        */
         $products = Product::latest()->get();
-        return view('admin.product.product',['products'=>$products]);
+        return view('admin.product.product_list',['products'=>$products]);
     }
+    // create view
     function productCreate(){
         $category = Category::all();
         $material = Material::all();
         return view('admin.product.product_create',['category'=>$category, 'material'=>$material]);
     }
+    // upload product
     function doProductCreate(Request $request){
-        $image = date('Y-m-d-H-i-s-').rand() . '.' . $request->file('image')->getClientOriginalExtension();
-        $path = Storage::putFileAs('image', $request->file('image'), $image);
+         // product 
         $product = Product::create([
             'product_name'=>$request->product_name,
             'description'=>$request->description,
@@ -40,24 +35,65 @@ class ProductController extends Controller
             'color'=>$request->color,
             'material_id'=>$request->material_id,
             'category_id'=>$request->category_id,
-            'image'=>$path,
         ]);
+        // image 1
+        $image_1 = date('Y-m-d-H-i-s-').rand() . '.' . $request->file('image_1')->getClientOriginalExtension();
+        $path_1 = Storage::putFileAs('image', $request->file('image_1'), $image_1);
+        // productimage
+        $product_image = Productimage::create([
+            'product_id'=>$product->product_id,
+            'image'=>$path_1,
+        ]);
+        // image 2
+        if($request->image_2 != '') {
+            $image_2 = date('Y-m-d-H-i-s-').rand() . '.' . $request->file('image_2')->getClientOriginalExtension();
+            $path_2 = Storage::putFileAs('image', $request->file('image_2'), $image_2);
+            // productimage
+            $product_image = Productimage::create([
+                'product_id'=>$product->product_id,
+                'image'=>$path_2,
+            ]);
+        }
+        // image 3
+        if($request->image_3 != '') {
+            $image_3 = date('Y-m-d-H-i-s-').rand() . '.' . $request->file('image_3')->getClientOriginalExtension();
+            $path_3 = Storage::putFileAs('image', $request->file('image_3'), $image_3);
+            // productimage
+            $product_image = Productimage::create([
+                'product_id'=>$product->product_id,
+                'image'=>$path_3,
+            ]);
+        }
+        // image 4
+        if($request->image_4 != '') {
+            $image_4 = date('Y-m-d-H-i-s-').rand() . '.' . $request->file('image_4')->getClientOriginalExtension();
+            $path_4 = Storage::putFileAs('image', $request->file('image_4'), $image_4); 
+            // productimage
+            $product_image = Productimage::create([
+                'product_id'=>$product->product_id,
+                'image'=>$path_4,
+            ]);
+        }
         return redirect()->route('product')->with('message','Product uploaded successfully!');
     }
+    // edit view
     function productEdit($id){
         $category = Category::all();
         $material = Material::all();
         $product =Product::find(decrypt($id));
         return view('admin.product.product_edit',['product'=>$product, 'category'=>$category, 'material'=>$material]);
     }
+    // edit product
     function doProductEdit(Request $request, $id){
         $product = Product::find(decrypt($id));
+        $product_image = Productimage::find($request->image_id);
         if($request->image!=''){ 
-            $deletepath=$product->image;
+            $deletepath=$product_image->image;
             Storage::delete($deletepath); // delete old image
             $image = date('Y-m-d-H-i-s-').rand() . '.' . $request->file('image')->getClientOriginalExtension();
             $path = Storage::putFileAs('image', $request->file('image'), $image);
-            $product->image=$path;
+            $product_image->image=$path;
+            $product_image->save();
             }
         $product->product_name = $request->product_name;
         $product->description = $request->description;
@@ -68,6 +104,23 @@ class ProductController extends Controller
         $product->save();
         return redirect()->route('product')->with('message', 'product updated!');
     }
+    // image list
+    function productImageList($id){
+        $product_images = Productimage::where('product_id',decrypt($id))->get();
+        return view('admin.product.product_image',['product_images'=>$product_images]);
+    }
+    // edit image
+    function editProductImage( Request $request, $id) {
+        $product_image = Productimage::find(decrypt($id));
+        $deletepath=$product_image->image;
+        Storage::delete($deletepath); // delete old image
+        $image = date('Y-m-d-H-i-s-').rand() . '.' . $request->file('image')->getClientOriginalExtension();
+        $path = Storage::putFileAs('image', $request->file('image'), $image);
+        $product_image->image=$path;
+        $product_image->save();
+        return redirect()->back();
+    }
+    // delete product
     function productDelete($id){
         $product = Product::find(decrypt($id));
         //Storage::delete('image/'.$product->image);
@@ -75,6 +128,7 @@ class ProductController extends Controller
         Product::find(decrypt($id))->delete();
         return redirect()->route('product')->with('message', 'Product deleted!');
     }
+    // add price view
     function productAddPrice($id){
         $product_id =decrypt($id);
         $count=Pricelist::where('product_id',$product_id)->count();
@@ -86,6 +140,7 @@ class ProductController extends Controller
         }
         
     }
+    // do add price
     function doProductAddPrice(Request $request, $id){
         $pricelist = Pricelist::create([
             'product_id'=>decrypt($id),
@@ -98,11 +153,13 @@ class ProductController extends Controller
             $product->save();
         return redirect()->route('product')->with('message','Price list added successfully!');
     }
+    // price list view
     function productPricelist($id){
         $product_id = decrypt($id);
         $pricelist = Pricelist::where('product_id',$product_id)->get();
         return view('admin.product.product_pricelist',['product_id'=>$product_id, 'pricelist'=>$pricelist]);
     }
+    // delete price list
     function productPricelistDelete($id){
         $id=decrypt($id);
         $pricelist=Pricelist::find($id)->first();
