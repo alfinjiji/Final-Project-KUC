@@ -234,7 +234,7 @@
                         @foreach($products as $product)
                         <div class="col-md-4 col-sm-4 col-xs-12">
                             <div class="product-single">
-                                <a href=""><img src="{{asset('storage/app/'.$product->image)}}" alt="#"></a>
+                                <a href=""><img src="{{asset('storage/app/'.$product->productimage->image)}}" alt="#"></a>
 								@if(Auth::guard('customer')->check())
 									@if($product->wishlist_flag == 0)
 										<button type="submit" class="wishlist_btn" data-id="{{ $product->product_id }}">

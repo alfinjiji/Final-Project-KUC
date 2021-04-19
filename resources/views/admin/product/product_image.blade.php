@@ -32,10 +32,11 @@
                 @csrf
                 <div class="row">
                   <div class="col-5">
-                    <input type="file" class="form-control"  name="image" required>
+                    <input type="file" class="form-control" id="uploadimage"  name="image" >
+                    <span id="error" style="color:red;"></span>
                   </div>
                   <div class="col-3">
-                    <button class="btn btn-success" type="submit">Upload</button>
+                    <button class="btn btn-success" type="submit" id="submitBtn">Upload</button>
                   </div>
                 </div>
               </form>
@@ -125,6 +126,19 @@
         var validFileExtensions = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
         if ($.inArray(extension, validFileExtensions) == -1) {
         $('#spnmsg'+id).text("Failed!! Please select jpg, jpeg, png, gif, bmp file only.").show();
+          return false;
+        }
+    });
+    $('#submitBtn').click(function(){
+        if( $('#uploadimage').val()=='')
+        {  
+          alert('choose image'); 
+          return false;
+        }
+        var extension = $('#uploadimage').val().split('.').pop().toLowerCase();
+        var validFileExtensions = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+        if ($.inArray(extension, validFileExtensions) == -1) {
+        $('#error').text("Failed!! Please select jpg, jpeg, png, gif, bmp file only.").show();
           return false;
         }
     });
