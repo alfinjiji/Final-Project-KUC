@@ -47,10 +47,10 @@
                         <form method="POST" enctype="multipart/form-data" action="{{ route('edit.product.image',['id'=>encrypt($product_image->productimage_id)]) }}">
                           @csrf
                           <div class="custom-file">
-                            <input class="form-control img" type="file" name="image" id="formFileDisabled" required/><br>
-                            <span id="spnmsg" style="color:red;"></span>
+                            <input class="form-control img" type="file" name="image"  id="formFileDisabled{{ $loop->iteration }}" /><br>
+                            <span id="spnmsg{{ $loop->iteration }}" style="color:red;"></span>
                           </div>
-                          <button type="submit" class="btn btn-sm btn-primary imgBtn" id="productSubmitBtn" >Change Image</button>
+                          <button type="submit" class="btn btn-sm btn-primary imgBtn" data-id="{{ $loop->iteration }}" id="productSubmitBtn{{ $loop->iteration }}">Change Image</button>
                         </form>
                       </td>
                     </tr>
@@ -80,33 +80,22 @@
 @section('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
   <script>
-    /*
+    // image validation
     $(document).ready(function () {
       $('.imgBtn').click(function(){
-        $image=$('.img').val();
-        if($image==''){
-          alert('please choose image');
+        var id = $(this).attr('data-id');
+        if( $('#formFileDisabled'+id).val()=='')
+        {  
+          alert('choose image'); 
           return false;
         }
-      });
-    });
-
-    // image validation
-    $(function () {
-    $("#formFileDisabled").change(function () {
-    var extension = $(this).val().split('.').pop().toLowerCase();
-    var validFileExtensions = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
-    if ($.inArray(extension, validFileExtensions) == -1) {
-    $('#spnmsg').text("Failed!! Please select jpg, jpeg, png, gif, bmp file only.").show();
-    $(this).replaceWith($(this).val('').clone(true));
-    $('#productSubmitBtn').prop('disabled', true);
-    }
-    else {
-    $('#spnmsg').text('').hide();
-    $('#productSubmitBtn').prop('disabled', false);
-    }
+        var extension = $('#formFileDisabled'+id).val().split('.').pop().toLowerCase();
+        var validFileExtensions = ['jpeg', 'jpg', 'png', 'gif', 'bmp'];
+        if ($.inArray(extension, validFileExtensions) == -1) {
+        $('#spnmsg'+id).text("Failed!! Please select jpg, jpeg, png, gif, bmp file only.").show();
+          return false;
+        }
     });
     });
-    */
   </script>
 @endsection
