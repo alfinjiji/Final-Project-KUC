@@ -14,9 +14,35 @@
                  {{ session()->get('message') }}
             </div>
           @endif
+          @if(session()->has('error')) 
+            <div class="alert alert-warning">
+                {{ session()->get('error') }}
+            </div>
+          @endif
         </div>
         <!--product table-->
         <div class="col-md-12">
+
+          <div class="card card-primary">
+            <div class="card-header">
+              <h3 class="card-title">Upload more Images</h3>
+            </div>
+            <div class="card-body">
+              <form method="POST" action="{{ route('add.product.image',['id'=>encrypt($product_id)]) }}" enctype="multipart/form-data">
+                @csrf
+                <div class="row">
+                  <div class="col-5">
+                    <input type="file" class="form-control"  name="image" required>
+                  </div>
+                  <div class="col-3">
+                    <button class="btn btn-success" type="submit">Upload</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <!-- /.card-body -->
+          </div>
+
           <div class="card card-primary">
               <div class="card-header">
                 <div class="row">
@@ -34,6 +60,7 @@
                       <th style="width: 10px">#</th>
                       <th>Image</th>
                       <th>Edit Image</th>
+                      <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -52,6 +79,11 @@
                           </div>
                           <button type="submit" class="btn btn-sm btn-primary imgBtn" data-id="{{ $loop->iteration }}" id="productSubmitBtn{{ $loop->iteration }}">Change Image</button>
                         </form>
+                      </td>
+                      <td>
+                        <a href="{{ route('delete.product.image',['id'=>encrypt($product_image->productimage_id)]) }}"><button type="button" class="btn btn-sm btn-danger">
+                          Delete
+                        </button></a>
                       </td>
                     </tr>
                     @endforeach

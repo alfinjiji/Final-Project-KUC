@@ -86,6 +86,7 @@ class ProductController extends Controller
     // edit product
     function doProductEdit(Request $request, $id){
         $product = Product::find(decrypt($id));
+        /*
         $product_image = Productimage::find($request->image_id);
         if($request->image!=''){ 
             $deletepath=$product_image->image;
@@ -95,6 +96,7 @@ class ProductController extends Controller
             $product_image->image=$path;
             $product_image->save();
             }
+            */
         $product->product_name = $request->product_name;
         $product->description = $request->description;
         $product->size = $request->size;
@@ -104,13 +106,25 @@ class ProductController extends Controller
         $product->save();
         return redirect()->route('product')->with('message', 'product updated!');
     }
+    // delete product
+    function productDelete($id){
+        $product = Product::find(decrypt($id));
+        //Storage::delete('image/'.$product->image);
+        $product_images=Productimage::where('product_id',$product->product_id)->get();
+        foreach($product_images as $product_image){
+            Storage::delete($product_image->image);
+        }
+        Productimage::where('product_id',$product->product_id)->delete();
+        Product::find(decrypt($id))->delete();
+        return redirect()->route('product')->with('message', 'Product deleted!');
+    }
     // image list
     function productImageList($id){
         $product_images = Productimage::where('product_id',decrypt($id))->get();
-        return view('admin.product.product_image',['product_images'=>$product_images]);
+        return view('admin.product.product_image',['product_images'=>$product_images, 'product_id'=>decrypt($id)]);
     }
     // edit image
-    function editProductImage( Request $request, $id) {
+    function editProductImage(Request $request, $id) {
         $product_image = Productimage::find(decrypt($id));
         $deletepath=$product_image->image;
         Storage::delete($deletepath); // delete old image
@@ -118,15 +132,30 @@ class ProductController extends Controller
         $path = Storage::putFileAs('image', $request->file('image'), $image);
         $product_image->image=$path;
         $product_image->save();
-        return redirect()->back();
+        return redirect()->back()->with('message','image updated!');
     }
-    // delete product
-    function productDelete($id){
-        $product = Product::find(decrypt($id));
-        //Storage::delete('image/'.$product->image);
-        Storage::delete($product->image);
-        Product::find(decrypt($id))->delete();
-        return redirect()->route('product')->with('message', 'Product deleted!');
+    // add image
+    function addProductImage(Request $request, $id) {
+        $image = date('Y-m-d-H-i-s-').rand() . '.' . $request->file('image')->getClientOriginalExtension();
+        $path = Storage::putFileAs('image', $request->file('image'), $image);
+        Productimage::create([
+            'product_id'=>decrypt($id),
+            'image'=>$path,
+        ]);
+        return redirect()->back()->with('message','image uploaded!');
+    }
+    // delete image
+    function deleteProductImage($id){
+        $id = decrypt($id);
+        $product_image = Productimage::find($id);
+        $count = Productimage::where('product_id',$product_image->product_id)->count();
+        if($count > 1){
+            Storage::delete($product_image->image);
+            Productimage::find($id)->delete();
+            return redirect()->back()->with('message','image deleted successfully!');
+        } else {
+            return redirect()->back()->with('error','atleast one image needed!');
+        }
     }
     // add price view
     function productAddPrice($id){
