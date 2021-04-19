@@ -91,7 +91,7 @@ Route::group(['namespace'=>'User'],function(){
     Route::get('/',['as'=>'home','uses'=>'UserController@home']);
     Route::get('cart',['as'=>'cart','uses'=>'UserController@cart']);
     Route::get('search',['as'=>'search','uses'=>'UserController@search']);
-    Route::get('single-product',['as'=>'single.product','uses'=>'ProductController@singleProduct']);
+    Route::get('single-product/{id}',['as'=>'single.product','uses'=>'ProductController@singleProduct']);
     Route::post('user-register',['as'=>'user.register','uses'=>'RegisterController@userRegister']);
     Route::post('user-login',['as'=>'user.login','uses'=>'LoginController@userLogin']);
     Route::get('user-logout',['as'=>'user.logout','uses'=>'LoginController@userLogout']);

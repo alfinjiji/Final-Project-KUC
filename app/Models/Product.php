@@ -26,6 +26,10 @@ class Product extends Model
     public function productimage(){
         return $this->hasOne(Productimage::class,'product_id','product_id');
     }
+    //multiple product images
+    public function productimages(){
+        return $this->hasMany(Productimage::class,'product_id','product_id');
+    }
     public function price()
     {
         return $this->hasMany(Pricelist::class,'product_id','product_id');

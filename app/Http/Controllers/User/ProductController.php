@@ -71,7 +71,9 @@ class ProductController extends Controller
             }
     }
    //single product view
-    function singleProduct(){
-        return view('user.single-product');
+    function singleProduct($id) {
+        $id = decrypt($id);
+        $product = Product::find($id);
+        return view('user.single-product',['product'=>$product]);
     }
 }
