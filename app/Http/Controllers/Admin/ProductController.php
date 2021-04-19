@@ -77,7 +77,14 @@ class ProductController extends Controller
     }
     function productAddPrice($id){
         $product_id =decrypt($id);
-        return view('admin.product.product_add_price',['product_id'=>$product_id]);
+        $count=Pricelist::where('product_id',$product_id)->count();
+        if($count==0){
+            return view('admin.product.product_add_price',['product_id'=>$product_id,'count'=>$count]);
+        }else {
+            $pricelist=Pricelist::where('product_id',$product_id)->latest()->first();
+            return view('admin.product.product_add_price',['product_id'=>$product_id,'pricelist'=>$pricelist,'count'=>$count]);
+        }
+        
     }
     function doProductAddPrice(Request $request, $id){
         $pricelist = Pricelist::create([
@@ -97,7 +104,19 @@ class ProductController extends Controller
         return view('admin.product.product_pricelist',['product_id'=>$product_id, 'pricelist'=>$pricelist]);
     }
     function productPricelistDelete($id){
-        Pricelist::find(decrypt($id))->delete();
-        return redirect()->route('product')->with('message','Price deleted!');
+        $id=decrypt($id);
+        $pricelist=Pricelist::find($id)->first();
+        $product_id=$pricelist->product_id;
+        Pricelist::find($id)->delete();
+        $count=Pricelist::where('product_id',$product_id)->count();
+        if($count!=0){
+            return redirect()->route('product')->with('message','Price deleted!');
+        }else {
+            $product=Product::find($product_id);
+            $product->status=0;
+            $product->save();
+            return redirect()->route('product')->with('message','Price deleted!');
+        }
+       
     }
 }

@@ -21,7 +21,7 @@
                   <div class="row">
                     <div class="col-md-6"><h3 class="card-title">Add Price</h3></div>
                     <div class="col-md-6 text-right"> 
-                      <a href="{{route('product')}}"><button class="btn btn-success" type="button">Back</button></a> 
+                      <a href="{{route('product')}}"><button class="btn btn-success" type="button">Back</button></a>  
                     </div>
                   </div>
                 </div>
@@ -32,7 +32,11 @@
                   <div class="card-body">
                     <div class="form-group">
                       <label>From Date</label>
+                      @if($count==0)
                       <input type="text" placeholder="yyyy-mm-dd" class="form-control" name="date_from" id="datepicker" autocomplete="off">
+                      @else 
+                      <input type="text" placeholder="yyyy-mm-dd" class="form-control" name="date_from" id="datepicker2" value="{{$pricelist->date_to}}" autocomplete="off" readonly="true">
+                      @endif
                     </div>
                     <div class="form-group">
                         <label>To Date</label>
@@ -40,7 +44,7 @@
                     </div>
                     <div class="form-group">
                         <label>Price</label>
-                        <input type="number" class="form-control"  placeholder="Enter Price" name="price" required>
+                        <input type="number" class="form-control"  placeholder="Enter Price" name="price" required min="0">
                     </div>
                   </div>
                   <!-- /.card-body -->
