@@ -98,6 +98,8 @@ Route::group(['namespace'=>'User'],function(){
     Route::get('cart',['as'=>'cart','uses'=>'CartController@viewCart']);
     Route::get('addallto-cart',['as'=>'addallto.cart','uses'=>'CartController@addAllToCart']);
     Route::get('delete-cart/{id}',['as'=>'delete.cart','uses'=>'CartController@deleteCart']);
+    Route::get('clear-cart',['as'=>'clear.cart','uses'=>'CartController@clearCart']);
+    Route::get('addto-cart',['as'=>'addto.cart','uses'=>'CartController@addToCart']);
     Route::group(['middleware'=>'CustomerCheck'],function(){
         Route::get('profile',['as'=>'profile','uses'=>'UserController@profile']);
         Route::post('update-profile/{id}',['as'=>'update.profile','uses'=>'UserController@updateProfile']);

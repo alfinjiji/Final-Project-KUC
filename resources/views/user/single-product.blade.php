@@ -331,7 +331,11 @@
                                             <input type="number" step="1" min="0" max="119" name="quantity[113]" value="1" title="Qty" class="input-text qty text" size="4">
                                         </div> 
                                         <div class="size-cart">
-										<a href="" class="fa fa-shopping-cart"> Add to cart</a>
+											@if(Auth::guard('customer')->check())
+											<a href="" id="cartBtn" data-id="{{ $product->product_id}}"><i class="fa fa-shopping-cart"></i>My Cart</a>
+											@else
+											<a href=""  data-toggle="modal" data-target="#myModal"><i class="fa fa-shopping-cart"></i>My Cart</a>	
+											@endif
                                         </div>
                                     </div>
 
@@ -476,7 +480,35 @@
     @endsection
 
 	@section('scripts')
-
+    <script>
+		
+	$(document).ready(function(){
+		// ajax wishlist
+		$("#cartBtn").click(function(e){
+			e.preventDefault();
+			//var _token = $("input[name='_token']").val();
+			var product_id = $("#cartBtn").attr('data-id');
+			console.log(product_id);
+			$.ajax({
+				url: "{{ route('addto.cart') }}",
+				type:'GET',
+				data: {
+						product_id:product_id, 
+					  },
+				success: function(data){  
+					console.log(data);
+					if(data.error==0) {  
+						//error
+						alert("b");
+					} else {    
+					   //success
+					   document.getElementById("cartBtn").disabled = true;
+					}  
+				} 
+			});
+		});
+	});
+		</script>
 	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 	<script>
 	  $(function() {
@@ -502,6 +534,6 @@
 			//ZOOM
 			$("#zoom1").glassCase({ 'widthDisplay': 456, 'heightDisplay': 470, 'isSlowZoom': true });
 		});
-	</script>
 	
+</script>
 	@endsection

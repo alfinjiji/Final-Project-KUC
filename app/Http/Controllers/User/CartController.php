@@ -16,7 +16,8 @@ class CartController extends Controller
       {
         $customer_id=Auth::guard('customer')->user()->customer_id;
         $cart=Cart::where('customer_id',$customer_id)->get();
-        return view('user.cart',['cart'=>$cart]);
+        $count=Cart::where('customer_id',$customer_id)->count();
+        return view('user.cart',['cart'=>$cart,'count'=>$count]);
       }else{
         return redirect()->back();
       }
@@ -33,7 +34,7 @@ class CartController extends Controller
                 'customer_id' => $product->customer_id,
             ]);
         }
-        return redirect()->back();
+        return redirect()->route('cart');
       }else{
         return redirect()->back();
       }
@@ -43,4 +44,24 @@ class CartController extends Controller
         Cart::find($id)->delete();
        return redirect()->back();
     }
+
+    function addtoCart(Request $request){
+      $customer_id=Auth::guard('customer')->user()->customer_id;
+      $count=Cart::where('product_id',$request->product_id)->count();
+     if($count==0){
+          Cart::create([
+                'product_id'=>$request->product_id,
+                'customer_id' =>$customer_id,
+          ]);
+        return response()->json(['success'=>1]);
+      }else{
+        return response()->json(['error'=>0]);
+      }
+    }
+    
+    function clearCart(){
+      $id=Auth::guard('customer')->user()->customer_id;
+      Cart::where('customer_id',$id)->delete();
+     return redirect()->back();
+  }
 }

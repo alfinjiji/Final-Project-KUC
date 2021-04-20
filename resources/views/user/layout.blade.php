@@ -428,7 +428,11 @@
 					</div>
 					<div class="col-md-3 col-sm-3 col-xs-12">
 						<div class="menu_right">
+							@if(Auth::guard('customer')->check())
 							<a href="{{route('cart')}}"><i class="fa fa-shopping-cart"></i>My Cart</a>
+							@else
+							<a href=""  data-toggle="modal" data-target="#myModal"><i class="fa fa-shopping-cart"></i>My Cart</a>	
+							@endif
 							<span>2</span>
 
 						</div>
