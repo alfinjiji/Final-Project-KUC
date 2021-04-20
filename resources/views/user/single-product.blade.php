@@ -273,9 +273,17 @@
                                         <div class="product-wid-price">
                                             <ins>${{$product->pricelist->price}}</ins> <del>${{$product->pricelist->price+100}}</del>
                                         </div>
-                                        <p></p>
+                                        <p> </p>
                                     </div>
-
+									<div class="row">
+										<div class="col-md-6">
+											<h4><b style="color: black;">Color </b>: {{ $product->color }}</h4>
+										</div>
+										<div class="col-md-6">
+											<h4><b style="color: black;">Size </b>: {{ $product->size }}</h4>
+										</div>
+									</div>
+									<!--
                                     <div class="single-color">
                                         <div class="product-color">
                                             <h4>Color :</h4>
@@ -310,7 +318,8 @@
                                                 <option>XS</option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div> -->
+									<!--
                                     <div class="single-color">
                                         <div class="product-collection">
                                             <ul>
@@ -322,18 +331,19 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                    </div>
-                                    <div class="single-color last-color-child">
-                                        <div class="size-heading">
-                                            <h5>Qty :</h5>
-                                        </div>
-                                        <div class="size-down">
-                                            <input type="number" step="1" min="0" max="119" name="quantity[113]" value="1" title="Qty" class="input-text qty text" size="4">
-                                        </div> 
-                                        <div class="size-cart">
-										<a href="" class="fa fa-shopping-cart"> Add to cart</a>
-                                        </div>
-                                    </div>
+                                    </div> -->
+									<div class="row" style="padding-top: 20px;">
+										<div class="col-md-4">
+											<a href="" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus"> Add to cart</a>
+										</div>
+										<div class="col-md-4">
+											@if(Auth::guard('customer')->check())
+												<a href="" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus"> Buy now</a>
+											@else 
+												<a href="" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus" data-toggle="modal" data-target="#myModal"> Buy now</a>
+											@endif
+										</div>
+									</div>
 
                                 </div>
                             </div>

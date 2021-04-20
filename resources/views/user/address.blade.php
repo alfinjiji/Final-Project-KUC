@@ -47,28 +47,29 @@
 					</div>
                     <div class="personal-form">
                         <div class="userright" style="margin-top: 0px;">
-                            <form>
+                            <form  id="addressForm" method="POST" action="">
+                                @csrf
                                 Building Name
                                 <br>
-                                <input type="text" placeholder="House No., Building Name (Required)*">
+                                <input class="no-focus" type="text" id="housename" name="housename" placeholder="House No., Building Name (Required)*">
                                 <br> Area
                                 <br>
-                                <input type="text" placeholder="Road name, Area, Colony (Required)*">
+                                <input class="no-focus" type="text" id="area" name="area" placeholder="Road name, Area, Colony (Required)*">
                                 <br> City
                                 <br>
-                                <input type="text" placeholder="City (Required)*">
+                                <input class="no-focus" type="text" id="city" name="city" placeholder="City (Required)*">
                                 <br> State
                                 <br>
-                                <input type="text" placeholder="State (Required)*">
+                                <input class="no-focus" type="text" id="state" name="state" placeholder="State (Required)*">
                                 <br> Pincode
                                 <br>
-                                <input type="text" placeholder="Pincode (Required)*">
+                                <input class="no-focus" type="number" id="pincode" name="pincode" placeholder="Pincode (Required)*">
                                 <br> Landmark
                                 <br>
-                                <input type="text" placeholder="Landmark">
+                                <input class="no-focus" type="text" id="landmark" name="landmark" placeholder="Landmark">
                                 <br>
                                 <br>
-                                <button type="button" class="btn btn-warning btn-default">Save Address</button>
+                                <button type="submit" class="btn btn-warning btn-default">Save Address</button>
                             </form>
                         </div>
                     </div>
@@ -83,3 +84,39 @@
 	
 	
 	@endsection
+    
+    @section('custom_script')
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
+        <script>
+            $('#addressForm').validate({ 
+                rules: {
+                    housename: {
+                        required: true
+                    },
+                    area: {
+                        required: true
+                    },
+                    city: {
+                        required: true
+                    },
+                    state: {
+                        required: true
+                    },
+                    pincode: {
+                        required: true
+                    }
+                },
+                errorPlacement: function (error, element) { 
+                  element.css('border-color', 'red'); 
+                  error.css('color', 'red');
+                  error.insertAfter(element); 
+                }, 
+                highlight: function(element) {
+                    $(element).css('border-color', 'red');
+                },
+                unhighlight: function(element) {
+                    $(element).css('border-color', '#007bff');
+                }
+            });
+        </script>
+    @endsection
