@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class CustomerAddress extends Model
 {
     use HasFactory;
-    protected $primaryKey = "address_id";
+    protected $primaryKey = "customer_address_id";
+    protected $fillable = ['customer_id','name','mobile','house_name','area','city','state','pincode','landmark'];
 }
