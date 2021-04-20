@@ -51,4 +51,6 @@ class WishlistController extends Controller
                 return response()->json(['error'=>0]);
             }
     }
+
+   
 }

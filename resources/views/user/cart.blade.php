@@ -72,66 +72,37 @@
                             </tr>
                         </tfoot>
                         <tbody>
+                            @foreach($cart as $cart)
                             <tr>
                                 <td class="cart-image">
                                     <a href="#" class="entry-thumbnail">
-                                        <img src="{{ asset('public/user-templates/images/cart1.png')}}" alt="">
+                                        <img src="{{asset('storage/app/'.$cart->product->productimage->image)}} "  alt="">
                                     </a>
                                 </td>
                                 <td class="cart-product-name-info">
 									<div class="cc-tr-inner">
-										<h4 class="cart-product-description"><a href="#">Fabulas t-shirt</a></h4>
+										<h4 class="cart-product-description"><a href="#">{{$cart->product->product_name}}</a></h4>
 										<div class="cart-product-info">
-											<span class="product-color">COLOR :</span><span>Black</span>
+											<span class="product-color">COLOR :</span><span>{{$cart->product->color}}</span>
 											<br>
-											<span class="product-color">Size :</span><span>Large</span>
+											<span class="product-color">Size :</span><span>{{$cart->product->size}}</span>
 										</div>
 								   </div>
                                 </td>
                                 <td class="cart-product-quantity">
-                                    <div class="quant-input">
-                                        <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity[113]" max="119" min="0" step="1">
+                                    <div class="quant-input ">
+                                        <input type="number" size="4" data-id="{{ $loop->iteration }}" class="input-text qty text Btn" title="Qty" value="1" name="quantity[113]" max="119" min="1" step="1" id="Qty{{ $loop->iteration }}">
                                     </div>
                                 </td>
-                                <td class="cart-product-price"><div class="cc-pr">$75</div></td>
-                                <td class="cart-product-delivery"><div class="cc-pr">Free shipping</div></td>
-                                <td class="cart-product-sub-total"><div class="cc-pr">$75</div></td>
+                                <td class="cart-product-price"><div class="cc-pr">{{$cart->product->pricelist->price}} <input type="hidden" id="price{{ $loop->iteration }}" value="{{$cart->product->pricelist->price}}"></div></td>
+                                <td class="cart-product-delivery"><div class="cc-pr">free shipping</div></td>
+                                <td class="cart-product-sub-total"><div class="cc-pr"><input type="text"  class="form-control" readonly="true" id="sum{{ $loop->iteration }}" value="{{$cart->product->pricelist->price}}" style="background-color: white " ></div></td>
                                 <td class="romove-item">
-                                    <a href="#"><img src="{{ asset('public/user-templates/images/remove.png')}}" alt="">
+                                    <a href="{{route('delete.cart',['id'=>encrypt($cart->cart_id)])}}"><img src="{{ asset('public/user-templates/images/remove.png')}}" alt="">
                                     </a>
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="cart-image">
-                                    <a href="#" class="entry-thumbnail">
-                                        <img src="{{ asset('public/user-templates/images/cart2.png')}}" alt="">
-                                    </a>
-                                </td>
-                                <td class="cart-product-name-info">
-                                   <div class="cc-tr-inner">
-										<h4 class="cart-product-description"><a href="#l">Awesome t-shirt</a></h4>
-										<div class="cart-product-info">
-											<span class="product-color">COLOR :</span><span>Red</span>
-											<br>
-											<span class="product-color">Size :</span><span>Large</span>
-										</div>
-								   </div>
-                                </td>
-                                <td class="cart-product-quantity">
-                                    <div class="cart-quantity">
-                                        <div class="quant-input">
-                                            <input type="number" size="4" class="input-text qty text" title="Qty" value="1" name="quantity[113]" max="119" min="0" step="1">
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="cart-product-price"><div class="cc-pr">$75</div></td>
-                                <td class="cart-product-delivery"><div class="cc-pr">Free shipping</div></td>
-                                <td class="cart-product-sub-total"><div class="cc-pr">$75</div></td>
-                                <td class="romove-item">
-                                    <a href="#"><img src="{{ asset('public/user-templates/images/remove.png')}}" alt="">
-                                    </a>
-                                </td>
-                            </tr>
+                            @endforeach
                         </tbody>
                         <!-- /tbody -->
                     </table>
@@ -207,7 +178,22 @@
                 </div>
             </div>
         </div>
+        <
     </div>
     <!-- SHOPING-CART-BOTTOM-AREA:END   -->
-
 	@endsection
+
+    @section('custom_script')
+    <script>
+    $(document).ready(function () {
+        $('.Btn').on('click load',function(){
+            var id=$(this).attr('data-id');
+            var qty=$('#Qty'+id).val();
+            var price=$('#price'+id).val();
+            var sum=qty*price;
+            $('#sum'+id).val(sum);
+           
+        });
+    });
+     </script>   
+    @endsection

@@ -89,14 +89,15 @@ Route::group(['namespace'=>'Admin'],function(){
 Route::group(['namespace'=>'User'],function(){
 
     Route::get('/',['as'=>'home','uses'=>'UserController@home']);
-    Route::get('cart',['as'=>'cart','uses'=>'UserController@cart']);
     Route::get('search',['as'=>'search','uses'=>'UserController@search']);
     Route::get('single-product/{id}',['as'=>'single.product','uses'=>'ProductController@singleProduct']);
     Route::post('user-register',['as'=>'user.register','uses'=>'RegisterController@userRegister']);
     Route::post('user-login',['as'=>'user.login','uses'=>'LoginController@userLogin']);
     Route::get('user-logout',['as'=>'user.logout','uses'=>'LoginController@userLogout']);
     Route::get('show-product/{name}',['as'=>'show.product','uses'=>'ProductController@showProduct']);
-
+    Route::get('cart',['as'=>'cart','uses'=>'CartController@viewCart']);
+    Route::get('addallto-cart',['as'=>'addallto.cart','uses'=>'CartController@addAllToCart']);
+    Route::get('delete-cart/{id}',['as'=>'delete.cart','uses'=>'CartController@deleteCart']);
     Route::group(['middleware'=>'CustomerCheck'],function(){
         Route::get('profile',['as'=>'profile','uses'=>'UserController@profile']);
         Route::post('update-profile/{id}',['as'=>'update.profile','uses'=>'UserController@updateProfile']);

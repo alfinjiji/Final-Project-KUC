@@ -63,8 +63,7 @@ class ProductController extends Controller
                         }
                         //return $product;
                     } else {
-                    $products = Product::where('category_id',$category->category_id,)
-                                ->where('status',1)
+                    $products = Product::where('status',1)
                                 ->get();
                     }
                 return view('user.product-list',['products'=>$products]);

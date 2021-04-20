@@ -428,7 +428,7 @@
 					</div>
 					<div class="col-md-3 col-sm-3 col-xs-12">
 						<div class="menu_right">
-							<a href="cart-page.html"><i class="fa fa-shopping-cart"></i>My Cart</a>
+							<a href="{{route('cart')}}"><i class="fa fa-shopping-cart"></i>My Cart</a>
 							<span>2</span>
 
 						</div>

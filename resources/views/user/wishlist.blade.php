@@ -44,13 +44,13 @@
                 @foreach($wishlist as $Wishlist)
                 <div class="col-md-3 col-sm-3 col-xs-12">
                     <div class="product-single">
-                        <a href=""><img src="{{asset('storage/app/'.$Wishlist->product->image)}}" alt="#" height="100dp" width="100dp">
+                        <a href=""><img src="{{asset('storage/app/'.$Wishlist->product->productimage->image)}}" alt="#" height="100dp" width="100dp">
                         </a>
                         <div class="PrdWishlist ">
                             <a href="{{route('delete.singlewishlist',['pid'=>encrypt($Wishlist->product->product_id),'cid'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}"><i class="fa fa-trash" aria-hidden="true"></i>
                         </div>
                         <div class="hot-wid-rating">
-                            <h4><a href="{{route('single.product')}}">{{$Wishlist->product->product_name}}</a></h4>
+                            <h4><a href="">{{$Wishlist->product->product_name}}</a></h4>
                             @for($i=1;$i<=$loop->iteration && $i<=5 ;$i=$i+1)
                             <i class="fa fa-star"></i>
                            @endfor
@@ -66,7 +66,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="wish-button">
-                      <a href="">  <button type="button" class="btn btn-default add-cart">Add all to the cart</button> </a>
+                      <a href="{{route('addallto.cart')}}">  <button type="button" class="btn btn-default add-cart">Add all to the cart</button> </a>
                        <a href="{{route('clear.wishlist',['id'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}"> <button type="button" class="btn btn-default clear-list">Clear the list</button> </a>
                     </div>
                 </div>

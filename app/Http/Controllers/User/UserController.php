@@ -15,9 +15,6 @@ class UserController extends Controller
     function home(){
         return view('user.homepage');
     }
-    function cart(){
-        return view('user.cart');
-    }
     function profile(){
         return view('user.profile');
     }
