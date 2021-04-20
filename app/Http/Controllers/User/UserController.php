@@ -28,9 +28,7 @@ class UserController extends Controller
         return redirect()->route('profile')->with('message', 'Profile updated successfully!');
     }
     
-    function address(){
-        return view('user.address');
-    }
+    
     function search(){
         return view('user.search-result');
     }

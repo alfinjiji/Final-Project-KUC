@@ -39,12 +39,14 @@ class AdminSeeder extends Seeder
         ]);
         CustomerAddress::create([
             'customer_id' => 1,
+            'name'=>'john',
+            'mobile'=>'9876543210',
             'house_name' => 'wick villa',
-            'area' => 'new york',
-            'city' => 'hjdhdj',
-            'state' => 'jhdhjd',
-            'pincode' => 'hsjh123',
-            'landmark' => 'ddhjh',
+            'area' => 'pala',
+            'city' => 'Kozhikode',
+            'state' => 'Kerala',
+            'pincode' => '670525',
+            'landmark' => 'cyber park',
         ]);
         Coupon::create([
             'name' => 'asdf',

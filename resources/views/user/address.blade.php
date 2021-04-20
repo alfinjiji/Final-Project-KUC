@@ -43,13 +43,25 @@
             <div class="row">
                 <div class="col-md-6 col-sm-12 col-xs-12">
                     <div class="headline">
-						<h2>Your Address</h2>
+						<h2>Add a New Address</h2>
 					</div>
+                    @if(session()->has('message'))
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            {{ session()->get('message') }}
+                        </div>
+                    @endif
                     <div class="personal-form">
                         <div class="userright" style="margin-top: 0px;">
-                            <form  id="addressForm" method="POST" action="">
+                            <form  id="addressForm" method="POST" action="{{route('add.address')}}">
                                 @csrf
-                                Building Name
+                                Name
+                                <br>
+                                <input class="no-focus" type="text" id="name" name="name" placeholder="Name (Required)*">
+                                <br>Mobile
+                                <br>
+                                <input class="no-focus" type="text" id="mobile" name="mobile" placeholder="10 digit mobile number (Required)*">
+                                <br>Building Name
                                 <br>
                                 <input class="no-focus" type="text" id="housename" name="housename" placeholder="House No., Building Name (Required)*">
                                 <br> Area
@@ -66,7 +78,7 @@
                                 <input class="no-focus" type="number" id="pincode" name="pincode" placeholder="Pincode (Required)*">
                                 <br> Landmark
                                 <br>
-                                <input class="no-focus" type="text" id="landmark" name="landmark" placeholder="Landmark">
+                                <input class="no-focus" type="text" id="landmark" name="landmark" placeholder="Landmark (Optional)">
                                 <br>
                                 <br>
                                 <button type="submit" class="btn btn-warning btn-default">Save Address</button>
@@ -76,12 +88,34 @@
                 </div>
                 <div class="col-md-6">
                     <!-- col-md-6 -->
+                    <div class="headline">
+						<h2>Your Address</h2>
+					</div>
+                    @if(session()->has('message2'))
+                        <div class="alert alert-success alert-dismissible" role="alert">
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            {{ session()->get('message2') }}
+                        </div>
+                    @endif
+                    @foreach($addresses as $address)
+                        <div class="panel panel-warning">
+                            <div class="panel-heading">
+                                {{$address->name}} 
+                                <a href="{{ route('delete.address',['id'=>encrypt($address->customer_address_id)]) }}" class="float-right" style="padding-left: 5%; color: red;">X</a>
+                                <p class="float-right">{{$address->mobile}}</p></div>
+                            <div class="panel-body">
+                              <p>
+                                  {{$address->house_name}}, {{$address->area}}, {{$address->city}}, {{$address->state}},
+                                  -<b>{{$address->pincode}}</b> 
+                              </p>
+                            </div>
+                        </div>
+                    @endforeach
                 </div>
             </div>
         </div>
     </section>
     <!-- PERSONAL-DETAIL-AREA:END   -->
-	
 	
 	@endsection
     
@@ -90,6 +124,12 @@
         <script>
             $('#addressForm').validate({ 
                 rules: {
+                    name: {
+                        required: true
+                    },
+                    mobile: {
+                        required: true
+                    },
                     housename: {
                         required: true
                     },
