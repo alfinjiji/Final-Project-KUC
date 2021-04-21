@@ -100,6 +100,7 @@ Route::group(['namespace'=>'User'],function(){
     Route::get('delete-cart/{id}',['as'=>'delete.cart','uses'=>'CartController@deleteCart']);
     Route::get('clear-cart',['as'=>'clear.cart','uses'=>'CartController@clearCart']);
     Route::get('addto-cart',['as'=>'addto.cart','uses'=>'CartController@addToCart']);
+    Route::get('quantity-update',['as'=>'quantity.update','uses'=>'CartController@quantityUpdate']);
     Route::group(['middleware'=>'CustomerCheck'],function(){
         Route::get('profile',['as'=>'profile','uses'=>'UserController@profile']);
         Route::post('update-profile/{id}',['as'=>'update.profile','uses'=>'UserController@updateProfile']);
@@ -116,6 +117,7 @@ Route::group(['namespace'=>'User'],function(){
         Route::get('checkout/{id}',['as'=>'checkout','uses'=>'OrderController@checkout']);
         Route::post('do-checkout',['as'=>'do.checkout','uses'=>'OrderController@doCheckout']);
         Route::get('cart-checkout',['as'=>'cart.checkout','uses'=>'OrderController@cartCheckout']);
+        Route::post('do-cart-checkout',['as'=>'do.cart.checkout','uses'=>'OrderController@doCartCheckout']);
     });
     
 });

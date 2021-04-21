@@ -128,14 +128,14 @@
 									<td class="cart-product-quantity">
 										<div class="cart-quantity">
 											<div class="quant-input">
-												<input type="number" size="4" class="input-text qty text inp" id="qty" title="Qty" value="1" name="quantity" max="119" min="1" step="1">
+												<input type="number" style="border: none;" class="input-text qty text no-focus" value="{{$cart->quantity}}" id="qty" name="quantity" readonly>
 											</div>
 										</div>
 									</td>
 									<td class="cart-product-price"><div class="cc-pr">${{ $cart->product->pricelist->price }}</div></td>
 									<td class="cart-product-sub-total">
                                         <div class="cc-pr float-right">
-                                            <input type="text" class="form-control" readonly="true" id="sum" value="${{$cart->product->pricelist->price}}" style="background-color:transparent; border: transparent;" >
+                                            <input type="text" class="form-control" id="subtotal{{ $loop->iteration }}" data-subtotal{{$loop->iteration}}="{{$cart->product->pricelist->price * $cart->quantity}}" readonly="true" value="${{$cart->product->pricelist->price * $cart->quantity}}" style="background-color:transparent; border: transparent;" >
                                         </div>
                                     </td>
 								</tr>
@@ -148,7 +148,7 @@
             	</div>
                 <div class="col-md-12">
                     <button type="button" class="btn btn-primary btn-md float-left"  id="prev">Back</button>
-                    <button type="button" class="btn btn-primary btn-md float-right" id="next2">Next</button>
+                    <button type="button" class="btn btn-primary btn-md float-right" id="next2" data-cart_count={{$cart_count}}>Next</button>
                 </div>
         	</div>
         </div>
@@ -180,15 +180,15 @@
                         <h2>Products<span>Total</span></h2>
                         @foreach($summary as $cart)
                             <p>{{ $cart->product->product_name }}
-                                <span><input type="text" readonly="true" class="subtotal no-focus" value="{{$cart->product->pricelist->price}}" style="background-color:transparent; border: transparent; width: 40px;" ></span>
+                                <span><input type="text" readonly="true" class="subtotal no-focus" value="{{$cart->product->pricelist->price * $cart->quantity}}" data-subtotal="{{$cart->product->pricelist->price * $cart->quantity}}" style="background-color:transparent; border: transparent; width: 40px;" ></span>
                             </p>
                         @endforeach
                         <h3 class="line">Cart subtotal<span>
-                            <input type="text" readonly="true" class="subtotal no-focus" value="" style="background-color:transparent; border: transparent; width: 40px;" >    
+                            <input type="text" readonly="true" id="cart_total" class="subtotal no-focus" value="" style="background-color:transparent; border: transparent; width: 40px;" >    
                         </span></h3>
                         <h3 class="line2">Shipping<span class="mcolor">Free shipping</span></h3>
                         <h5>Order Total Price<span>
-                            <input type="text" readonly="true" class="subtotal no-focus" value="" style="background-color:transparent; border: transparent; width: 50px;" >    
+                            <input type="text" readonly="true" id="total_price" class="subtotal no-focus" value="" style="background-color:transparent; border: transparent; width: 50px;" >    
                         </span></h5>
                     </div>
                 </div>
@@ -201,15 +201,12 @@
             <div class="row">
                 <div class="col-md-12">
                     <button type="button" class="btn btn-primary btn-md float-left" id="prev2">Back</button>
-                    <form method="POST" action="{{ route('do.checkout') }}">
+                    <form method="POST" action="{{ route('do.cart.checkout') }}">
                         @csrf
-                        <input type="text" name="address_id" id="address_id">
-                        <input type="text" name="amount" id="amount" value="">
-                        <input type="text" name="discount" id="discount">
-                        <input type="text" name="coupon_id" id="coupon_id">
-                        <input type="text" name="product_id" id="product_id" value="">
-                        <input type="text" name="quantity" id="quantity">
-                        <input type="text" name="unit_price" id="unit_price" value="">
+                        <input type="hidden" name="address_id" id="address_id">
+                        <input type="hidden" name="amount" id="amount" value="">
+                        <input type="hidden" name="discount" id="discount">
+                        <input type="hidden" name="coupon_id" id="coupon_id">
                         <button type="submit" class="btn btn-warning btn-md float-right">Place order</button>
                     </form>
                 </div>
@@ -254,20 +251,6 @@
     @section('custom_script')
     <script>
     $(document).ready(function () {
-        var sum=0;
-        var product=0;
-        var qty=0;
-        var price=0;
-        $('#quantity').val(1);
-        $('.inp').on('click load', function(){
-            qty = $('#qty').val();
-            $('#quantity').val(qty);
-            price = $('#price').val();
-            sum = qty * price;
-            $('#amount').val(sum);
-            $('#sum').val(sum);
-            $('.subtotal').val(sum);
-        });
         $('#product').hide();
         $('#orderSummary').hide();
         $('#placeOrder').hide();
@@ -292,6 +275,19 @@
             $('#product').hide();
             $('#orderSummary').show();
             $('#placeOrder').show();
+            $count = $('#next2').attr('data-cart_count');
+            var total = 0;
+            for($i=1;$i<=$count;$i++){
+                $subtotal = $('#subtotal'+$i).attr('data-subtotal'+$i);
+                total = total + parseInt($subtotal);
+            }
+            //cart total price
+            $('#cart_total').val(total);
+            $('#amount').val(total);
+            // total amount after discount
+            $('#total_price').val(total);
+
+
         });
         $('#prev').click(function(){
             $('#product').hide();
