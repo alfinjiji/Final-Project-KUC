@@ -10,6 +10,8 @@ use App\Models\Customer;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\Favorite;
+use App\Models\Cart;
+
 class ProductController extends Controller
 {
      //show product
@@ -73,6 +75,7 @@ class ProductController extends Controller
     function singleProduct($id) {
         $id = decrypt($id);
         $product = Product::find($id);
-        return view('user.single-product',['product'=>$product]);
+        $cart = Cart::where('product_id',$product->product_id)->count();
+        return view('user.single-product',['product'=>$product, 'cart'=>$cart]);
     }
 }

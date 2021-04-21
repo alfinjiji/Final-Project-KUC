@@ -347,14 +347,18 @@
 									<div class="row" style="padding-top: 20px;">
 										<div class="col-md-4">
 											@if(Auth::guard('customer')->check())
-											<a href="" id="cartBtn" data-id="{{ $product->product_id}}" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus"> Add to cart</a>
+												@if($cart == 0)
+													<a href="" id="cartBtn" data-id="{{ $product->product_id}}" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus"> Add to cart</a>
+												@else 
+												<a href="#" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus" disabled> Add to cart</a>
+												@endif
 											@else
-											<a href=""  data-toggle="modal" data-target="#myModal"><i class="fa fa-shopping-cart"></i>Add to cart</a>	
+												<a href=""  data-toggle="modal" data-target="#myModal" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus"> Add to cart</a>	
 											@endif
 										</div>
 										<div class="col-md-4">
 											@if(Auth::guard('customer')->check())
-												<a href="" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus"> Buy now</a>
+												<a href="{{ route('checkout',['id'=>encrypt($product->product_id)]) }}" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus"> Buy now</a>
 											@else 
 												<a href="" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus" data-toggle="modal" data-target="#myModal"> Buy now</a>
 											@endif
@@ -521,10 +525,11 @@
 					console.log(data);
 					if(data.error==0) {  
 						//error
-						alert("b");
+						$('#cartBtn').attr('disabled','true');
+						alert("already in cart");
 					} else {    
 					   //success
-					   document.getElementById("cartBtn").disabled = true;
+					   $('#cartBtn').attr('disabled','true');
 					}  
 				} 
 			});

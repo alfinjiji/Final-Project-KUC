@@ -108,19 +108,20 @@
 							</thead>
 							<!-- /thead -->
 							<tbody>
+                                @foreach($cart as $cart)
 								<tr>
 									<td class="cart-image">
 										<a href="#" class="entry-thumbnail">
-											{{asset('storage/app/'.$cart->product->productimage->image)}} 
+											<img src="{{asset('storage/app/'.$cart->product->productimage->image)}} " alt="">
 										</a>
 									</td>
 									<td class="cart-product-name-info">
 									   <div class="cc-tr-inner">
-											<h4 class="cart-product-description"><a href="#l">{{ $product->product_name }}</a></h4>
+											<h4 class="cart-product-description"><a href="#l">{{ $cart->product->product_name }}</a></h4>
 											<div class="cart-product-info">
-												<span class="product-color">COLOR :</span><span>{{ $product->color }}</span>
+												<span class="product-color">COLOR :</span><span>{{ $cart->product->color }}</span>
 												<br>
-												<span class="product-color">Size :</span><span>{{ $product->size }}</span>
+												<span class="product-color">Size :</span><span>{{ $cart->product->size }}</span>
 											</div>
 									   </div>
 									</td>
@@ -131,15 +132,14 @@
 											</div>
 										</div>
 									</td>
-                                    <input type="hidden" id="product" value="{{ $product->product_id }}">
-                                    <input type="hidden" id="price" value="{{ $product->pricelist->price }}">
-									<td class="cart-product-price"><div class="cc-pr">${{ $product->pricelist->price }}</div></td>
+									<td class="cart-product-price"><div class="cc-pr">${{ $cart->product->pricelist->price }}</div></td>
 									<td class="cart-product-sub-total">
-                                        <div class="cc-pr">
-                                            <input type="text" class="form-control" readonly="true" id="sum" value="{{$product->pricelist->price}}" style="background-color:transparent; border: transparent" >
+                                        <div class="cc-pr float-right">
+                                            <input type="text" class="form-control" readonly="true" id="sum" value="${{$cart->product->pricelist->price}}" style="background-color:transparent; border: transparent;" >
                                         </div>
                                     </td>
 								</tr>
+                                @endforeach
 							</tbody>
 							<!-- /tbody -->
 						</table>
@@ -178,15 +178,17 @@
                     </div>
                     <div class="summary">
                         <h2>Products<span>Total</span></h2>
-                        <p>{{ $product->product_name }}
-                            <span><input type="text" readonly="true" class="subtotal no-focus" value="{{$product->pricelist->price}}" style="background-color:transparent; border: transparent; width: 40px;" ></span>
-                        </p>
+                        @foreach($summary as $cart)
+                            <p>{{ $cart->product->product_name }}
+                                <span><input type="text" readonly="true" class="subtotal no-focus" value="{{$cart->product->pricelist->price}}" style="background-color:transparent; border: transparent; width: 40px;" ></span>
+                            </p>
+                        @endforeach
                         <h3 class="line">Cart subtotal<span>
-                            <input type="text" readonly="true" class="subtotal no-focus" value="{{$product->pricelist->price}}" style="background-color:transparent; border: transparent; width: 40px;" >    
+                            <input type="text" readonly="true" class="subtotal no-focus" value="" style="background-color:transparent; border: transparent; width: 40px;" >    
                         </span></h3>
                         <h3 class="line2">Shipping<span class="mcolor">Free shipping</span></h3>
                         <h5>Order Total Price<span>
-                            <input type="text" readonly="true" class="subtotal no-focus" value="{{$product->pricelist->price}}" style="background-color:transparent; border: transparent; width: 50px;" >    
+                            <input type="text" readonly="true" class="subtotal no-focus" value="" style="background-color:transparent; border: transparent; width: 50px;" >    
                         </span></h5>
                     </div>
                 </div>
@@ -201,13 +203,13 @@
                     <button type="button" class="btn btn-primary btn-md float-left" id="prev2">Back</button>
                     <form method="POST" action="{{ route('do.checkout') }}">
                         @csrf
-                        <input type="hidden" name="address_id" id="address_id">
-                        <input type="hidden" name="amount" id="amount" value="{{$product->pricelist->price}}">
-                        <input type="hidden" name="discount" id="discount">
-                        <input type="hidden" name="coupon_id" id="coupon_id">
-                        <input type="hidden" name="product_id" id="product_id" value="{{$product->product_id}}">
-                        <input type="hidden" name="quantity" id="quantity">
-                        <input type="hidden" name="unit_price" id="unit_price" value="{{$product->pricelist->price}}">
+                        <input type="text" name="address_id" id="address_id">
+                        <input type="text" name="amount" id="amount" value="">
+                        <input type="text" name="discount" id="discount">
+                        <input type="text" name="coupon_id" id="coupon_id">
+                        <input type="text" name="product_id" id="product_id" value="">
+                        <input type="text" name="quantity" id="quantity">
+                        <input type="text" name="unit_price" id="unit_price" value="">
                         <button type="submit" class="btn btn-warning btn-md float-right">Place order</button>
                     </form>
                 </div>
@@ -253,7 +255,7 @@
     <script>
     $(document).ready(function () {
         var sum=0;
-       var product=0;
+        var product=0;
         var qty=0;
         var price=0;
         $('#quantity').val(1);

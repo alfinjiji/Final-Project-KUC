@@ -113,7 +113,9 @@ Route::group(['namespace'=>'User'],function(){
         Route::get('clear-wishlist/{id}',['as'=>'clear.wishlist','uses'=>'WishlistController@clearWishlist']);
         Route::get('delete-singlewishlist/{pid}/{cid}',['as'=>'delete.singlewishlist','uses'=>'WishlistController@deleteSingleWishlist']);
         // user order
-        Route::get('checkout',['as'=>'checkout','uses'=>'OrderController@checkout']);
+        Route::get('checkout/{id}',['as'=>'checkout','uses'=>'OrderController@checkout']);
+        Route::post('do-checkout',['as'=>'do.checkout','uses'=>'OrderController@doCheckout']);
+        Route::get('cart-checkout',['as'=>'cart.checkout','uses'=>'OrderController@cartCheckout']);
     });
     
 });

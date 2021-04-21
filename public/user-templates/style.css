@@ -4169,9 +4169,9 @@ input[type="radio"], input[type="checkbox"] {
 }
 
 .shopping-cart-btn button.btn.btn-default.right-cart {
-  background: #ffffff none repeat scroll 0 0;
+  background: #f89d18 none repeat scroll 0 0;
   border-radius: 0;
-  color: #777777;
+  color: #ffffff;
   float: right;
   height: 45px;
   margin-left: 20px;
@@ -4179,9 +4179,9 @@ input[type="radio"], input[type="checkbox"] {
   text-transform: uppercase;
 }
 .shopping-cart-btn button.btn.btn-default.right-cart:hover {
-  background: #f89d18 none repeat scroll 0 0;
-  color: #333;
-  border:1px solid #f89d18;
+  background-color: #e6e6e6;
+  border-color: #adadad;
+  color: #333333;
 }
 
 .shopping-cart-btn button.btn.btn-default.right-margin {

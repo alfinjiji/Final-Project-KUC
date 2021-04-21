@@ -70,9 +70,10 @@
                                         <button type="button" class="btn btn-default right-cart right-margin">Clear shopping cart</button>
                                         </a>
                                         <div class="checkout">
-                                            <p><h4>Subtotal</h4><span><input type="text"  data-count="{{$count}}"  id="subtotal" style="background-color:transparent; border: transparent" readonly="true"></span>
+                                            <p style>
+                                                <h4>Subtotal</h4><span><input type="text"  data-count="{{$count}}"  id="subtotal" style="background-color:transparent; border: transparent; text-align:right;" readonly="true"></span>
                                             </p>
-                                            <button type="button" class="btn btn-default right-cart">Proceed to checkout</button>
+                                            <a href="{{route('cart.checkout')}}"><button type="button" class="btn btn-default right-cart">Proceed to checkout</button></a>
                                         </div>
                                     </div>
                                     <!-- /.shopping-cart-btn -->
