@@ -6,9 +6,10 @@
         <div class="tp-banner-container">
             <div class="tp-banner">
                 <ul>
+                    @foreach($banners as $banner)
                     <li data-transition="zoomout" data-slotamount="7" data-masterspeed="1000">
                         <!-- MAIN IMAGE -->
-                        <img src="{{ asset('public/user-templates/images/slider1.png')}}" alt="darkblurbg" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+                        <img src="{{asset('storage/app/image/'.$banner->image)}}" alt="darkblurbg" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
                         <!-- LAYER NR. 1 -->
                         <div class="tp-caption black_heavy_60 skewfromleftshort tp-resizeme rs-parallaxlevel-0" data-x="50" data-y="133" data-speed="500" data-start="1850" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1" style="z-index: 7; max-width: auto; max-height: auto; white-space: nowrap;">Fashion for men
                         </div>
@@ -34,76 +35,7 @@ data-endspeed="1000"
 			style="z-index: 15; max-width: auto; max-height: auto; white-space: nowrap;"><a href="#"><img src="{{ asset('public/user-templates/images/shop-btn.png')}}" alt="#"></a>
 		</div>
                     </li>
-                    <li data-transition="slidedown" data-slotamount="7" data-masterspeed="1000">
-                        <!-- MAIN IMAGE -->
-                        <img src="{{ asset('public/user-templates/images/slider2.png')}}" style='background-color:#b2c4cc' alt="" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
-                        <div class="tp-caption light_heavy_70_shadowed_ed lfr randomrotateout tp-resizeme rs-parallaxlevel-10"
-			data-x="560"
-			data-y="100" 
-			data-speed="1000"
-			data-start="2900"
-			data-easing="Power3.easeInOut"
-			data-splitin="none"
-			data-splitout="none"
-			data-elementdelay="0.1"
-			data-endelementdelay="0.1"
-			data-end="9000"
-data-endspeed="1000"
-			style="z-index: 9; max-width: auto; max-height: auto; white-space: nowrap;">Girls latest trend
-		</div>
-                   <div class="tp-caption grey_regular_18 customin tp-resizeme rs-parallaxlevel-0" data-x="560" data-y="200" data-customin="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0;scaleY:0;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-speed="500" data-start="2600" data-easing="Power3.easeInOut" data-splitin="none" data-splitout="none" data-elementdelay="0.05" data-endelementdelay="0.1" style="z-index: 9; max-width: auto; max-height: auto; white-space: nowrap;">
-                            <div style="text-align:left;">That this group would somehow form a family that's the way we all became the<br/> Brady Bunch. Love exciting and new. Come aboard were expecting you. Love life's<br/> sweetest reward Let it flow it floats back to you! </div>
-                        </div>
-                   <div class="tp-caption green_bold_bg_20 skewfromright randomrotateout tp-resizeme rs-parallaxlevel-10"
-			data-x="560"
-			data-y="290" 
-			data-speed="1000"
-			data-start="3900"
-			data-easing="Power3.easeInOut"
-			data-splitin="none"
-			data-splitout="none"
-			data-elementdelay="0.1"
-			data-endelementdelay="0.1"
-			data-end="10200"
-data-endspeed="1000"
-			style="z-index: 15; max-width: auto; max-height: auto; white-space: nowrap;"><a href="#"><img src="{{ asset('public/user-templates/images/shop-btn.png')}}" alt="#"></a>
-		</div>
-                    </li>
-                    <li data-transition="zoomin" data-slotamount="7" data-masterspeed="600">
-                        <!-- MAIN IMAGE -->
-                        <img src="{{ asset('public/user-templates/images/slider3.png')}}" alt="videobg1" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
-                        <div class="tp-caption light_heavy_70_shadowed lfr randomrotateout tp-resizeme rs-parallaxlevel-10"
-			data-x="300"
-			data-y="200" 
-			data-speed="1000"
-			data-start="2900"
-			data-easing="Power3.easeInOut"
-			data-splitin="none"
-			data-splitout="none"
-			data-elementdelay="0.1"
-			data-endelementdelay="0.1"
-			data-end="9000"
-data-endspeed="1000"
-			style="z-index: 9; max-width: auto; max-height: auto; white-space: nowrap;">Top fashion for men
-		</div>
-                   <div class="tp-caption grey_regular_81 customin tp-resizeme rs-parallaxlevel-0" data-x="470" data-y="300" data-customin="x:0;y:0;z:0;rotationX:0;rotationY:0;rotationZ:0;scaleX:0;scaleY:0;skewX:0;skewY:0;opacity:0;transformPerspective:600;transformOrigin:50% 50%;" data-speed="500" data-start="2600" data-easing="Power3.easeInOut" data-splitin="none" data-splitout="none" data-elementdelay="0.05" data-endelementdelay="0.1" style="z-index: 9; max-width: auto; max-height: auto; white-space: nowrap;">
-                            <div style="text-align:left;">trendy summer collections 2015</div>
-                        </div>
-                   <div class="tp-caption green_bold_bg_20 shop_class skewfromright randomrotateout tp-resizeme rs-parallaxlevel-10"
-			data-x="500"
-			data-y="350" 
-			data-speed="1000"
-			data-start="3900"
-			data-easing="Power3.easeInOut"
-			data-splitin="none"
-			data-splitout="none"
-			data-elementdelay="0.1"
-			data-endelementdelay="0.1"
-			data-end="10200"
-data-endspeed="1000"
-			style="z-index: 15; max-width: auto; max-height: auto; white-space: nowrap;"><button type="button" class="btn btn-default">Shop now</button>
-		</div>
-                    </li>
+                    @endforeach
                 </ul>
                 <div class="tp-bannertimer"></div>
             </div>
@@ -111,71 +43,17 @@ data-endspeed="1000"
     </div>
     <!-- MAIN-SLIDER-AREA END -->
 	
-    <!-- MAIN-FEATURED-AREA -->
-    <section class="main-featured-area section-padding">
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-4 col-md-4 col-xs-12">
-                    <div class="featured-single">
-                        <div class="featured-img">
-                            <img src="{{ asset('public/user-templates/images/fetured_prd_1.png')}}" alt="">
-                            <div class="featured-text">
-                                <h3>Men watches</h3>
-                                <P>Collection instore and online</P>
-                            </div>
-                            <div class="feat-hover">
-                                <div class="feat-in"></div>
-                            </div>
-                            <div class="tag percent-t">
-                                <span>25%</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-md-4 col-xs-12">
-                    <div class="featured-single">
-                        <div class="featured-img">
-                            <img src="{{ asset('public/user-templates/images/fetured_prd_2.png')}}" alt="">
-                            <div class="featured-text">
-                                <h3>Shoes for women</h3>
-                                <P>Summer collection 2015</P>
-                            </div>
-                            <div class="feat-hover">
-                                <div class="feat-in"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-4 col-md-4 col-xs-12">
-                    <div class="featured-single">
-                        <div class="featured-img">
-                            <img src="{{ asset('public/user-templates/images/fetured_prd_3.png')}}" alt="">
-                            <div class="featured-last-text">
-                                <h3>Men shoes</h3>
-                                <P>Sale up to 50% off</P>
-                            </div>
-                            <div class="feat-hover">
-                                <div class="feat-in"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- MAIN-FEATURED-AREA END -->
-	
-    <!-- MEN-CLOTHING-AREA -->
+    <!-- recommended-CLOTHING-AREA -->
     <section class="men_clothingcurosel_area section-padding">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="headline">
-                        <h2>Men clothing</h2>
+                        <h2>RECOMMENDED</h2>
                     </div>
                     <div class="menclothing-carousel">
                         <div class="men-single">
-                            <a href="#"><img src="{{ asset('public/user-templates/images/menthr1.png')}}" alt="#">
+                            <a href="#"><img src="images/menthr1.png" alt="#">
                             </a>
                             <div class="tag new">
                                 <span>new</span>
@@ -192,61 +70,86 @@ data-endspeed="1000"
                                 </div>
                             </div>
                         </div>
-                        <div class="men-single">
-                            <a href="#"><img src="{{ asset('public/user-templates/images/menthr2.png')}}" alt="">
-                            </a>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- recommended-CLOTHING-AREA END -->
+	
+    <!-- MEN-CLOTHING-AREA -->
+    <section class="women-accessories-area2 section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="headline">
+                        <h2>Men accessories</h2>
+                    </div>
+                    <div class="product-tab">
+                        <ul class="nav nav-tabs women-tab" role="tablist">
+                            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">New Products</a>
+                            </li>
+                            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Popular Products</a>
+                            </li>
+                        </ul>
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane active" id="home">
+                                <div class="row">
+                                    @foreach($mennew as $man)
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="women-single">
+                                            <a href="#"><img src="{{ asset('storage/app/'.$man->productimage->image) }}" alt="">
+                                            </a>
+                                            <div class="tag new">
+                                                <span>new</span>
+                                            </div>
+                                            <div class="hot-wid-rating">
+                                                <h4><a href="single-product.html">{{$man->product_name}}</a></h4>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-half-o"></i>
+                                                <div class="product-wid-price">
+                                                    <ins>{{$man->pricelist->price}}</ins> <del>$280.00</del>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                   @endforeach
+                                </div>
+                            </div>
+                            <div role="tabpanel" class="tab-pane" id="profile">
+                                <div class="row">
+                                    <div class="col-md-3 col-sm-3 col-xs-12">
+                                        <div class="women-single">
+                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access4.png')}}" alt="">
+                                            </a>
 
-                            <div class="hot-wid-rating">
-                                <h4><a href="#">Modern  shirt</a></h4>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-half-o"></i>
-                                <div class="product-wid-price">
-                                    <ins>$3000.00</ins>
+                                            <div class="hot-wid-rating">
+                                                <h4><a href="single-product.html">Trendy Shoes For Women</a></h4>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star"></i>
+                                                <i class="fa fa-star-half-o"></i>
+                                                <div class="product-wid-price">
+                                                    <ins>$250.00</ins>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
                                 </div>
                             </div>
-                        </div>
-                        <div class="men-single">
-                            <a href="#"><img src="{{ asset('public/user-templates/images/menthr3.png')}}" alt="">
-                            </a>
-                            <div class="tag percent">
-                                <span>20%</span>
-                            </div>
-                            <div class="hot-wid-rating">
-                                <h4><a href="#">Formal Suit for men</a></h4>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-half-o"></i>
-                                <div class="product-wid-price">
-                                    <ins>$180.00</ins> <del>$200.00</del>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="men-single">
-                            <a href="#"><img src="{{ asset('public/user-templates/images/menthr4.png')}}" alt="">
-                            </a>
-                            <div class="tag new">
-                                <span>new</span>
-                            </div>
-                            <div class="hot-wid-rating">
-                                <h4><a href="#">Trendy t-shirt for men</a></h4>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-half-o"></i>
-                                <div class="product-wid-price">
-                                    <ins>$250.00</ins>
-                                </div>
-                            </div>
+                           
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
     <!-- MEN-CLOTHING-AREA END -->
@@ -298,170 +201,40 @@ data-endspeed="1000"
                     </div>
                     <div class="product-tab">
                         <ul class="nav nav-tabs women-tab" role="tablist">
-                            <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">New Products</a>
+                            <li role="presentation" class="active"><a href="#homewomen" aria-controls="home" role="tab" data-toggle="tab">New Products</a>
                             </li>
-                            <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Popular Products</a>
-                            </li>
-                            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Best seller</a>
+                            <li role="presentation"><a href="#profilewomen" aria-controls="profile" role="tab" data-toggle="tab">Popular Products</a>
                             </li>
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
-                            <div role="tabpanel" class="tab-pane active" id="home">
+                            <div role="tabpanel" class="tab-pane active" id="homewomen">
                                 <div class="row">
+                                    @foreach($womennew as $woman)
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access1.png')}}" alt="">
+                                            <a href="#"><img src="{{ asset('storage/app/'.$woman->productimage->image) }}" alt="">
                                             </a>
                                             <div class="tag new">
                                                 <span>new</span>
                                             </div>
                                             <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">Best Handbags For girls</a></h4>
+                                                <h4><a href="single-product.html">{{$woman->product_name}}</a></h4>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star-half-o"></i>
                                                 <div class="product-wid-price">
-                                                    <ins>$260.00</ins> <del>$280.00</del>
+                                                    <ins>{{$woman->pricelist->price}}</ins> <del>$280.00</del>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access2.png')}}" alt="">
-                                            </a>
-
-                                            <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">stylish dress for women</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                                <div class="product-wid-price">
-                                                    <ins>$3000.00</ins>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access3.png')}}" alt="">
-                                            </a>
-                                            <div class="tag percent">
-                                                <span>15%</span>
-                                            </div>
-                                            <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">Leather Handbags For girls</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                                <div class="product-wid-price">
-                                                    <ins>$180.00</ins> <del>$200.00</del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access4.png')}}" alt="">
-                                            </a>
-
-                                            <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">Trendy Shoes For Women</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                                <div class="product-wid-price">
-                                                    <ins>$250.00</ins>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access5.png')}}" alt="">
-                                            </a>
-                                            <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">Best Handbags For girls</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                                <div class="product-wid-price">
-                                                    <ins>$260.00</ins> <del>$280.00</del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access6.png')}}" alt="">
-                                            </a>
-                                            <div class="tag percent">
-                                                <span>15%</span>
-                                            </div>
-                                            <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">stylish dress for women</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                                <div class="product-wid-price">
-                                                    <ins>$3000.00</ins>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access7.png')}}" alt="">
-                                            </a>
-                                            <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">Leather Handbags For girls</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                                <div class="product-wid-price">
-                                                    <ins>$180.00</ins> <del>$200.00</del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access8.png')}}" alt="">
-                                            </a>
-                                            <div class="tag new">
-                                                <span>new</span>
-                                            </div>
-                                            <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">Trendy Shoes For Women</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                                <div class="product-wid-price">
-                                                    <ins>$250.00</ins>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                   @endforeach
                                 </div>
                             </div>
-                            <div role="tabpanel" class="tab-pane" id="profile">
+                            <div role="tabpanel" class="tab-pane" id="profilewomen">
                                 <div class="row">
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
@@ -481,294 +254,10 @@ data-endspeed="1000"
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access5.png')}}" alt="">
-                                            </a>
-                                            <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">Best Handbags For girls</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                                <div class="product-wid-price">
-                                                    <ins>$260.00</ins> <del>$280.00</del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access6.png')}}" alt="">
-                                            </a>
-                                            <div class="tag percent">
-                                                <span>15%</span>
-                                            </div>
-                                            <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">stylish dress for women</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                                <div class="product-wid-price">
-                                                    <ins>$3000.00</ins>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access1.png')}}" alt="">
-                                            </a>
-                                            <div class="tag new">
-                                                <span>new</span>
-                                            </div>
-                                            <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">Best Handbags For girls</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                                <div class="product-wid-price">
-                                                    <ins>$260.00</ins> <del>$280.00</del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access2.png')}}" alt="">
-                                            </a>
-
-                                            <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">stylish dress for women</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                                <div class="product-wid-price">
-                                                    <ins>$3000.00</ins>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access3.png')}}" alt="">
-                                            </a>
-                                            <div class="tag percent">
-                                                <span>15%</span>
-                                            </div>
-                                            <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">Leather Handbags For girls</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                                <div class="product-wid-price">
-                                                    <ins>$180.00</ins> <del>$200.00</del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access7.png')}}" alt="">
-                                            </a>
-                                            <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">Leather Handbags For girls</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                                <div class="product-wid-price">
-                                                    <ins>$180.00</ins> <del>$200.00</del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access8.png')}}" alt="">
-                                            </a>
-                                            <div class="tag new">
-                                                <span>new</span>
-                                            </div>
-                                            <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">Trendy Shoes For Women</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                                <div class="product-wid-price">
-                                                    <ins>$250.00</ins>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    
                                 </div>
                             </div>
-                            <div role="tabpanel" class="tab-pane" id="messages">
-                                <div class="row">
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access7.png')}}" alt="">
-                                            </a>
-                                            <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">Leather Handbags For girls</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                                <div class="product-wid-price">
-                                                    <ins>$180.00</ins> <del>$200.00</del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access8.png')}}" alt="">
-                                            </a>
-                                            <div class="tag new">
-                                                <span>new</span>
-                                            </div>
-                                            <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">Trendy Shoes For Women</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                               <i class="fa fa-star-half-o"></i>
-                                                <div class="product-wid-price">
-                                                    <ins>$250.00</ins>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access1.png')}}" alt="">
-                                            </a>
-                                            <div class="tag new">
-                                                <span>new</span>
-                                            </div>
-                                            <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">Best Handbags For girls</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                                <div class="product-wid-price">
-                                                    <ins>$260.00</ins> <del>$280.00</del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access2.png')}}" alt="">
-                                            </a>
-
-                                            <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">stylish dress for women</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                               <i class="fa fa-star-half-o"></i>
-                                                <div class="product-wid-price">
-                                                    <ins>$3000.00</ins>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access3.png')}}" alt="">
-                                            </a>
-                                            <div class="tag percent">
-                                                <span>15%</span>
-                                            </div>
-                                            <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">Leather Handbags For girls</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                                <div class="product-wid-price">
-                                                    <ins>$180.00</ins> <del>$200.00</del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access4.png')}}" alt="">
-                                            </a>
-
-                                            <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">Trendy Shoes For Women</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                                <div class="product-wid-price">
-                                                    <ins>$250.00</ins>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access5.png')}}" alt="">
-                                            </a>
-                                            <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">Best Handbags For girls</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                                <div class="product-wid-price">
-                                                    <ins>$260.00</ins> <del>$280.00</del>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access6.png')}}" alt="">
-                                            </a>
-                                            <div class="tag percent">
-                                                <span>15%</span>
-                                            </div>
-                                            <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">stylish dress for women</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
-                                                <div class="product-wid-price">
-                                                    <ins>$3000.00</ins>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                           
                         </div>
                     </div>
                 </div>
@@ -862,158 +351,28 @@ data-endspeed="1000"
                 </div>
             </div>
             <div class="row">
+                @foreach($latestproduct as $product)
                 <div class="col-md-3 col-sm-3 col-xs-12">
                     <div class="latest-single">
-                        <a href="#"><img src="{{ asset('public/user-templates/images/latest1.png')}}" alt="#">
-                        </a>
-                        <div class="hot-wid-rating">
-                            <h4><a href="single-product.html">Canon printer</a></h4>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-half-o"></i>
-                            <div class="product-wid-price">
-                                <ins>$3000.00</ins>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-12">
-                    <div class="latest-single">
-                        <a href="#"><img src="{{ asset('public/user-templates/images/latest2.png')}}" alt="">
+                        <a href="#"><img src="{{ asset('storage/app/'.$product->productimage->image) }}" alt="#">
                         </a>
                         <div class="tag new">
                             <span>new</span>
-                        </div>
+                    </div>
                         <div class="hot-wid-rating">
-                            <h4><a href="single-product.html">Computer Speakers</a></h4>
+                            <h4><a href="single-product.html">{{$product->product_name}}</a></h4>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star"></i>
                             <i class="fa fa-star-half-o"></i>
                             <div class="product-wid-price">
-                                <ins>$280.00</ins> <del>$320.00</del>
+                                <ins>{{$product->pricelist->price}}</ins>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3 col-sm-3 col-xs-12">
-                    <div class="latest-single">
-                        <a href="#"><img src="{{ asset('public/user-templates/images/latest3.png')}}" alt="">
-                        </a>
-                        <div class="tag percent">
-                            <span>15%</span>
-                        </div>
-                        <div class="hot-wid-rating">
-                            <h4><a href="single-product.html">Samsung Microwave Oven</a></h4>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-half-o"></i>
-                            <div class="product-wid-price">
-                                <ins>$450.00</ins> <del>$570.00</del>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-12">
-                    <div class="latest-single">
-                        <a href="#"><img src="{{ asset('public/user-templates/images/latest4.png')}}" alt="">
-                        </a>
-                        <div class="hot-wid-rating">
-                            <h4><a href="single-product.html">New Washing Machine</a></h4>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-half-o"></i>
-                            <div class="product-wid-price">
-                                <ins>$300.00</ins> <del>$320.00</del>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-12">
-                    <div class="latest-single">
-                        <a href="#"><img src="{{ asset('public/user-templates/images/latest5.png')}}" alt="">
-                        </a>
-                        <div class="tag new">
-                            <span>new</span>
-                        </div>
-                        <div class="hot-wid-rating">
-                            <h4><a href="single-product.html">Canon Camera</a></h4>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-half-o"></i>
-                            <div class="product-wid-price">
-                                <ins>$420.00</ins>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-12">
-                    <div class="latest-single">
-                        <a href="#"><img src="{{ asset('public/user-templates/images/latest6.png')}}" alt="">
-                        </a>
-                        <div class="tag percent">
-                            <span>25%</span>
-                        </div>
-                        <div class="hot-wid-rating">
-                            <h4><a href="single-product.html">Bread Toasters</a></h4>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-half-o"></i>
-                            <div class="product-wid-price">
-                                <ins>$280.00</ins> <del>$320.00</del>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-12">
-                    <div class="latest-single">
-                        <a href="#"><img src="{{ asset('public/user-templates/images/latest7.png')}}" alt="">
-                        </a>
-                        <div class="hot-wid-rating">
-                            <h4><a href="single-product.html">Trimmer For Men</a></h4>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-half-o"></i>
-                            <div class="product-wid-price">
-                                <ins>$120.00</ins>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-3 col-sm-3 col-xs-12">
-                    <div class="latest-single">
-                        <a href="#"><img src="{{ asset('public/user-templates/images/latest8.png')}}" alt="">
-                        </a>
-                        <div class="tag percent">
-                            <span>10%</span>
-                        </div>
-                        <div class="hot-wid-rating">
-                            <h4><a href="single-product.html">Coffee Maker</a></h4>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-half-o"></i>
-                            <div class="product-wid-price">
-                                <ins>$250.00</ins> <del>$320.00</del>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
+                @endforeach
             </div>
         </div>
     </section>
@@ -1028,36 +387,12 @@ data-endspeed="1000"
                         <div class="partners_list">
 						
 							<div class="partners_list_carousel">
+                                @foreach($menus as $menu)
 								<div class="item">
-									<img src="{{ asset('public/user-templates/images/partner.png')}}" alt="">
+									<a href=""><span>{{$menu->menu_name}}</span></a>
 								</div>
-								<div class="item">
-									<img src="{{ asset('public/user-templates/images/partner2.png')}}" alt="">
-								</div>
-								<div class="item">
-									<img src="{{ asset('public/user-templates/images/partner3.png')}}" alt="">
-								</div>
-								<div class="item">
-									<img src="{{ asset('public/user-templates/images/partner4.png')}}" alt="">
-								</div>
-								<div class="item">
-									<img src="{{ asset('public/user-templates/images/partner5.png')}}" alt="">
-								</div>
-								<div class="item">
-									<img src="{{ asset('public/user-templates/images/partner.png')}}" alt="">
-								</div>
-								<div class="item">
-									<img src="{{ asset('public/user-templates/images/partner2.png')}}" alt="">
-								</div>
-								<div class="item">
-									<img src="{{ asset('public/user-templates/images/partner3.png')}}" alt="">
-								</div>
-								<div class="item">
-									<img src="{{ asset('public/user-templates/images/partner4.png')}}" alt="">
-								</div>
-								<div class="item">
-									<img src="{{ asset('public/user-templates/images/partner5.png')}}" alt="">
-								</div>
+                                @endforeach
+								
 							</div>
 						
                             

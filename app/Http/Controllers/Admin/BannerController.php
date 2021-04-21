@@ -30,7 +30,7 @@ class BannerController extends Controller
         $path = Storage::putFileAs('image',$request->file('image'), $imageName);
         Banner::create([
             'banner_name'=> $request->bannername,
-            'url'=> $request->url1,
+            'url'=> $request->url,
             'image'=> $imageName,
             'date_from'=> $request->fromdate,
             'date_to'=> $request->duedate,

@@ -524,7 +524,7 @@
 						alert("b");
 					} else {    
 					   //success
-					   document.getElementById("cartBtn").disabled = true;
+					   $("#cartBtn").attr(disabled);
 					}  
 				} 
 			});

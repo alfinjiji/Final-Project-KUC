@@ -52,6 +52,7 @@ class CartController extends Controller
           Cart::create([
                 'product_id'=>$request->product_id,
                 'customer_id' =>$customer_id,
+                'quantity'=>1,
           ]);
         return response()->json(['success'=>1]);
       }else{
@@ -64,4 +65,12 @@ class CartController extends Controller
       Cart::where('customer_id',$id)->delete();
      return redirect()->back();
   }
+    function quantityUpdate(Request $request){
+      $cart = Cart::find($request->cart);
+
+        $cart->quantity = $request->quantity;
+        
+        $cart->save();
+    }
+
 }
