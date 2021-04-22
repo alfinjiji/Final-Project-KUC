@@ -22,7 +22,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('customer_address_id')->nullable();
             $table->foreign('customer_address_id')->references('customer_address_id')->on('customer_addresses');
             $table->integer('amount');
-            $table->float('discount');
+            $table->float('discount')->default('0.0');
             //$table->foreignId('coupon_id')->constrained('coupons','coupon_id')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('coupon_id')->nullable();
             $table->foreign('coupon_id')->references('coupon_id')->on('coupons');

@@ -49,7 +49,11 @@
                       </td>
                       <td>{{$order->amount}}</td>
                       <td>{{$order->discount}}</td>
-                      <td>{{$order->coupon->name}}</td>
+                      @if ($order->coupon)
+                        <td>{{$order->coupon->name}}</td>
+                      @else
+                          <td></td>
+                      @endif
                       <td><a href="{{route('order.product',['id'=>encrypt($order->order_id)])}}"><span class="badge bg-primary">details</span></a></td>
                       @if($order->status == 0)
                         <td>
