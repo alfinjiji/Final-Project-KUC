@@ -52,9 +52,13 @@
                             <div class="row">
                               <div class="col-md-12 pb-3">
                                 <h4>
-                                  <small class="float-right">Placed Date: </small><br>
-                                  <small class="float-right">Confirmed Date: </small><br>
-                                  <small class="float-right">Delivered Date:</small>
+                                  <small class="float-right">Placed Date : {{ date('d-m-Y', strtotime($order->placed_at))}} </small><br>
+                                  @if($order->confirmed_at)
+                                  <small class="float-right">Confirmed Date: {{ date('d-m-Y', strtotime($order->confirmed_at))}}</small><br>
+                                  @endif
+                                  @if($order->delivered_at)
+                                  <small class="float-right">Delivered Date: {{ date('d-m-Y', strtotime($order->delivered_at))}}</small>
+                                  @endif
                                 </h4>
                               </div>
                               <!-- /.col -->

@@ -153,6 +153,7 @@
 										<li><a href="{{route('address')}}">My Address</a></li>
 										<li><a href="{{route('user.wishlist',['id'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}">Wishlist</a></li>
 										<li><a href="{{route('coupon.view')}}">Coupon</a></li>
+										<li><a href="{{route('order.view')}}">Order</a></li>
 										<li><a href="{{route('show.product',['name'=>encrypt('all')])}}">Shopping</a></li>
 										@else 
 										<li><a href="{{route('show.product',['name'=>encrypt('all')])}}">Shopping</a></li>
@@ -378,7 +379,7 @@
 								</li>
 								<!-- end men -->
 								<!-- women -->
-								<li><a href="{{route('show.product',['name'=>encrypt('women')])}}">Men <i class="fa fa-caret-down"></i></a>
+								<li><a href="{{route('show.product',['name'=>encrypt('women')])}}">Women <i class="fa fa-caret-down"></i></a>
 									<ul class="drop_nav">
 										<li><a href="">Blog</a></li>
 										<li><a href="">Checkout</a></li>
