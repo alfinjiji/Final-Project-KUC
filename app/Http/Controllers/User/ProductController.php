@@ -11,6 +11,7 @@ use App\Models\Category;
 use App\Models\Product;
 use App\Models\Favorite;
 use App\Models\Cart;
+use App\Models\Banner;
 
 class ProductController extends Controller
 {
@@ -77,5 +78,10 @@ class ProductController extends Controller
         $product = Product::find($id);
         $cart = Cart::where('product_id',$product->product_id)->count();
         return view('user.single-product',['product'=>$product, 'cart'=>$cart]);
+    }
+    //banner product
+    function viewbannerProduct($id){
+        $banner=Banner::find(decrypt($id))->first();
+        return redirect($banner->url);
     }
 }

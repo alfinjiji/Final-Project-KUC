@@ -59,6 +59,7 @@
                                     <a href={{route('coupon.delete',['id'=>$coup->coupon_id])}} > <button type="button" class="btn btn-xs btn-danger" onclick="detetealert()">
                                         Delete
                                       </button></a>
+                                      
                                     </td>
                                   </tr>
                                   @endforeach
@@ -235,6 +236,7 @@ $(document).ready(function () {
                return false;
     }
    });
+
 });
 
 

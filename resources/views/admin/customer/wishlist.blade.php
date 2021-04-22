@@ -29,7 +29,7 @@
                     @foreach($wishlist as $Wishlist)
                     <tr>
                       <td>{{$loop->iteration}}</td>
-                      <td><img src="{{asset('storage/app/'.$Wishlist->product->image)}}" width="50" height="50"/> </td>
+                      <td><img src="{{asset('storage/app/'.$Wishlist->product->productimage->image)}}" width="50" height="50"/> </td>
                       <td> {{$Wishlist->product->product_name}}</td>
                       <td>{{$Wishlist->product->category->category_name}}</td>
                       <td>{{$Wishlist->product->pricelist->price}}</td>

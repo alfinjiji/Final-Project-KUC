@@ -39,7 +39,7 @@
                 <tr>
                   <td>{{$loop->iteration}}</td>
                   <td>
-                    <img src="{{asset('storage/app/'.$orderline->product->image)}}" style="height: 75px; width: 75px">
+                    <img src="{{asset('storage/app/'.$orderline->product->productimage->image)}}" style="height: 75px; width: 75px">
                   </td>
                   <td>{{$orderline->product->product_name}}</td>
                   <td>{{$orderline->quantity}}</td>

@@ -41,7 +41,7 @@
                  @foreach($or->orderline as $orderline)
                 <tr>
                       <td>{{$loop->iteration}}</td>
-                      <td><img style="height: 75px; width:100px;" src="{{ asset('storage/app/'.$orderline->product->image) }}"></td>
+                      <td><img style="height: 75px; width:100px;" src="{{ asset('storage/app/'.$orderline->product->productimage->image) }}"></td>
                       <td>{{$orderline->product->product_name}}</td>
                       <td>{{$orderline->quantity}}</td>
                       <td>{{$orderline->unit_price}}</td>

@@ -72,4 +72,8 @@ class OrderController extends Controller
         $cart = Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->delete();
         return redirect()->route('home');
     }
+    // order view
+    function orderView(){
+        return view('user.order');
+    }
 }

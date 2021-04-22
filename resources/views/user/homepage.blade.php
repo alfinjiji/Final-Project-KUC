@@ -9,7 +9,9 @@
                     @foreach($banners as $banner)
                     <li data-transition="zoomout" data-slotamount="7" data-masterspeed="1000">
                         <!-- MAIN IMAGE -->
+                        <a href="{{route('viewbanner.product',['id'=>encrypt($banner->banner_id)])}}">
                         <img src="{{asset('storage/app/image/'.$banner->image)}}" alt="darkblurbg" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
+                        </a>
                         <!-- LAYER NR. 1 -->
                         <div class="tp-caption black_heavy_60 skewfromleftshort tp-resizeme rs-parallaxlevel-0" data-x="50" data-y="133" data-speed="500" data-start="1850" data-easing="Power3.easeInOut" data-splitin="chars" data-splitout="none" data-elementdelay="0.1" data-endelementdelay="0.1" style="z-index: 7; max-width: auto; max-height: auto; white-space: nowrap;">Fashion for men
                         </div>
@@ -100,7 +102,7 @@ data-endspeed="1000"
                                     @foreach($mennew as $man)
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="{{ asset('storage/app/'.$man->productimage->image) }}" alt="">
+                                            <a href="{{route('single.product',['id'=>encrypt($man->product_id)])}}"><img src="{{ asset('storage/app/'.$man->productimage->image) }}" alt="">
                                             </a>
                                             <div class="tag new">
                                                 <span>new</span>
@@ -213,7 +215,7 @@ data-endspeed="1000"
                                     @foreach($womennew as $woman)
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="{{ asset('storage/app/'.$woman->productimage->image) }}" alt="">
+                                            <a href="{{route('single.product',['id'=>encrypt($woman->product_id)])}}"><img src="{{ asset('storage/app/'.$woman->productimage->image) }}" alt="">
                                             </a>
                                             <div class="tag new">
                                                 <span>new</span>
@@ -354,7 +356,7 @@ data-endspeed="1000"
                 @foreach($latestproduct as $product)
                 <div class="col-md-3 col-sm-3 col-xs-12">
                     <div class="latest-single">
-                        <a href="#"><img src="{{ asset('storage/app/'.$product->productimage->image) }}" alt="#">
+                        <a href="{{route('single.product',['id'=>encrypt($product->product_id)])}}"><img src="{{ asset('storage/app/'.$product->productimage->image) }}" alt="#">
                         </a>
                         <div class="tag new">
                             <span>new</span>
