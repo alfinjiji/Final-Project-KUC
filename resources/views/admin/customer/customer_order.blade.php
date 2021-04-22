@@ -66,7 +66,7 @@
                    
                     <tr>
                     <th style="width:50%">Subtotal:</th>
-                    <td>{{$or->amount}}</td>
+                    <td>{{($or->amount)+($or->discount)}}</td>
                   </tr>
                   <tr>
                     <th>Discount</th>
@@ -74,7 +74,7 @@
                   </tr>
                   <tr>
                     <th>Total:</th>
-                    <td>{{($or->amount)-($or->discount)}}</td>
+                    <td>{{$or->amount}}</td>
                   </tr>
                  
                 </tbody></table>

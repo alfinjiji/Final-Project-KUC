@@ -25,7 +25,7 @@ class Order extends Model
         return $this->hasOne(Coupon::class, 'coupon_id','coupon_id');
     }
     public function orderline()
-    {
+    { 
         return $this->hasMany(OrderLine::class,'order_id','order_id');
     }
 }

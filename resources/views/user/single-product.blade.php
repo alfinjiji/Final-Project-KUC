@@ -363,6 +363,21 @@
 												<a href="" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus" data-toggle="modal" data-target="#myModal"> Buy now</a>
 											@endif
 										</div>
+										@if(Auth::guard('customer')->check())
+									@if($product->wishlist_flag == 0)
+										<button type="submit" id="wishlist_btn" data-id="{{ $product->product_id }}">
+											<span class="PrdWishlist "><i id="{{ $product->product_id }}" class="PrdWishlistActive fa fa-heart color_change" aria-hidden="true"></i></span>
+										</button>
+									@else 
+										<button type="submit" id="wishlist_btn" data-id="{{ $product->product_id }}">
+											<span class="PrdWishlist "><i id="{{ $product->product_id }}" class="PrdWishlist fa fa-heart color_change" aria-hidden="true"></i></span>
+										</button>
+									@endif
+								@else 
+									<button type="submit" id="wishlist_btn" data-toggle="modal" data-target="#myModal">
+										<span class="PrdWishlist "><i class="PrdWishlistActive fa fa-heart color_change" aria-hidden="true"></i></span>
+									</button>
+								@endif
 									</div>
 
                                 </div>
@@ -479,7 +494,7 @@
 								</div>
 								<div class="col-md-4 col-sm-4 col-xs-12">
 									<div class="product-single">
-										<a href="#"><img src="{{ asset('public/user-templates/mages/product9.png')}}" alt="#">
+										<a href="#"><img src="{{ asset('public/user-templates/images/product9.png')}}" alt="#">
 										</a>
 										<div class="hot-wid-rating">
 											<h4><a href="#">stylish dress for women</a></h4>
@@ -534,6 +549,32 @@
 				} 
 			});
 		});
+		$("#wishlist_btn").click(function(e){
+		        	e.preventDefault();
+		        	//var _token = $("input[name='_token']").val();
+					var product_id = $(this).attr('data-id');
+					console.log(product_id);
+		        	$.ajax({
+		        		url: "{{ route('add.wishlist') }}",
+		        		type:'GET',
+		        		data: {
+                               // _token:_token, 
+                                product_id:product_id, 
+                              },
+		        		success: function(data){  
+		        			console.log(data);
+                            if(data.error==0) {  
+                                //remove from wishlist
+								$("#"+product_id).removeClass("PrdWishlist");
+								$("#"+product_id).addClass("PrdWishlistActive");
+                            } else {    
+                               //add to wishlist 
+							    $("#"+product_id).removeClass("PrdWishlistActive");
+								$("#"+product_id).addClass("PrdWishlist");
+                            }  
+                        } 
+		        	});
+		        });
 	});
 		</script>
 	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>

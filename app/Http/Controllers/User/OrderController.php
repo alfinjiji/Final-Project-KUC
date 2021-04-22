@@ -74,6 +74,8 @@ class OrderController extends Controller
     }
     // order view
     function orderView(){
-        return view('user.order');
+        $customer_id=Auth::guard('customer')->user()->customer_id;
+        $orders=Order::where('customer_id',$customer_id)->get();
+        return view('user.order',['orders'=>$orders]);
     }
 }

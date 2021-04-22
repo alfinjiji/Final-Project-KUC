@@ -24,7 +24,7 @@ class UserController extends Controller
                       ->where('status',1)->latest()->get();
         $womennew=Product::where('category_id',$categorywomen->category_id)
                       ->where('status',1)->latest()->get();
-        $latestproduct=Product::latest()->get();
+        $latestproduct=Product::where('status',1)->latest()->get();
         $menus=Menu::latest()->get();
         $products=OrderLine::select('product_id')->groupBy('product_id')->get();        
        //return $products;

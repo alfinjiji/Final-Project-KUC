@@ -111,17 +111,16 @@
 						<div class="user-menu">
 							<ul class="list-unstyled list-inline">
 								<li class="dropdown dropdown-small">
-									<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="value">English </span><i class="fa fa-angle-down"></i></a>
+									<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="value">name </span><i class="fa fa-angle-down"></i></a>
 									<ul class="dropdown-menu">
-										<li><a href="#">English</a>
+										<li><a href="#">About Us</a>
 										</li>
-										<li><a href="#">French</a>
+										<li><a href="#">Contact Us</a>
 										</li>
-										<li><a href="#">German</a>
-										</li>
+										
 									</ul>
 								</li>
-
+                              <!--
 								<li class="dropdown dropdown-small">
 									<a data-toggle="dropdown" data-hover="dropdown" class="dropdown-toggle" href="#"><span class="value">USD </span><i class="fa fa-angle-down"></i></a>
 									<ul class="dropdown-menu">
@@ -132,7 +131,7 @@
 										<li><a href="#">GBP</a>
 										</li>
 									</ul>
-								</li>
+								</li> -->
 								<li>Welcome to Ecommerce</li>
 							</ul>
 						</div>
@@ -166,9 +165,7 @@
 								<li><a href="{{route('user.wishlist',['id'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}"><i class="fa fa-heart-o"></i> Wishlist</a>
 								</li>
 								@endif
-								<li>
-									<a href="checkout.html"><img src="{{ asset('public/user-templates/images/check.png')}}" alt="#"> Checkout</a>
-								</li>
+								
 								<li class="last-child">
 									@if(!auth()->guard('customer')->check())
 									<a class="logg" href="#" data-toggle="modal" data-target="#myModal">
@@ -308,8 +305,7 @@
 						</div>
 						<div class="logo_right">
 							<span><i class="fa fa-phone"></i></span>
-							<a href="tel:+112345689">CALL US FREE
-								<br/>+01 123 456 89</a>
+							<a href="tel:+112345689">0</a>
 						</div>
 					</div>
 				</div>
@@ -370,14 +366,32 @@
 										<li><a href="404.html">404</a></li>
 									</ul>
 								</li>
-								<li><a href="about-us.html">About Us</a>
+								<!-- men -->
+								<li><a href="{{route('show.product',['name'=>encrypt('men')])}}">Men <i class="fa fa-caret-down"></i></a>
+									<ul class="drop_nav">
+										<li><a href="">Blog</a></li>
+										<li><a href="">Checkout</a></li>
+										<li><a href="">Product list</a></li>
+										<li><a href="">Search result</a></li>
+										<li><a href="">Single product</a></li>
+										<li><a href="">wishlist</a></li>
+										<li><a href="">404</a></li>
+									</ul>
 								</li>
-								<li><a href="{{route('show.product',['name'=>encrypt('men')])}}">Men</a>
+								<!-- end men -->
+								<!-- women -->
+								<li><a href="{{route('show.product',['name'=>encrypt('women')])}}">Men <i class="fa fa-caret-down"></i></a>
+									<ul class="drop_nav">
+										<li><a href="">Blog</a></li>
+										<li><a href="">Checkout</a></li>
+										<li><a href="">Product list</a></li>
+										<li><a href="">Search result</a></li>
+										<li><a href="">Single product</a></li>
+										<li><a href="">wishlist</a></li>
+										<li><a href="">404</a></li>
+									</ul>
 								</li>
-								<li><a href="{{route('show.product',['name'=>encrypt('women')])}}">Women</a>
-								</li>
-								<li><a href="contact-us.html">Contact Us</a>
-								</li>
+								<!-- end women -->
 							</ul>
 						</nav>
 						

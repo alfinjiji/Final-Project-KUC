@@ -29,11 +29,15 @@ class CartController extends Controller
         $products=Favorite::where('customer_id',$customer_id)->get();
         foreach($products as $product)
         {
-            Cart::create([
-                'product_id'=>$product->product_id,
-                'customer_id' => $product->customer_id,
-                'quantity' => 1,
-            ]);
+          $count=Cart::where('customer_id',$customer_id)
+                       ->where('product_id',$product->product_id)->count();
+          if($count==0){
+                  Cart::create([
+                  'product_id'=>$product->product_id,
+                  'customer_id' => $product->customer_id,
+                  'quantity' => 1,
+                   ]);
+          }
         }
         return redirect()->route('cart');
       }else{
