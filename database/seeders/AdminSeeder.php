@@ -84,6 +84,8 @@ class AdminSeeder extends Seeder
             'amount' => 450,
             'discount' => 10,
             'coupon_id' => 1,
+            'payment_mode' => 'cod',
+            'payment_status' => 0,
             'placed_at' => '2021-03-31 05:47:35',
         ]);
         OrderLine::create([

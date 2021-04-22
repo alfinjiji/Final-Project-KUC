@@ -1,8 +1,42 @@
 @extends('user.layout')
 @section('content')
-   <!-- Navbar -->
+    <!-- PAGE-TITLE-AREA -->
+    <section class="page-title-area">
+        <div class="page-title-overlay">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="page-title">
+                            <h3>Place Order</h3>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- PAGE-TITLE-AREA:END -->
+
+    <!-- BREADCRUMBS -->
+    <div class="title-breadcrumb">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="bred-title">
+                        <h3>Checkout</h3>
+                    </div>
+                    <ol class="breadcrumb">
+                        <li><a href="index.html">Home</a>
+                        </li>
+                        <li><a href="about-us.html">Checkout</a>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- BREADCRUMBS:END -->
    <!-- ADDRESS-AREA   --> 
-    <section class="payment-area">
+    <section class="payment-area" id="address">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
@@ -136,6 +170,7 @@
 							<input class="no-focus" type="text" name="coupon_code" id="coupon_code" autocomplete="off">
                             <br><span style="color: red;" id="coupon_error"></span><br>
                             <button type="button" id="apply_coupon" class="btn btn-default right-cart">Apply code</button>
+                            <button type="button" id="clear_coupon" class="btn btn-default right-cart">Clear code</button>
 						</form>
 					</div>
                 </div>
@@ -146,26 +181,79 @@
                     <div class="summary">
                         <h2>Products<span>Total</span></h2>
                         <p>{{ $product->product_name }}
-                            <span><input type="text" readonly="true" class="subtotal no-focus" value="{{$product->pricelist->price}}" style="background-color:transparent; border: transparent; width: 40px;" ></span>
+                            <span><input type="text" readonly="true" class="subtotal no-focus" value="{{$product->pricelist->price}}" style="background-color:transparent; border: transparent; width: 60px;" ></span>
                         </p>
                         <h3 class="line">Cart subtotal<span>
-                            <input type="text" readonly="true" class="subtotal no-focus" value="{{$product->pricelist->price}}" style="background-color:transparent; border: transparent; width: 40px;" >    
+                            <input type="text" readonly="true" class="subtotal no-focus" value="{{$product->pricelist->price}}" style="background-color:transparent; border: transparent; width: 60px; color: #3333;" >    
                         </span></h3>
+                        <h3 class="line2">Discount<span style="padding-right: 7%;" id="discount_val">0</span></h3>
                         <h3 class="line2">Shipping<span class="mcolor">Free shipping</span></h3>
                         <h5>Order Total Price<span>
-                            <input type="text" readonly="true" class="subtotal no-focus" value="{{$product->pricelist->price}}" style="background-color:transparent; border: transparent; width: 50px;" >    
+                            <input type="text" id="total_price" readonly="true" class="subtotal no-focus" value="{{$product->pricelist->price}}" style="background-color:transparent; border: transparent; width: 70px;" >    
                         </span></h5>
                     </div>
+                </div>
+                <div class="col-md-12" style="padding: 2% 2% 0% 2%">
+                    <button type="button" class="btn btn-primary btn-md float-left"  id="prev2">Back</button>
+                    <button type="button" class="btn btn-warning btn-md float-right" id="next3">Checkout</button>
                 </div>
             </div>
         </div>
     </section>
-        
+
+    <!-- PAYMENT-AREA   --> 
+    
+    <section class="payment-area" id="payment">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-sm-12 col-xs-12">
+                    <div class="headline">
+                        <h2>Select Payment Mode</h2>
+                    </div>
+                    <div class="payment">
+                    <div class="bank">
+                        <input type="radio" name="optradio" disabled>Direct Bank Transfer<br/>
+                        <div class="b_text"><p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order wont be shipped
+                            <br/>until the funds have cleared in our account.</p></div>
+                    </div>
+                    <div class="bank-radio">
+                        <form method="POST" action="{{ route('do.checkout') }}">
+                            @csrf
+                            <label>
+                                <input type="radio" name="optradio" id="cod">Cash On Delivery</label>
+                            <br/>
+                            <label>
+                                <input type="radio" name="optradio" id="paypal" disabled>Paypal<img src="{{ asset('public/user-templates/images/master-card.png') }}" alt="">
+                            </label><br/>
+                            <label>
+                                <input type="radio" name="optradio" id="wallet" data-walletBal="{{Auth::guard('customer')->user()->wallet_amount}}">Wallet &nbsp; <span style="color: green;" id="balance"> [ ${{Auth::guard('customer')->user()->wallet_amount}} ]</span>
+                            </label><br/>
+                            <input type="hidden" name="address_id" id="address_id">
+                            <input type="hidden" name="amount" id="amount" value="{{$product->pricelist->price}}">
+                            <input type="hidden" name="discount" id="discount" value="0">
+                            <input type="hidden" name="coupon_id" id="coupon_id">
+                            <input type="hidden" name="product_id" id="product_id" value="{{$product->product_id}}">
+                            <input type="hidden" name="quantity" id="quantity">
+                            <input type="hidden" name="unit_price" id="unit_price" value="{{$product->pricelist->price}}">
+                            <input type="hidden" name="payment_mode" id="payment_mode">
+                            <button type="submit" id="place_order" class="btn btn-default right-cart">Place order</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <!-- PAYMENT-AREA:END   -->
+       
+    <!-- place order  -->
     <section id="placeOrder">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-primary btn-md float-left" id="prev2">Back</button>
+                    <button type="button" class="btn btn-primary btn-md float-right" id="prev3">Back</button>
+                    <!--
                     <form method="POST" action="{{ route('do.checkout') }}">
                         @csrf
                         <input type="hidden" name="address_id" id="address_id">
@@ -175,8 +263,8 @@
                         <input type="hidden" name="product_id" id="product_id" value="{{$product->product_id}}">
                         <input type="hidden" name="quantity" id="quantity">
                         <input type="hidden" name="unit_price" id="unit_price" value="{{$product->pricelist->price}}">
-                        <button type="submit" class="btn btn-warning btn-md float-right">Place order</button>
-                    </form>
+                        <button type="submit" class="btn btn-warning btn-lg float-left">Place order</button>
+                    </form>  -->
                 </div>
             </div>
           </form>
@@ -184,39 +272,8 @@
 
         </div>
     </section>
-    <!-- CHECK-CONTACT-AREA:END   -->
-	
-    <!-- PAYMENT-AREA   --> 
-    <!--
-    <section class="payment-area">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12">
-                    <div class="headline">
-                        <h2>Select Payment Mode</h2>
-                    </div>
-                    <div class="payment">
-                    <div class="bank">
-                        <input type="radio" name="optradio">Direct Bank Transfer<br/>
-                        <div class="b_text"><p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order wont be shipped
-                            <br/>until the funds have cleared in our account.</p></div>
-                    </div>
-                    <div class="bank-radio">
-                        <label>
-                            <input type="radio" name="optradio">Cash On Delivery</label>
-                        <br/>
-                        <label>
-                            <input type="radio" name="optradio">Paypal<img src="{{ asset('public/user-templates/images/master-card.png') }}" alt="">
-                        </label><br/>
-                        <button type="button" class="btn btn-default right-cart">Place order</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </div>
-    </section>
--->
-    <!-- PAYMENT-AREA:END   -->
+    <!-- end  place order  -->
+    
 	@endsection
 
     @section('custom_script')
@@ -239,6 +296,8 @@
         $('#product').hide();
         $('#orderSummary').hide();
         $('#placeOrder').hide();
+        $('#payment').hide();
+        $('#clear_coupon').hide();
         $('#next').click(function(){
             $count = $('#next').attr('data-count');
             var name=0;
@@ -259,7 +318,19 @@
         $('#next2').click(function(){
             $('#product').hide();
             $('#orderSummary').show();
+        });
+        $('#next3').click(function(){
+            $('#orderSummary').hide();
+            $('#address').hide();
+            $('#payment').show();
             $('#placeOrder').show();
+            $('#place_order').hide();
+            $wallet_balance = parseFloat($('#wallet').attr('data-walletBal'));
+            $amount = parseFloat($('#amount').val());
+            if($amount > $wallet_balance){
+                $('#wallet').attr('disabled','true');
+            } 
+           
         });
         $('#prev').click(function(){
             $('#product').hide();
@@ -273,21 +344,61 @@
             $('#orderSummary').hide();
             $('#placeOrder').hide(); 
         });
+        $('#prev3').click(function(){
+            $('#orderSummary').show();
+            $('#address').show();
+            $('#payment').hide();
+            $('#placeOrder').hide();
+            $balance = $('#wallet').attr('data-walletBal');
+            $('#balance').html("[ $"+$balance+" ]");
+            $('#wallet').prop('disabled',false);
+            $('#wallet').prop('checked',false);
+        });
         // prevent refresh on enter press
         $("#coupon_code").keypress(function (event) {
             if (event.keyCode == 13) {
                 event.preventDefault();
             }
         });
+        // clear coupon code
+        $('#clear_coupon').click(function(){
+            $('#coupon_code').css('border-color','#ddd');
+            $('#coupon_code').val("");
+            $('#coupon_error').html('');
+            $amount = $('#amount').val();
+            $discount = $('#discount').val();
+            $('#total_price').val(parseFloat($amount) + parseFloat($discount));
+            $('#discount_val').html(0);
+            $('#amount').val(parseFloat($amount) + parseFloat($discount));
+            $('#discount').val(0);
+            $('#clear_coupon').hide();
+            $('#apply_coupon').show();
+        });
+        // wallet click
+        $('#wallet').click(function(){
+            $('#place_order').show();
+            $wallet_balance = $('#wallet').attr('data-walletBal');
+            $amount = $('#amount').val();
+            $balance = parseFloat($wallet_balance)-parseFloat($amount);
+            $('#balance').html("[ $"+$balance+" ]");
+            $('#payment_mode').val('wallet');
+        });
+        // cod click
+        $('#cod').click(function(){
+            $('#place_order').show();
+            $('#payment_mode').val('cod');
+        });
         // coupon check
         $('#apply_coupon').click(function(e){
             e.preventDefault();
             var subtot =parseInt($('#sum').val());
             var _token = $("input[name='_token']").val();
-            var coupon_code = $('#coupon_code').val()
+            var coupon_code = $('#coupon_code').val();
             if(coupon_code == ''){
                 $('#coupon_code').css('border-color','red');
-                $('#coupon_error').html('please enter vaild coupon code!')
+                $('#coupon_error').css('color','red'); 
+                $('#coupon_error').html('please enter vaild coupon code!');
+
             } else {
                 $.ajax({
 		        	url: "{{ route('coupon.check') }}",
@@ -309,10 +420,12 @@
                             $('#coupon_code').css('border-color','green');
                             $('#coupon_id').val(data.coupon_id);
                             $('#amount').val(data.grandtotal);
-                            $('#discount').val(subtot - parseInt(data.grandtotal));
-                            $('.subtotal').val(data.grandtotal);
+                            $('#discount').val(subtot - parseFloat(data.grandtotal));
+                            $('#total_price').val(data.grandtotal);
+                            $('#discount_val').html(subtot - parseFloat(data.grandtotal));
                             // after coupen applied disable coupon button
-                            $('#apply_coupon').attr('disabled','true');
+                            $('#apply_coupon').hide();
+                            $('#clear_coupon').show();
                             $('#apply_coupon').css('border','none');
                         }  
                     } 

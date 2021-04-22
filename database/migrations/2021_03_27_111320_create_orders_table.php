@@ -26,6 +26,8 @@ class CreateOrdersTable extends Migration
             //$table->foreignId('coupon_id')->constrained('coupons','coupon_id')->onUpdate('cascade')->onDelete('cascade');
             $table->unsignedBigInteger('coupon_id')->nullable();
             $table->foreign('coupon_id')->references('coupon_id')->on('coupons');
+            $table->String('payment_mode');
+            $table->boolean('payment_status')->default('0')->comment('0 pending, 1 success');
             $table->datetime('placed_at');
             $table->datetime('confirmed_at')->nullable();
             $table->datetime('delivered_at')->nullable();

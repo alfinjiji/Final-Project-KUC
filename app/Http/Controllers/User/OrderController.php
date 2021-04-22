@@ -23,22 +23,29 @@ class OrderController extends Controller
     }
     // add to orders
     function doCheckout(Request $request) {
-        $order = Order::create([
-            'customer_id'=>Auth::guard('customer')->user()->customer_id,
-            'customer_address_id'=>$request->address_id,
-            'amount'=>$request->amount,
-            'discount'=>$request->discount,
-            'coupon_id'=>$request->coupon_id,
-            'placed_at'=>date('Y-m-d-H-i-s'),
-        ]);
-        $orderline = OrderLine::create([
-            'order_id'=>$order->order_id,
-            'product_id'=>$request->product_id,
-            'quantity'=>$request->quantity,
-            'unit_price'=>$request->unit_price,
-            'sum'=>$request->amount,
-        ]);
-        return redirect()->route('home');
+        if($request->payment_mode == 'cod'){
+            $order = Order::create([
+                'customer_id'=>Auth::guard('customer')->user()->customer_id,
+                'customer_address_id'=>$request->address_id,
+                'amount'=>$request->amount,
+                'discount'=>$request->discount,
+                'coupon_id'=>$request->coupon_id,
+                'placed_at'=>date('Y-m-d-H-i-s'),
+            ]);
+            $orderline = OrderLine::create([
+                'order_id'=>$order->order_id,
+                'product_id'=>$request->product_id,
+                'quantity'=>$request->quantity,
+                'unit_price'=>$request->unit_price,
+                'sum'=>$request->amount,
+            ]);
+            return redirect()->route('home');
+        } else if($request->payment_mode == 'wallet') {
+            return "wallet payment";
+        } else {
+            return "not valid payment";
+        }
+        
     }
     // view cart-checkout page
     function cartCheckout(){
@@ -75,7 +82,7 @@ class OrderController extends Controller
     // order view
     function orderView(){
         $customer_id=Auth::guard('customer')->user()->customer_id;
-        $orders=Order::where('customer_id',$customer_id)->get();
+        $orders=Order::where('customer_id',$customer_id)->latest()->get();
         return view('user.order',['orders'=>$orders]);
     }
 }
