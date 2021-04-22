@@ -103,17 +103,22 @@ Route::group(['namespace'=>'User'],function(){
     Route::get('quantity-update',['as'=>'quantity.update','uses'=>'CartController@quantityUpdate']);
     Route::get('viewbanner-product/{id}',['as'=>'viewbanner.product','uses'=>'ProductController@viewbannerProduct']);
     Route::group(['middleware'=>'CustomerCheck'],function(){
+        // profile
         Route::get('profile',['as'=>'profile','uses'=>'UserController@profile']);
         Route::post('update-profile/{id}',['as'=>'update.profile','uses'=>'UserController@updateProfile']);
+        Route::post('change-password',['as'=>'change.password','uses'=>'LoginController@changePassword']);
+        // Address
         Route::get('address',['as'=>'address','uses'=>'AddressController@address']);
         Route::post('add-address',['as'=>'add.address','uses'=>'AddressController@addAddress']);
         Route::get('delete-address/{id}',['as'=>'delete.address','uses'=>'AddressController@deleteAddress']);
-        Route::post('change-password',['as'=>'change.password','uses'=>'LoginController@changePassword']);
         // user wishlist
         Route::get('add-wishlist',['as'=>'add.wishlist','uses'=>'WishlistController@addWishlist']);
         Route::get('user-wishlist/{id}',['as'=>'user.wishlist','uses'=>'WishlistController@userWishlist']);
         Route::get('clear-wishlist/{id}',['as'=>'clear.wishlist','uses'=>'WishlistController@clearWishlist']);
         Route::get('delete-singlewishlist/{pid}/{cid}',['as'=>'delete.singlewishlist','uses'=>'WishlistController@deleteSingleWishlist']);
+        // coupon
+        Route::get('coupon-view',['as'=>'coupon.view','uses'=>'CouponController@couponView']);
+        Route::post('coupon-check',['as'=>'coupon.check','uses'=>'CouponController@couponCheck']);
         // user order
         Route::get('checkout/{id}',['as'=>'checkout','uses'=>'OrderController@checkout']);
         Route::post('do-checkout',['as'=>'do.checkout','uses'=>'OrderController@doCheckout']);

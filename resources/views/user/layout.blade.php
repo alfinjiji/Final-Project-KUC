@@ -152,13 +152,11 @@
 										@if(auth()->guard('customer')->check())
 										<li><a href="{{route('profile')}}">My account</a></li>
 										<li><a href="{{route('address')}}">My Address</a></li>
-										<li><a href="{{route('user.wishlist',['id'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}">Wishlist</a>
-										</li>
-										<li><a href="{{route('show.product',['name'=>encrypt('all')])}}">Shopping</a>
-										</li>
+										<li><a href="{{route('user.wishlist',['id'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}">Wishlist</a></li>
+										<li><a href="{{route('coupon.view')}}">Coupon</a></li>
+										<li><a href="{{route('show.product',['name'=>encrypt('all')])}}">Shopping</a></li>
 										@else 
-										<li><a href="{{route('show.product',['name'=>encrypt('all')])}}">Shopping</a>
-										</li>
+										<li><a href="{{route('show.product',['name'=>encrypt('all')])}}">Shopping</a></li>
 										@endif
 									</ul>
 								</li>

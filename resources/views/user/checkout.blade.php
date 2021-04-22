@@ -14,7 +14,7 @@
 							<tr>
 								<th colspan="2">
                                     <h4 class="float-left" style="color:black; font-weight:5px; padding-left: 1%;" id="choosename">Choose Your Address</h4>
-                                    <button class="btn btn-warning float-right" id="addAddress">Add address</button>
+                                    <a href="{{route('address')}}"><button class="btn btn-warning float-right" id="addAddress">Add address</button></a>
                                 </th>
 							</tr>
 						</thead>
@@ -132,9 +132,11 @@
 						<h4>Apply coupon code here</h4>
 						<p>Enter your coupon code</p>
 						<form id="discount-code">
-							<input type="text">
+                            @csrf
+							<input class="no-focus" type="text" name="coupon_code" id="coupon_code" autocomplete="off">
+                            <br><span style="color: red;" id="coupon_error"></span><br>
+                            <button type="button" id="apply_coupon" class="btn btn-default right-cart">Apply code</button>
 						</form>
-						<button type="button" class="btn btn-default right-cart">Apply code</button>
 					</div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12">
@@ -168,7 +170,7 @@
                         @csrf
                         <input type="hidden" name="address_id" id="address_id">
                         <input type="hidden" name="amount" id="amount" value="{{$product->pricelist->price}}">
-                        <input type="hidden" name="discount" id="discount">
+                        <input type="hidden" name="discount" id="discount" value="0">
                         <input type="hidden" name="coupon_id" id="coupon_id">
                         <input type="hidden" name="product_id" id="product_id" value="{{$product->product_id}}">
                         <input type="hidden" name="quantity" id="quantity">
@@ -221,7 +223,7 @@
     <script>
     $(document).ready(function () {
         var sum=0;
-       var product=0;
+        var product=0;
         var qty=0;
         var price=0;
         $('#quantity').val(1);
@@ -271,8 +273,52 @@
             $('#orderSummary').hide();
             $('#placeOrder').hide(); 
         });
-        $('#discount').val(0);
-        $('#coupon_id').val(1);
+        // prevent refresh on enter press
+        $("#coupon_code").keypress(function (event) {
+            if (event.keyCode == 13) {
+                event.preventDefault();
+            }
+        });
+        // coupon check
+        $('#apply_coupon').click(function(e){
+            e.preventDefault();
+            var subtot =parseInt($('#sum').val());
+            var _token = $("input[name='_token']").val();
+            var coupon_code = $('#coupon_code').val()
+            if(coupon_code == ''){
+                $('#coupon_code').css('border-color','red');
+                $('#coupon_error').html('please enter vaild coupon code!')
+            } else {
+                $.ajax({
+		        	url: "{{ route('coupon.check') }}",
+		        	type:'POST',
+		        	data: {
+                            _token:_token, 
+                            subtot:subtot,
+                            coupon_code:coupon_code, 
+                          },
+		        	success: function(data){  
+		        		console.log(data);
+                        if(data.error==0) {  
+                            $('#coupon_error').html("invalid coupon code");
+                            $('#coupon_error').css('color','red');  
+                            $('#coupon_code').css('border-color','red'); 
+                        } else {    
+                            $('#coupon_error').html("coupen verified");
+                            $('#coupon_error').css('color','green'); 
+                            $('#coupon_code').css('border-color','green');
+                            $('#coupon_id').val(data.coupon_id);
+                            $('#amount').val(data.grandtotal);
+                            $('#discount').val(subtot - parseInt(data.grandtotal));
+                            $('.subtotal').val(data.grandtotal);
+                            // after coupen applied disable coupon button
+                            $('#apply_coupon').attr('disabled','true');
+                            $('#apply_coupon').css('border','none');
+                        }  
+                    } 
+		        });
+            }
+        });
     });
      </script>   
     @endsection

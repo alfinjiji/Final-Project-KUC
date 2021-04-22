@@ -33,9 +33,9 @@ class AdminSeeder extends Seeder
         Customer::create([
             'first_name' => 'john',
             'last_name' => 'wick',
-            'email' => 'johnwick@gmail.com',
+            'email' => 'a@gmail.com',
             'mobile' => '9876543210',
-            'password' => Hash::make('admin'),
+            'password' => Hash::make('password'),
         ]);
         CustomerAddress::create([
             'customer_id' => 1,
@@ -49,12 +49,12 @@ class AdminSeeder extends Seeder
             'landmark' => 'cyber park',
         ]);
         Coupon::create([
-            'name' => 'asdf',
-            'code' => 'aas55ddd',
+            'name' => 'Save flat 50',
+            'code' => '5KH85DET',
             'date_from' => '2021-03-31 05:47:35',
             'date_to' => '2021-03-31 05:47:35',
-            'type' => 1,
-            'type_value' => 10,
+            'type' => 0,
+            'type_value' => 30,
         ]);
         Category::create([
             'category_name' => 'men',
