@@ -6,10 +6,12 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\CustomerAddress;
+use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Order;
 use App\Models\OrderLine;
 use App\Models\Cart;
+use App\Models\Wallet;
 
 class OrderController extends Controller
 {
@@ -42,35 +44,73 @@ class OrderController extends Controller
     }
     // view cart-checkout page
     function cartCheckout(){
+        $customer_id=Auth::guard('customer')->user()->customer_id;
         $cart = Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->get();
         $cart_count = Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->count();
         $addresses = CustomerAddress::where('customer_id',Auth::guard('customer')->user()->customer_id)->get();
         $address_count = CustomerAddress::where('customer_id',Auth::guard('customer')->user()->customer_id)->count();
-        return view('user.cart_checkout',['cart'=>$cart, 'summary'=>$cart, 'cart_count'=>$cart_count, 'address_count'=>$address_count, 'addresses'=>$addresses]);
+        $wallet=Customer::find($customer_id);
+        return view('user.cart_checkout',['cart'=>$cart, 'summary'=>$cart, 'cart_count'=>$cart_count, 'address_count'=>$address_count, 'addresses'=>$addresses,'wallet'=>$wallet]);
     }
     // order all products in cart
     function doCartCheckout(Request $request){
-        $order = Order::create([
-            'customer_id'=>Auth::guard('customer')->user()->customer_id,
-            'customer_address_id'=>$request->address_id,
-            'amount'=>$request->amount,
-            'discount'=>$request->discount,
-            'coupon_id'=>$request->coupon_id,
-            'placed_at'=>date('Y-m-d-H-i-s'),
-        ]);
-        $cart = Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->get();
-        foreach($cart as $cart){
-            $sum = $cart->quantity * $cart->product->pricelist->price;
-            $orderline = OrderLine::create([
-                'order_id'=>$order->order_id,
-                'product_id'=>$cart->product_id,
-                'quantity'=>$cart->quantity,
-                'unit_price'=>$cart->product->pricelist->price,
-                'sum'=>$sum,
-            ]);
-        }
-        $cart = Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->delete();
-        return redirect()->route('home');
+        $paymethod=$request->pay_method;
+        if($paymethod=='cod')
+        {
+               $order = Order::create([
+               'customer_id'=>Auth::guard('customer')->user()->customer_id,
+               'customer_address_id'=>$request->address_id,
+               'amount'=>$request->amount,
+               'discount'=>$request->discount,
+               'coupon_id'=>$request->coupon_id,
+               'placed_at'=>date('Y-m-d-H-i-s'),
+           ]);
+           $cart = Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->get();
+           foreach($cart as $cart){
+               $sum = $cart->quantity * $cart->product->pricelist->price;
+               $orderline = OrderLine::create([
+                   'order_id'=>$order->order_id,
+                   'product_id'=>$cart->product_id,
+                   'quantity'=>$cart->quantity,
+                   'unit_price'=>$cart->product->pricelist->price,
+                   'sum'=>$sum,
+               ]);
+           }
+           $cart = Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->delete();
+           return redirect()->route('home');
+       }
+       elseif($paymethod=='wallet'){
+             $order = Order::create([
+                 'customer_id'=>Auth::guard('customer')->user()->customer_id,
+                 'customer_address_id'=>$request->address_id,
+                 'amount'=>$request->amount,
+                 'discount'=>$request->discount,
+                 'coupon_id'=>$request->coupon_id,
+                 'placed_at'=>date('Y-m-d-H-i-s'),
+             ]);
+             $cart = Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->get();
+             foreach($cart as $cart){
+                 $sum = $cart->quantity * $cart->product->pricelist->price;
+                 $orderline = OrderLine::create([
+                     'order_id'=>$order->order_id,
+                     'product_id'=>$cart->product_id,
+                     'quantity'=>$cart->quantity,
+                     'unit_price'=>$cart->product->pricelist->price,
+                     'sum'=>$sum,
+                 ]);
+             }
+             $cart = Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->delete();
+                  Wallet::create([ 
+                 'customer_id'=>Auth::guard('customer')->user()->customer_id,
+                 'amount'=>$request->amount,
+                 'flag'=>'1',
+                 ]);
+                 $customer=Customer::find(Auth::guard('customer')->user()->customer_id);
+                  $customer->wallet_amount=$customer->wallet_amount - $request->amount;
+                  $customer->save();
+             return redirect()->route('home');
+     
+       }
     }
     // order view
     function orderView(){

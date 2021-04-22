@@ -194,13 +194,15 @@ class ProductController extends Controller
     // delete price list
     function productPricelistDelete($id){
         $id=decrypt($id);
-        $pricelist=Pricelist::find($id)->first();
+        $pricelist=Pricelist::find($id);
         $product_id=$pricelist->product_id;
         Pricelist::find($id)->delete();
         $count=Pricelist::where('product_id',$product_id)->count();
+       
         if($count!=0){
             return redirect()->route('product')->with('message','Price deleted!');
         }else {
+          
             $product=Product::find($product_id);
             $product->status=0;
             $product->save();

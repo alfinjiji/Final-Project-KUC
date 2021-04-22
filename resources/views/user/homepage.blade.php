@@ -115,7 +115,7 @@ data-endspeed="1000"
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star-half-o"></i>
                                                 <div class="product-wid-price">
-                                                    <ins>{{$man->pricelist->price}}</ins> <del>$280.00</del>
+                                                    <ins>{{$man->pricelist->price}}</ins> <del>{{round($man->pricelist->price + ($man->pricelist->price*.12))}}</del>
                                                 </div>
                                             </div>
                                         </div>
@@ -228,7 +228,7 @@ data-endspeed="1000"
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star-half-o"></i>
                                                 <div class="product-wid-price">
-                                                    <ins>{{$woman->pricelist->price}}</ins> <del>$280.00</del>
+                                                    <ins>{{$woman->pricelist->price}}</ins> <del>{{round($woman->pricelist->price + ($woman->pricelist->price*.18))}}</del>
                                                 </div>
                                             </div>
                                         </div>

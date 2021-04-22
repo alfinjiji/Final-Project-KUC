@@ -9,6 +9,7 @@ class Wallet extends Model
 {
     use HasFactory;
     protected $primaryKey='wallet_id';
+    protected $fillable = ['customer_id','amount','flag','status'];
     protected $table='wallets';
    
 }
