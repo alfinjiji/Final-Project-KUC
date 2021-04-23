@@ -239,6 +239,7 @@
                             <button type="submit" id="place_order" class="btn btn-default right-cart">Place order</button>
                         </form>
                     </div>
+                    <button type="button" class="btn btn-primary btn-md float-left" id="prev3">Back</button>
                 </div>
             </div>
         </div>
@@ -252,19 +253,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <button type="button" class="btn btn-primary btn-md float-right" id="prev3">Back</button>
-                    <!--
-                    <form method="POST" action="{{ route('do.checkout') }}">
-                        @csrf
-                        <input type="hidden" name="address_id" id="address_id">
-                        <input type="hidden" name="amount" id="amount" value="{{$product->pricelist->price}}">
-                        <input type="hidden" name="discount" id="discount" value="0">
-                        <input type="hidden" name="coupon_id" id="coupon_id">
-                        <input type="hidden" name="product_id" id="product_id" value="{{$product->product_id}}">
-                        <input type="hidden" name="quantity" id="quantity">
-                        <input type="hidden" name="unit_price" id="unit_price" value="{{$product->pricelist->price}}">
-                        <button type="submit" class="btn btn-warning btn-lg float-left">Place order</button>
-                    </form>  -->
+                    
                 </div>
             </div>
           </form>
@@ -353,6 +342,7 @@
             $('#balance').html("[ $"+$balance+" ]");
             $('#wallet').prop('disabled',false);
             $('#wallet').prop('checked',false);
+            $('#cod').prop('checked',false);
         });
         // prevent refresh on enter press
         $("#coupon_code").keypress(function (event) {
@@ -382,11 +372,14 @@
             $balance = parseFloat($wallet_balance)-parseFloat($amount);
             $('#balance').html("[ $"+$balance+" ]");
             $('#payment_mode').val('wallet');
+            $('#prev3').hide();
         });
         // cod click
         $('#cod').click(function(){
             $('#place_order').show();
             $('#payment_mode').val('cod');
+            $('#prev3').hide();
+            $('#balance').html("[ $"+$('#wallet').attr('data-walletBal')+" ]");
         });
         // coupon check
         $('#apply_coupon').click(function(e){

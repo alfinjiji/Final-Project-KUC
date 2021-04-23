@@ -25,6 +25,7 @@ class OrderController extends Controller
     }
     // add to orders
     function doCheckout(Request $request) {
+        // cod 
         if($request->payment_mode == 'cod'){
             $order = Order::create([
                 'customer_id'=>Auth::guard('customer')->user()->customer_id,
@@ -32,6 +33,8 @@ class OrderController extends Controller
                 'amount'=>$request->amount,
                 'discount'=>$request->discount,
                 'coupon_id'=>$request->coupon_id,
+                'payment_mode'=>$request->payment_mode,
+                'payment_status'=>0,
                 'placed_at'=>date('Y-m-d-H-i-s'),
             ]);
             $orderline = OrderLine::create([
@@ -42,8 +45,34 @@ class OrderController extends Controller
                 'sum'=>$request->amount,
             ]);
             return redirect()->route('home');
+            // wallet payment
         } else if($request->payment_mode == 'wallet') {
-            return "wallet payment";
+            $order = Order::create([
+                'customer_id'=>Auth::guard('customer')->user()->customer_id,
+                'customer_address_id'=>$request->address_id,
+                'amount'=>$request->amount,
+                'discount'=>$request->discount,
+                'coupon_id'=>$request->coupon_id,
+                'payment_mode'=>$request->payment_mode,
+                'payment_status'=>1,
+                'placed_at'=>date('Y-m-d-H-i-s'),
+            ]);
+            $orderline = OrderLine::create([
+                'order_id'=>$order->order_id,
+                'product_id'=>$request->product_id,
+                'quantity'=>$request->quantity,
+                'unit_price'=>$request->unit_price,
+                'sum'=>$request->amount,
+            ]);
+            $customer = Customer::find(Auth::guard('customer')->user()->customer_id);
+            $customer->wallet_amount = $customer->wallet_amount - $request->amount;
+            $customer->save();
+            Wallet::create([
+                'customer_id'=>$customer->customer_id,
+                'amount'=>$request->amount,
+                'flag'=>1,
+            ]);
+            return redirect()->route('home');
         } else {
             return "not valid payment";
         }
@@ -70,6 +99,8 @@ class OrderController extends Controller
                'amount'=>$request->amount,
                'discount'=>$request->discount,
                'coupon_id'=>$request->coupon_id,
+               'payment_mode'=>$paymethod,
+               'payment_status'=>0,
                'placed_at'=>date('Y-m-d-H-i-s'),
            ]);
            $cart = Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->get();
@@ -93,6 +124,8 @@ class OrderController extends Controller
                  'amount'=>$request->amount,
                  'discount'=>$request->discount,
                  'coupon_id'=>$request->coupon_id,
+                 'payment_mode'=>$paymethod,
+                 'payment_status'=>1,
                  'placed_at'=>date('Y-m-d-H-i-s'),
              ]);
              $cart = Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->get();

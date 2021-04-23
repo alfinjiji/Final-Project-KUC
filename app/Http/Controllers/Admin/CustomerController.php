@@ -39,11 +39,21 @@ class CustomerController extends Controller
 
         return view('admin.customer.customer_order',['order'=>$order]);
     }
+    // load money to wallet
+    function loadWallet(Request $request){
+        $customer = Customer::find($request->customer_id);
+        Wallet::create([
+            'customer_id'=>$customer->customer_id,
+            'amount'=>$request->amount,
+            'flag'=>0,
+        ]);
+        $customer->wallet_amount = $customer->wallet_amount + $request->amount;
+        $customer->save();
+        return redirect()->route('customer');
+    }
 
     function demo()
     {
-     
-       
         return view('user.homepage');
     }
 }
