@@ -56,6 +56,7 @@ Route::group(['namespace'=>'Admin'],function(){
         Route::get('test',[CustomerController::class,'demo']);
         Route::get('customer-address/{id}',['as'=>'customer.address','uses'=>'CustomerController@customerAddress'] );
         Route::get('customer-order/{id}',['as'=>'customer.order','uses'=>'CustomerController@customerOrder'] );
+        Route::POST('load-wallet',['as'=>'load.wallet','uses'=>'CustomerController@loadWallet']);
         //Wishlist
         Route::get('wishlist/{id}',['as'=>'wishlist','uses'=>'CustomerController@wishlist'] );
        //Order

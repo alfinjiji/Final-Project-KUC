@@ -36,6 +36,7 @@ class AdminSeeder extends Seeder
             'email' => 'a@gmail.com',
             'mobile' => '9876543210',
             'password' => Hash::make('password'),
+            'wallet_amount' => 5000,
         ]);
         CustomerAddress::create([
             'customer_id' => 1,
@@ -50,11 +51,11 @@ class AdminSeeder extends Seeder
         ]);
         Coupon::create([
             'name' => 'Save flat 50',
-            'code' => '5KH85DET',
+            'code' => 'AB123',
             'date_from' => '2021-03-31 05:47:35',
-            'date_to' => '2021-03-31 05:47:35',
+            'date_to' => '2022-03-31 05:47:35',
             'type' => 0,
-            'type_value' => 30,
+            'type_value' => 50,
         ]);
         Category::create([
             'category_name' => 'men',
@@ -77,21 +78,6 @@ class AdminSeeder extends Seeder
             'product_id' => '1',
             'image' => 'image/img.png',
 
-        ]);
-        Order::create([
-            'customer_id' => 1,
-            'customer_address_id' => 1,
-            'amount' => 450,
-            'discount' => 10,
-            'coupon_id' => 1,
-            'placed_at' => '2021-03-31 05:47:35',
-        ]);
-        OrderLine::create([
-            'order_id' => 1,
-            'product_id' => 1,
-            'quantity' => 1,
-            'unit_price' => 500,
-            'sum' => 500,
         ]);
     }
 }

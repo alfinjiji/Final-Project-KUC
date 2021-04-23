@@ -195,8 +195,10 @@
                         </span></h5>
                     </div>
                 </div>
-                <button type="button" class="btn btn-primary btn-md float-left" id="prev2">Back</button>
-        <button type="button" class="btn btn-primary btn-md float-right" id="placeorder" data-id={{$wallet->wallet_amount}}>Next</button>
+                <div class="col-md-12" style="padding: 2%;">
+                    <button type="button" class="btn btn-primary btn-md float-left" id="prev2">Back</button>
+                    <button type="button" class="btn btn-primary btn-md float-right" id="placeorder" data-id={{$wallet->wallet_amount}}>Next</button>
+                </div>
             </div>
         </div>
     </section>
@@ -217,7 +219,7 @@
                         @csrf  
                     <div class="payment">
                     <div class="bank">
-                        <input type="radio" id="bank" name="optradio">Direct Bank Transfer<br/>
+                        <input type="radio" id="bank" name="optradio" disabled>Direct Bank Transfer<br/>
                         <div class="b_text"><p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order wont be shipped
                             <br/>until the funds have cleared in our account.</p></div>
                     </div>
@@ -226,7 +228,7 @@
                             <input type="radio" id="cod" name="optradio">Cash On Delivery</label>
                         <br/>
                         <label>
-                            <input type="radio" id="paypal" name="optradio">Paypal<img src="{{ asset('public/user-templates/images/master-card.png') }}" alt="">
+                            <input type="radio" id="paypal" name="optradio" disabled>Paypal<img src="{{ asset('public/user-templates/images/master-card.png') }}" alt="">
                         </label><br/>
                         <label>
                             <input type="radio" name="optradio" id="wallet">wallet &nbsp;<span style="color: rgb(0, 88, 38);">[$<span id="balance" style="color: rgb(0, 88, 38);">{{$wallet->wallet_amount}}</span>]</span></label>

@@ -25,13 +25,13 @@
                       <select class="form-control" name="status">
                         @if($order->status == 0)
                         <option value="{{$order->status}}" selected>Order Delevered</option>
-                        <option value="1">Order Confirmed</option>
-                        @elseif($order->status == 1)
+                        <option value="2">Order Confirmed</option>
+                        @elseif($order->status == 2)
                           <option value="{{$order->status}}" selected>Order Confirmed</option>
                           <option value="0">Order Delevered</option>
                         @else
                           <option value="{{$order->status}}" selected>Order Placed</option>
-                          <option value="1">Order Confirmed</option>
+                          <option value="2">Order Confirmed</option>
                           <option value="0">Order Delevered</option>
                         @endif
                       </select>

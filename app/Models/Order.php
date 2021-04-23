@@ -13,7 +13,7 @@ class Order extends Model
 {
     use HasFactory;
     protected $primaryKey = "order_id";
-    protected $fillable = ['customer_id','customer_address_id','amount','discount','coupon_id','placed_at'];
+    protected $fillable = ['customer_id','customer_address_id','amount','discount','coupon_id','payment_mode','payment_status','placed_at'];
 
     public function customer(){
         return $this->hasOne(Customer::class, 'customer_id','customer_id');
