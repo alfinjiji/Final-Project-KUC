@@ -42,7 +42,7 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="headline">
-                        <h2>Select Address</h2>
+                        <h2 id="head">Select Address</h2>
                     </div>
 					<table class="table table-bordered">
 						<thead>
@@ -171,6 +171,7 @@
 							<input class="no-focus" type="text" name="coupon_code" id="coupon_code" autocomplete="off">
                             <br><span style="color: red;" id="coupon_error"></span><br>
                             <button type="button" id="apply_coupon" class="btn btn-default right-cart">Apply code</button>
+                            <button type="button" id="clear_coupon" class="btn btn-default right-cart">Clear</button>
 						</form>
 					</div>
                 </div>
@@ -186,68 +187,66 @@
                             </p>
                         @endforeach
                         <h3 class="line">Cart subtotal<span>
-                            <input type="text" readonly="true" id="cart_total" class="subtotal no-focus" value="" style="background-color:transparent; border: transparent; width: 40px;" >    
+                            <input type="text" readonly="true" id="cart_total" class="subtotal no-focus" value="" style="background-color:transparent; border: transparent; width: 60px;" >    
                         </span></h3>
-                        <h3 class="line2">Shipping<span class="mcolor">Free shipping</span></h3>
+                        <h3 class="line2">Discount<span class="mcolor"><input type="text" readonly="true" id="discount_price" class="subtotal no-focus" value="0" style="background-color:transparent; border: transparent; width: 60px;" ></span></h3>
                         <h5>Order Total Price<span>
-                            <input type="text" readonly="true" id="total_price" class="subtotal no-focus" value="" style="background-color:transparent; border: transparent; width: 50px;" >    
+                            <input type="text" readonly="true" id="total_price" class="subtotal no-focus" value="" style="background-color:transparent; border: transparent; width: 60px;" >    
                         </span></h5>
                     </div>
                 </div>
+                <button type="button" class="btn btn-primary btn-md float-left" id="prev2">Back</button>
+        <button type="button" class="btn btn-primary btn-md float-right" id="placeorder" data-id={{$wallet->wallet_amount}}>Next</button>
             </div>
         </div>
     </section>
-        
-    <section id="placeOrder">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <button type="button" class="btn btn-primary btn-md float-left" id="prev2">Back</button>
-                    <form method="POST" action="{{ route('do.cart.checkout') }}">
-                        @csrf
-                        <input type="hidden" name="address_id" id="address_id">
-                        <input type="hidden" name="amount" id="amount">
-                        <input type="hidden" name="discount" id="discount" value="0">
-                        <input type="hidden" name="coupon_id" id="coupon_id">
-                        <button type="submit" class="btn btn-warning btn-md float-right">Place order</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
+     
+
     <!-- CHECK-CONTACT-AREA:END   -->
 	
     <!-- PAYMENT-AREA   --> 
-    <!--
-    <section class="payment-area">
-        <div class="container">
+    
+    <section class="payment-area" >
+        <div class="container" id="payment">
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="headline">
                         <h2>Select Payment Mode</h2>
                     </div>
+                    <form method="POST" action="{{ route('do.cart.checkout') }}">
+                        @csrf  
                     <div class="payment">
                     <div class="bank">
-                        <input type="radio" name="optradio">Direct Bank Transfer<br/>
+                        <input type="radio" id="bank" name="optradio">Direct Bank Transfer<br/>
                         <div class="b_text"><p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order wont be shipped
                             <br/>until the funds have cleared in our account.</p></div>
                     </div>
                     <div class="bank-radio">
                         <label>
-                            <input type="radio" name="optradio">Cash On Delivery</label>
+                            <input type="radio" id="cod" name="optradio">Cash On Delivery</label>
                         <br/>
                         <label>
-                            <input type="radio" name="optradio">Paypal<img src="{{ asset('public/user-templates/images/master-card.png') }}" alt="">
+                            <input type="radio" id="paypal" name="optradio">Paypal<img src="{{ asset('public/user-templates/images/master-card.png') }}" alt="">
                         </label><br/>
-                        <button type="button" class="btn btn-default right-cart">Place order</button>
+                        <label>
+                            <input type="radio" name="optradio" id="wallet">wallet &nbsp;<span style="color: rgb(0, 88, 38);">[$<span id="balance" style="color: rgb(0, 88, 38);">{{$wallet->wallet_amount}}</span>]</span></label>
+                        <br/>
+                      <input type="hidden" name="address_id" id="address_id">
+                        <input type="hidden" name="amount" id="amount">
+                        <input type="hidden" name="discount" id="discount" value="0">
+                        <input type="hidden" name="coupon_id" id="coupon_id">
+                        <input type="hidden" name="pay_method" id="paymethod">
+                        <button type="submit" class="btn btn-default right-cart" id="submit">Place order</button>
                     </div>
                 </div>
+            </form>
+            <button  class="btn btn-primary btn-md float-left" id="prev3">Back</button>
             </div>
         </div>
         </div>
     </section>
--->
-    <!-- PAYMENT-AREA:END   -->
+
+   <!-- PAYMENT-AREA:END   -->
 	@endsection
 
     @section('custom_script')
@@ -256,6 +255,8 @@
         $('#product').hide();
         $('#orderSummary').hide();
         $('#placeOrder').hide();
+        $('#payment').hide();
+        var price=0;
         $('#next').click(function(){
             $count = $('#next').attr('data-count');
             var name=0;
@@ -272,11 +273,14 @@
             $('#addAddress').hide();
             $('#next').hide();
             $('#choosename').html(name);
+            $('#head').html('Selected Address');
+
         });
         $('#next2').click(function(){
             $('#product').hide();
             $('#orderSummary').show();
             $('#placeOrder').show();
+            $('#clear_coupon').hide();
             $count = $('#next2').attr('data-cart_count');
             var total = 0;
             for($i=1;$i<=$count;$i++){
@@ -297,15 +301,21 @@
             $('#addAddress').show();
             $('#next').show();
             $('#choosename').html("Choose Your Address");
+            $('#head').html('Select Address');
         });
         $('#prev2').click(function(){
             $('#product').show();
             $('#orderSummary').hide();
             $('#placeOrder').hide(); 
         });
+        $('#prev3').click(function(){
+            $('#payment').hide();
+            $('#orderSummary').show();
+        });
         // coupon check
         $('#apply_coupon').click(function(e){
             e.preventDefault();
+            price=$('#total_price').val();
             var subtot =parseInt($('#total_price').val());
             var _token = $("input[name='_token']").val();
             var coupon_code = $('#coupon_code').val()
@@ -332,16 +342,66 @@
                             $('#coupon_error').css('color','green'); 
                             $('#coupon_code').css('border-color','green');
                             $('#coupon_id').val(data.coupon_id);
-                            $('#amount').val(data.grandtotal);
+                            $('#amount').val(parseInt(data.grandtotal));
                             $('#discount').val(subtot - parseInt(data.grandtotal));
-                            $('.subtotal').val(data.grandtotal);
+                            $('#discount_price').val(subtot - parseInt(data.grandtotal));
+                            $('#total_price').val(parseInt(data.grandtotal));
                             // after coupen applied disable coupon button
-                            $('#apply_coupon').attr('disabled','true');
+                            $('#apply_coupon').hide();
                             $('#apply_coupon').css('border','none');
+                            $('#clear_coupon').show();
                         }  
                     } 
 		        });
             }
+        });
+        $('#placeorder').click(function(){
+            $('#payment').show();
+            $('#orderSummary').hide();
+            var wallet=parseInt($('#placeorder').attr('data-id'));
+            price=parseInt( $('#total_price').val());
+            $('#submit').hide();
+            if(wallet<price){
+            $('#wallet').attr('disabled','true');
+            }
+        });
+        $('#clear_coupon').click(function(){
+            $('#coupon_code').val("");
+            $('#discount_price').val('0');
+            $('#coupon_error').html("");
+            $('#coupon_code').css('border-color','#ddd');
+            $('#clear_coupon').hide(); 
+            $('#apply_coupon').show();
+            $('#total_price').val(price);
+        });
+        $('#wallet').click(function(){
+            var wallet=parseInt($('#placeorder').attr('data-id'));
+            $('#submit').show();
+           price=parseInt( $('#total_price').val());
+           $('#balance').html([wallet-price]);
+           $('#paymethod').val('wallet');
+           $('#prev3').hide();
+        });
+        $('#cod').click(function(){
+            var wallet=parseInt($('#placeorder').attr('data-id'));
+            $('#submit').show();
+            $('#balance').html([wallet]);
+            $('#paymethod').val('cod');
+            $('#prev3').hide();
+        });
+        $('#bank').click(function(){
+            var wallet=parseInt($('#placeorder').attr('data-id'));
+            $('#submit').show();
+            $('#balance').html([wallet]);
+            $('#paymethod').val('bank');
+            $('#prev3').hide();
+        });
+        $('#paypal').click(function(){
+            var wallet=parseInt($('#placeorder').attr('data-id'));
+            $('#submit').show();
+            $('#balance').html([wallet]);
+            $('#paymethod').val('paypal');
+            $('#prev3').hide();
         });
     });
      </script>   
