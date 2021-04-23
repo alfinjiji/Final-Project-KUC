@@ -100,7 +100,7 @@ data-endspeed="1000"
                             <div role="tabpanel" class="tab-pane active" id="home">
                                 <div class="row">
                                     @foreach($mennew as $man)
-                                    <div class="col-md-3 col-sm-3 col-xs-12 " style="width: 30%">
+                                    <div class="col-md-3 col-sm-3 col-xs-12 " style="width: 25%">
                                         <div class="women-single zoom">
                                             <a href="{{route('single.product',['id'=>encrypt($man->product_id)])}}"><img src="{{ asset('storage/app/'.$man->productimage->image) }}" alt="">
                                             </a>
@@ -213,8 +213,8 @@ data-endspeed="1000"
                             <div role="tabpanel" class="tab-pane active" id="homewomen">
                                 <div class="row">
                                     @foreach($womennew as $woman)
-                                    <div class="col-md-3 col-sm-3 col-xs-12">
-                                        <div class="women-single">
+                                    <div class="col-md-3 col-sm-3 col-xs-12"  style="width: 25%">
+                                        <div class="women-single zoom" >
                                             <a href="{{route('single.product',['id'=>encrypt($woman->product_id)])}}"><img src="{{ asset('storage/app/'.$woman->productimage->image) }}" alt="">
                                             </a>
                                             <div class="tag new">
@@ -354,8 +354,8 @@ data-endspeed="1000"
             </div>
             <div class="row">
                 @foreach($latestproduct as $product)
-                <div class="col-md-3 col-sm-3 col-xs-12">
-                    <div class="latest-single">
+                <div class="col-md-3 col-sm-3 col-xs-12"  style="width: 25%">
+                    <div class="latest-single zoom">
                         <a href="{{route('single.product',['id'=>encrypt($product->product_id)])}}"><img src="{{ asset('storage/app/'.$product->productimage->image) }}" alt="#">
                         </a>
                         <div class="tag new">

@@ -125,6 +125,8 @@ Route::group(['namespace'=>'User'],function(){
         Route::get('cart-checkout',['as'=>'cart.checkout','uses'=>'OrderController@cartCheckout']);
         Route::post('do-cart-checkout',['as'=>'do.cart.checkout','uses'=>'OrderController@doCartCheckout']);
         Route::get('order-view',['as'=>'order.view','uses'=>'OrderController@orderView']);
+        Route::get('order-cancel/{id}',['as'=>'order.cancel','uses'=>'OrderController@orderCancel']);
+  
     });
     
 });

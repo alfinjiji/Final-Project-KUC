@@ -114,8 +114,48 @@ class OrderController extends Controller
     }
     // order view
     function orderView(){
+        $current_date = date('Y-m-d');
         $customer_id=Auth::guard('customer')->user()->customer_id;
-        $orders=Order::where('customer_id',$customer_id)->get();
-        return view('user.order',['orders'=>$orders]);
+        $deliveredorders=Order::where('customer_id',$customer_id)
+                                ->where('delivered_at','<=',$current_date)
+                                ->get();
+        $penddingorders=Order::where('customer_id',$customer_id)
+        ->where('delivered_at','=',NULL)
+        ->get();
+        return view('user.order',['deliveredorders'=>$deliveredorders,'pendingorders'=>$penddingorders]);
+    }
+
+    function orderCancel($id){
+        $orderline=OrderLine::find($id);
+        $sum=$orderline->sum;
+        $order_id=$orderline->order_id;
+        $order=Order::find($order_id);
+        $customer_id=$order->customer_id;
+        $amount=$order->amount;
+        $discount=$order->discount;
+        $percent=($sum*100)/($amount+$discount);
+        if($percent==100){
+            $wallet=$amount;
+        }
+        else{
+        $discountpercent=($discount*$percent)/100;
+        $wallet=round($sum-$discountpercent);
+        }
+        $orderline=OrderLine::find($id)->delete();
+        $count=OrderLine::where('order_id',$order_id)->count();
+        if($count==0){
+        $order=Order::find($order_id)->delete();
+        }
+        Wallet::create([ 
+            'customer_id'=>$customer_id,
+            'amount'=>$wallet,
+            'flag'=>'0',
+            ]);
+        $customer=Customer::find($customer_id);
+        $customer->wallet_amount=$customer->wallet_amount+$wallet;
+        $customer->save();
+        return redirect()->back();
+       
+
     }
 }

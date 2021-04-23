@@ -77,6 +77,7 @@ class ProductController extends Controller
         $id = decrypt($id);
         $product = Product::find($id);
         $cart = Cart::where('product_id',$product->product_id)->count();
+        if(Auth::guard('customer')->check()){
         $customer=Auth::guard('customer')->user()->customer_id;
         $wishlist=Favorite::where('customer_id',$customer)
                             ->where('product_id',$id)
@@ -86,6 +87,7 @@ class ProductController extends Controller
             } else {
                 $product->wishlist_flag = 0;
             }
+        }
         return view('user.single-product',['product'=>$product, 'cart'=>$cart]);
     }
     //banner product
