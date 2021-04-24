@@ -150,20 +150,20 @@
 									<ul class="dropdown-menu account-menu">
 										@if(auth()->guard('customer')->check())
 										<li><a href="{{route('profile')}}">My account</a></li>
-										<li><a href="{{route('address')}}">My Address</a></li>
-										<li><a href="{{route('user.wishlist',['id'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}">Wishlist</a></li>
-										<li><a href="{{route('coupon.view')}}">Coupon</a></li>
-										<li><a href="{{route('order.view')}}">Order</a></li>
-										<li><a href="{{route('show.product',['name'=>encrypt('all')])}}">Shopping</a></li>
+										<li><a href="{{route('address.create')}}">My Address</a></li>
+										<li><a href="{{route('wishlist.show',['id'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}">Wishlist</a></li>
+										<li><a href="{{route('coupon')}}">Coupon</a></li>
+										<li><a href="{{route('orders')}}">Orders</a></li>
+										<li><a href="{{route('products.show',['name'=>encrypt('all')])}}">Shopping</a></li>
 										@else 
-										<li><a href="{{route('show.product',['name'=>encrypt('all')])}}">Shopping</a></li>
+										<li><a href="{{route('products.show',['name'=>encrypt('all')])}}">Shopping</a></li>
 										@endif
 									</ul>
 								</li>
 								@if(auth()->guard('customer')->check())
 								<li><a href=""><i class="fa fa-money"></i> Wallet ( <i class="fa fa-usd">{{auth()->guard('customer')->user()->wallet_amount}}</i>)</a>
 								</li>
-								<li><a href="{{route('user.wishlist',['id'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}"><i class="fa fa-heart-o"></i> Wishlist</a>
+								<li><a href="{{route('wishlist.show',['id'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}"><i class="fa fa-heart-o"></i> Wishlist</a>
 								</li>
 								@endif
 								
@@ -357,7 +357,7 @@
 									<ul class="drop_nav">
 										<li><a href="{{route('home')}}">Blog</a></li>
 										<li><a href="{{route('home')}}">Checkout</a></li>
-										<li><a href="{{route('show.product',['name'=>encrypt('all')])}}">Product list</a></li>
+										<li><a href="{{route('products.show',['name'=>encrypt('all')])}}">Product list</a></li>
 										@if(auth()->guard('customer')->check())
 										<li><a href="{{route('profile')}}">Profile</a></li>
 										@endif
@@ -368,7 +368,7 @@
 									</ul>
 								</li>
 								<!-- men -->
-								<li><a href="{{route('show.product',['name'=>encrypt('men')])}}">Men <i class="fa fa-caret-down"></i></a>
+								<li><a href="{{route('products.show',['name'=>encrypt('men')])}}">Men <i class="fa fa-caret-down"></i></a>
 									<ul class="drop_nav">
 										<li><a href="">Blog</a></li>
 										<li><a href="">Checkout</a></li>
@@ -381,7 +381,7 @@
 								</li>
 								<!-- end men -->
 								<!-- women -->
-								<li><a href="{{route('show.product',['name'=>encrypt('women')])}}">Women <i class="fa fa-caret-down"></i></a>
+								<li><a href="{{route('products.show',['name'=>encrypt('women')])}}">Women <i class="fa fa-caret-down"></i></a>
 									<ul class="drop_nav">
 										<li><a href="">Blog</a></li>
 										<li><a href="">Checkout</a></li>
@@ -539,7 +539,7 @@
 									<li><a href="profile.html">My Account</a>
 									</li>
 									@if(auth()->guard('customer')->check())
-									<li><a href="{{route('user.wishlist',['id'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}">Wishlist</a>
+									<li><a href="{{route('wishlist.show',['id'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}">Wishlist</a>
 									</li>
 									@endif
 									<li><a href="cart-page.html">Shopping Cart</a>

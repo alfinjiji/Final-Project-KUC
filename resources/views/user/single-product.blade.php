@@ -531,7 +531,7 @@
 			var product_id = $("#cartBtn").attr('data-id');
 			console.log(product_id);
 			$.ajax({
-				url: "{{ route('addto.cart') }}",
+				url: "{{ route('cart.store') }}",
 				type:'GET',
 				data: {
 						product_id:product_id, 
@@ -555,7 +555,7 @@
 					var product_id = $(this).attr('data-id');
 					console.log(product_id);
 		        	$.ajax({
-		        		url: "{{ route('add.wishlist') }}",
+		        		url: "{{ route('wishlist.store') }}",
 		        		type:'GET',
 		        		data: {
                                // _token:_token, 

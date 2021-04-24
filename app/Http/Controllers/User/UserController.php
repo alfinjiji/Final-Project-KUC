@@ -14,25 +14,28 @@ use App\Models\Menu;
 use App\Models\OrderLine;
 use Illuminate\Support\Facades\Hash;
 
-class UserController extends Controller
+class UserController
 {   
-    function home(){
+    // home page
+    function index(){
         $banners=Banner::latest()->get();
-        $categorymen=Category::where('category_name','men')->first();
-        $categorywomen=Category::where('category_name','women')->first();
-        $mennew=Product::where('category_id',$categorymen->category_id)
+        $category_men=Category::where('category_name','men')->first();
+        $category_women=Category::where('category_name','women')->first();
+        $latest_men=Product::where('category_id',$category_men->category_id)
                       ->where('status',1)->latest()->get();
-        $womennew=Product::where('category_id',$categorywomen->category_id)
+        $latest_women=Product::where('category_id',$category_women->category_id)
                       ->where('status',1)->latest()->get();
-        $latestproduct=Product::where('status',1)->latest()->get();
+        $latest_product=Product::where('status',1)->latest()->get();
         $menus=Menu::latest()->get();
         $products=OrderLine::select('product_id')->groupBy('product_id')->get();        
        //return $products;
-        return view('user.homepage',['banners'=>$banners,'mennew'=>$mennew,'womennew'=>$womennew,'latestproduct'=>$latestproduct,'menus'=>$menus]);
+        return view('user.homepage',compact('banners','latest_men','latest_women','latest_product','menus'));
     }
+    // user profile
     function profile(){
         return view('user.profile');
     }
+    // update profile
     function updateProfile(Request $request, $id){
         $id = decrypt($id);
         $customer = Customer::find($id);
@@ -42,11 +45,11 @@ class UserController extends Controller
         $customer->save();
         return redirect()->route('profile')->with('message', 'Profile updated successfully!');
     }
-    
-    
+    // search
     function search(){
         return view('user.search-result');
     }
+    // single product
     function singleProduct(){
         return view('user.single-product');
     }

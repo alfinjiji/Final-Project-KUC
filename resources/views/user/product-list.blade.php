@@ -283,7 +283,7 @@
 					var product_id = $(this).attr('data-id');
 					console.log(product_id);
 		        	$.ajax({
-		        		url: "{{ route('add.wishlist') }}",
+		        		url: "{{ route('wishlist.store') }}",
 		        		type:'GET',
 		        		data: {
                                // _token:_token, 

@@ -9,7 +9,7 @@
                     @foreach($banners as $banner)
                     <li data-transition="zoomout" data-slotamount="7" data-masterspeed="1000">
                         <!-- MAIN IMAGE -->
-                        <a href="{{route('viewbanner.product',['id'=>encrypt($banner->banner_id)])}}">
+                        <a href="{{route('banner.show',['id'=>encrypt($banner->banner_id)])}}">
                         <img src="{{asset('storage/app/image/'.$banner->image)}}" alt="darkblurbg" data-bgfit="cover" data-bgposition="left top" data-bgrepeat="no-repeat">
                         </a>
                         <!-- LAYER NR. 1 -->
@@ -99,7 +99,7 @@ data-endspeed="1000"
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="home">
                                 <div class="row">
-                                    @foreach($mennew as $man)
+                                    @foreach($latest_men as $man)
                                     <div class="col-md-3 col-sm-3 col-xs-12 " style="width: 25%">
                                         <div class="women-single zoom">
                                             <a href="{{route('single.product',['id'=>encrypt($man->product_id)])}}"><img src="{{ asset('storage/app/'.$man->productimage->image) }}" alt="">
@@ -212,7 +212,7 @@ data-endspeed="1000"
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="homewomen">
                                 <div class="row">
-                                    @foreach($womennew as $woman)
+                                    @foreach($latest_women as $woman)
                                     <div class="col-md-3 col-sm-3 col-xs-12"  style="width: 25%">
                                         <div class="women-single zoom" >
                                             <a href="{{route('single.product',['id'=>encrypt($woman->product_id)])}}"><img src="{{ asset('storage/app/'.$woman->productimage->image) }}" alt="">
@@ -353,7 +353,7 @@ data-endspeed="1000"
                 </div>
             </div>
             <div class="row">
-                @foreach($latestproduct as $product)
+                @foreach($latest_product as $product)
                 <div class="col-md-3 col-sm-3 col-xs-12"  style="width: 25%">
                     <div class="latest-single zoom">
                         <a href="{{route('single.product',['id'=>encrypt($product->product_id)])}}"><img src="{{ asset('storage/app/'.$product->productimage->image) }}" alt="#">

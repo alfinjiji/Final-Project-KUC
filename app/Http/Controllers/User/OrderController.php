@@ -13,18 +13,99 @@ use App\Models\OrderLine;
 use App\Models\Cart;
 use App\Models\Wallet;
 
-class OrderController extends Controller
+class OrderController
 {
+    // order view
+    function index(){
+        $current_date = date('Y-m-d');
+        $customer_id = Auth::guard('customer')->user()->customer_id;
+        $orders_delivered = Order::where('customer_id',$customer_id)
+                               ->where('delivered_at','<=',$current_date)->latest()
+                               ->get();
+        $orders_pending = Order::where('customer_id',$customer_id)
+                            ->where('delivered_at','=',NULL)->latest()
+                            ->get();
+        return view('user.orders',compact('orders_delivered','orders_pending'));
+    }
+    // cancel order
+    function destroy($id){
+        $orderline=OrderLine::find($id);
+        $sum=$orderline->sum;                                 // unit price * Qty of selected product
+        $order_id=$orderline->order_id;
+        $order=Order::find($order_id);
+        $paymentmode=$order->payment_mode;
+        $customer_id=$order->customer_id;
+        $amount=$order->amount;                                 // total paid amount (discount-grand total)
+        $discount=$order->discount; 
+        $wallet=0;  
+        //return $sum." ".$amount." ".$discount;                           // discount
+        if($paymentmode=='wallet'){
+            $percent=($sum*100)/($amount+$discount);   
+            //return $percent;        // % of single product in total amount
+            if($percent==100){
+                //return $amount;
+              $wallet=$amount; //50
+            }else{
+              $discountpercent=($discount*$percent)/100;       // discount % of single product 
+              $wallet=round($sum-$discountpercent);            
+            }
+            $orderline=OrderLine::find($id)->delete();
+            $count=OrderLine::where('order_id',$order_id)->count();
+            if($count==0){
+                $order=Order::find($order_id)->delete();
+                 //return $wallet;
+                Wallet::create([ 
+                'customer_id'=>$customer_id,
+                'amount'=>$wallet,
+                'flag'=>'0',
+                ]);
+                $customer=Customer::find($customer_id);
+                $customer->wallet_amount=$customer->wallet_amount+$wallet;
+                $customer->save();
+                return redirect()->back();
+             }else{
+                Wallet::create([ 
+                'customer_id'=>$customer_id,
+                'amount'=>$wallet,
+                'flag'=>'0',
+                ]);
+                $order=Order::find($order_id);
+                $order->amount= $order->amount-$wallet;
+                $order->discount=round($order->discount-($discount*($percent/100)));
+                $order->save();
+                $customer=Customer::find($customer_id);
+                $customer->wallet_amount=$customer->wallet_amount+$wallet;
+                $customer->save();
+                return redirect()->back();
+            }
+        } else {
+            $orderline=OrderLine::find($id)->delete();
+            $count=OrderLine::where('order_id',$order_id)->count();
+            if($count==0){
+                 $order=Order::find($order_id)->delete();
+                 return redirect()->back();
+            } else {
+                 $percent=($sum*100)/($amount+$discount);
+                 $discountpercent=($discount*$percent)/100;
+                 $wallet=round($sum-$discountpercent);
+                 $order=Order::find($order_id);
+                 $order->amount= $order->amount-$wallet;
+                 $order->discount=round($order->discount-($discount*($percent/100)));
+                 $order->save();
+                 return redirect()->back();
+            }
+        }
+    }
     // view checkout page
-    function checkout($id){
+    function show($id){
         $id = decrypt($id);
         $addresses = CustomerAddress::where('customer_id',Auth::guard('customer')->user()->customer_id)->get();
         $address_count = CustomerAddress::where('customer_id',Auth::guard('customer')->user()->customer_id)->count();
         $product = Product::find($id);
-        return view('user.checkout',['addresses'=>$addresses,'address_count'=>$address_count, 'product'=>$product]);
+        return view('user.checkout',compact('addresses','address_count','product'));
     }
     // add to orders
-    function doCheckout(Request $request) {
+    function store(Request $request) {
         // cod 
         if($request->payment_mode == 'cod'){
             $order = Order::create([
@@ -75,24 +156,22 @@ class OrderController extends Controller
             return redirect()->route('home');
         } else {
             return "not valid payment";
-        }
-        
+        }   
     }
     // view cart-checkout page
-    function cartCheckout(){
+    function showCartCheckout(){
         $customer_id=Auth::guard('customer')->user()->customer_id;
-        $cart = Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->get();
+        $carts = Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->get();
         $cart_count = Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->count();
         $addresses = CustomerAddress::where('customer_id',Auth::guard('customer')->user()->customer_id)->get();
         $address_count = CustomerAddress::where('customer_id',Auth::guard('customer')->user()->customer_id)->count();
         $wallet=Customer::find($customer_id);
-        return view('user.cart_checkout',['cart'=>$cart, 'summary'=>$cart, 'cart_count'=>$cart_count, 'address_count'=>$address_count, 'addresses'=>$addresses,'wallet'=>$wallet]);
+        return view('user.cart_checkout',compact('carts','cart_count','addresses','address_count','wallet'));
     }
     // order all products in cart
-    function doCartCheckout(Request $request){
+    function storeCartCheckout(Request $request){
         $paymethod=$request->pay_method;
-        if($paymethod=='cod')
-        {
+        if($paymethod=='cod') {
                $order = Order::create([
                'customer_id'=>Auth::guard('customer')->user()->customer_id,
                'customer_address_id'=>$request->address_id,
@@ -104,7 +183,7 @@ class OrderController extends Controller
                'placed_at'=>date('Y-m-d-H-i-s'),
            ]);
            $cart = Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->get();
-           foreach($cart as $cart){
+           foreach($cart as $cart) {
                $sum = $cart->quantity * $cart->product->pricelist->price;
                $orderline = OrderLine::create([
                    'order_id'=>$order->order_id,
@@ -116,122 +195,40 @@ class OrderController extends Controller
            }
            $cart = Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->delete();
            return redirect()->route('home');
-       }
-       elseif($paymethod=='wallet'){
-             $order = Order::create([
-                 'customer_id'=>Auth::guard('customer')->user()->customer_id,
-                 'customer_address_id'=>$request->address_id,
-                 'amount'=>$request->amount,
-                 'discount'=>$request->discount,
-                 'coupon_id'=>$request->coupon_id,
-                 'payment_mode'=>$paymethod,
-                 'payment_status'=>1,
-                 'placed_at'=>date('Y-m-d-H-i-s'),
-             ]);
-             $cart = Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->get();
-             foreach($cart as $cart){
-                 $sum = $cart->quantity * $cart->product->pricelist->price;
-                 $orderline = OrderLine::create([
-                     'order_id'=>$order->order_id,
-                     'product_id'=>$cart->product_id,
-                     'quantity'=>$cart->quantity,
-                     'unit_price'=>$cart->product->pricelist->price,
-                     'sum'=>$sum,
-                 ]);
-             }
-             $cart = Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->delete();
-                  Wallet::create([ 
-                 'customer_id'=>Auth::guard('customer')->user()->customer_id,
-                 'amount'=>$request->amount,
-                 'flag'=>'1',
-                 ]);
-                 $customer=Customer::find(Auth::guard('customer')->user()->customer_id);
-                  $customer->wallet_amount=$customer->wallet_amount - $request->amount;
-                  $customer->save();
-             return redirect()->route('home');
-     
-       }
-    }
-    // order view
-    function orderView(){
-        $current_date = date('Y-m-d');
-        $customer_id=Auth::guard('customer')->user()->customer_id;
-        $deliveredorders=Order::where('customer_id',$customer_id)
-                                ->where('delivered_at','<=',$current_date)->latest()
-                                ->get();
-        $penddingorders=Order::where('customer_id',$customer_id)
-        ->where('delivered_at','=',NULL)->latest()
-        ->get();
-        return view('user.order',['deliveredorders'=>$deliveredorders,'pendingorders'=>$penddingorders]);
-    }
-
-    function orderCancel($id){
-        $orderline=OrderLine::find($id);
-        $sum=$orderline->sum;                                 // unit price * Qty of selected product
-        $order_id=$orderline->order_id;
-        $order=Order::find($order_id);
-        $paymentmode=$order->payment_mode;
-        $customer_id=$order->customer_id;
-        $amount=$order->amount;                                 // total paid amount (discount-grand total)
-        $discount=$order->discount; 
-        $wallet=0;  
-        //return $sum." ".$amount." ".$discount;                           // discount
-        if($paymentmode=='wallet'){
-            $percent=($sum*100)/($amount+$discount);   
-            //return $percent;        // % of single product in total amount
-               if($percent==100){
-                   //return $amount;
-                 $wallet=$amount; //50
-               }else{
-                 $discountpercent=($discount*$percent)/100;       // discount % of single product 
-                 $wallet=round($sum-$discountpercent);            
-               }
-            $orderline=OrderLine::find($id)->delete();
-            $count=OrderLine::where('order_id',$order_id)->count();
-                if($count==0){
-                     $order=Order::find($order_id)->delete();
-                     //return $wallet;
-                    Wallet::create([ 
-                    'customer_id'=>$customer_id,
-                    'amount'=>$wallet,
-                    'flag'=>'0',
-                     ]);
-                     $customer=Customer::find($customer_id);
-                     $customer->wallet_amount=$customer->wallet_amount+$wallet;
-                     $customer->save();
-                     return redirect()->back();
-                 }else{
-                     Wallet::create([ 
-                    'customer_id'=>$customer_id,
-                    'amount'=>$wallet,
-                    'flag'=>'0',
-                    ]);
-                     $order=Order::find($order_id);
-                     $order->amount= $order->amount-$wallet;
-                     $order->discount=round($order->discount-($discount*($percent/100)));
-                     $order->save();
-                     $customer=Customer::find($customer_id);
-                     $customer->wallet_amount=$customer->wallet_amount+$wallet;
-                     $customer->save();
-                     return redirect()->back();
-                }
-        }else{
-            $orderline=OrderLine::find($id)->delete();
-            $count=OrderLine::where('order_id',$order_id)->count();
-            if($count==0){
-                 $order=Order::find($order_id)->delete();
-                 return redirect()->back();
-            }else{
-                 $percent=($sum*100)/($amount+$discount);
-                 $discountpercent=($discount*$percent)/100;
-                 $wallet=round($sum-$discountpercent);
-                 $order=Order::find($order_id);
-                 $order->amount= $order->amount-$wallet;
-                 $order->discount=round($order->discount-($discount*($percent/100)));
-                 $order->save();
-                 return redirect()->back();
-            }
         }
-        
+        elseif($paymethod=='wallet'){
+            $order = Order::create([
+               'customer_id'=>Auth::guard('customer')->user()->customer_id,
+               'customer_address_id'=>$request->address_id,
+               'amount'=>$request->amount,
+               'discount'=>$request->discount,
+               'coupon_id'=>$request->coupon_id,
+               'payment_mode'=>$paymethod,
+               'payment_status'=>1,
+               'placed_at'=>date('Y-m-d-H-i-s'),
+            ]);
+            $cart = Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->get();
+            foreach($cart as $cart){
+               $sum = $cart->quantity * $cart->product->pricelist->price;
+               $orderline = OrderLine::create([
+                   'order_id'=>$order->order_id,
+                   'product_id'=>$cart->product_id,
+                   'quantity'=>$cart->quantity,
+                   'unit_price'=>$cart->product->pricelist->price,
+                   'sum'=>$sum,
+               ]);
+            }
+            $cart = Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->delete();
+               Wallet::create([ 
+               'customer_id'=>Auth::guard('customer')->user()->customer_id,
+               'amount'=>$request->amount,
+               'flag'=>'1',
+               ]);
+               $customer=Customer::find(Auth::guard('customer')->user()->customer_id);
+               $customer->wallet_amount=$customer->wallet_amount - $request->amount;
+               $customer->save();
+            return redirect()->route('home');
+       }
     }
+    
 }

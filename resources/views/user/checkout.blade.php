@@ -48,7 +48,7 @@
 							<tr>
 								<th colspan="2">
                                     <h4 class="float-left" style="color:black; font-weight:5px; padding-left: 1%;" id="choosename">Choose Your Address</h4>
-                                    <a href="{{route('address')}}"><button class="btn btn-warning float-right" id="addAddress">Add address</button></a>
+                                    <a href="{{route('address.create')}}"><button class="btn btn-warning float-right" id="addAddress">Add address</button></a>
                                 </th>
 							</tr>
 						</thead>
@@ -217,7 +217,7 @@
                             <br/>until the funds have cleared in our account.</p></div>
                     </div>
                     <div class="bank-radio">
-                        <form method="POST" action="{{ route('do.checkout') }}">
+                        <form method="POST" action="{{ route('checkout.store') }}">
                             @csrf
                             <label>
                                 <input type="radio" name="optradio" id="cod">Cash On Delivery</label>

@@ -19,6 +19,7 @@ class AdminController
         $customer=Customer::count();
         $product=Product::count();
         $coupon=Coupon::count();
+        // return view('admin.dashboard',['order'=>$order,'customer'=>$customer,'product'=>$product,'coupon'=>$coupon]);
         return view('admin.dashboard',compact('order','customer','product','coupon'));
     }
 }
