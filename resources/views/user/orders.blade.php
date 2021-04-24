@@ -44,7 +44,7 @@
                 <div class="headline">
                     <h2>Pendding Orders</h2>
                 </div>
-                @foreach($pendingorders as $order)
+                @foreach($orders_pending as $order)
                 <div class="panel panel-default" style="background-color: #fbfbfb">
                     <div class="panel-body">
                         <div class="col-md-12 rounded">
@@ -88,7 +88,7 @@
                                         <td>{{$orderline->quantity}}</td>
                                         <td>{{$orderline->unit_price}}</td>
                                         <td>{{$orderline->sum}}</td>
-                                        <td> <a href="{{route('order.cancel',['id'=>$orderline->orderline_id])}}"><img src="{{ asset('public/user-templates/images/remove.png')}}" alt="">
+                                        <td> <a href="{{route('order.destroy',['id'=>$orderline->orderline_id])}}"><img src="{{ asset('public/user-templates/images/remove.png')}}" alt="">
                                         </a>
                                       </td>
                                       </tr>
@@ -153,7 +153,7 @@
               <div class="headline">
                   <h2>Delivered Orders</h2>
               </div>
-              @foreach($deliveredorders as $order)
+              @foreach($orders_delivered as $order)
               <div class="panel panel-default" style="background-color: #fbfbfb">
                   <div class="panel-body">
                       <div class="col-md-12 rounded">

@@ -89,44 +89,45 @@ Route::group(['namespace'=>'Admin'],function(){
 // User Routes
 Route::group(['namespace'=>'User'],function(){
 
-    Route::get('/',['as'=>'home','uses'=>'UserController@home']);
+    Route::get('/',['as'=>'home','uses'=>'UserController@index']);
     Route::get('search',['as'=>'search','uses'=>'UserController@search']);
-    Route::get('single-product/{id}',['as'=>'single.product','uses'=>'ProductController@singleProduct']);
     Route::post('user-register',['as'=>'user.register','uses'=>'RegisterController@userRegister']);
     Route::post('user-login',['as'=>'user.login','uses'=>'LoginController@userLogin']);
     Route::get('user-logout',['as'=>'user.logout','uses'=>'LoginController@userLogout']);
-    Route::get('show-product/{name}',['as'=>'show.product','uses'=>'ProductController@showProduct']);
-    Route::get('cart',['as'=>'cart','uses'=>'CartController@viewCart']);
-    Route::get('addallto-cart',['as'=>'addallto.cart','uses'=>'CartController@addAllToCart']);
-    Route::get('delete-cart/{id}',['as'=>'delete.cart','uses'=>'CartController@deleteCart']);
-    Route::get('clear-cart',['as'=>'clear.cart','uses'=>'CartController@clearCart']);
-    Route::get('addto-cart',['as'=>'addto.cart','uses'=>'CartController@addToCart']);
-    Route::get('quantity-update',['as'=>'quantity.update','uses'=>'CartController@quantityUpdate']);
-    Route::get('viewbanner-product/{id}',['as'=>'viewbanner.product','uses'=>'ProductController@viewbannerProduct']);
+    Route::get('single-product/{id}',['as'=>'single.product','uses'=>'ProductController@showSingleProduct']);
+    Route::get('products/{name}',['as'=>'products.show','uses'=>'ProductController@show']);
+    Route::get('banner-product/{id}',['as'=>'banner.show','uses'=>'ProductController@showBanner']);
+    // cart
+    Route::get('cart',['as'=>'cart','uses'=>'CartController@index']);
+    Route::get('cart/store-all',['as'=>'cart.store.all','uses'=>'CartController@storeAll']);
+    Route::get('cart/{id}',['as'=>'cart.destroy','uses'=>'CartController@destroy']);
+    Route::get('cart-clear',['as'=>'cart.clear','uses'=>'CartController@clear']);
+    Route::get('cart-store',['as'=>'cart.store','uses'=>'CartController@store']);
+    Route::get('cart-update',['as'=>'cart.update','uses'=>'CartController@update']);
     Route::group(['middleware'=>'CustomerCheck'],function(){
         // profile
         Route::get('profile',['as'=>'profile','uses'=>'UserController@profile']);
         Route::post('update-profile/{id}',['as'=>'update.profile','uses'=>'UserController@updateProfile']);
         Route::post('change-password',['as'=>'change.password','uses'=>'LoginController@changePassword']);
         // Address
-        Route::get('address',['as'=>'address','uses'=>'AddressController@address']);
-        Route::post('add-address',['as'=>'add.address','uses'=>'AddressController@addAddress']);
-        Route::get('delete-address/{id}',['as'=>'delete.address','uses'=>'AddressController@deleteAddress']);
+        Route::get('address/create',['as'=>'address.create','uses'=>'AddressController@create']);
+        Route::post('address',['as'=>'address.store','uses'=>'AddressController@store']);
+        Route::get('address/{id}',['as'=>'address.destroy','uses'=>'AddressController@destroy']);
         // user wishlist
-        Route::get('add-wishlist',['as'=>'add.wishlist','uses'=>'WishlistController@addWishlist']);
-        Route::get('user-wishlist/{id}',['as'=>'user.wishlist','uses'=>'WishlistController@userWishlist']);
-        Route::get('clear-wishlist/{id}',['as'=>'clear.wishlist','uses'=>'WishlistController@clearWishlist']);
-        Route::get('delete-singlewishlist/{pid}/{cid}',['as'=>'delete.singlewishlist','uses'=>'WishlistController@deleteSingleWishlist']);
+        Route::get('add-wishlist',['as'=>'wishlist.store','uses'=>'WishlistController@store']);
+        Route::get('user-wishlist/{id}',['as'=>'wishlist.show','uses'=>'WishlistController@show']);
+        Route::get('clear-wishlist/{id}',['as'=>'wishlist.clear','uses'=>'WishlistController@clear']);
+        Route::get('remove-wishlist/{pid}/{cid}',['as'=>'wishlist.destroy','uses'=>'WishlistController@destroy']);
         // coupon
-        Route::get('coupon-view',['as'=>'coupon.view','uses'=>'CouponController@couponView']);
-        Route::post('coupon-check',['as'=>'coupon.check','uses'=>'CouponController@couponCheck']);
+        Route::get('coupon',['as'=>'coupon','uses'=>'CouponController@index']);
+        Route::post('coupon-check',['as'=>'coupon.check','uses'=>'CouponController@check']);
         // user order
-        Route::get('checkout/{id}',['as'=>'checkout','uses'=>'OrderController@checkout']);
-        Route::post('do-checkout',['as'=>'do.checkout','uses'=>'OrderController@doCheckout']);
-        Route::get('cart-checkout',['as'=>'cart.checkout','uses'=>'OrderController@cartCheckout']);
-        Route::post('do-cart-checkout',['as'=>'do.cart.checkout','uses'=>'OrderController@doCartCheckout']);
-        Route::get('order-view',['as'=>'order.view','uses'=>'OrderController@orderView']);
-        Route::get('order-cancel/{id}',['as'=>'order.cancel','uses'=>'OrderController@orderCancel']);
+        Route::get('orders',['as'=>'orders','uses'=>'OrderController@index']);
+        Route::get('order/{id}',['as'=>'order.destroy','uses'=>'OrderController@destroy']);
+        Route::get('checkout/{id}',['as'=>'checkout','uses'=>'OrderController@show']);
+        Route::post('checkout',['as'=>'checkout.store','uses'=>'OrderController@store']);
+        Route::get('checkout-cart',['as'=>'checkout.cart','uses'=>'OrderController@showCartCheckout']);
+        Route::post('checkout-cart-store',['as'=>'checkout.cart.store','uses'=>'OrderController@storeCartCheckout']);
   
     });
     

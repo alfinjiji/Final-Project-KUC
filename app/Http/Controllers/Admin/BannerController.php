@@ -48,7 +48,7 @@ class BannerController extends Controller
             $imageName = time().rand().'.'.$request->image->getClientOriginalExtension();
             $path = Storage::putFileAs('image',$request->file('image'), $imageName);
             $banner->image=$imageName;
-            }
+        }
         $banner->banner_name= $request->bannername;
         $banner->url=$request->url;
         $banner->date_from=$request->fromdate;

@@ -53,7 +53,7 @@
                     @endif
                     <div class="personal-form">
                         <div class="userright" style="margin-top: 0px;">
-                            <form  id="addressForm" method="POST" action="{{route('add.address')}}">
+                            <form  id="addressForm" method="POST" action="{{route('address.store')}}">
                                 @csrf
                                 Name
                                 <br>
@@ -101,7 +101,7 @@
                         <div class="panel panel-warning">
                             <div class="panel-heading">
                                 {{$address->name}} 
-                                <a href="{{ route('delete.address',['id'=>encrypt($address->customer_address_id)]) }}" class="float-right" style="padding-left: 5%; color: red;">X</a>
+                                <a href="{{ route('address.destroy',['id'=>encrypt($address->customer_address_id)]) }}" class="float-right" style="padding-left: 5%; color: red;">X</a>
                                 <p class="float-right">{{$address->mobile}}</p></div>
                             <div class="panel-body">
                               <p>

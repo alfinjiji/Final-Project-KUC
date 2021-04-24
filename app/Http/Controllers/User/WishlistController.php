@@ -10,27 +10,27 @@ use App\Models\Favorite;
 class WishlistController extends Controller
 {
     // user wishlist
-    function userWishlist($id){
+    function show($id){
         $id=decrypt($id);
-        $wishlist=Favorite::where('customer_id',$id)->get();
-        return view('user.wishlist',['wishlist'=>$wishlist]);
+        $wishlists=Favorite::where('customer_id',$id)->get();
+        return view('user.wishlist',compact('wishlists'));
     }
     // clear all product  wishlist
-    function clearWishlist($id){
+    function clear($id){
         $id=decrypt($id);
         $wishlist=Favorite::where('customer_id',$id)->delete();
         return redirect('/');
     }
     // remove product from wishlist page
-    function deleteSingleWishlist($pid,$cid){
+    function destroy($pid,$cid){
         $pid=decrypt($pid);
         Favorite::where('product_id',$pid)->delete();
         $cid=decrypt($cid);
-        $wishlist=Favorite::where('customer_id',$cid)->get();
-        return view('user.wishlist',['wishlist'=>$wishlist]);
+        $wishlists=Favorite::where('customer_id',$cid)->get();
+        return view('user.wishlist',compact('wishlists'));
     }
     // add to wishlist
-    function addWishlist(Request $request){
+    function store(Request $request){
         $customer = Auth::guard('customer')->user();
         $id = $request->product_id;
             $wishlist = Favorite::select('*')

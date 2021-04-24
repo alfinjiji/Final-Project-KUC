@@ -7,14 +7,15 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\CustomerAddress;
 
-class AddressController extends Controller
+class AddressController
 {
-    function address(){
+    // create and view address 
+    function create(){
         $addresses = CustomerAddress::where('customer_id',Auth::guard('customer')->user()->customer_id)->get();
-        return view('user.address',['addresses'=>$addresses]);
+        return view('user.address', compact('addresses'));
     }
-    // add address
-    function addAddress(Request $request){
+    // store address
+    function store(Request $request){
         if(Auth::guard('customer')->check()){
             CustomerAddress::create([
                 'customer_id'=>Auth::guard('customer')->user()->customer_id,
@@ -33,7 +34,7 @@ class AddressController extends Controller
         }
     }
     // delete address
-    function deleteAddress($id){
+    function destroy($id){
         CustomerAddress::find(decrypt($id))->delete();
         return redirect()->back()->with('message2','Address deleted successfully!');
     }

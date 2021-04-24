@@ -10,8 +10,7 @@ use App\Models\Product;
 use App\Models\Coupon;
 class AdminController extends Controller
 {
-    function demo()
-    {
+    function demo(){
         return view('admin.form');
     }
     function dashboard()
@@ -21,6 +20,7 @@ class AdminController extends Controller
         $customer=Customer::count();
         $product=Product::count();
         $coupon=Coupon::count();
-        return view('admin.dashboard',['order'=>$order,'customer'=>$customer,'product'=>$product,'coupon'=>$coupon]);
+        // return view('admin.dashboard',['order'=>$order,'customer'=>$customer,'product'=>$product,'coupon'=>$coupon]);
+        return view('admin.dashboard',compact('order','customer','product','coupon'));
     }
 }

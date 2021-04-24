@@ -66,14 +66,14 @@
                                         <a href="{{route('home')}}">
                                         <button type="button" class="btn btn-default left-cart">Continue Shopping</button>
                                         </a>
-                                        <a href="{{route('clear.cart')}}">
+                                        <a href="{{route('cart.clear')}}">
                                         <button type="button" class="btn btn-default right-cart right-margin">Clear shopping cart</button>
                                         </a>
                                         <div class="checkout">
                                             <p style>
                                                 <h4>Subtotal</h4><span><input type="text"  data-count="{{$count}}"  id="subtotal" style="background-color:transparent; border: transparent; text-align:right;" readonly="true"></span>
                                             </p>
-                                            <a href="{{route('cart.checkout')}}"><button type="button" class="btn btn-default right-cart">Proceed to checkout</button></a>
+                                            <a href="{{route('checkout.cart')}}"><button type="button" class="btn btn-default right-cart">Proceed to checkout</button></a>
                                         </div>
                                     </div>
                                     <!-- /.shopping-cart-btn -->
@@ -81,7 +81,7 @@
                             </tr>
                         </tfoot>
                         <tbody>
-                            @foreach($cart as $cart)
+                            @foreach($carts as $cart)
                             <tr>
                                 <td class="cart-image">
                                     <a href="{{route('single.product',['id'=>encrypt($cart->product->product_id)])}}" class="entry-thumbnail">
@@ -107,7 +107,7 @@
                                 <td class="cart-product-delivery"><div class="cc-pr">free shipping</div></td>
                                 <td class="cart-product-sub-total"><div class="cc-pr"><input type="text"  class="form-control" readonly="true" id="sum{{ $loop->iteration }}" value="{{$cart->product->pricelist->price * $cart->quantity}}" style="background-color:transparent; border: transparent" ></div></td>
                                 <td class="romove-item">
-                                    <a href="{{route('delete.cart',['id'=>encrypt($cart->cart_id)])}}"><img src="{{ asset('public/user-templates/images/remove.png')}}" alt="">
+                                    <a href="{{route('cart.destroy',['id'=>encrypt($cart->cart_id)])}}"><img src="{{ asset('public/user-templates/images/remove.png')}}" alt="">
                                     </a>
                                 </td>
                             </tr>
@@ -158,7 +158,7 @@
             var cart=$(this).attr('data-cart');
             var qty=$('#Qty'+id).val();
 			$.ajax({
-				url: "{{ route('quantity.update') }}",
+				url: "{{ route('cart.update') }}",
 				type:'GET',
 				data: {
 						quantity:qty, 

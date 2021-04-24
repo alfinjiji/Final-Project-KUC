@@ -13,17 +13,15 @@ use App\Models\Favorite;
 use App\Models\Cart;
 use App\Models\Banner;
 
-class ProductController extends Controller
+class ProductController 
 {
-     //show product
-     function showProduct($name){
+    //show product
+    function show($name){
         $name=decrypt($name);
-        if($name=='men'|| $name=='women')
-        {
+        if($name=='men'|| $name=='women') {
             $category=Category::where('category_name',$name)->first();
-            if($category!='')
-            {   
-                if(Auth::guard('customer')->check()){
+            if($category!='') {   
+                if(Auth::guard('customer')->check() ){
                     $customer=Auth::guard('customer')->user()->customer_id;
                     $products = Product::where('category_id',$category->category_id,)
                             ->where('status',1)
@@ -44,36 +42,34 @@ class ProductController extends Controller
                             ->where('status',1)
                             ->get();
                 }
-                return view('user.product-list',['products'=>$products]);
-            }
-            else{
+                return view('user.product-list',compact('products'));
+            } else {
                 return redirect('/');
             }
-        }else{
-                if(Auth::guard('customer')->check()){
-                    $customer=Auth::guard('customer')->user()->customer_id;
-                    $products = Product::where('status',1)
-                                        ->get();
-                        foreach ($products as $product) {
-                            $wishlist=Favorite::where('customer_id',$customer)
-                                            ->where('product_id',$product->product_id)
-                                            ->count();
-                            if($wishlist != 0){
-                                $product->wishlist_flag = 1;
-                            } else {
-                                $product->wishlist_flag = 0;
-                            }
+        } else {
+            if(Auth::guard('customer')->check()){
+                $customer=Auth::guard('customer')->user()->customer_id;
+                $products = Product::where('status',1)
+                                    ->get();
+                    foreach ($products as $product) {
+                        $wishlist=Favorite::where('customer_id',$customer)
+                                        ->where('product_id',$product->product_id)
+                                        ->count();
+                        if($wishlist != 0){
+                            $product->wishlist_flag = 1;
+                        } else {
+                            $product->wishlist_flag = 0;
                         }
-                        //return $product;
-                    } else {
-                    $products = Product::where('status',1)
-                                ->get();
                     }
-                return view('user.product-list',['products'=>$products]);
+                    //return $product;
+            } else {
+                $products = Product::where('status',1)->get();
             }
+            return view('user.product-list',compact('products'));
+        }
     }
    //single product view
-    function singleProduct($id) {
+    function showSingleProduct($id) {
         $id = decrypt($id);
         $product = Product::find($id);
         $cart = Cart::where('product_id',$product->product_id)->count();
@@ -88,10 +84,10 @@ class ProductController extends Controller
                 $product->wishlist_flag = 0;
             }
         }
-        return view('user.single-product',['product'=>$product, 'cart'=>$cart]);
+        return view('user.single-product',compact('product','cart'));
     }
     //banner product
-    function viewbannerProduct($id){
+    function showBanner($id){
         $banner=Banner::find(decrypt($id))->first();
         return redirect($banner->url);
     }

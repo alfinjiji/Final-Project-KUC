@@ -49,7 +49,7 @@
 							<tr>
 								<th colspan="2">
                                     <h4 class="float-left" style="color:black; font-weight:5px; padding-left: 1%;" id="choosename">Choose Your Address</h4>
-                                    <a href="{{route('address')}}"><button class="btn btn-warning float-right" id="addAddress">Add address</button></a>
+                                    <a href="{{route('address.create')}}"><button class="btn btn-warning float-right" id="addAddress">Add address</button></a>
                                 </th>
 							</tr>
 						</thead>
@@ -108,7 +108,7 @@
 							</thead>
 							<!-- /thead -->
 							<tbody>
-                                @foreach($cart as $cart)
+                                @foreach($carts as $cart)
 								<tr>
 									<td class="cart-image">
 										<a href="#" class="entry-thumbnail">
@@ -181,7 +181,7 @@
                     </div>
                     <div class="summary">
                         <h2>Products<span>Total</span></h2>
-                        @foreach($summary as $cart)
+                        @foreach($carts as $cart)
                             <p>{{ $cart->product->product_name }}
                                 <span><input type="text" readonly="true" class="subtotal no-focus" value="{{$cart->product->pricelist->price * $cart->quantity}}" data-subtotal="{{$cart->product->pricelist->price * $cart->quantity}}" style="background-color:transparent; border: transparent; width: 40px;" ></span>
                             </p>
@@ -215,7 +215,7 @@
                     <div class="headline">
                         <h2>Select Payment Mode</h2>
                     </div>
-                    <form method="POST" action="{{ route('do.cart.checkout') }}">
+                    <form method="POST" action="{{ route('checkout.cart.store') }}">
                         @csrf  
                     <div class="payment">
                     <div class="bank">

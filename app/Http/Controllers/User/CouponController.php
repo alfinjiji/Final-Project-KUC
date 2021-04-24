@@ -6,18 +6,18 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Coupon;
 
-class CouponController extends Controller
+class CouponController
 {
     // coupon view
-    function couponView(){
+    function index(){
         $current_date = date('Y-m-d');
         $coupons = Coupon::whereDate('date_to','>=',$current_date)
                             ->whereDate('date_from','<=',$current_date)
                             ->get();
-        return view('user.coupon_list',['coupons'=>$coupons]);
+        return view('user.coupon_list',compact('coupons'));
     }
     // coupon check
-    function couponCheck(Request $request){
+    function check(Request $request){
         $current_date = date('Y-m-d');
         $coupon_count = Coupon::where('code',$request->coupon_code)
                         ->whereDate('date_to','>=',$current_date)
