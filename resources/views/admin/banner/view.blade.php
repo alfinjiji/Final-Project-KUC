@@ -43,7 +43,7 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  @foreach($banner as $baner)
+                                  @foreach($banners as $baner)
                                   <tr>
                                     <td>{{$loop->iteration}}</td>
                                     <td>{{$baner->banner_name}}</td>
@@ -57,7 +57,7 @@
                                     @endif
                                     <td>
                                       <a href="{{route('banner.edit',['id'=>encrypt($baner->banner_id)])}}"><button type="button" class="btn btn-xs btn-primary">Edit</button></a>
-                                      <a href="{{route('banner.delete',['id'=>encrypt($baner->banner_id)])}}"> <button type="button" class="btn btn-xs btn-danger" onclick="detetealert()">
+                                      <a href="{{route('banner.distroy',['id'=>encrypt($baner->banner_id)])}}"> <button type="button" class="btn btn-xs btn-danger" onclick="detetealert()">
                                         Delete
                                       </button></a>
                                     </td>
@@ -113,7 +113,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form id="form" method="POST" action="{{route('banner.upload')}}" enctype="multipart/form-data" >
+                        <form id="form" method="POST" action="{{route('banner.store')}}" enctype="multipart/form-data" >
                           @csrf
                             <div class="card-body">
                                 <div class="form-group">

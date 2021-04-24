@@ -12,11 +12,11 @@
             <div class="card card-success">
                 <div class="card-header">
                   <h3 class="card-title">Edit Material</h3>
-                  <a href="{{route('material')}}"><button class="btn btn-primary float-right">Back</button></a>
+                  <a href="{{route('material.show')}}"><button class="btn btn-primary float-right">Back</button></a>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form action="{{route('do.material.edit',['id'=>encrypt($material->material_id)])}}" method="POST" id="materialForm">
+                <form action="{{route('material.update',['id'=>encrypt($material->material_id)])}}" method="POST" id="materialForm">
                   @csrf
                   <div class="card-body">
                     <div class="form-group">

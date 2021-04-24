@@ -36,7 +36,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach($menu as $menu)
+                    @foreach($menus as $menu)
                     <tr>
                       <td>{{$loop->iteration}}</td>
                       <td>{{$menu->menu_name}}</td>
@@ -49,7 +49,7 @@
                         <a href="{{route('menu.edit',['id'=>encrypt($menu->menu_id)])}}"><button type="button" class="btn btn-xs btn-primary">
                           Edit
                         </button></a>
-                        <a href="{{route('menu.delete',['id'=>encrypt($menu->menu_id)])}}"><button type="button" class="btn btn-xs btn-danger" id="menu-delete" onclick="detetealert()">
+                        <a href="{{route('destroy.menu',['id'=>encrypt($menu->menu_id)])}}"><button type="button" class="btn btn-xs btn-danger" id="menu-delete" onclick="detetealert()">
                           Delete
                         </button></a>
                       </td>

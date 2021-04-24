@@ -37,23 +37,23 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ($cat as $Cat)
+                    @foreach ($categorys as $category)
                     <tr>
                       <td>{{$loop->iteration}}</td>
-                      <td>{{$Cat->category_name}}</td>
-                      @if($Cat->status==1)
+                      <td>{{$category->category_name}}</td>
+                      @if($category->status==1)
                       <td> <span class="badge bg-success">active</span></td>
                       @else
                       <td> <span class="badge bg-danger">inactive</span></td>
                       @endif
                       <td>
-                        <a href="{{route('category.edit',['id'=>encrypt($Cat->category_id)]) }}"><button type="button" class="btn btn-xs btn-primary">
+                        <a href="{{route('category.edit',['id'=>encrypt($category->category_id)]) }}"><button type="button" class="btn btn-xs btn-primary">
                           Edit
                         </button></a>
                         <!--<button type="button" class="btn btn-xs btn-danger" data-toggle="modal" data-target="#delete-model">
                           Delete
                         </button>-->
-                        <a href="{{route('category.delete',['id'=>encrypt($Cat->category_id)]) }}"><button type="button" class="btn btn-xs btn-danger" onclick="detetealert()">
+                        <a href="{{route('category.destroy',['id'=>encrypt($category->category_id)]) }}"><button type="button" class="btn btn-xs btn-danger" onclick="detetealert()">
                           Delete
                         </button></a>
                       </td>

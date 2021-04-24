@@ -29,17 +29,17 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach($cust as $customer)
+                    @foreach($customers as $customer)
                     <tr>
                       <td>{{$loop->iteration}}</td>
                       <td>{{$customer->first_name.' '.$customer->last_name}}</td>
                       <td>{{$customer->email}}</td>
                       <td> {{$customer->mobile}}</td>
-                      <td><a href="{{route('customer.address',['id'=>encrypt($customer->customer_id)])}}"><span class="badge bg-danger">click</span></a></td>
-                      <td><a href="{{route('customer.order',['id'=>encrypt($customer->customer_id)])}}"><span class="badge bg-success">click</span></a></td>
-                      <td><a href="{{route('wishlist',['id'=>encrypt($customer->customer_id)])}}"><span class="badge bg-primary">click</span></a></td>
+                      <td><a href="{{route('show.address',['id'=>encrypt($customer->customer_id)])}}"><span class="badge bg-danger">click</span></a></td>
+                      <td><a href="{{route('show.order',['id'=>encrypt($customer->customer_id)])}}"><span class="badge bg-success">click</span></a></td>
+                      <td><a href="{{route('show.wishlist',['id'=>encrypt($customer->customer_id)])}}"><span class="badge bg-primary">click</span></a></td>
                       <td>
-                        <form action="{{route('load.wallet')}}" method="POST">
+                        <form action="{{route('store.wallet')}}" method="POST">
                           @csrf
                           <div class="row">
                             <div class="col-2">

@@ -12,12 +12,12 @@
             <div class="card card-primary">
                 <div class="card-header">
                   <h3 class="card-title">Order Confirmation</h3>
-                  <a href="{{route('order')}}"><button class="btn btn-success float-right">Back</button></a>
+                  <a href="{{route('order.show')}}"><button class="btn btn-success float-right">Back</button></a>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
               <!-- alert message div end -->
-                <form method="POST" action="{{route('do.order.status.update',['id'=>encrypt($order->order_id)])}}">
+                <form method="POST" action="{{route('update.status',['id'=>encrypt($order->order_id)])}}">
                   @csrf
                   <div class="card-body">
                     <div class="form-group">

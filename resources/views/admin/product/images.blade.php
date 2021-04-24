@@ -28,7 +28,7 @@
               <h3 class="card-title">Upload more Images</h3>
             </div>
             <div class="card-body">
-              <form method="POST" action="{{ route('add.product.image',['id'=>encrypt($product_id)]) }}" enctype="multipart/form-data">
+              <form method="POST" action="{{ route('store.image',['id'=>encrypt($product_id)]) }}" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                   <div class="col-5">
@@ -49,7 +49,7 @@
                 <div class="row">
                   <div class="col-md-6"><h3 class="card-title">Product Images</h3></div>
                   <div class="col-md-6 text-right"> 
-                    <a href="{{route('product')}}"><button class="btn btn-success" type="button">Back</button></a> 
+                    <a href="{{route('product.show')}}"><button class="btn btn-success" type="button">Back</button></a> 
                   </div>
                 </div>
               </div>
@@ -72,7 +72,7 @@
                         <img style="height: 75px; width:100px;" src="{{ asset('storage/app/'.$product_image->image) }}">
                       </td>
                       <td>
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('edit.product.image',['id'=>encrypt($product_image->productimage_id)]) }}">
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('update.image',['id'=>encrypt($product_image->productimage_id)]) }}">
                           @csrf
                           <div class="custom-file">
                             <input class="form-control img" type="file" name="image"  id="formFileDisabled{{ $loop->iteration }}" /><br>
@@ -82,7 +82,7 @@
                         </form>
                       </td>
                       <td>
-                        <a href="{{ route('delete.product.image',['id'=>encrypt($product_image->productimage_id)]) }}"><button type="button" class="btn btn-sm btn-danger">
+                        <a href="{{ route('destroy.image',['id'=>encrypt($product_image->productimage_id)]) }}"><button type="button" class="btn btn-sm btn-danger">
                           Delete
                         </button></a>
                       </td>

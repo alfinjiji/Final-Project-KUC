@@ -15,7 +15,7 @@
             </div>
             <!-- /.card-header -->
             <!-- form start -->
-            <form  action="{{route('do.banner.edit',['id'=>encrypt($banner->banner_id)])}}" method="POST"  enctype="multipart/form-data" id="form">
+            <form  action="{{route('banner.update',['id'=>encrypt($banner->banner_id)])}}" method="POST"  enctype="multipart/form-data" id="form">
               @csrf
                 <div class="card-body">
                     <div class="form-group">

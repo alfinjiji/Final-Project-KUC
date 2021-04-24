@@ -22,66 +22,66 @@ Route::group(['namespace'=>'Admin'],function(){
 
     Route::group(['middleware'=>'AdminCheck'],function(){
         //Route::get('demo',['as'=>'demo','uses'=>'AdminController@demo'] );
-        Route::get('dashboard',['as'=>'dashboard','uses'=>'AdminController@dashboard'] );
+        Route::get('dashboard',['as'=>'dashboard','uses'=>'AdminController@index'] );
         //Category
-        Route::get('category',['as'=>'category','uses'=>'CategoryController@CategoryView'] );
-        Route::get('category-create',['as'=>'category.create','uses'=>'CategoryController@CategoryCreate'] );
-        Route::get('category-edit/{id}',['as'=>'category.edit','uses'=>'CategoryController@categoryEdit'] );
-        Route::post('category-add',['as'=>'category.add','uses'=>'CategoryController@CategoryAdd'] );
-        Route::post('category-update/{id}',['as'=>'category.update','uses'=>'CategoryController@CategoryUpdate'] );
-        Route::get('category-delete/{id}',['as'=>'category.delete','uses'=>'CategoryController@CategoryDelete'] );
+        Route::get('category-show',['as'=>'category.show','uses'=>'CategoryController@show'] );
+        Route::get('category-create',['as'=>'category.create','uses'=>'CategoryController@create'] );
+        Route::get('category-edit/{id}',['as'=>'category.edit','uses'=>'CategoryController@edit'] );
+        Route::post('category-store',['as'=>'category.store','uses'=>'CategoryController@store'] );
+        Route::post('category-update/{id}',['as'=>'category.update','uses'=>'CategoryController@update'] );
+        Route::get('category-destroy/{id}',['as'=>'category.destroy','uses'=>'CategoryController@destroy'] );
        //Banner
-        Route::get('banner',['as'=>'banner','uses'=>'BannerController@banner'] );
-        Route::get('banner-edit/{id}',['as'=>'banner.edit','uses'=>'BannerController@bannerEdit'] );
-        Route::post('banner-uplaod',['as'=>'banner.upload','uses'=>'BannerController@BannerUpload']);
-        Route::post('do-banner-edit/{id}',['as'=>'do.banner.edit','uses'=>'BannerController@DobannerEdit']);
-        Route::get('banner-delete/{id}',['as'=>'banner.delete','uses'=>'BannerController@bannerdelete'] );
+        Route::get('banner-show',['as'=>'banner.show','uses'=>'BannerController@show'] );
+        Route::get('banner-edit/{id}',['as'=>'banner.edit','uses'=>'BannerController@edit'] );
+        Route::post('banner-store',['as'=>'banner.store','uses'=>'BannerController@store']);
+        Route::post('banner-update/{id}',['as'=>'banner.update','uses'=>'BannerController@update']);
+        Route::get('banner-destroy/{id}',['as'=>'banner.distroy','uses'=>'BannerController@destroy'] );
         //Product
-        Route::get('product',['as'=>'product','uses'=>'ProductController@product'] );
-        Route::get('product-create',['as'=>'product.create','uses'=>'ProductController@productCreate'] );
-        Route::post('do-product-create',['as'=>'do.product.create','uses'=>'ProductController@doProductCreate'] );
-        Route::get('product-image-list/{id}',['as'=>'product.image.list','uses'=>'ProductController@productImageList'] );
-        Route::post('edit-product-image/{id}',['as'=>'edit.product.image','uses'=>'ProductController@editProductImage']);
-        Route::post('add-product-image/{id}',['as'=>'add.product.image','uses'=>'ProductController@addProductImage']);
-        Route::get('delete-product-image/{id}',['as'=>'delete.product.image', 'uses'=>'ProductController@deleteProductimage']);
-        Route::get('product-edit/{id}',['as'=>'product.edit','uses'=>'ProductController@productEdit'] );
-        Route::post('do-product-edit/{id}',['as'=>'do.product.edit','uses'=>'ProductController@doProductEdit'] );
-        Route::get('product-delete/{id}',['as'=>'product.delete','uses'=>'ProductController@productDelete'] );
-        Route::get('product-add-price/{id}',['as'=>'product.add.price','uses'=>'ProductController@productAddPrice'] );
-        Route::post('do-product-add-price/{id}',['as'=>'do.product.add.price','uses'=>'ProductController@doProductAddPrice'] );
-        Route::get('product-pricelist/{id}',['as'=>'product.pricelist','uses'=>'ProductController@productPricelist'] );
-        Route::get('product-pricelist-delete/{id}',['as'=>'product.pricelist.delete','uses'=>'ProductController@productPricelistDelete'] );
+        Route::get('product-show',['as'=>'product.show','uses'=>'ProductController@show'] );
+        Route::get('product-create',['as'=>'product.create','uses'=>'ProductController@create'] );
+        Route::post('product-store',['as'=>'product.store','uses'=>'ProductController@store'] );
+        Route::get('show-images/{id}',['as'=>'show.images','uses'=>'ProductController@showImages'] );
+        Route::post('update-image/{id}',['as'=>'update.image','uses'=>'ProductController@updateImage']);
+        Route::post('store-image/{id}',['as'=>'store.image','uses'=>'ProductController@storeImage']);
+        Route::get('destroy-image/{id}',['as'=>'destroy.image', 'uses'=>'ProductController@destroyImage']);
+        Route::get('product-edit/{id}',['as'=>'product.edit','uses'=>'ProductController@edit'] );
+        Route::post('product-update/{id}',['as'=>'product.update','uses'=>'ProductController@update'] );
+        Route::get('product-destroy/{id}',['as'=>'product.destroy','uses'=>'ProductController@destroy'] );
+        Route::get('create-price/{id}',['as'=>'create.price','uses'=>'ProductController@createPrice'] );
+        Route::post('store-price/{id}',['as'=>'store.price','uses'=>'ProductController@storePrice'] );
+        Route::get('show-pricelist/{id}',['as'=>'show.pricelist','uses'=>'ProductController@showPricelist'] );
+        Route::get('destroy-price/{id}',['as'=>'destroy.price','uses'=>'ProductController@destroyPrice'] );
         //Customer
-        Route::get('customer',['as'=>'customer','uses'=>'CustomerController@customer'] );
+        Route::get('customer-show',['as'=>'customer.show','uses'=>'CustomerController@show'] );
         Route::get('test',[CustomerController::class,'demo']);
-        Route::get('customer-address/{id}',['as'=>'customer.address','uses'=>'CustomerController@customerAddress'] );
-        Route::get('customer-order/{id}',['as'=>'customer.order','uses'=>'CustomerController@customerOrder'] );
-        Route::POST('load-wallet',['as'=>'load.wallet','uses'=>'CustomerController@loadWallet']);
+        Route::get('show-address/{id}',['as'=>'show.address','uses'=>'CustomerController@showAddress'] );
+        Route::get('show-order/{id}',['as'=>'show.order','uses'=>'CustomerController@showOrder'] );
+        Route::POST('store-wallet',['as'=>'store.wallet','uses'=>'CustomerController@storeWallet']);
         //Wishlist
-        Route::get('wishlist/{id}',['as'=>'wishlist','uses'=>'CustomerController@wishlist'] );
+        Route::get('show-wishlist/{id}',['as'=>'show.wishlist','uses'=>'CustomerController@showWishlist'] );
        //Order
-        Route::get('order',['as'=>'order','uses'=>'OrderController@order'] );
-        Route::get('order-product/{id}',['as'=>'order.product','uses'=>'OrderController@orderProduct'] );
-        Route::get('order-status-update/{id}',['as'=>'order.status.update','uses'=>'OrderController@orderStatusUpdate'] );
-        Route::post('do-order-status-update/{id}',['as'=>'do.order.status.update','uses'=>'OrderController@doOrderStatusUpdate'] );
+        Route::get('order-show',['as'=>'order.show','uses'=>'OrderController@show'] );
+        Route::get('show-order-product/{id}',['as'=>'show.order.product','uses'=>'OrderController@showOrderProduct'] );
+        Route::get('edit-status/{id}',['as'=>'edit.status','uses'=>'OrderController@editStatust'] );
+        Route::post('update-status/{id}',['as'=>'update.status','uses'=>'OrderController@updateStatus'] );
         //Menu
-        Route::get('menu',['as'=>'menu','uses'=>'MenuController@menu'] );
-        Route::get('menu-create',['as'=>'menu.create','uses'=>'MenuController@menuCreate'] );
-        Route::post('do-menu-create',['as'=>'do.menu.create','uses'=>'MenuController@doMenuCreate'] );
-        Route::get('menu-edit/{id}',['as'=>'menu.edit','uses'=>'MenuController@menuEdit'] );
-        Route::post('do-menu-edit/{id}',['as'=>'do.menu.edit','uses'=>'MenuController@doMenuEdit'] );
-        Route::get('menu-delete/{id}',['as'=>'menu.delete','uses'=>'MenuController@menuDelete'] );
+        Route::get('menu-show',['as'=>'menu.show','uses'=>'MenuController@show'] );
+        Route::get('menu-create',['as'=>'menu.create','uses'=>'MenuController@create'] );
+        Route::post('store-menu',['as'=>'store.menu','uses'=>'MenuController@store'] );
+        Route::get('menu-edit/{id}',['as'=>'menu.edit','uses'=>'MenuController@edit'] );
+        Route::post('update-menu/{id}',['as'=>'update.menu','uses'=>'MenuController@update'] );
+        Route::get('destroy-menu/{id}',['as'=>'destroy.menu','uses'=>'MenuController@destroy'] );
         //Material
-        Route::get('material',['as'=>'material','uses'=>'MaterialController@material'] );
-        Route::get('material-create',['as'=>'material.create','uses'=>'MaterialController@materialCreate'] );
-        Route::post('do-material-create',['as'=>'do.material.create','uses'=>'MaterialController@domaterialCreate'] );
-        Route::get('material-edit/{id}',['as'=>'material.edit','uses'=>'MaterialController@materialEdit'] );
-        Route::post('do-material-edit/{id}',['as'=>'do.material.edit','uses'=>'MaterialController@domaterialEdit'] );
-        Route::get('material-delete/{id}',['as'=>'material.delete','uses'=>'MaterialController@materialDelete'] );
+        Route::get('material.show',['as'=>'material.show','uses'=>'MaterialController@show'] );
+        Route::get('material-create',['as'=>'material.create','uses'=>'MaterialController@create'] );
+        Route::post('material-store',['as'=>'material.store','uses'=>'MaterialController@store'] );
+        Route::get('material-edit/{id}',['as'=>'material.edit','uses'=>'MaterialController@edit'] );
+        Route::post('material-update/{id}',['as'=>'material.update','uses'=>'MaterialController@update'] );
+        Route::get('material-destroy/{id}',['as'=>'material.destroy','uses'=>'MaterialController@destroy'] );
         //Coupon
-        Route::get('coupon',['as'=>'coupon','uses'=>'CouponController@coupon'] );
-        Route::post('coupon-add',['as'=>'coupon.add','uses'=>'CouponController@couponAdd'] );
-        Route::get('coupon-delete/{id}',['as'=>'coupon.delete','uses'=>'CouponController@coupondelete'] );
+        Route::get('coupon-show',['as'=>'coupon.show','uses'=>'CouponController@show'] );
+        Route::post('coupon-store',['as'=>'coupon.store','uses'=>'CouponController@store'] );
+        Route::get('coupon-destroy/{id}',['as'=>'coupon.destroy','uses'=>'CouponController@destroy'] );
         
     }); 
 

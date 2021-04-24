@@ -7,22 +7,23 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Banner;
 use App\Models\Product;
-class BannerController extends Controller
+class BannerController
 {
-    function banner()
-    {   
-        $product=Product::all();
-        $banner=Banner::latest()->get();
-        return view('admin.banner.banner',['banner'=>$banner,'Product'=>$product]);
+    function show(){   
+        $products=Product::all();
+        $banners=Banner::latest()->get();
+        return view('admin.banner.view',compact('banners'));
     }
-    function bannerEdit($id)
-    {
+
+    
+    function edit($id){
          $id=decrypt($id);
          $banner=Banner::find($id);
-        return view('admin.banner.banner_edit',['banner'=>$banner]);
+        return view('admin.banner.edit',compact('banner'));
     }
-    public function BannerUpload(Request $request)
-    {
+
+
+    public function store(Request $request) {
         $request->validate([
             'image' => 'required',
         ]);
@@ -36,10 +37,11 @@ class BannerController extends Controller
             'date_to'=> $request->duedate,
 
         ]);
-        return redirect()->route('banner');
+        return redirect()->route('banner.show');
     }
-    public function DobannerEdit($id ,Request $request)
-    {
+
+
+    public function update($id ,Request $request){
         $id=decrypt($id);
         $banner=Banner::find($id);
         if($request->image!=''){ 
@@ -54,16 +56,17 @@ class BannerController extends Controller
         $banner->date_from=$request->fromdate;
         $banner->date_to=$request->duedate;
         $banner->save();
-        return redirect()->route('banner');
+        return redirect()->route('banner.show');
     }
-    public function bannerDelete($id)
-    {
+
+    
+    public function destroy($id){
         $id=decrypt($id);
         //Banner::find($id)->delete();
         $banner=Banner::find($id);
         $path=$banner->image;
         Storage::delete('/image/'.$path);
         Banner::find($id)->delete();
-        return redirect()->route('banner');
+        return redirect()->route('banner.show');
     }
 }

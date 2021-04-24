@@ -30,16 +30,16 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach($address as $ad)
+                    @foreach($addresses as $address)
                     <tr>
                       <td>{{$loop->iteration}}</td>
-                      <td>{{$ad->house_name}}</td>
-                      <td> {{$ad->area}}</td>
-                      <td>{{$ad->city}}</td>
-                      <td>{{$ad->state}}</td>
-                      <td>{{$ad->pincode}} </td>
-                      <td>{{$ad->landmark}}</td>
-                      @if($ad->status==1)
+                      <td>{{$address->house_name}}</td>
+                      <td> {{$address->area}}</td>
+                      <td>{{$address->city}}</td>
+                      <td>{{$address->state}}</td>
+                      <td>{{$address->pincode}} </td>
+                      <td>{{$address->landmark}}</td>
+                      @if($address->status==1)
                       <td> <span class="badge bg-success">active</span></td>
                       @else
                       <td> <span class="badge bg-danger">inactive</span></td>

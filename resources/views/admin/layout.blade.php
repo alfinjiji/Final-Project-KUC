@@ -233,7 +233,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('category')}}" class="nav-link">
+            <a href="{{route('category.show')}}" class="nav-link">
               <i class="nav-icon fas fa-columns"></i>
               <p>
                 Category
@@ -241,7 +241,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('banner')}}" class="nav-link">
+            <a href="{{route('banner.show')}}" class="nav-link">
               <i class="nav-icon fas fa-columns"></i>
               <p>
                 Banner
@@ -249,7 +249,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('product')}}" class="nav-link">
+            <a href="{{route('product.show')}}" class="nav-link">
               <i class="nav-icon fas fa-columns"></i>
               <p>
                 Products
@@ -257,7 +257,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('customer')}}" class="nav-link">
+            <a href="{{route('customer.show')}}" class="nav-link">
               <i class="nav-icon fas fa-columns"></i>
               <p>
                 Customers
@@ -265,7 +265,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('order')}}" class="nav-link">
+            <a href="{{route('order.show')}}" class="nav-link">
               <i class="nav-icon fas fa-columns"></i>
               <p>
                 Orders
@@ -273,7 +273,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('menu')}}" class="nav-link">
+            <a href="{{route('menu.show')}}" class="nav-link">
               <i class="nav-icon fas fa-columns"></i>
               <p>
                 Menu
@@ -281,7 +281,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('material')}}" class="nav-link">
+            <a href="{{route('material.show')}}" class="nav-link">
               <i class="nav-icon fas fa-columns"></i>
               <p>
                 Material
@@ -289,7 +289,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{route('coupon')}}" class="nav-link">
+            <a href="{{route('coupon.show')}}" class="nav-link">
               <i class="nav-icon fas fa-columns"></i>
               <p>
                 Coupon

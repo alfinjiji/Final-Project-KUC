@@ -9,31 +9,31 @@ use Illuminate\Support\Facades\Crypt;
 
 class MaterialController extends Controller
 {
-    function material(){
-        $material = Material::latest()->get();
-        return view('admin.material.material',['material'=>$material]);
+    function show(){
+        $materials = Material::latest()->get();
+        return view('admin.material.list',compact('materials'));
     } 
-    function materialCreate(){
-        return view('admin.material.material_create');
+    function create(){
+        return view('admin.material.create');
     }
-    function doMaterialCreate(Request $request){
+    function store(Request $request){
         $material = Material::create([
             'material_name'=>$request->material_name,
         ]);
-        return redirect()->route('material')->with('message', 'Material added successfully!');
+        return redirect()->route('material.show')->with('message', 'Material added successfully!');
     }
-    function materialEdit($id){
+    function edit($id){
         $material = Material::find(decrypt($id));
-        return view('admin.material.material_edit',['material'=>$material]);
+        return view('admin.material.edit',compact('material'));
     }
-    function domaterialEdit(Request $request, $id){
+    function update(Request $request, $id){
         $material = Material::find(decrypt($id));
         $material->material_name = $request->material_name;
         $material->save();
-        return redirect()->route('material')->with('message', 'Material updated!');
+        return redirect()->route('material.show')->with('message', 'Material updated!');
     }
-    function materialDelete($id){
+    function destroy($id){
         Material::find(decrypt($id))->delete();
-        return redirect()->route('material')->with('message', 'Material deleted!');
+        return redirect()->route('material.show')->with('message', 'Material deleted!');
     }
 }

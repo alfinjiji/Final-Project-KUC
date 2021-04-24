@@ -55,7 +55,7 @@ data-endspeed="1000"
                     </div>
                     <div class="menclothing-carousel">
                         <div class="men-single">
-                            <a href="#"><img src="images/menthr1.png" alt="#">
+                            <a href="#"><img src="{{ asset('public/user-templates/images/menthr1.png') }}" alt="#">
                             </a>
                             <div class="tag new">
                                 <span>new</span>

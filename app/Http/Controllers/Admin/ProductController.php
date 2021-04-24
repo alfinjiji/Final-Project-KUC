@@ -12,21 +12,21 @@ use App\Models\Material;
 use App\Models\Pricelist;
 use App\Models\Productimage;
 
-class ProductController extends Controller
+class ProductController 
 {
     // product list
-    function product(){
+    function show(){
         $products = Product::latest()->get();
-        return view('admin.product.product_list',['products'=>$products]);
+        return view('admin.product.list',compact('products'));
     }
     // create view
-    function productCreate(){
-        $category = Category::all();
-        $material = Material::all();
-        return view('admin.product.product_create',['category'=>$category, 'material'=>$material]);
+    function create(){
+        $categorys = Category::all();
+        $materials = Material::all();
+        return view('admin.product.create',compact('categorys','materials'));
     }
     // upload product
-    function doProductCreate(Request $request){
+    function store(Request $request){
          // product 
         $product = Product::create([
             'product_name'=>$request->product_name,
@@ -74,17 +74,17 @@ class ProductController extends Controller
                 'image'=>$path_4,
             ]);
         }
-        return redirect()->route('product')->with('message','Product uploaded successfully!');
+        return redirect()->route('product.show')->with('message','Product uploaded successfully!');
     }
     // edit view
-    function productEdit($id){
-        $category = Category::all();
-        $material = Material::all();
+    function edit($id){
+        $categorys = Category::all();
+        $materials = Material::all();
         $product =Product::find(decrypt($id));
-        return view('admin.product.product_edit',['product'=>$product, 'category'=>$category, 'material'=>$material]);
+        return view('admin.product.edit',compact('product', 'categorys', 'materials'));
     }
     // edit product
-    function doProductEdit(Request $request, $id){
+    function update(Request $request, $id){
         $product = Product::find(decrypt($id));
         /*
         $product_image = Productimage::find($request->image_id);
@@ -104,10 +104,10 @@ class ProductController extends Controller
         $product->category_id = $request->category_id;
         $product->material_id = $request->material_id;
         $product->save();
-        return redirect()->route('product')->with('message', 'product updated!');
+        return redirect()->route('product.show')->with('message', 'product updated!');
     }
     // delete product
-    function productDelete($id){
+    function destroy($id){
         $product = Product::find(decrypt($id));
         //Storage::delete('image/'.$product->image);
         $product_images=Productimage::where('product_id',$product->product_id)->get();
@@ -116,15 +116,16 @@ class ProductController extends Controller
         }
         Productimage::where('product_id',$product->product_id)->delete();
         Product::find(decrypt($id))->delete();
-        return redirect()->route('product')->with('message', 'Product deleted!');
+        return redirect()->route('product.show')->with('message', 'Product deleted!');
     }
     // image list
-    function productImageList($id){
+    function showImages($id){
+        $product_id=decrypt($id);
         $product_images = Productimage::where('product_id',decrypt($id))->get();
-        return view('admin.product.product_image',['product_images'=>$product_images, 'product_id'=>decrypt($id)]);
+        return view('admin.product.images',compact('product_images', 'product_id'));
     }
     // edit image
-    function editProductImage(Request $request, $id) {
+    function updateImage(Request $request, $id) {
         $product_image = Productimage::find(decrypt($id));
         $deletepath=$product_image->image;
         Storage::delete($deletepath); // delete old image
@@ -135,7 +136,7 @@ class ProductController extends Controller
         return redirect()->back()->with('message','image updated!');
     }
     // add image
-    function addProductImage(Request $request, $id) {
+    function storeImage(Request $request, $id) {
         $image = date('Y-m-d-H-i-s-').rand() . '.' . $request->file('image')->getClientOriginalExtension();
         $path = Storage::putFileAs('image', $request->file('image'), $image);
         Productimage::create([
@@ -145,7 +146,7 @@ class ProductController extends Controller
         return redirect()->back()->with('message','image uploaded!');
     }
     // delete image
-    function deleteProductImage($id){
+    function destroyImage($id){
         $id = decrypt($id);
         $product_image = Productimage::find($id);
         $count = Productimage::where('product_id',$product_image->product_id)->count();
@@ -158,55 +159,53 @@ class ProductController extends Controller
         }
     }
     // add price view
-    function productAddPrice($id){
+    function createPrice($id){
         $product_id =decrypt($id);
         $count=Pricelist::where('product_id',$product_id)->count();
         if($count==0){
-            return view('admin.product.product_add_price',['product_id'=>$product_id,'count'=>$count]);
+            return view('admin.product.create_price',compact('product_id','count'));
         }else {
             $pricelist=Pricelist::where('product_id',$product_id)->latest()->first();
-            return view('admin.product.product_add_price',['product_id'=>$product_id,'pricelist'=>$pricelist,'count'=>$count]);
+            return view('admin.product.create_price',compact('product_id','pricelist','count'));
         }
         
     }
     // do add price
-    function doProductAddPrice(Request $request, $id){
+    function storePrice(Request $request, $id){
         if($request->date_from < $request->date_to){
-        $pricelist = Pricelist::create([
-            'product_id'=>decrypt($id),
-            'date_from'=>$request->date_from,
-            'date_to'=>$request->date_to,
-            'price'=>$request->price,
-        ]);
+           $pricelist = Pricelist::create([
+              'product_id'=>decrypt($id),
+              'date_from'=>$request->date_from,
+               'date_to'=>$request->date_to,
+               'price'=>$request->price,
+            ]);
             $product=Product::find(decrypt($id));
             $product->status=1;
             $product->save();
-        return redirect()->route('product')->with('message','Price list added successfully!');
+            return redirect()->route('product.show')->with('message','Price list added successfully!');
         }
-        return redirect()->route('product.add.price',['id'=>$id])->with('message','Please confirm To-Date greater than From-Date');
+         return redirect()->route('create.price',['id'=>$id])->with('message','Please confirm To-Date greater than From-Date');
     }
     // price list view
-    function productPricelist($id){
+    function showPricelist($id){
         $product_id = decrypt($id);
         $pricelist = Pricelist::where('product_id',$product_id)->get();
-        return view('admin.product.product_pricelist',['product_id'=>$product_id, 'pricelist'=>$pricelist]);
+        return view('admin.product.pricelist',compact('product_id', 'pricelist'));
     }
     // delete price list
-    function productPricelistDelete($id){
+    function destroyPrice($id){
         $id=decrypt($id);
         $pricelist=Pricelist::find($id);
         $product_id=$pricelist->product_id;
         Pricelist::find($id)->delete();
         $count=Pricelist::where('product_id',$product_id)->count();
-       
         if($count!=0){
-            return redirect()->route('product')->with('message','Price deleted!');
+            return redirect()->route('product.show')->with('message','Price deleted!');
         }else {
-          
             $product=Product::find($product_id);
             $product->status=0;
             $product->save();
-            return redirect()->route('product')->with('message','Price deleted!');
+            return redirect()->route('product.show')->with('message','Price deleted!');
         }
        
     }

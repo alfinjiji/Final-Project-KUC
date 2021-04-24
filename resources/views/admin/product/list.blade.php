@@ -55,11 +55,11 @@
                       <td>{{$product->material->material_name}}</td>
                       <td>{{$product->category->category_name}}</td>
                       <td>
-                        <a href="{{ route('product.image.list',['id'=>encrypt($product->product_id)])}}">
+                        <a href="{{ route('show.images',['id'=>encrypt($product->product_id)])}}">
                           <img style="height: 75px; width:100px;" src="{{ asset('storage/app/'.$product->productimage->image) }}">
                         </a>
                       </td>
-                      <td><a href="{{route('product.pricelist',['id'=>encrypt($product->product_id)])}}"><span class="badge bg-success">pricelist</span></a></td>
+                      <td><a href="{{route('show.pricelist',['id'=>encrypt($product->product_id)])}}"><span class="badge bg-success">pricelist</span></a></td>
                       @if($product->status == 1)
                       <td><span class="badge bg-success">active</span></td>
                       @else
@@ -69,10 +69,10 @@
                        <a href="{{route('product.edit',['id'=>encrypt($product->product_id)])}}" ><button type="button" class="btn btn-xs btn-primary" >
                           Edit
                         </button></a>
-                        <a href="{{route('product.add.price',['id'=>encrypt($product->product_id)])}}"><button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#addprice-model">
+                        <a href="{{route('create.price',['id'=>encrypt($product->product_id)])}}"><button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#addprice-model">
                           Add Price
                         </button></a>
-                        <a href="{{route('product.delete',['id'=>encrypt($product->product_id)])}}"><button type="button" class="btn btn-xs btn-danger" id="menu-delete" onclick="detetealert()">
+                        <a href="{{route('product.destroy',['id'=>encrypt($product->product_id)])}}"><button type="button" class="btn btn-xs btn-danger" id="menu-delete" onclick="detetealert()">
                           Delete
                         </button></a>
                       </td>

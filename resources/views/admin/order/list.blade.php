@@ -55,7 +55,7 @@
                       @else
                           <td></td>
                       @endif
-                      <td><a href="{{route('order.product',['id'=>encrypt($order->order_id)])}}"><span class="badge bg-primary">details</span></a></td>
+                      <td><a href="{{route('show.order.product',['id'=>encrypt($order->order_id)])}}"><span class="badge bg-primary">details</span></a></td>
                       <td class="text-center">
                         {{ $order->payment_mode }} <br>
                         @if($order->payment_status == 1)
@@ -67,17 +67,17 @@
                       @if($order->status == 0)
                         <td>
                           <span class="badge bg-danger">order Delevered</span><br>
-                          <a href="{{route('order.status.update',['id'=>encrypt($order->order_id)])}}"><span class="badge bg-primary">Update</span></a>
+                          <a href="{{route('edit.status',['id'=>encrypt($order->order_id)])}}"><span class="badge bg-primary">Update</span></a>
                         </td>
                       @elseif($order->status == 2)
                         <td>
                           <span class="badge bg-warning">order confirmed</span><br>
-                          <a href="{{route('order.status.update',['id'=>encrypt($order->order_id)])}}"><span class="badge bg-primary">Update</span></a></td>
+                          <a href="{{route('edit.status',['id'=>encrypt($order->order_id)])}}"><span class="badge bg-primary">Update</span></a></td>
                         </td>
                       @else
                         <td>
                           <span class="badge bg-success">order placed</span><br>
-                          <a href="{{route('order.status.update',['id'=>encrypt($order->order_id)])}}"><span class="badge bg-primary">Update</span></a></td>
+                          <a href="{{route('edit.status',['id'=>encrypt($order->order_id)])}}"><span class="badge bg-primary">Update</span></a></td>
                         </td>
                       @endif
                       

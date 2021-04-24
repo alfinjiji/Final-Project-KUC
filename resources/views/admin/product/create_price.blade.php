@@ -1,6 +1,6 @@
 @extends('admin.layout')
-@section('title', 'Material-Create')
-@section('heading', 'Material-Create')
+@section('title', 'Add-Product-Price')
+@section('heading', 'Add Product Price')
 @section('content')
 
   <!-- Main content -->
@@ -19,20 +19,33 @@
             <div class="card card-primary">
                 <div class="card-header">
                   <div class="row">
-                    <div class="col-md-6"><h3 class="card-title">Create Material</h3></div>
+                    <div class="col-md-6"><h3 class="card-title">Add Price</h3></div>
                     <div class="col-md-6 text-right"> 
-                      <a href="{{route('material')}}"><button class="btn btn-success" type="button">Back</button></a> 
+                      <a href="{{route('product.show')}}"><button class="btn btn-success" type="button">Back</button></a>  
                     </div>
                   </div>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form action="{{route('do.material.create')}}" method="POST" id="materialForm">
+                <form action="{{route('store.price',['id'=>encrypt($product_id)])}}" method="POST" id="productPriceForm">
                   @csrf
                   <div class="card-body">
                     <div class="form-group">
-                      <label>Material Name</label>
-                      <input type="text" name="material_name" class="form-control"  placeholder="Enter material">
+                      <label>From Date</label>
+                      @if($count==0)
+                      <input type="text" placeholder="yyyy-mm-dd" class="form-control" name="date_from"  id="datepicker" autocomplete="off">
+                      @else 
+                      <input type="text" placeholder="yyyy-mm-dd" class="form-control" name="date_from" readonly="true" id="datepicker2" value="{{$pricelist->date_to}}"  >
+                     
+                      @endif
+                    </div>
+                    <div class="form-group">
+                        <label>To Date</label>
+                        <input type="text" class="form-control"  name="date_to" placeholder="yyyy-mm-dd" id="datepicker1" autocomplete="off">
+                      </div>
+                    <div class="form-group">
+                        <label>Price</label>
+                        <input type="number" class="form-control"  placeholder="Enter Price" name="price" required min="0">
                     </div>
                   </div>
                   <!-- /.card-body -->
@@ -54,11 +67,24 @@
 <script>
 $(document).ready(function () {
 
-$('#materialForm').validate({ 
+$('#productPriceForm').validate({ 
+  errorPlacement: $.datepicker.errorPlacement, 
     rules: {
-        material_name: {
-            required: true
+        date_from: {
+            required: true,
+            date: true
+        },
+        date_to: {
+            required: true,
+            date: true
+        },
+        price: {
+          required: true,
+          number: true
         }
+    },
+    messages: {
+      price: "Enter an valid price"
     },
     errorPlacement: function (error, element) { 
       element.css('border-color', 'red'); 
@@ -74,5 +100,6 @@ $('#materialForm').validate({
 });
 
 });
+
 </script>
 @endsection

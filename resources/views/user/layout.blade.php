@@ -305,7 +305,7 @@
 							</form>
 						</div>
 						<div class="logo_right">
-							<span><i class="fa fa-phone"></i></span>
+							<span><i class="fa fa-usd" aria-hidden="true"></i></span>
 							<a href="tel:+112345689">0</a>
 						</div>
 					</div>

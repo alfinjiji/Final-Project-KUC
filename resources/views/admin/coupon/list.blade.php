@@ -43,20 +43,20 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  @foreach($Coupon as $coup)
+                                  @foreach($coupons as $coupon)
                                   <tr>
                                     <td>1.</td>
-                                    <td>{{$coup->name}}</td>
-                                    <td> {{$coup->code}}</td>
-                                    <td>{{$coup->date_from}}</td>
-                                    <td>{{$coup->date_to}}</td>
-                                    @if($coup->type==0)
-                                    <td>{{$coup->type_value}} Flat</td>
+                                    <td>{{$coupon->name}}</td>
+                                    <td> {{$coupon->code}}</td>
+                                    <td>{{$coupon->date_from}}</td>
+                                    <td>{{$coupon->date_to}}</td>
+                                    @if($coupon->type==0)
+                                    <td>{{$coupon->type_value}} Flat</td>
                                     @else
-                                    <td>{{$coup->type_value}}%</td>
+                                    <td>{{$coupon->type_value}}%</td>
                                    @endif
                                     <td>
-                                    <a href={{route('coupon.delete',['id'=>$coup->coupon_id])}} > <button type="button" class="btn btn-xs btn-danger" onclick="detetealert()">
+                                    <a href={{route('coupon.destroy',['id'=>$coupon->coupon_id])}} > <button type="button" class="btn btn-xs btn-danger" onclick="detetealert()">
                                         Delete
                                       </button></a>
                                       
@@ -112,7 +112,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form method="POST" action="{{route('coupon.add')}}" id="form">
+                        <form method="POST" action="{{route('coupon.store')}}" id="form">
                           @csrf
                             <div class="card-body">
                                 <div class="form-group">

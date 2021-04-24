@@ -7,24 +7,24 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderLine;
 
-class OrderController extends Controller
+class OrderController
 {
-    function order(){
+    function show(){
         $orders = Order::latest()->get();
-        return view('admin.order.order_list',['orders'=>$orders]);
+        return view('admin.order.list',compact('orders'));
     }
-    function orderProduct($id){
-        $orderline = Orderline::where('order_id',decrypt($id))->get();
-        return view('admin.order.order_product',['orderline'=>$orderline]);
+    function showOrderProduct($id){
+        $orderlines = Orderline::where('order_id',decrypt($id))->get();
+        return view('admin.order.product',compact('orderlines'));
     }
-    function orderStatusUpdate($id){
+    function editStatus($id){
         $order = Order::find(decrypt($id));
-        return view('admin.order.order_confirm',['order'=>$order]);
+        return view('admin.order.confirm',compact('order'));
     }
-    function doOrderStatusUpdate(Request $request, $id){
+    function updateStatus(Request $request, $id){
         $order = Order::find(decrypt($id));
         $order->status = $request->status;
         $order->save();
-        return redirect()->route('order')->with('message','Order status updated!');
+        return redirect()->route('order.show')->with('message','Order status updated!');
     }
 }

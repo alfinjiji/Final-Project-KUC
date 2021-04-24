@@ -1,26 +1,26 @@
 @extends('admin.layout')
-@section('title', 'Price-list')
-@section('heading', 'Price List')
+@section('title', 'Material')
+@section('heading', 'Material')
 @section('content')
 
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
       <div class="row">
-        @if(session('message'))
-                <div class="alert alert-success">
-                     {{ session('message') }}
-                </div>
-         @endif
-        <!--category table-->
+        <div class="col-md-12">
+          @if(session()->has('message'))
+            <div class="alert alert-success">
+                 {{ session()->get('message') }}
+            </div>
+          @endif
+        </div>
         <div class="col-md-12">
           <div class="card card-primary">
               <div class="card-header">
                 <div class="row">
-                  <div class="col-md-6"><h3 class="card-title">Price List</h3></div>
-                  <div class="col-md-6 text-right">
-                    <a href="{{route('product')}}"><button class="btn btn-success" type="button">Back</button></a>  
-                    <a href="{{route('product.add.price',['id'=>encrypt($product_id)])}}"><button class="btn btn-success" type="button">Add price list</button></a> 
+                  <div class="col-md-6"><h3 class="card-title">Material</h3></div>
+                  <div class="col-md-6 text-right"> 
+                    <a href="{{route('material.create')}}"><button class="btn btn-success" type="button">Add Material</button></a> 
                   </div>
                 </div>
               </div>
@@ -29,33 +29,27 @@
                 <table class="table table-bordered">
                   <thead>
                     <tr>
-                      <th style="width: 10px">Id</th>
-                      <th>Date_From</th>
-                      <th>Date_To</th>
-                      <th>Price</th>
+                      <th style="width: 10px">#</th>
+                      <th>Material Name</th>
                       <th>Status</th>
                       <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ($pricelist as $pricelist)
+                    @foreach($materials as $material)
                     <tr>
                       <td>{{$loop->iteration}}</td>
-                      <td>{{$pricelist->date_from}}</td>
-                      <td>{{$pricelist->date_to}}</td>
-                      <td>{{$pricelist->price}}</td>
-                      @if($pricelist->status==1)
-                      <td> <span class="badge bg-success">active</span></td>
+                      <td>{{$material->material_name}}</td>
+                      @if($material->status == 1)
+                      <td><span class="badge bg-success">active</span></td>
                       @else
-                      <td> <span class="badge bg-danger">inactive</span></td>
+                      <td><span class="badge bg-danger">inactive</span></td>
                       @endif
                       <td>
-                        <!--
-                        <a href=""><button type="button" class="btn btn-xs btn-primary">
+                        <a href="{{route('material.edit',['id'=>encrypt($material->material_id)])}}"><button type="button" class="btn btn-xs btn-primary">
                           Edit
                         </button></a>
-                        -->
-                        <a href="{{route('product.pricelist.delete',['id'=>encrypt($pricelist->pricelist_id)])}}"><button type="button" class="btn btn-xs btn-danger" onclick="detetealert()">
+                        <a href="{{route('material.destroy',['id'=>encrypt($material->material_id)])}}"><button type="button" class="btn btn-xs btn-danger" id="material-delete" onclick="detetealert()">
                           Delete
                         </button></a>
                       </td>
@@ -80,5 +74,10 @@
       </div>
     </div>
   </section>
- 
+  <script>
+    function delete_material(){
+      confirm("Do you want to delete ?");
+    }
+  </script>
+  <!-- /.content -->
 @endsection

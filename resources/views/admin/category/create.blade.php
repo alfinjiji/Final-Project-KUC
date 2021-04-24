@@ -12,7 +12,7 @@
             <div class="card card-primary">
                 <div class="card-header">
                   <h3 class="card-title">Create Category</h3>
-                  <a href="{{route('category')}}"><button class="btn btn-success float-right">Back</button></a>
+                  <a href="{{route('category.show')}}"><button class="btn btn-success float-right">Back</button></a>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
@@ -24,7 +24,7 @@
               @endif
             
               <!-- alert message div end -->
-                <form method="POST" action="{{route('category.add')}}" id="form">
+                <form method="POST" action="{{route('category.store')}}" id="form">
                   @csrf
                   <div class="card-body">
                     <div class="form-group">

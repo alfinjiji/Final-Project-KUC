@@ -12,7 +12,7 @@
           <div class="row">
             <div class="col-md-12 pb-3">
               <h4>
-                <a href="{{route('order')}}">
+                <a href="{{route('order.show')}}">
                   <button type="button" class="btn btn-outline-success btn-sm">Back to Orders</button>
                 </a>
               </h4>
@@ -35,7 +35,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                @foreach($orderline as $orderline)
+                @foreach($orderlines as $orderline)
                 <tr>
                   <td>{{$loop->iteration}}</td>
                   <td>

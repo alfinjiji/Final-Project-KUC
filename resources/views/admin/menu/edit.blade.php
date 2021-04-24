@@ -12,11 +12,11 @@
             <div class="card card-success">
                 <div class="card-header">
                   <h3 class="card-title">Edit Menu</h3>
-                  <a href="{{route('menu')}}"><button class="btn btn-primary float-right">Back</button></a>
+                  <a href="{{route('menu.show')}}"><button class="btn btn-primary float-right">Back</button></a>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form action="{{route('do.menu.edit',['id'=>encrypt($menu->menu_id)])}}" method="POST" id="menuForm">
+                <form action="{{route('update.menu',['id'=>encrypt($menu->menu_id)])}}" method="POST" id="menuForm">
                   @csrf
                   <div class="card-body">
                     <div class="form-group">

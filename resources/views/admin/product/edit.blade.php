@@ -14,7 +14,7 @@
               <a href="{{url()->previous()}}"><button class="btn btn-success float-right">Back</button></a>
             </div>
             <!-- form start -->
-            <form method="POST" action="{{route('do.product.edit',['id'=>encrypt($product->product_id)])}}" enctype="multipart/form-data" id="productEditForm"> 
+            <form method="POST" action="{{route('product.update',['id'=>encrypt($product->product_id)])}}" enctype="multipart/form-data" id="productEditForm"> 
               @csrf
               <div class="card-body">
                   <div class="form-group">
@@ -43,7 +43,7 @@
                   <div class="form-group">
                     <label>Category</label>
                     <select class="form-control" name="category_id">
-                      @foreach($category as $category)
+                      @foreach($categorys as $category)
                         @if($category->category_id == $product->category_id)
                           <option value="{{$category->category_id}}" selected>{{$category->category_name}}</option>
                         @else
@@ -55,7 +55,7 @@
                   <div class="form-group">
                     <label>Material</label>
                     <select class="form-control" name="material_id">
-                      @foreach($material as $material)
+                      @foreach($materials as $material)
                         @if($material->material_id == $product->material_id)
                           <option value="{{$material->material_id}}" selected>{{$material->material_name}}</option>
                         @else
@@ -89,12 +89,12 @@
   <!-- /.content -->
   <script>
     function previewFile(input){
-        var file = $("input[type=file]").get(0).files[0];
+      var file = $("input[type=file]").get(0).files[0];
  
         if(file){
-            var reader = new FileReader();
+          var reader = new FileReader();
  
-            reader.onload = function(){
+          reader.onload = function(){
                 $("#view").attr("src", reader.result);
             }
  

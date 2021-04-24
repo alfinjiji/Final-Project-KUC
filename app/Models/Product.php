@@ -41,7 +41,5 @@ class Product extends Model
     }
     
     // mutator for adding new field wishlist_flag for checking product is in wishlist or not.
-    public function setWishlistFlagAttribute($value){
-        $this->attributes['wishlist_flag'] = $value;
-    }
+   
 }

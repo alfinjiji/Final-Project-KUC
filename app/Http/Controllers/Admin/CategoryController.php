@@ -6,45 +6,45 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use Illuminate\Support\Facades\Crypt;
-class CategoryController extends Controller
+class CategoryController 
 {
-    function CategoryView()
-    {
-        $category=Category::latest()->get();
-        return view('admin.category.category',['cat'=>$category]);
+    function show(){
+        $categorys=Category::latest()->get();
+        return view('admin.category.view',compact('categorys'));
 
        // return view('admin.category');
     }
-    function CategoryCreate()
-    {
-        return view('admin.category.category_create');
+
+    function create(){
+        return view('admin.category.create');
     }
-    function CategoryEdit($id)
-    {    
+
+    function edit($id){    
         $id=decrypt($id);
-        $cat=Category::find($id);
-        return view('admin.category.category_edit',['cat'=>$cat]);
+        $category=Category::find($id);
+        return view('admin.category.edit',compact('category'));
     }
-    function CategoryAdd(Request $request )
-    {
+
+    function store(Request $request ){
         Category::create([
             'category_name' => $request->category,
             'status' => '1',
         ]);
-        return redirect()->route('category');
+        return redirect()->route('category.show');
     }
-     function CategoryUpdate($id ,Request $request){
-        $cat = Category::find($id);
 
-        $cat->category_name = $request->edit;
+     function update($id ,Request $request){
+        $category = Category::find($id);
+
+        $category->category_name = $request->edit;
         
-        $cat->save();
-        return redirect()->route('category')->with('message','Updated Successfuly');
+        $category->save();
+        return redirect()->route('category.show')->with('message','Updated Successfuly');
      }
-     function CategoryDelete($id)
-     {
+
+     function destroy($id){
         $id=decrypt($id);
         Category::find($id)->delete();
-        return redirect()->route('category');
+        return redirect()->route('category.show');
      }
 }

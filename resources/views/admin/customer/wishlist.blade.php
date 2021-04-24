@@ -26,7 +26,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach($wishlist as $Wishlist)
+                    @foreach($wishlists as $Wishlist)
                     <tr>
                       <td>{{$loop->iteration}}</td>
                       <td><img src="{{asset('storage/app/'.$Wishlist->product->productimage->image)}}" width="50" height="50"/> </td>

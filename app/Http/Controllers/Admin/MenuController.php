@@ -7,33 +7,33 @@ use Illuminate\Http\Request;
 use App\Models\Menu;
 use Illuminate\Support\Facades\Crypt;
 
-class MenuController extends Controller
+class MenuController
 {
-    function menu(){
-        $menu = Menu::latest()->get();
-        return view('admin.menu.menu',['menu'=>$menu]);
+    function show(){
+        $menus = Menu::latest()->get();
+        return view('admin.menu.list',compact('menus'));
     }
-    function menuCreate(){
-        return view('admin.menu.menu_create');
+    function create(){
+        return view('admin.menu.create');
     }
-    function doMenuCreate(Request $request){
+    function store(Request $request){
         $Menu = Menu::create([
             'menu_name'=>$request->menu_name,
         ]);
-        return redirect()->route('menu')->with('message', 'Menu added successfully!');
+        return redirect()->route('menu.show')->with('message', 'Menu added successfully!');
     }
-    function menuEdit($id){
+    function edit($id){
         $menu = Menu::find(decrypt($id));
-        return view('admin.menu.menu_edit',['menu'=>$menu]);
+        return view('admin.menu.edit',compact('menu'));
     }
-    function doMenuEdit(Request $request, $id){
+    function update(Request $request, $id){
         $menu = Menu::find(decrypt($id));
         $menu->menu_name = $request->menu_name;
         $menu->save();
-        return redirect()->route('menu')->with('message', 'Menu updated!');
+        return redirect()->route('menu.show')->with('message', 'Menu updated!');
     }
-    function menuDelete($id){
+    function destroy($id){
         Menu::find(decrypt($id))->delete();
-        return redirect()->route('menu')->with('message', 'Menu deleted!');
+        return redirect()->route('menu.show')->with('message', 'Menu deleted!');
     }
 }

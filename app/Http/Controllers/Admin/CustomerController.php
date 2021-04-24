@@ -11,36 +11,32 @@ use App\Models\OrderLine;
 use App\Models\Favorite;
 use App\Models\Wallet;
 use Illuminate\Support\Facades\DB;
-class CustomerController extends Controller
+class CustomerController
 {
-    function customer()
-    {
-        $customer =Customer::all();
-        return view('admin.customer.customer',['cust'=>$customer]);
+    function show(){
+        $customers =Customer::all();
+        return view('admin.customer.list',compact('customers'));
     
     }
-    function customerAddress($id)
-    {  
+    function showAddress($id) {  
         $id=decrypt($id);
-       $address=CustomerAddress::where('customer_id','=',$id)->get();
-        return view('admin.customer.customer_address',['address'=>$address]);
+       $addresses=CustomerAddress::where('customer_id','=',$id)->get();
+        return view('admin.customer.address',compact('addresses'));
     }
-    function wishlist($id)
-    {
+    function showWishlist($id){
         $id=decrypt($id);
-        $wishlist=Favorite::where('customer_id',$id)->get();
+        $wishlists=Favorite::where('customer_id',$id)->get();
        
-        return view('admin.customer.wishlist',['wishlist'=>$wishlist]);
+        return view('admin.customer.wishlist',compact('wishlists'));
     }
-    function customerOrder($id)
-    {  
+    function showOrder($id){  
          $id=decrypt($id);
-       $order=Order::where('customer_id','=',$id)->get();
+       $orders=Order::where('customer_id','=',$id)->get();
 
-        return view('admin.customer.customer_order',['order'=>$order]);
+        return view('admin.customer.order',compact('orders'));
     }
     // load money to wallet
-    function loadWallet(Request $request){
+    function storeWallet(Request $request){
         $customer = Customer::find($request->customer_id);
         Wallet::create([
             'customer_id'=>$customer->customer_id,
@@ -49,7 +45,7 @@ class CustomerController extends Controller
         ]);
         $customer->wallet_amount = $customer->wallet_amount + $request->amount;
         $customer->save();
-        return redirect()->route('customer');
+        return redirect()->route('customer.show');
     }
 
     function demo()

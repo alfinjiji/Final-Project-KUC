@@ -1,6 +1,6 @@
 @extends('admin.layout')
-@section('title', 'Menu-Create')
-@section('heading', 'Menu-Create')
+@section('title', 'Material-Create')
+@section('heading', 'Material-Create')
 @section('content')
 
   <!-- Main content -->
@@ -19,26 +19,25 @@
             <div class="card card-primary">
                 <div class="card-header">
                   <div class="row">
-                    <div class="col-md-6"><h3 class="card-title">Create Menu</h3></div>
+                    <div class="col-md-6"><h3 class="card-title">Create Material</h3></div>
                     <div class="col-md-6 text-right"> 
-                      <a href="{{route('menu')}}"><button class="btn btn-success" type="button">Back</button></a> 
+                      <a href="{{route('material.show')}}"><button class="btn btn-success" type="button">Back</button></a> 
                     </div>
                   </div>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form action="{{route('do.menu.create')}}" method="POST" id="menuForm">
+                <form action="{{route('material.store')}}" method="POST" id="materialForm">
                   @csrf
                   <div class="card-body">
                     <div class="form-group">
-                      <label>Menu Name</label>
-                      <input type="text" name="menu_name" class="form-control"  placeholder="Enter Menu" id="menu_name">
-                      <span id="error" style="color:red;"></span>
+                      <label>Material Name</label>
+                      <input type="text" name="material_name" class="form-control"  placeholder="Enter material">
                     </div>
                   </div>
                   <!-- /.card-body -->
                   <div class="card-footer">
-                    <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
                   </div>
                 </form>
             </div>
@@ -53,23 +52,27 @@
 @section('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
 <script>
- $(document).ready(function(){
-    $("#menu_name").keyup(function(){
-        if($("#menu_name").val() == " "){
-          $("#menu_name").css("border-color", "red");
-          $("#error").html("Please enter menu name");
-        } else {
-          $("#menu_name").css("border-color", "green");
-          $("#error").html("");
+$(document).ready(function () {
+
+$('#materialForm').validate({ 
+    rules: {
+        material_name: {
+            required: true
         }
-    });
-    $('#menuForm').on('click', function() {
-       if(!$('#menu_name').val()) {
-          $("#menu_name").css("border-color", "red");
-          $("#error").html("Please enter menu name");
-          return false;
-       }
-    });
+    },
+    errorPlacement: function (error, element) { 
+      element.css('border-color', 'red'); 
+      error.css('color', 'red');
+      error.insertAfter(element); 
+    }, 
+    highlight: function(element) {
+        $(element).css('border-color', 'red');
+    },
+    unhighlight: function(element) {
+        $(element).css('border-color', '#007bff');
+    }
+});
+
 });
 </script>
 @endsection

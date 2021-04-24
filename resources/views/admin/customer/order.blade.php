@@ -2,7 +2,7 @@
 @section('title', 'Customer Order')
 @section('heading', 'Customer Order')
 @section('content')
- @foreach($order as $or)
+ @foreach($orders as $order)
   <!-- Main content -->
   <section class="content">
     <div class="container-fluid">
@@ -12,12 +12,12 @@
           <div class="row">
             <div class="col-md-12 pb-3">
               <h4>
-                <a href="{{route('customer')}}">
+                <a href="{{route('customer.show')}}">
                   <button type="button" class="btn btn-outline-success btn-sm">Back to Customer</button>
                 </a>
-                <small class="float-right">Placed Date:{{$or->placed_at}} </small><br>
-                <small class="float-right">Confirmed Date:{{$or->confirmed_at}} </small><br>
-                <small class="float-right">Delivered Date:{{$or->delivered_at}}</small>
+                <small class="float-right">Placed Date:{{$order->placed_at}} </small><br>
+                <small class="float-right">Confirmed Date:{{$order->confirmed_at}} </small><br>
+                <small class="float-right">Delivered Date:{{$order->delivered_at}}</small>
               </h4>
             </div>
             <!-- /.col -->
@@ -38,7 +38,7 @@
                 </tr>
                 </thead>
                 <tbody>
-                 @foreach($or->orderline as $orderline)
+                 @foreach($order->orderline as $orderline)
                 <tr>
                       <td>{{$loop->iteration}}</td>
                       <td><img style="height: 75px; width:100px;" src="{{ asset('storage/app/'.$orderline->product->productimage->image) }}"></td>
@@ -66,15 +66,15 @@
                    
                     <tr>
                     <th style="width:50%">Subtotal:</th>
-                    <td>{{($or->amount)+($or->discount)}}</td>
+                    <td>{{($order->amount)+($order->discount)}}</td>
                   </tr>
                   <tr>
                     <th>Discount</th>
-                    <td>{{$or->discount}}</td>
+                    <td>{{$order->discount}}</td>
                   </tr>
                   <tr>
                     <th>Total:</th>
-                    <td>{{$or->amount}}</td>
+                    <td>{{$order->amount}}</td>
                   </tr>
                  
                 </tbody></table>
