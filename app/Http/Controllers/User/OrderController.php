@@ -12,6 +12,8 @@ use App\Models\Order;
 use App\Models\OrderLine;
 use App\Models\Cart;
 use App\Models\Wallet;
+use App\Models\Rating;
+use App\Models\Review;
 
 class OrderController
 {
@@ -20,13 +22,52 @@ class OrderController
         $current_date = date('Y-m-d');
         $customer_id = Auth::guard('customer')->user()->customer_id;
         $orders_delivered = Order::where('customer_id',$customer_id)
-                               ->where('delivered_at','<=',$current_date)->latest()
+                               ->where('status','=',0)->latest()
                                ->get();
         $orders_pending = Order::where('customer_id',$customer_id)
-                            ->where('delivered_at','=',NULL)->latest()
+                            ->where('status','>',0)->latest()
                             ->get();
-        return view('user.orders',compact('orders_delivered','orders_pending'));
-    }
+        $ratings=Rating::where('customer_id',$customer_id)->get();
+        
+        foreach($ratings as $rating){
+          foreach($orders_delivered as $order){
+            $orderlines=OrderLine::where('order_id',$order->order_id)->get();
+              foreach($orderlines as $orderline){
+                    if($rating->product_id==$orderline->product_id){
+                        $flag=1;
+                    break;
+                    }else{
+                        $flag=0;
+                    }
+                }
+               if($flag==1){
+                   $rating->flag=$flag;
+                break ;
+               }
+            }
+        }
+       
+        /*$reviews=Review::where('customer_id',$customer_id)->get();
+        foreach($reviews as $review){
+            foreach($orders_delivered as $order){
+              $orderlines=OrderLine::where('order_id',$order->order_id)->get();
+                foreach($orderlines as $orderline){
+                      if($review->product_id==$orderline->product_id){
+                          $flag=1;
+                      break;
+                      }else{
+                          $flag=0;
+                      }
+                  }
+                 if($flag==1){
+                     $review->flag=$flag;
+                  break ;
+                 }
+              }
+          }*/
+        return view('user.orders',compact('orders_delivered','orders_pending','ratings'));
+       }
+    
     // cancel order
     function destroy($id){
         $orderline=OrderLine::find($id);

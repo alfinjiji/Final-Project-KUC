@@ -259,19 +259,20 @@
                                     <div class="product-review">
                                         <ul>
                                             <li>
-                                                <i class="fa fa-star"></i>
+                                                <i  class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star-half-o"></i>
                                             </li>
                                             <li>5 Review(s) <span class="rev-border">|</span></li>
-                                            <li>Add Your Review</li>
+                                            <li id="review">Add Your Review</li>
                                         </ul>
-                                        <h4>Availability <span>: In Stock 20 Item(s)</span>
+                                        <h4>Availability <span>: In Stock </span>
                                     </h4>
+									
                                         <div class="product-wid-price">
-                                            <ins>${{$product->pricelist->price}}</ins> <del>${{$product->pricelist->price+100}}</del>
+                                            <ins>${{$product->pricelist->price}}</ins> <del>${{$product->pricelist->price+($product->pricelist->price*.2)}}</del>
                                         </div>
                                         <p> </p>
                                     </div>
@@ -283,6 +284,9 @@
 											<h4><b style="color: black;">Size </b>: {{ $product->size }}</h4>
 										</div>
 									</div>
+									<!-- review modal -->
+									
+									<!-- review modal  end -->
 									<!--
                                     <div class="single-color">
                                         <div class="product-color">
@@ -401,31 +405,14 @@
 									<div class="review_comments">
 										<div class="review_heading">
 											<div class="review_heading_left">
-												<h2><span>Review for </span> "Gray Structured T-Shirt"</h2>
-											</div>
-											<div class="review_heading_right">
-												<ul id="review_heading_star">
-													<li><a href="" class="fa fa-star"></a></li>
-													<li><a href="" class="fa fa-star"></a></li>
-													<li><a href="" class="fa fa-star"></a></li>
-													<li><a href="" class="fa fa-star"></a></li>
-													<li><a href="" class="fa fa-star"></a></li>
-												</ul>
+												<h2><span>Review for </span> {{ $product->product_name }}</h2>
 											</div>
 										</div>
 										<div class="single_review_comment">
-											<div class="single_review_img">
-												<img src="{{ asset('public/user-templates/images/kous.png')}}" alt="">
-											</div>
+											
 											<div class="single_review_text">
 												<h4>A Stunning Beauty!</h4>
-												<ul id="single_review_star">
-													<li><a href="" class="fa fa-star"></a></li>
-													<li><a href="" class="fa fa-star"></a></li>
-													<li><a href="" class="fa fa-star"></a></li>
-													<li><a href="" class="fa fa-star"></a></li>
-													<li><a href="" class="fa fa-star"></a></li>
-												</ul>
+												
 												<p>Semper orci etiam ac ultricies ante. Donec lobortis variusjusto et. Curabitur egestas aliquet massa non elementum. Quisque at risus nisl. Aliquam erat volutpat. Suspendisse potenti. Nullam porta faucibus elit.</p>
 												<div class="review_italic">
 													<p><span>Nicole Bailey,</span> 12.05.2013</p>
@@ -433,6 +420,7 @@
 											</div>
 										</div>
 									</div>
+									<!--
 									<div class="Review_input">
 										<div class="review_input_heading">
 											<h3>Write your review</h3>
@@ -444,6 +432,7 @@
 											<input type="submit" value="Submit Review">
 										</div>
 									</div>
+								-->
 								</div>
 							</div>
                             <div role="tabpanel" class="tab-pane" id="messages">Boy the way Glen Miller played.Then along come two they got nothin' but their jeans. Flying away on a wing and a prayer. Who could it be? Believe it or not its just me. Today still wanted by the government they survive as soldiers of fortune. Boy the way Glen Miller played. Songs that made the hit parade. Guys like us we had it made. Those were the days.</div>
@@ -575,6 +564,9 @@
                         } 
 		        	});
 		        });
+				$('#review').click(function(){
+					$('#reviewmodal').show();
+				});
 	});
 		</script>
 	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>

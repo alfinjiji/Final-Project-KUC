@@ -25,6 +25,7 @@ class CreateProductsTable extends Migration
             $table->foreign('material_id')->references('material_id')->on('materials');
             $table->unsignedBigInteger('category_id');
             $table->foreign('category_id')->references('category_id')->on('categories');
+            $table->integer('rating')->default('0');
             $table->boolean('status')->default('0')->comment('1 active, 0 inactive');
             $table->timestamps();
         });

@@ -920,12 +920,13 @@ ul.slimmenu li ul li a:hover {
 }
 
 .hot-wid-rating {
-  color: #f89d18;
+  
   margin-bottom: 17px;
   margin-top: 20px;
   padding-left: 20px;
   overflow: hidden;
 }
+
 .women-single img {
   width: 100%;
 }
@@ -4750,4 +4751,8 @@ input[type="radio"], input[type="checkbox"] {
   -ms-transform: scale(1.5); /* IE 9 */
   -webkit-transform: scale(1.5); /* Safari 3-8 */
   transform: scale(1.5); 
+}
+.checked{
+  color: rgb(248, 232, 7);
+
 }

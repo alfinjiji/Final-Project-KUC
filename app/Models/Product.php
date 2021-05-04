@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Models\Category;
 use App\Models\Material;
 use App\Models\Productimage;
+use App\Models\Rating;
 
 class Product extends Model
 {
@@ -38,6 +39,11 @@ class Product extends Model
     public function pricelist()
     {
         return $this->hasOne(Pricelist::class,'product_id','product_id');
+    }
+    //rate
+    public function rating()
+    {
+        return $this->hasMany(Rating::class,'product_id','product_id');
     }
     
     // mutator for adding new field wishlist_flag for checking product is in wishlist or not.

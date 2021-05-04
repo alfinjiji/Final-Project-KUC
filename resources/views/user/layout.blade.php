@@ -94,7 +94,14 @@
 		.btn-focus, .col7input, .no-focus, .col7input2:focus{
     		outline: none;
 		}
-	</style>
+        .checked {
+         color: #f89d18;
+         }
+		 .unchecked {
+         color: rgb(2, 2, 2);
+         }
+</style>
+	
 </head>
 
 <body>

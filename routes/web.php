@@ -31,7 +31,7 @@ Route::group(['namespace'=>'Admin'],function(){
         Route::post('category-update/{id}',['as'=>'category.update','uses'=>'CategoryController@update'] );
         Route::get('category-destroy/{id}',['as'=>'category.destroy','uses'=>'CategoryController@destroy'] );
        //Banner
-        Route::get('banner-show',['as'=>'banner.show','uses'=>'BannerController@show'] );
+        Route::get('banner-show',['as'=>'banner.view','uses'=>'BannerController@show'] );
         Route::get('banner-edit/{id}',['as'=>'banner.edit','uses'=>'BannerController@edit'] );
         Route::post('banner-store',['as'=>'banner.store','uses'=>'BannerController@store']);
         Route::post('banner-update/{id}',['as'=>'banner.update','uses'=>'BannerController@update']);
@@ -62,7 +62,7 @@ Route::group(['namespace'=>'Admin'],function(){
        //Order
         Route::get('order-show',['as'=>'order.show','uses'=>'OrderController@show'] );
         Route::get('show-order-product/{id}',['as'=>'show.order.product','uses'=>'OrderController@showOrderProduct'] );
-        Route::get('edit-status/{id}',['as'=>'edit.status','uses'=>'OrderController@editStatust'] );
+        Route::get('edit-status/{id}',['as'=>'edit.status','uses'=>'OrderController@editStatus'] );
         Route::post('update-status/{id}',['as'=>'update.status','uses'=>'OrderController@updateStatus'] );
         //Menu
         Route::get('menu-show',['as'=>'menu.show','uses'=>'MenuController@show'] );
@@ -128,7 +128,9 @@ Route::group(['namespace'=>'User'],function(){
         Route::post('checkout',['as'=>'checkout.store','uses'=>'OrderController@store']);
         Route::get('checkout-cart',['as'=>'checkout.cart','uses'=>'OrderController@showCartCheckout']);
         Route::post('checkout-cart-store',['as'=>'checkout.cart.store','uses'=>'OrderController@storeCartCheckout']);
-  
+        //rate product
+        Route::get('rate-store',['as'=>'rate.store','uses'=>'UserController@rateStore']);
+        Route::post('review-store',['as'=>'review.store','uses'=>'UserController@reviewStore']);
     });
     
 });

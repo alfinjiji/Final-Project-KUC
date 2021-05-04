@@ -37,7 +37,7 @@ class BannerController
             'date_to'=> $request->duedate,
 
         ]);
-        return redirect()->route('banner.show');
+        return redirect()->route('banner.view');
     }
 
 
@@ -56,7 +56,7 @@ class BannerController
         $banner->date_from=$request->fromdate;
         $banner->date_to=$request->duedate;
         $banner->save();
-        return redirect()->route('banner.show');
+        return redirect()->route('banner.view');
     }
 
     
@@ -67,6 +67,6 @@ class BannerController
         $path=$banner->image;
         Storage::delete('/image/'.$path);
         Banner::find($id)->delete();
-        return redirect()->route('banner.show');
+        return redirect()->route('banner.view');
     }
 }

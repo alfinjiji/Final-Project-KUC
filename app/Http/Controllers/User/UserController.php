@@ -12,6 +12,8 @@ use App\Models\Product;
 use App\Models\Banner;
 use App\Models\Menu;
 use App\Models\OrderLine;
+use App\Models\Rating;
+use App\Models\Review;
 use Illuminate\Support\Facades\Hash;
 
 class UserController
@@ -52,5 +54,57 @@ class UserController
     // single product
     function singleProduct(){
         return view('user.single-product');
+    }
+    // product rate store
+    function rateStore(Request $request){
+        $customer_id=Auth::guard('customer')->user()->customer_id;
+        $product_id=$request->product_id;
+        $count=Rating::where('customer_id',$customer_id)
+                      ->where('product_id',$product_id)
+                      ->count();
+        if($count==0){
+            Rating::create([
+                'product_id'=> $product_id,
+                'customer_id'=>$customer_id,
+                'rating'=>$request->rating,
+            ]);
+        }else{
+            $rating=Rating::where('customer_id',$customer_id)
+                            ->where('product_id',$product_id)
+                            ->first();
+            $rating->rating=$request->rating;
+            $rating->save();
+        }
+        $count=Rating::where('product_id',$product_id)->count();
+        $sum=Rating::where('product_id',$product_id)->sum('rating');
+        $rate=$sum/$count;
+        $product=Product::where('product_id',$product_id)->first();
+        $product->rating=$rate;
+        $product->save();
+        return response()->json(['success'=>1]);
+    }
+    //review 
+    function reviewStore(Request $request){
+        $customer_id=Auth::guard('customer')->user()->customer_id;
+        $product_id=$request->product_id;
+        $count=Review::where('customer_id',$customer_id)
+                      ->where('product_id',$product_id)
+                      ->count();
+        if($count==0){
+            Review::create([
+                'product_id'=> $product_id,
+                'customer_id'=>$customer_id,
+                'review_summary'=>$request->summary,
+                'review'=>$request->user_review,
+            ]);
+        }else{
+            $review=Review::where('customer_id',$customer_id)
+                            ->where('product_id',$product_id)
+                            ->first();
+            $review->review_summary=$request->summary;
+            $review->review=$request->user_review;
+            $review->save();
+        }
+       return redirect()->back();
     }
 }

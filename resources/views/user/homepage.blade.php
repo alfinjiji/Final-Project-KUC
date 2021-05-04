@@ -109,11 +109,12 @@ data-endspeed="1000"
                                             </div>
                                             <div class="hot-wid-rating">
                                                 <h4><a href="single-product.html">{{$man->product_name}}</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
+                                                @for($i=1;$i<=$man->rating;$i++)
+                                                <i class="fa fa-star checked"></i>
+                                                @endfor
+                                                @for($i=5-$man->rating;$i>0;$i--)
+                                                <i class = "fa fa-star unchecked"></i>
+                                               @endfor
                                                 <div class="product-wid-price">
                                                     <ins>{{$man->pricelist->price}}</ins> <del>{{round($man->pricelist->price + ($man->pricelist->price*.12))}}</del>
                                                 </div>
@@ -222,11 +223,12 @@ data-endspeed="1000"
                                             </div>
                                             <div class="hot-wid-rating">
                                                 <h4><a href="single-product.html">{{$woman->product_name}}</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
+                                                @for($i=1;$i<=$woman->rating;$i++)
+                                                <i class="fa fa-star checked"></i>
+                                                @endfor
+                                                @for($i=5-$woman->rating;$i>0;$i--)
+                                                <i class = "fa fa-star unchecked"></i>
+                                               @endfor
                                                 <div class="product-wid-price">
                                                     <ins>{{$woman->pricelist->price}}</ins> <del>{{round($woman->pricelist->price + ($woman->pricelist->price*.18))}}</del>
                                                 </div>
@@ -363,11 +365,12 @@ data-endspeed="1000"
                     </div>
                         <div class="hot-wid-rating">
                             <h4><a href="single-product.html">{{$product->product_name}}</a></h4>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star-half-o"></i>
+                            @for($i=1;$i<=$product->rating;$i++)
+                             <i class="fa fa-star checked"></i>
+                            @endfor
+                             @for($i=5-$product->rating;$i>0;$i--)
+                             <i class = "fa fa-star unchecked"></i>
+                             @endfor
                             <div class="product-wid-price">
                                 <ins>{{$product->pricelist->price}}</ins>
                             </div>
