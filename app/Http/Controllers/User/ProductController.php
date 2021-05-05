@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -12,6 +13,7 @@ use App\Models\Product;
 use App\Models\Favorite;
 use App\Models\Cart;
 use App\Models\Banner;
+use App\Models\Review;
 
 class ProductController 
 {
@@ -84,7 +86,13 @@ class ProductController
                 $product->wishlist_flag = 0;
             }
         }
-        return view('user.single-product',compact('product','cart'));
+        $review_count=Review::where('product_id',$id)->count();
+        $reviews=Review::where('product_id',$id)->get();
+        $name=$product->product_name;
+        $category_id=$product->category_id;
+        $similar_products=Product::where('category_id',$category_id)
+                                   ->orwhere('product_name','LIKE',"%$name%")->paginate(6);
+        return view('user.single-product',compact('product','cart','review_count','reviews','similar_products'));
     }
     //banner product
     function showBanner($id){

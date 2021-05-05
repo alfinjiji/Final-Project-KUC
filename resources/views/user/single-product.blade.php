@@ -42,7 +42,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-3 col-sm-3 col-xs-12">
-                    <div class="brands">
+                  <!--  <div class="brands">
                         <h3>Brands <i class="fa fa-bars"></i></h3>
                         <ul>
                             <li> <input type="checkbox" name="vehicle" value="Bike"> Awesome <span>(03)</span>
@@ -87,7 +87,7 @@
                             <li> <input type="checkbox" name="vehicle" value="Bike">  Red <span>(06)</span>
                             </li>
                         </ul>
-                    </div>
+                    </div> -->
                     <div class="best-sell">
                         <h3>Best seller</h3>
 						
@@ -265,8 +265,8 @@
                                                 <i class="fa fa-star"></i>
                                                 <i class="fa fa-star-half-o"></i>
                                             </li>
-                                            <li>5 Review(s) <span class="rev-border">|</span></li>
-                                            <li id="review">Add Your Review</li>
+                                            <li>{{$review_count}} Review(s) </li>
+                                            
                                         </ul>
                                         <h4>Availability <span>: In Stock </span>
                                     </h4>
@@ -394,8 +394,7 @@
                             </li>
                             <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Reviews</a>
                             </li>
-                            <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Product tags</a>
-                            </li>
+                            
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
@@ -409,15 +408,16 @@
 											</div>
 										</div>
 										<div class="single_review_comment">
-											
+											@foreach ($reviews as $review)
 											<div class="single_review_text">
-												<h4>A Stunning Beauty!</h4>
+												<h4>{{$review->review_summary}}</h4>
 												
-												<p>Semper orci etiam ac ultricies ante. Donec lobortis variusjusto et. Curabitur egestas aliquet massa non elementum. Quisque at risus nisl. Aliquam erat volutpat. Suspendisse potenti. Nullam porta faucibus elit.</p>
+												<p>{{$review->review}}</p>
 												<div class="review_italic">
-													<p><span>Nicole Bailey,</span> 12.05.2013</p>
+													<p><span>{{$review->customer->first_name}},</span> {{date('d-m-Y', strtotime($review->updated_at))}}</p>
 												</div>
 											</div>
+											@endforeach
 										</div>
 									</div>
 									<!--
@@ -435,69 +435,38 @@
 								-->
 								</div>
 							</div>
-                            <div role="tabpanel" class="tab-pane" id="messages">Boy the way Glen Miller played.Then along come two they got nothin' but their jeans. Flying away on a wing and a prayer. Who could it be? Believe it or not its just me. Today still wanted by the government they survive as soldiers of fortune. Boy the way Glen Miller played. Songs that made the hit parade. Guys like us we had it made. Those were the days.</div>
+                           
                         </div>
                     </div>
                     <div class="product-latest">
                         <div class="">
                             <div class="headline">
-                                <h2>Latest product</h2>
+                                <h2>Similar products</h2>
                             </div>
 							<div class="row">
+								@foreach($similar_products as $similar_product)
 								<div class="col-md-4 col-sm-4 col-xs-12">
 									<div class="product-single">
-										<a href="#"><img src="{{ asset('public/user-templates/images/product7.png')}}" alt="#">
+										<a href="{{route('single.product',['id'=>encrypt($similar_product->product_id)])}}"><img src="{{ asset('storage/app/'.$similar_product->productimage->image) }}" alt="#">
 										</a>
-										<div class="tag percent">
+										<!--<div class="tag percent">
 											<span>15%</span>
-										</div>
+										</div> -->
 										<div class="hot-wid-rating">
-											<h4><a href="#">stylish dress for women</a></h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
+											<h4><a href="#">{{$similar_product->product_name}}</a></h4>
+											@for($i=1;$i<=$similar_product->rating;$i++)
+											<i class="fa fa-star checked"></i>
+										   @endfor
+											@for($i=5-$similar_product->rating;$i>0;$i--)
+											<i class = "fa fa-star unchecked"></i>
+											@endfor
 											<div class="product-wid-price">
-												<ins>$3000.00</ins>
+												<ins>${{$similar_product->pricelist->price}}</ins>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="col-md-4 col-sm-4 col-xs-12">
-									<div class="product-single">
-										<a href="#"><img src="{{ asset('public/user-templates/images/product8.png')}}" alt="#">
-										</a>
-										<div class="hot-wid-rating">
-											<h4><a href="#">stylish dress for women</a></h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<div class="product-wid-price">
-												<ins>$3000.00</ins>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="col-md-4 col-sm-4 col-xs-12">
-									<div class="product-single">
-										<a href="#"><img src="{{ asset('public/user-templates/images/product9.png')}}" alt="#">
-										</a>
-										<div class="hot-wid-rating">
-											<h4><a href="#">stylish dress for women</a></h4>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<i class="fa fa-star"></i>
-											<div class="product-wid-price">
-												<ins>$3000.00</ins>
-											</div>
-										</div>
-									</div>
-								</div>
+								@endforeach
 							</div>
                         </div>
                     </div>

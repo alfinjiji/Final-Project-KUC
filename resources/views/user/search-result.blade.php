@@ -234,544 +234,52 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="headline">
-                                <h2>Search result <span>35(items)</span></h2>
+                                <h2>Search result <span>{{$count}}(items)</span></h2>
                             </div>
                             <div class="product-tab">
-                                <ul class="nav nav-tabs women-tab" role="tablist">
-                                    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">New Products</a>
-                                    </li>
-                                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Popular Products</a>
-                                    </li>
-                                    <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">Best seller</a>
-                                    </li>
-                                </ul>
+                                
                                 <!-- Tab panes -->
                                 <div class="tab-content">
                                     <div role="tabpanel" class="tab-pane active" id="home">
                                         <div class="row">
+                                            @foreach($products as $product)
                                             <div class="col-md-4 col-sm-4 col-xs-12">
                                                 <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search1.png') }}" alt="#">
+                                                    <a href="{{route('single.product',['id'=>encrypt($product->product_id)])}}"><img src="{{ asset('storage/app/'.$product->productimage->image) }}" alt="#">
                                                     </a>
-                                                    <div class="tag new">
-                                                        <span>new</span>
-                                                    </div>
+                                                    @if(Auth::guard('customer')->check())
+									                   @if($product->wishlist_flag == 0)
+										                   <button type="submit" class="wishlist_btn" data-id="{{ $product->product_id }}">
+											                  <span class="PrdWishlist "><i id="{{ $product->product_id }}" class="PrdWishlistActive fa fa-heart color_change" aria-hidden="true"></i></span>
+										                  </button>
+									                    @else 
+										                    <button type="submit" class="wishlist_btn" data-id="{{ $product->product_id }}">
+											                  <span class="PrdWishlist "><i id="{{ $product->product_id }}" class="PrdWishlist fa fa-heart color_change" aria-hidden="true"></i></span>
+										                    </button>
+									                    @endif
+								                    @else 
+									                    <button type="submit" class="wishlist_btn" data-toggle="modal" data-target="#myModal">
+										                  <span class="PrdWishlist "><i class="PrdWishlistActive fa fa-heart color_change" aria-hidden="true"></i></span>
+									                    </button>
+								                    @endif
                                                     <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">Coat for men</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
+                                                        <h4>{{$product->product_name}}</h4>
+                                                        @for($i=1;$i<=$product->rating;$i++)
+                                                        <i class="fa fa-star checked"></i>
+                                                       @endfor
+                                                        @for($i=5-$product->rating;$i>0;$i--)
+                                                        <i class = "fa fa-star unchecked"></i>
+                                                        @endfor
                                                         <div class="product-wid-price">
-                                                            <ins>$220.00</ins>
+                                                            <ins>{{$product->pricelist->price}}</ins>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search2.png') }}" alt="#">
-                                                    </a>
-
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">lee formal for men</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$200.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search3.png') }}" alt="#">
-                                                    </a>
-                                                    <div class="tag percent">
-                                                        <span>15%</span>
-                                                    </div>
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">Trendy wear for men</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$150.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search4.png') }}" alt="#">
-                                                    </a>
-
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">Party wear for men</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$180.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search5.png') }}" alt="#">
-                                                    </a>
-                                                    <div class="tag new">
-                                                        <span>new</span>
-                                                    </div>
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">Fashion for boys</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$250.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search6.png') }}" alt="#">
-                                                    </a>
-                                                    <div class="tag new">
-                                                        <span>new</span>
-                                                    </div>
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">T-shirt  collection</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$110.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search7.png') }}" alt="#">
-                                                    </a>
-                                                    <div class="tag percent">
-                                                        <span>15%</span>
-                                                    </div>
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">Hipster style</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$280.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search8.png') }}" alt="#">
-                                                    </a>
-
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">Me Formal For Boys</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$180.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search9.png') }}" alt="#">
-                                                    </a>
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">Casual styles for men</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$180.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            @endforeach
                                         </div>
                                     </div>
-                                    <div role="tabpanel" class="tab-pane" id="profile">
-                                        <div class="row">
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search9.png') }}" alt="#">
-                                                    </a>
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">Casual styles for men</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$180.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search1.png') }}" alt="#">
-                                                    </a>
-                                                    <div class="tag new">
-                                                        <span>new</span>
-                                                    </div>
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">Coat for men</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$220.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search2.png') }}" alt="#">
-                                                    </a>
-
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">lee formal for men</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$200.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search3.png') }}" alt="#">
-                                                    </a>
-                                                    <div class="tag percent">
-                                                        <span>15%</span>
-                                                    </div>
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">Trendy wear for men</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$150.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search4.png') }}" alt="#">
-                                                    </a>
-
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">Party wear for men</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$180.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search5.png') }}" alt="#">
-                                                    </a>
-                                                    <div class="tag new">
-                                                        <span>new</span>
-                                                    </div>
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">Fashion for boys</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$250.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search6.png') }}" alt="#">
-                                                    </a>
-                                                    <div class="tag new">
-                                                        <span>new</span>
-                                                    </div>
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">T-shirt  collection</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$110.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search7.png') }}" alt="#">
-                                                    </a>
-                                                    <div class="tag percent">
-                                                        <span>15%</span>
-                                                    </div>
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">Hipster style</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$280.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search8.png') }}" alt="#">
-                                                    </a>
-
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">Me Formal For Boys</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$180.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div role="tabpanel" class="tab-pane" id="messages">
-                                        <div class="row">
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search2.png') }}" alt="#">
-                                                    </a>
-
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">lee formal for men</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$200.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search1.png') }}" alt="#">
-                                                    </a>
-                                                    <div class="tag new">
-                                                        <span>new</span>
-                                                    </div>
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">Coat for men</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$220.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search3.png') }}" alt="#">
-                                                    </a>
-                                                    <div class="tag percent">
-                                                        <span>15%</span>
-                                                    </div>
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">Trendy wear for men</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$150.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search4.png') }}" alt="#">
-                                                    </a>
-
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">Party wear for men</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$180.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search5.png') }}" alt="#">
-                                                    </a>
-                                                    <div class="tag new">
-                                                        <span>new</span>
-                                                    </div>
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">Fashion for boys</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$250.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search6.png') }}" alt="#">
-                                                    </a>
-                                                    <div class="tag new">
-                                                        <span>new</span>
-                                                    </div>
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">T-shirt  collection</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$110.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search7.png') }}" alt="#">
-                                                    </a>
-                                                    <div class="tag percent">
-                                                        <span>15%</span>
-                                                    </div>
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">Hipster style</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$280.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search8.png') }}" alt="#">
-                                                    </a>
-
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">Me Formal For Boys</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$180.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4 col-sm-4 col-xs-12">
-                                                <div class="product-single">
-                                                    <a href="#"><img src="{{ asset('public/user-templates/images/Search9.png') }}" alt="#">
-                                                    </a>
-                                                    <div class="hot-wid-rating">
-                                                        <h4><a href="single-product.html">Casual styles for men</a></h4>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <i class="fa fa-star"></i>
-                                                        <div class="product-wid-price">
-                                                            <ins>$180.00</ins>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                   
                                 </div>
                             </div>
                         </div>
@@ -781,5 +289,54 @@
         </div>
     </div>
     <!--  PRODUCT-LIST:END -->
+	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+	<script>
+	  $(function() {
+		$( "#slider-range" ).slider({
+		  range: true,
+		  min: 150,
+		  max: 1400,
+		  values: [ 520, 1100 ],
+		  slide: function( event, ui ) {
+			$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+		  }
+		});
+		$( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+		  " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+	  });
+	</script>
 	
    @endsection
+   @section('custom_script')
+		<script>
+			$(document).ready(function(){
+				// ajax wishlist
+				$(".wishlist_btn").click(function(e){
+		        	e.preventDefault();
+		        	//var _token = $("input[name='_token']").val();
+					var product_id = $(this).attr('data-id');
+					console.log(product_id);
+		        	$.ajax({
+		        		url: "{{ route('wishlist.store') }}",
+		        		type:'GET',
+		        		data: {
+                               // _token:_token, 
+                                product_id:product_id, 
+                              },
+		        		success: function(data){  
+		        			console.log(data);
+                            if(data.error==0) {  
+                                //remove from wishlist
+								$("#"+product_id).removeClass("PrdWishlist");
+								$("#"+product_id).addClass("PrdWishlistActive");
+                            } else {    
+                               //add to wishlist 
+							    $("#"+product_id).removeClass("PrdWishlistActive");
+								$("#"+product_id).addClass("PrdWishlist");
+                            }  
+                        } 
+		        	});
+		        });
+			});
+		</script>
+	@endsection

@@ -364,7 +364,7 @@ data-endspeed="1000"
                             <span>new</span>
                     </div>
                         <div class="hot-wid-rating">
-                            <h4><a href="single-product.html">{{$product->product_name}}</a></h4>
+                            <h4>{{$product->product_name}}</h4>
                             @for($i=1;$i<=$product->rating;$i++)
                              <i class="fa fa-star checked"></i>
                             @endfor

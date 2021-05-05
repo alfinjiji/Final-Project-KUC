@@ -48,8 +48,26 @@ class UserController
         return redirect()->route('profile')->with('message', 'Profile updated successfully!');
     }
     // search
-    function search(){
-        return view('user.search-result');
+    function search(Request $request){
+        $element=$request->element;
+        $count=Product::where('product_name','LIKE',"%$element%")->count();
+        $products=Product::where('product_name','LIKE',"%$element%")->get();
+        if($count!=0){
+          if(Auth::guard('customer')->check()){
+              $customer=Auth::guard('customer')->user()->customer_id;
+              foreach($products as $product){
+                   $wishlist=Favorite::where('customer_id',$customer)
+                                       ->where('product_id',$product->product_id)
+                                       ->count();
+                       if($wishlist != 0){
+                           $product->wishlist_flag = 1;
+                       } else {
+                           $product->wishlist_flag = 0;
+                       }
+              }
+          }
+        }
+        return view('user.search-result',compact('count','products'));
     }
     // single product
     function singleProduct(){

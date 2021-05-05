@@ -281,7 +281,8 @@
 					</div>
 					<div class="col-sm-8 col-md-8 col-xs-12">
 						<div class="search-area">
-							<form>
+							<form method="POST" action="{{route('search')}}">
+								@csrf
 								<div class="control-group">
 
 									<ul class="categories-filter animate-dropdown">
@@ -289,9 +290,9 @@
 
 											<a class="dropdown-toggle" data-toggle="dropdown" href="#">All Categories <b class="caret"></b></a>
 
-											<ul class="dropdown-menu" role="menu">
+											<ul class="dropdown-menu" role="menu" >
 
-												<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Fashion</a>
+												<li role="presentation" ><a role="menuitem" tabindex="-1" href="#">Fashion</a>
 												</li>
 												<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Watches</a>
 												</li>
@@ -306,8 +307,9 @@
 											</ul>
 										</li>
 									</ul>
-									<input class="search-field" placeholder="Search here..." />
-									<a class="search-button" href="#"></a>
+									<input class="search-field" id="element" name="element" placeholder="Search here..." />
+									<a class="search-button" id="search"></a>
+									<input type="submit" value="search">
 								</div>
 							</form>
 						</div>
@@ -368,7 +370,6 @@
 										@if(auth()->guard('customer')->check())
 										<li><a href="{{route('profile')}}">Profile</a></li>
 										@endif
-										<li><a href="{{route('search')}}">Search result</a></li>
 										<li><a href="{{route('single.product',['id',encrypt(1)])}}">Single product</a></li>
 										<li><a href="">wishlist</a></li>
 										<li><a href="404.html">404</a></li>
@@ -678,6 +679,8 @@
 	
 	<script>
 	$(document).ready(function () {
+     
+
 	// user login and register toogle
 	$("#regForm").hide();
 	$("#tooglelink").click(function(){

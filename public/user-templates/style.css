@@ -488,9 +488,9 @@ ol {
   border-left: 2px solid #e0e0e0;
   border-radius: 0;
   display: inline-block;
-  float: left;
+  float: right;
   margin: 0;
-  padding: 8px 19px 12px;
+  padding: 0px 1px 16px;
   text-align: center;
 }
 .search-area .search-button:hover {
@@ -585,7 +585,7 @@ ol {
     background: #F89D18;
     padding: 1px 0px;
 }
-}
+
 
 .categories ul#nav {
     margin: 0px;
@@ -1329,9 +1329,9 @@ h4.hr::after {  background: #f69e18 none repeat scroll 0 0;  border: medium none
     color: #fff;
 }
 
-..women-tab > li.active > a,
-..women-tab > li.active > a:hover,
-..women-tab > li.active > a:focus {
+.women-tab > li.active > a,
+.women-tab > li.active > a:hover,
+.women-tab > li.active > a:focus {
     background-color: red;
     border-radius: 0;
     color: #fff;

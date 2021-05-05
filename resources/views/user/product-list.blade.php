@@ -252,11 +252,12 @@
 								@endif
                                 <div class="hot-wid-rating">
                                     <h4><a href="{{route('single.product',['id'=>encrypt($product->product_id)])}}">{{$product->product_name}}</a></h4>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
+									@for($i=1;$i<=$product->rating;$i++)
+									<i class="fa fa-star checked"></i>
+								   @endfor
+									@for($i=5-$product->rating;$i>0;$i--)
+									<i class = "fa fa-star unchecked"></i>
+									@endfor
                                     <div class="product-wid-price">
                                         <ins>${{$product->pricelist->price}}</ins>
                                     </div>

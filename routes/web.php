@@ -90,7 +90,7 @@ Route::group(['namespace'=>'Admin'],function(){
 Route::group(['namespace'=>'User'],function(){
 
     Route::get('/',['as'=>'home','uses'=>'UserController@index']);
-    Route::get('search',['as'=>'search','uses'=>'UserController@search']);
+    Route::post('search',['as'=>'search','uses'=>'UserController@search']);
     Route::post('user-register',['as'=>'user.register','uses'=>'RegisterController@userRegister']);
     Route::post('user-login',['as'=>'user.login','uses'=>'LoginController@userLogin']);
     Route::get('user-logout',['as'=>'user.logout','uses'=>'LoginController@userLogout']);
@@ -104,6 +104,7 @@ Route::group(['namespace'=>'User'],function(){
     Route::get('cart-clear',['as'=>'cart.clear','uses'=>'CartController@clear']);
     Route::get('cart-store',['as'=>'cart.store','uses'=>'CartController@store']);
     Route::get('cart-update',['as'=>'cart.update','uses'=>'CartController@update']);
+   
     Route::group(['middleware'=>'CustomerCheck'],function(){
         // profile
         Route::get('profile',['as'=>'profile','uses'=>'UserController@profile']);
