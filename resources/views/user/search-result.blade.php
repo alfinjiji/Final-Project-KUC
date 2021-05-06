@@ -59,15 +59,15 @@
                     </div>
                     <div class="filter">
                         <h3>Filter by price</h3>
-                        <div class="filter_inner">
-							<div id="slider-range"></div>
+						<div class="filter_inner">
+							<div id="slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 29.6%; width: 55.36%;"></div><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 29.6%;"></span><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 84.96%;"></span></div>
 							<div class="f_price">
 								<div class="filter_a">
 									<a href="">Filter</a>
 								</div>
 								<div class="cat_filter_box">
 									<p>
-									  <input type="text" id="amount" readonly style="border:0; color:#000; font-weight:bold;">
+									  <input type="text" id="amount" readonly="" style="border:0; color:#000; font-weight:bold;">
 									</p>
 								</div>
 							</div>
@@ -289,25 +289,28 @@
         </div>
     </div>
     <!--  PRODUCT-LIST:END -->
-	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-	<script>
-	  $(function() {
-		$( "#slider-range" ).slider({
-		  range: true,
-		  min: 150,
-		  max: 1400,
-		  values: [ 520, 1100 ],
-		  slide: function( event, ui ) {
-			$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-		  }
-		});
-		$( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-		  " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-	  });
-	</script>
+	
 	
    @endsection
    @section('custom_script')
+	<!-- filter -->
+   		<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+		<script>
+		  $(function() {
+			$( "#slider-range" ).slider({
+			  range: true,
+			  min: 150,
+			  max: 1400,
+			  values: [ 520, 1100 ],
+			  slide: function( event, ui ) {
+				$( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+			  }
+			});
+			$( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+			  " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+		  });
+		</script>
+	<!-- end filter -->
 		<script>
 			$(document).ready(function(){
 				// ajax wishlist

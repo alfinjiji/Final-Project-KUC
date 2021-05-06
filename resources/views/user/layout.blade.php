@@ -308,8 +308,7 @@
 										</li>
 									</ul>
 									<input class="search-field" id="element" name="element" placeholder="Search here..." />
-									<a class="search-button" id="search"></a>
-									<input type="submit" value="search">
+									<button type="submit" class="search-button" id="search" style="width:40px;"></button>
 								</div>
 							</form>
 						</div>
