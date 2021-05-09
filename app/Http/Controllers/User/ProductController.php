@@ -14,12 +14,16 @@ use App\Models\Favorite;
 use App\Models\Cart;
 use App\Models\Banner;
 use App\Models\Review;
+use App\Models\Pricelist;
+use App\Models\Material;
 
 class ProductController 
 {
     //show product
     function show($name){
+        $current_date = date('Y-m-d');
         $name=decrypt($name);
+        $materials=Material::all();
         if($name=='men'|| $name=='women') {
             $category=Category::where('category_name',$name)->first();
             if($category!='') {   
@@ -40,11 +44,28 @@ class ProductController
                     }
                     //return $product;
                 } else {
-                $products = Product::where('category_id',$category->category_id,)
+                $products = Product::where('category_id',$category->category_id)
                             ->where('status',1)
                             ->get();
+                
+                }      
+                $colors=Product::select('color')
+                                ->where('category_id',$category->category_id)
+                                ->where('status',1)
+                                ->distinct()
+                                ->get();        
+                $price_lists=Pricelist::whereDate('date_to','>=',$current_date)
+                                       ->whereDate('date_from','<=',$current_date)
+                                       ->get();
+                foreach($products as $product){
+                   $product->price=0;
+                   foreach($price_lists as $price_list){
+                       if($product->product_id==$price_list->product_id){
+                            $product->price=$price_list->price;
+                        }
+                    }
                 }
-                return view('user.product-list',compact('products'));
+                return view('user.product-list',compact('products','materials','colors'));
             } else {
                 return redirect('/');
             }
@@ -67,6 +88,17 @@ class ProductController
             } else {
                 $products = Product::where('status',1)->get();
             }
+            $price_lists=Pricelist::whereDate('date_to','>=',$current_date)
+                                    ->whereDate('date_from','<=',$current_date)
+                                    ->get();
+            foreach($products as $product){
+                $product->price=0;
+                foreach($price_lists as $price_list){
+                    if($product->product_id==$price_list->product_id){
+                         $product->price=$price_list->price;
+                     }
+                 }
+             }
             return view('user.product-list',compact('products'));
         }
     }
@@ -98,5 +130,60 @@ class ProductController
     function showBanner($id){
         $banner=Banner::find(decrypt($id))->first();
         return redirect($banner->url);
+    }
+    // filter
+    function filter(Request $request){
+        $materials=Material::all();
+        $current_date = date('Y-m-d');
+        $min_price=$request->min_price;
+        $max_price=$request->max_price;
+        $category_id=$request->category;
+        $color=$request->colors;
+        $size=$request->sizes;
+        $material=$request->materials;
+        $colours = explode(",", $color);
+        $material_ids = explode(",", $material);
+        $sizes = explode(",", $size);
+        $colors=Product::select('color')
+                                ->where('category_id',$category_id)
+                                ->where('status',1)
+                                ->distinct()
+                                ->get();        
+        if($color=='' && $sizes=='' && $material==''){
+            $price_lists=Pricelist::whereDate('date_to','>=',$current_date)
+                                   ->whereDate('date_from','<=',$current_date)
+                                   ->whereBetween('price',[$min_price,$max_price])
+                                   ->get();
+            $products=Product::where('category_id',$category_id)->get();
+            foreach($products as $product){
+                $product->price=0;
+                foreach($price_lists as $price_list){
+                    if($product->product_id==$price_list->product_id){
+                      $product->price=$price_list->price;
+                    }
+                }
+            }
+            return view('user.product-list',compact('products','colors','materials'));
+        }
+       
+               /*$length=count($colours);
+                for($i=1;$i<$length;$i++){
+                $product1=Product::where('category_id',$category_id)
+                                   ->where('color',$colours[$i-1])
+                                   ->get();
+                $product2=Product::where('category_id',$category_id)
+                                  ->where('color',$colours[$i])
+                                  ->get();
+                $result=$product1->merge($product2);
+                $final_result=$pre_result->merge($result);
+                $pre_result=$result;
+              }*/
+       
+       
+        
+        
+        
+
+        
     }
 }

@@ -32,7 +32,8 @@ class Product extends Model
         return $this->hasMany(Productimage::class,'product_id','product_id');
     }
     public function price()
-    {
+    { 
+       
         return $this->hasMany(Pricelist::class,'product_id','product_id');
     }
     //for whishlist

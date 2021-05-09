@@ -100,6 +100,12 @@
 		 .unchecked {
          color: rgb(2, 2, 2);
          }
+		 .info{
+             color: rgb(73, 14, 14);
+          
+            width: fit-content;
+            padding-left: 100px;
+          }
 </style>
 	
 </head>
