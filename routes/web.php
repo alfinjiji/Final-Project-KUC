@@ -94,10 +94,13 @@ Route::group(['namespace'=>'User'],function(){
     Route::post('user-register',['as'=>'user.register','uses'=>'RegisterController@userRegister']);
     Route::post('user-login',['as'=>'user.login','uses'=>'LoginController@userLogin']);
     Route::get('user-logout',['as'=>'user.logout','uses'=>'LoginController@userLogout']);
+    Route::post('user-sendmail',['as'=>'user.sendmail','uses'=>'LoginController@sendMail']);
     Route::get('single-product/{id}',['as'=>'single.product','uses'=>'ProductController@showSingleProduct']);
     Route::get('products/{name}',['as'=>'products.show','uses'=>'ProductController@show']);
     Route::get('banner-product/{id}',['as'=>'banner.show','uses'=>'ProductController@showBanner']);
     Route::post('filter',['as'=>'filter','uses'=>'ProductController@filter']);
+    Route::get('showresetpassword/{id}',['as'=>'showresetpassword','uses'=>'LoginController@showResetPassword']);
+    Route::post('setpassword',['as'=>'setpassword','uses'=>'LoginController@setPassword']);
     // cart
     Route::get('cart',['as'=>'cart','uses'=>'CartController@index']);
     Route::get('cart/store-all',['as'=>'cart.store.all','uses'=>'CartController@storeAll']);

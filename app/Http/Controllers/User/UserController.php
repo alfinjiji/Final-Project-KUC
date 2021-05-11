@@ -31,6 +31,7 @@ class UserController
         $menus=Menu::latest()->get();
         $products=OrderLine::select('product_id')->groupBy('product_id')->get();        
        //return $products;
+      
         return view('user.homepage',compact('banners','latest_men','latest_women','latest_product','menus'));
     }
     // user profile

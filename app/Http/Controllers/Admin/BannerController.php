@@ -43,7 +43,7 @@ class BannerController
 
     public function update($id ,Request $request){
         $id=decrypt($id);
-        $banner=Banner::find($id);
+        Banner::find($id)->delete();
         if($request->image!=''){ 
             $deletepath=$banner->image;
             Storage::delete('/image/'.$deletepath); // delete old image

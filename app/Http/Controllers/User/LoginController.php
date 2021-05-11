@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use App\Models\Customer;
+use App\Mail\MailSender;
 
 class LoginController extends Controller
 {
@@ -37,5 +40,37 @@ class LoginController extends Controller
             $customer->save();
             return response()->json(['success'=>1]);
         }
+    }
+
+    //fogot password
+    function sendMail(Request $request){
+        $email=$request->email;
+        $count=Customer::where('email',$email)->count();
+        $user=Customer::where('email',$email)->first();
+        $url='http://localhost/Project/showresetpassword/'.encrypt($user->customer_id);
+        if($count==0){
+            return response()->json(['error'=>0]);
+        }else{
+            $details=[ 
+             'title' =>'Password Reset Mail',
+               'url' =>$url,
+               'id'=>$user->customer_id
+           ];
+          Mail::to($request->email)->send(new MailSender($details));
+           
+      
+        return response()->json(['success'=>1]);
+        }
+    }
+    function showResetPassword($id){
+        $id=decrypt($id);
+        return view('user.reset_password',compact('id'));
+    }
+    function setPassword(Request $request){
+        $id=$request->id;
+        $customer=Customer::find($id);
+        $customer->password=Hash::make($request->password);
+        $customer->save();
+        return redirect('/');
     }
 }
