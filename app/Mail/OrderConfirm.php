@@ -7,18 +7,21 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class MailSender extends Mailable
+class OrderConfirm extends Mailable
 {
     use Queueable, SerializesModels;
-    public $details;
+     public $details;
+     public $order_lines;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($details)
+    public function __construct($details,$order_lines)
     {
         $this->details=$details;
+        $this->order_lines=$order_lines;
+        
     }
 
     /**
@@ -28,6 +31,6 @@ class MailSender extends Mailable
      */
     public function build()
     {
-        return $this->subject('reset password')->view('mail.verify');
+        return $this->subject('Track your order')->view('mail.order_confirm');
     }
 }

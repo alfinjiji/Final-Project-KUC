@@ -281,7 +281,13 @@
 											<h4><b style="color: black;">Color </b>: {{ $product->color }}</h4>
 										</div>
 										<div class="col-md-6">
-											<h4><b style="color: black;">Size </b>: {{ $product->size }}</h4>
+											<h4><b style="color: black;">Size </b>: 
+												<select name="size" id="size">
+													@foreach($sizes as $size)
+												     <option data-id="{{$size->product_id}}" value="{{$size->size}}">{{$size->size}}</option>
+												    @endforeach
+											  </select>
+											</h4>
 										</div>
 									</div>
 									<!-- review modal -->
@@ -536,6 +542,30 @@
 				$('#review').click(function(){
 					$('#reviewmodal').show();
 				});
+
+				$("select").change(function(){
+                  var size = $(this).children("option:selected").val();
+                  var product_id=$(this).children("option:selected").attr('data-id');
+				  $.ajax({
+		        		url: "{{ route('sizevariant') }}",
+		        		type:'GET',
+		        		data: {
+                               // _token:_token, 
+                                product_id:product_id, 
+
+                              },
+		        		success: function(data){  
+		        			console.log(data);
+                            if(data.error==0) {  
+                                
+								
+                            } else {    
+                             
+							   
+                            }  
+                        } 
+		        	});
+               });
 	});
 		</script>
 	<script src="https://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>

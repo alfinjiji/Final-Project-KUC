@@ -104,6 +104,7 @@ class ProductController
     }
    //single product view
     function showSingleProduct($id) {
+        
         $id = decrypt($id);
         $product = Product::find($id);
         $cart = Cart::where('product_id',$product->product_id)->count();
@@ -124,7 +125,12 @@ class ProductController
         $category_id=$product->category_id;
         $similar_products=Product::where('category_id',$category_id)
                                    ->orwhere('product_name','LIKE',"%$name%")->paginate(6);
-        return view('user.single-product',compact('product','cart','review_count','reviews','similar_products'));
+       // $sizes=Product::select('product_id','size')->where('product_name',$product->product_name)->get();
+        $sizes=Product::select('product_id','size')->whereHas('pricelist', function($query) {$current_date = date('Y-m-d');
+            $query->whereDate('date_to','>=',$current_date)
+                 ->whereDate('date_from','<=',$current_date);
+                 })->where('product_name',$product->product_name)->get();
+        return view('user.single-product',compact('product','cart','review_count','reviews','similar_products','sizes'));
     }
     //banner product
     function showBanner($id){
@@ -184,6 +190,17 @@ class ProductController
         
         
 
+        
+    }
+    function sizeVariant(Request $request){
+        $product_id=$request->product_id;
+        $product=Product::find($product_id);
+        $price_list=Pricelist::whereDate('date_to','>=',$current_date)
+                             ->whereDate('date_from','<=',$current_date)
+                             ->where('product_id',$product_id)
+                             ->get();
+        $product->price=$price_list->price;
+        
         
     }
 }

@@ -11,6 +11,8 @@ use App\Models\Product;
 use App\Models\Material;
 use App\Models\Pricelist;
 use App\Models\Productimage;
+use App\Models\Size;
+use App\Models\ProductSize;
 
 class ProductController 
 {
@@ -27,53 +29,62 @@ class ProductController
     }
     // upload product
     function store(Request $request){
+        $sizes= explode(",",$request->size);
+
          // product 
-        $product = Product::create([
-            'product_name'=>$request->product_name,
-            'description'=>$request->description,
-            'size'=>$request->size,
-            'color'=>$request->color,
-            'material_id'=>$request->material_id,
-            'category_id'=>$request->category_id,
-        ]);
-        // image 1
-        $image_1 = date('Y-m-d-H-i-s-').rand() . '.' . $request->file('image_1')->getClientOriginalExtension();
-        $path_1 = Storage::putFileAs('image', $request->file('image_1'), $image_1);
-        // productimage
-        $product_image = Productimage::create([
-            'product_id'=>$product->product_id,
-            'image'=>$path_1,
-        ]);
-        // image 2
-        if($request->image_2 != '') {
-            $image_2 = date('Y-m-d-H-i-s-').rand() . '.' . $request->file('image_2')->getClientOriginalExtension();
-            $path_2 = Storage::putFileAs('image', $request->file('image_2'), $image_2);
+            $product = Product::create([
+                'product_name'=>$request->product_name,
+                'description'=>$request->description,
+                'color'=>$request->color,
+                'material_id'=>$request->material_id,
+                'category_id'=>$request->category_id,
+            ]);
+            // image 1
+            $image_1 = date('Y-m-d-H-i-s-').rand() . '.' . $request->file('image_1')->getClientOriginalExtension();
+            $path_1 = Storage::putFileAs('image', $request->file('image_1'), $image_1);
             // productimage
             $product_image = Productimage::create([
                 'product_id'=>$product->product_id,
-                'image'=>$path_2,
+                'image'=>$path_1,
             ]);
-        }
-        // image 3
-        if($request->image_3 != '') {
-            $image_3 = date('Y-m-d-H-i-s-').rand() . '.' . $request->file('image_3')->getClientOriginalExtension();
-            $path_3 = Storage::putFileAs('image', $request->file('image_3'), $image_3);
-            // productimage
-            $product_image = Productimage::create([
-                'product_id'=>$product->product_id,
-                'image'=>$path_3,
-            ]);
-        }
-        // image 4
-        if($request->image_4 != '') {
-            $image_4 = date('Y-m-d-H-i-s-').rand() . '.' . $request->file('image_4')->getClientOriginalExtension();
-            $path_4 = Storage::putFileAs('image', $request->file('image_4'), $image_4); 
-            // productimage
-            $product_image = Productimage::create([
-                'product_id'=>$product->product_id,
-                'image'=>$path_4,
-            ]);
-        }
+            // image 2
+            if($request->image_2 != '') {
+                $image_2 = date('Y-m-d-H-i-s-').rand() . '.' . $request->file('image_2')->getClientOriginalExtension();
+                $path_2 = Storage::putFileAs('image', $request->file('image_2'), $image_2);
+                // productimage
+                $product_image = Productimage::create([
+                    'product_id'=>$product->product_id,
+                    'image'=>$path_2,
+                ]);
+            }
+            // image 3
+            if($request->image_3 != '') {
+                $image_3 = date('Y-m-d-H-i-s-').rand() . '.' . $request->file('image_3')->getClientOriginalExtension();
+                $path_3 = Storage::putFileAs('image', $request->file('image_3'), $image_3);
+                // productimage
+                $product_image = Productimage::create([
+                    'product_id'=>$product->product_id,
+                    'image'=>$path_3,
+                ]);
+            }
+            // image 4
+            if($request->image_4 != '') {
+                $image_4 = date('Y-m-d-H-i-s-').rand() . '.' . $request->file('image_4')->getClientOriginalExtension();
+                $path_4 = Storage::putFileAs('image', $request->file('image_4'), $image_4); 
+                // productimage
+                $product_image = Productimage::create([
+                    'product_id'=>$product->product_id,
+                    'image'=>$path_4,
+                ]);
+            }
+          foreach($sizes as $size){
+              $size_id=Size::select('size_id')->where('size',$size)->first();
+              ProductSize::create([
+                  'product_id'=>$product->product_id,
+                  'size_id'=>$size_id->size_id,
+              ]);
+          }  
+        
         return redirect()->route('product.show')->with('message','Product uploaded successfully!');
     }
     // edit view
@@ -81,7 +92,8 @@ class ProductController
         $categorys = Category::all();
         $materials = Material::all();
         $product =Product::find(decrypt($id));
-        return view('admin.product.edit',compact('product', 'categorys', 'materials'));
+        $size=ProductSize::select('size_id')->where('product_id',decrypt($id))->get();
+        return view('admin.product.edit',compact('product', 'categorys', 'materials','size'));
     }
     // edit product
     function update(Request $request, $id){
@@ -162,12 +174,10 @@ class ProductController
     function createPrice($id){
         $product_id =decrypt($id);
         $count=Pricelist::where('product_id',$product_id)->count();
-        if($count==0){
-            return view('admin.product.create_price',compact('product_id','count'));
-        }else {
-            $pricelist=Pricelist::where('product_id',$product_id)->latest()->first();
-            return view('admin.product.create_price',compact('product_id','pricelist','count'));
-        }
+       
+            $sizes=ProductSize::where('product_id',$product_id)->get();
+            return view('admin.product.create_price',compact('product_id','sizes'));
+       
         
     }
     // do add price
@@ -178,6 +188,7 @@ class ProductController
               'date_from'=>$request->date_from,
                'date_to'=>$request->date_to,
                'price'=>$request->price,
+               'productsize_id'=>$request->productsize_id,
             ]);
             $product=Product::find(decrypt($id));
             $product->status=1;
@@ -208,5 +219,21 @@ class ProductController
             return redirect()->route('product.show')->with('message','Price deleted!');
         }
        
+    }
+    //price check
+    function checkPrice(Request $request){
+        $product_id=$request->product_id;
+        $productsize_id=$request->productsize_id;
+        $count=PriceList::where('product_id',$product_id)
+                         ->where('productsize_id',$productsize_id)
+                         ->count();
+        if($count==0){
+            return response()->json(['error'=>0]);
+        }else{
+            $pricelist=PriceList::where('product_id',$product_id)
+                                ->where('productsize_id',$productsize_id)
+                                ->first();
+            return response()->json(['success'=>$pricelist->date_to]);
+        }
     }
 }

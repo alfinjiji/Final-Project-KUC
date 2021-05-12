@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Customer;
-use App\Mail\MailSender;
+use App\Mail\ResetPassword;
 
 class LoginController extends Controller
 {
@@ -52,14 +52,11 @@ class LoginController extends Controller
             return response()->json(['error'=>0]);
         }else{
             $details=[ 
-             'title' =>'Password Reset Mail',
                'url' =>$url,
                'id'=>$user->customer_id
            ];
-          Mail::to($request->email)->send(new MailSender($details));
-           
-      
-        return response()->json(['success'=>1]);
+          Mail::to($request->email)->send(new ResetPassword($details));
+          return response()->json(['success'=>1]);
         }
     }
     function showResetPassword($id){

@@ -32,15 +32,15 @@
                       <textarea class="form-control" rows="3" placeholder="Enter Description" name="description"></textarea>
                     </div>
                   <div class="form-group">
-                      <label>Size</label>
-                      <select class="form-control" name="size">
-                        <option value="default">--select size--</option>
-                        <option value="S">S</option>
-                        <option value="M">M</option>
-                        <option value="L">L</option>
-                        <option value="XL">XL</option>
-                        <option value="XXL">XXL</option>
-                      </select>
+                      <label>Size</label> <br>
+                      <div class="d-flex flex-row">
+                      <div  style="padding-left: 25px;"><input class="size" type="checkbox" id="s" name="sizes" value="S">&nbsp;S<br></div>
+                      <div  style="padding-left: 25px;"><input class="size" type="checkbox" id="m" name="sizes" value="M">&nbsp;M<br></div>
+                      <div  style="padding-left: 25px;"><input class="size" type="checkbox" id="l" name="sizes" value="L">&nbsp;L<br></div>
+                      <div  style="padding-left: 25px;"><input class="size" type="checkbox" id="xl" name="sizes" value="XL">&nbsp;XL<br></div>
+                      <div  style="padding-left: 25px;"><input class="size" type="checkbox" id="xxl" name="sizes" value="XXL">&nbsp;XXL<br></div>
+                      <div style="padding-left: 25px;"><input type="hidden" id="size" name="size"><br></div>
+                      </div>
                   </div>
                   <div class="form-group">
                       <label>Colour</label>
@@ -164,7 +164,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
 <script>
 $(document).ready(function () {
-  
+  var sizes=[];
   $.validator.addMethod("valueNotEquals", function(value, element, arg){
   return arg !== value;
  }, "Please select an item!");
@@ -180,8 +180,8 @@ $('#productForm').validate({
           minlength: 10
         },
         size : {
-          required: true,
-          valueNotEquals: "default" 
+          required: true
+           
         },
         color: {
           required: true,
@@ -197,6 +197,9 @@ $('#productForm').validate({
         },
         image: {
           required:true
+        },
+        sizes: {
+          required:true
         }
     },
     errorPlacement: function (error, element) { 
@@ -211,8 +214,37 @@ $('#productForm').validate({
         $(element).css('border-color', '#007bff');
     }
 });
-
+//size check
+$('.size').click(function(){
+        
+					if($(this).is(":checked")){
+						var s=$(this).val();
+						var l=sizes.length;
+						if(l==0){
+							sizes[0]=s;
+              
+						}else{
+							sizes[l]=s;
+						   
+						}
+					}else{
+						var s=$(this).val();
+					    var l=sizes.length;
+						for(var i=0;i<l;i++){
+                if(sizes[i]==s){
+							   break;
+						   }
+						}
+						for(;i<l-1;i++){
+							sizes[i]=sizes[i+1];
+						}
+						sizes.pop();
+					}
+				
+					$('#size').val(sizes);
+				});
 });
+
 //image validation
 $(function () {
 $("#formFileDisabled").change(function () {

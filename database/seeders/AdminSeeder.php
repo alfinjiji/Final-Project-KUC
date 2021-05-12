@@ -15,6 +15,7 @@ use App\Models\Product;
 use App\Models\Productimage;
 use App\Models\Order;
 use App\Models\OrderLine;
+use App\Models\Size;
 
 class AdminSeeder extends Seeder
 {
@@ -69,7 +70,6 @@ class AdminSeeder extends Seeder
         Product::create([
             'product_name' => 'product 1',
             'description' => 'Lorem ipsum dolor!',
-            'size' => 'XL',
             'color' => 'white',
             'material_id' => 1,
             'category_id' => 1,
@@ -77,6 +77,31 @@ class AdminSeeder extends Seeder
         Productimage::create([
             'product_id' => '1',
             'image' => 'image/img.png',
+
+        ]);
+        Size::create([
+            'size_id' => '1',
+            'size' => 'S',
+
+        ]);
+        Size::create([
+            'size_id' => '2',
+            'size' => 'M',
+
+        ]);
+        Size::create([
+            'size_id' => '3',
+            'size' => 'L',
+
+        ]);
+        Size::create([
+            'size_id' => '4',
+            'size' => 'XL',
+
+        ]);
+        Size::create([
+            'size_id' => '5',
+            'size' => 'XXL',
 
         ]);
     }

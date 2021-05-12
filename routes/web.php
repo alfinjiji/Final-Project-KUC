@@ -19,6 +19,8 @@ Route::group(['namespace'=>'Admin'],function(){
     Route::get('login',['as'=>'login','uses'=>'LoginController@login']);
     Route::post('do-login',['as'=>'do.login','uses'=>'LoginController@doLogin']);
     Route::get('logout',['as'=>'logout','uses'=>'LoginController@logout']);
+    Route::get('confirmmail',['as'=>'confirmmail','uses'=>'AdminController@showConfirMail']);
+    Route::get('deliveredmail',['as'=>'deliveredmail','uses'=>'AdminController@showDeliveredMail']);
 
     Route::group(['middleware'=>'AdminCheck'],function(){
         //Route::get('demo',['as'=>'demo','uses'=>'AdminController@demo'] );
@@ -51,6 +53,7 @@ Route::group(['namespace'=>'Admin'],function(){
         Route::post('store-price/{id}',['as'=>'store.price','uses'=>'ProductController@storePrice'] );
         Route::get('show-pricelist/{id}',['as'=>'show.pricelist','uses'=>'ProductController@showPricelist'] );
         Route::get('destroy-price/{id}',['as'=>'destroy.price','uses'=>'ProductController@destroyPrice'] );
+        Route::get('checkprice',['as'=>'checkprice','uses'=>'ProductController@checkPrice'] );
         //Customer
         Route::get('customer-show',['as'=>'customer.show','uses'=>'CustomerController@show'] );
         Route::get('test',[CustomerController::class,'demo']);
@@ -136,6 +139,7 @@ Route::group(['namespace'=>'User'],function(){
         //rate product
         Route::get('rate-store',['as'=>'rate.store','uses'=>'UserController@rateStore']);
         Route::post('review-store',['as'=>'review.store','uses'=>'UserController@reviewStore']);
+        Route::get('sizevariant',['as'=>'sizevariant','uses'=>'ProductController@sizeVariant']);
     });
     
 });
