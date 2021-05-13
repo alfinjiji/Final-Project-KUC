@@ -98,6 +98,7 @@ Route::group(['namespace'=>'User'],function(){
     Route::get('products/{name}',['as'=>'products.show','uses'=>'ProductController@show']);
     Route::get('banner-product/{id}',['as'=>'banner.show','uses'=>'ProductController@showBanner']);
     Route::post('filter',['as'=>'filter','uses'=>'ProductController@filter']);
+    Route::get('product-sort',['as'=>'product.sort','uses'=>'ProductController@sort']);
     // cart
     Route::get('cart',['as'=>'cart','uses'=>'CartController@index']);
     Route::get('cart/store-all',['as'=>'cart.store.all','uses'=>'CartController@storeAll']);

@@ -51,9 +51,23 @@
                 <div class="col-md-3 col-sm-3 col-xs-12" id="filter_bar"  >
 					<form method="POST" action="{{route('filter')}}" >
 						@csrf
+						<div class="brands">
+							<h3>Filter by price <i id="show_price" class="fa fa-bars"></i></h3>
+							 <div class="filter_inner" id="price">
+								 <div id="slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 9%; width: 55.36%;"></div><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 9%;"></span><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 9%;"></span></div>
+								 <div class="f_price">
+									 
+									 <div class="cat_filter_box">
+										 <p>
+										   <input type="text" id="amount" readonly="" style="border:0; color:#000; font-weight:bold;">
+										 </p>
+									 </div>
+								 </div>
+							 </div>
+						</div>
                         <div class="brands">
-                          <h3>Material <span style="padding-left: 120px;"> <a id="show_material">+</a></span></h3>
-						    <div  style='overflow-y:scroll; width:auto;height:250px;' id="material">
+							<h3>Material <i id="show_material" class="fa fa-bars"></i></h3>
+						    <div  style='overflow-y:scroll; width:auto;height:200px;' id="material">
                                <ul >
 								   @foreach($materials as $material)
                                    <li> <input class="m" type="checkbox" name="material" value="{{$material->material_id}}"> {{$material->material_name}} </li>
@@ -61,23 +75,20 @@
                                </ul>
 						    </div>
                         </div>
-                        <div class="filter">
-                           <h3>Filter by price <span style="padding-left: 120px;"> <a id="show_price">+</a></span></h3>
-						    <div class="filter_inner" id="price">
-						    	<div id="slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 9%; width: 55.36%;"></div><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 9%;"></span><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 9%;"></span></div>
-						    	<div class="f_price">
-						    		
-						    		<div class="cat_filter_box">
-						    			<p>
-						    			  <input type="text" id="amount" readonly="" style="border:0; color:#000; font-weight:bold;">
-						    			</p>
-						    		</div>
-						    	</div>
+						<div class="brands">
+							<h3>Colours <i id="show_color" class="fa fa-bars"></i></h3>
+						    <div style='overflow-y:scroll; width:auto;height:200px;' id="color">
+                                 <ul>
+									@foreach($colors as $color)
+									<li> <input class="color" type="checkbox" name="color" value="{{$color->color}}"> {{$color->color}} </li>
+									@endforeach
+                                     
+                                 </ul>
 						    </div>
                         </div>
-                        <div class="colours">
-                            <h3>Size <span style="padding-left: 120px;"> <a id="show_size">+</a></span></h3>
-						    <div style='overflow-y:scroll; width:auto;height:250px;' id="size">
+                        <div class="brands">
+							<h3>size <i id="show_size" class="fa fa-bars"></i></h3>
+						    <div style='overflow-y:scroll; width:auto;height:200px;' id="size">
                                  <ul>
                                      <li> <input class="size" type="checkbox" name="size" value="S"> S</li>
                                      <li> <input class="size" type="checkbox" name="size" value="M">  M</li>
@@ -88,35 +99,23 @@
                                  </ul>
 						    </div>
                         </div>
-						<div class="colours">
-                            <h3>Colours  <span style="padding-left: 120px;"> <a id="show_color">+</a></span></h3>
-						    <div style='overflow-y:scroll; width:auto;height:250px;' id="color">
-                                 <ul>
-									@foreach($colors as $color)
-									<li> <input class="color" type="checkbox" name="color" value="{{$color->color}}"> {{$color->color}} </li>
-									@endforeach
-                                     
-                                 </ul>
-						    </div>
-                        </div>
 						<div>
 							<div class="filter_a">
-								<input type="text" id="min_price" name="min_price">
-						    	<input type="text" id="max_price" name="max_price">
-						    	<input type="text" id="category" name="category">
-								<input type="text" id="sizes" name="sizes">
-								<input type="text" id="colors" name="colors">
-								<input type="text" id="materials" name="materials">
-								<input type="submit" id="filter" value="Filter" style="width: 270px"  class="btn btn-default">
+								<input type="hidden" id="min_price" name="min_price">
+						    	<input type="hidden" id="max_price" name="max_price">
+						    	<input type="hidden" id="category" name="category">
+								<input type="hidden" id="sizes" name="sizes">
+								<input type="hidden" id="colors" name="colors">
+								<input type="hidden" id="materials" name="materials">
+								<input class="btn btn-warning" type="submit" id="filter" value="Filter" style="width: 270px; margin-top:20px;"  class="btn btn-default">
 							</div>
 						</div>
 					</form>
                 </div>
                 <div class="col-md-9 col-sm-9 col-xs-12">
                     <div class="row">
+						<input type="hidden" value="{{ $category_id }}" id="category_id">
                         @foreach($products as $product)
-						<input type="hidden" value="{{ $product->category_id }}" id="category_id">
-						
 						    @if($product->price!=0)
                                 <div class="col-md-4 col-sm-4 col-xs-12">
                                     <div class="product-single">
@@ -187,7 +186,7 @@
 				$('#material').hide();
 				$('#color').hide();
 				$('#size').hide();
-				$('#price').hide();
+				$('#price').show();
 				var material=[];
 				var size=[];
 				var color=[];
@@ -223,8 +222,7 @@
 					$('#info_text').text("");
 				});
 				$("#sort_desc").click(function(){
-					
-					
+					//
 				});
 
 				//sort asc info
@@ -234,10 +232,34 @@
                 $("#sort_asc").mouseout(function(){
 					$('#info_text').text("");
 				});
-				$("#sort_asc").click(function(){
+				// ajax sort asc
+				$("#sort_asc").click(function(e){
+		        	e.preventDefault();
+					var products = {!! json_encode($products->toArray(), JSON_HEX_TAG) !!};
+					var category_id = $("#category_id").val();
+					var sort_by = 'asc';
+					console.log(products);
+					console.log(sort_by);
+		        	$.ajax({
+		        		url: "{{ route('product.sort') }}",
+		        		type:'GET',
+		        		data: {
+                               	// _token:_token, 
+								products:products,
+                            	category_id:category_id, 
+                            	sort_by:sort_by, 
+                              },
+		        		success: function(data){  
+		        			console.log(data);
+                            if(data.error==0) {  
+                                //remove from wishlist
+                            } else {    
+                               //add to wishlist 
+                            }  
+                        } 
+		        	});
+		        });
 
-					//
-				});
                 // for selected material
                 $('.m').click(function(){
 					if($(this).is(":checked")){
