@@ -358,9 +358,11 @@
 										<div class="col-md-4">
 											@if(Auth::guard('customer')->check())
 												@if($cart == 0)
-													<a href="" id="cartBtn" data-id="{{ $product->product_id}}" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus"> Add to cart</a>
+												    <input type="button"  id="cartBtn"  data-id="{{ $product->product_id}}" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus" value="Add to cart">
+													<!--<a href="" id="cartBtn" data-id="{{ $product->product_id}}" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus"> Add to cart</a> -->
 												@else 
-												<a href="#" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus" disabled> Add to cart</a>
+												<input type="button" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus" disabled value=" Add to cart">
+												<!--<a href="#" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus" disabled> Add to cart</a> -->
 												@endif
 											@else
 												<a href=""  data-toggle="modal" data-target="#myModal" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus"> Add to cart</a>	
@@ -370,8 +372,8 @@
 											@if(Auth::guard('customer')->check())
 											  <form method="POST" action="{{route('show.checkout')}}">
 												  @csrf
-												  <input type="text" name="product_id" value="{{$product->product_id}}" >
-												  <input type="text" name="productsize_id" id="productsize_id">
+												  <input type="hidden" name="product_id" value="{{$product->product_id}}" >
+												  <input type="hidden" name="productsize_id" id="productsize_id">
 												  <input type="submit" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus" value="Buy now">
 											  </form>
 											@else 
@@ -514,11 +516,11 @@
 					console.log(data);
 					if(data.error==0) {  
 						//error
-						$('#cartBtn').attr('disabled','true');
-						alert("already in cart");
+						$('#cartBtn').attr('disabled',true);
+						//alert("already in cart");
 					} else {    
 					   //success
-					   $('#cartBtn').attr('disabled','true');
+					   $('#cartBtn').attr('disabled',true);
 					}  
 				} 
 			});
@@ -570,12 +572,12 @@
 						   var price=data.price+(data.price*.2);
 						   $('#del_price').html(price);
                            $('#productsize_id').val(productsize_id);
-						   if(data.flag==1) {  
+						   if(data.flag==0) {  
 						     //error
-						     $('#cartBtn').attr('disabled','true');
+						     $('#cartBtn').attr('disabled',false);
 					        } else {    
 					         //success
-					         $('#cartBtn').prop('disabled','false');
+					         $('#cartBtn').attr('disabled', true);
 					        }  
                         } 
 		        	});

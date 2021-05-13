@@ -66,7 +66,7 @@
             <div class="row">
                 <div class="col-md-12">
                     <div class="wish-button">
-                      <a href="{{route('cart.store.all')}}">  <button type="button" class="btn btn-default add-cart">Add all to the cart</button> </a>
+                      <!-- <a href="{{route('cart.store.all')}}">  <button type="button" class="btn btn-default add-cart">Add all to the cart</button> </a> -->
                        <a href="{{route('wishlist.clear',['id'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}"> <button type="button" class="btn btn-default clear-list">Clear the list</button> </a>
                     </div>
                 </div>

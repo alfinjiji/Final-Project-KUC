@@ -93,8 +93,13 @@ $(document).ready(function () {
                         $('#flag').val(0);
                       } else { 
                         $('#datepicker').hide();   
-                        $('#newdate').show();   
-                        $('#newdate').val(data.success);
+                        $('#newdate').show();  
+                        var date=new Date( data.success); 
+                         yr      = date.getFullYear();
+                         month   = date.getMonth()  < 10 ? '0' + (date.getMonth()+1) : (date.getMonth()+1);
+                         day     = date.getDate()   < 10 ? '0' + (date.getDate()+1) : (date.getDate()+1);
+                         newDate = yr + '-' + month + '-' + day;
+                        $('#newdate').val(newDate);
                         $('#flag').val(1);
 				   
                       }  
@@ -115,12 +120,17 @@ $(document).ready(function () {
 		  			console.log(data);
                       if(data.error==0) {  
                         $('#datepicker').show();
-                        $('#newdate').hide(); 
+                        $('#newdate').hide();  
                         $('#flag').val(0);
                       } else { 
                         $('#datepicker').hide();   
-                        $('#newdate').show();   
-                        $('#newdate').val(data.success);
+                        $('#newdate').show();  
+                        var date=new Date( data.success); 
+                         yr      = date.getFullYear();
+                         month   = date.getMonth()  < 10 ? '0' + (date.getMonth()+1) : (date.getMonth()+1);
+                         day     = date.getDate()   < 10 ? '0' + (date.getDate()+1) : (date.getDate()+1);
+                         newDate = yr + '-' + month + '-' + day;
+                        $('#newdate').val(newDate);
                         $('#flag').val(1);
 				   
                       }  
