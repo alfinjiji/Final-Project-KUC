@@ -224,12 +224,27 @@
 							</div>
 							<div style="padding: 0% 10% 10% 10%;">
 								<input class="col7input" type="password" name="user_password" placeholder="Enter Password" id="pwd">
-								<span id="pass_error" style="color:red;"></span>
+								<span id="pass_error" style="color:red;"></span><br>
+								
+								
 							</div>
 							<div style="padding: 0% 10% 10% 10%;">
 								<button class="btn btn-warning btn-block btn-focus" style="height:45px;" id="userlogin">Sign In</button>
 							</div>
 						</form>
+						</div>
+						<!-- forgot password form-->
+						<div>
+							<form id="forgot_password_form" >
+								@csrf
+								<div style="padding: 20% 10% 10% 10%;">
+									<input class="col7input" type="email" name="user_email" placeholder="Enter Email" id="forgot_email" autocomplete="off">
+									<span id="forgot_error" style="color:red;"></span>
+								</div>
+								<div style="padding: 0% 10% 10% 10%;">
+									<button class="btn btn-warning btn-block btn-focus" style="height:45px;" id="forgot_submit">Reset Password</button>
+								</div>
+							</form>
 						</div>
 						<!-- Registration form -->
 						<div>
@@ -265,15 +280,21 @@
 									<button class="btn btn-warning btn-block btn-focus" id="btn-submit" style="height:45px;">Sign up</button>
 								</div>
 							</form>
-							</div>
+						</div>
+					
 							<div style="padding: 1% 10% 10% 10%; color: rgb(20, 78, 240); text-align:center;">
-							<button id="tooglelink" class="btn-focus" style="height:45px; border: none; background-color: whitesmoke;">Create an account?</button>
+								<button id="back" class="btn-focus" style="height:45px; border: none; background-color: whitesmoke;">Back to Log in</button><br>
+								<button id="forgot_password" class="btn-focus" style="height:45px; border: none; background-color: whitesmoke;padding-left: 167px;
+							font-size: 13px;">Forgot Password?</button><br>
+							<button id="tooglelink" class="btn-focus" style="height:45px; border: none; background-color: whitesmoke;">Create an account?</button><br>
+							
 							</div>
-					</div>
-				</div>
-			  </div>
+					    </div>
+						
+				    </div>
+			    </div>
 			</div>
-		  </div>
+	   </div>
 		
 		<!-- Logo-area -->
 		<div class="logo_area">
@@ -688,8 +709,26 @@
 
 	// user login and register toogle
 	$("#regForm").hide();
+	$("#back").hide();
+	$("#forgot_password_form").hide();
+	$("#forgot_password").click(function(){
+    	$("#forgot_password_form").show();
+		$('#loginForm').hide(); 
+		$('#forgot_password').hide(); 
+		$('#tooglelink').hide(); 
+		$('#back').show(); 
+		
+	});
+	$("#back").click(function(){
+    	$("#forgot_password_form").hide();
+		$('#loginForm').show(); 
+		$('#forgot_password').show(); 
+		$('#tooglelink').show(); 
+		$('#back').hide(); 
+		
+	});
 	$("#tooglelink").click(function(){
-    	$("#loginForm, #regForm").toggle();
+    	$("#loginForm, #regForm,#forgot_password").toggle();
 		$("#tooglelink").text($("#tooglelink").text()==='if your already register , login' ? 'Create an account?' : 'if your already register , login');
 	});
 	// check passwword and confirm password
@@ -815,6 +854,7 @@
 		  $("#tooglelink").text($("#tooglelink").text()==='if your already register , login' ? 'Create an account?' : 'if your already register , login');
 		  $("#regForm").hide();
 		  $("#loginForm").show();
+		  $('#forgot_password').show();
 
       }else{
         	console.log(msg.error);
@@ -866,6 +906,47 @@
 			});
 		   }
 		});
+		// forgot password
+		$("#forgot_submit").click(function(e){
+			e.preventDefault();
+			var _token = $("input[name='_token']").val();
+			var email = $("#forgot_email").val();
+			if( IsEmail(email)==false){
+				$('#forgot_error').html("Enter a valid email");
+				$('#forgot_email').keypress(function(){
+				    email = $("#forgot_email").val();
+					if( IsEmail(email)==false){
+						$('#forgot_error').html("Enter a valid email");
+					}
+					else{
+					$('#forgot_error').html("");}
+				});
+			}
+           else{
+			$.ajax({
+				url: "{{ route('user.sendmail') }}",
+				type:'POST',
+				data: {_token:_token, email:email},
+				success: function(data){  
+						console.log(data);
+                          if(data.error==0)  
+                          {  
+                               $('#forgot_error').html("invalid email");  
+                          }  
+                          else  
+                          {  
+							 $('.alert-block').css('display','block').append('<strong>Check your email for reset password</strong>');
+							 $("#forgot_password_form").hide();
+							 $('#loginForm').show(); 
+							 $('#forgot_password').show(); 
+							 $('#tooglelink').show(); 
+							 $('#back').hide();   
+                          }  
+                     } 
+			});
+		   }
+		});
+
 		$("#mobile").keypress(function (e) {
             if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
                $("#mobile_err").html("Digits Only");

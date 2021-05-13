@@ -22,4 +22,10 @@ class AdminController
         // return view('admin.dashboard',['order'=>$order,'customer'=>$customer,'product'=>$product,'coupon'=>$coupon]);
         return view('admin.dashboard',compact('order','customer','product','coupon'));
     }
+    function showConfirMail(){
+        return view('mail.order_confirm');
+    }
+    function showDeliveredMail(){
+        return view('mail.order_delivered');
+    }
 }

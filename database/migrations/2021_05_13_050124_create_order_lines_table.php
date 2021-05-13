@@ -21,6 +21,8 @@ class CreateOrderLinesTable extends Migration
             $table->foreign('order_id')->references('order_id')->on('orders');
             $table->unsignedBigInteger('product_id')->nullable();
             $table->foreign('product_id')->references('product_id')->on('products');
+            $table->unsignedBigInteger('productsize_id')->nullable();
+            $table->foreign('productsize_id')->references('productsize_id')->on('product_sizes');
             $table->integer('quantity');
             $table->float('unit_price');
             $table->float('sum');

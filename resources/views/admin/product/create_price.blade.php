@@ -31,13 +31,21 @@
                   @csrf
                   <div class="card-body">
                     <div class="form-group">
+                     <b> Choose Size
+                      <select name="size" id="size" data-id="{{$product_id}}">
+                        @foreach($sizes as $productsize)
+                           <option data-id="{{$productsize->product_id}}" value="{{$productsize->productsize_id}}">{{$productsize->size->size}}</option>
+                          @endforeach
+                      </b>
+                          <input type="hidden" name="productsize_id" id="productsize_id">
+                          <input type="hidden" name="flag" id="flag">
+                      </select>
+                    </div>
+                    <div class="form-group">
                       <label>From Date</label>
-                      @if($count==0)
-                      <input type="text" placeholder="yyyy-mm-dd" class="form-control" name="date_from"  id="datepicker" autocomplete="off">
-                      @else 
-                      <input type="text" placeholder="yyyy-mm-dd" class="form-control" name="date_from" readonly="true" id="datepicker2" value="{{$pricelist->date_to}}"  >
                      
-                      @endif
+                      <input type="text" placeholder="yyyy-mm-dd" class="form-control" name="date_from"  id="datepicker" autocomplete="off">
+                      <input type="text" placeholder="yyyy-mm-dd" class="form-control" name="date_from_ajax"  id="newdate" autocomplete="off" readonly>
                     </div>
                     <div class="form-group">
                         <label>To Date</label>
@@ -66,6 +74,59 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
 <script>
 $(document).ready(function () {
+  var productsize_id=$('#size').val();
+  var product_id=$('#size').attr('data-id');
+  $('#newdate').hide();
+  $('#productsize_id').val(productsize_id);
+  $.ajax({
+		  		url: "{{ route('checkprice') }}",
+		  		type:'GET',
+		  		data: {
+                  product_id:product_id,
+                   productsize_id:productsize_id, 
+                },
+		  		success: function(data){  
+		  			console.log(data);
+                      if(data.error==0) {  
+                        $('#datepicker').show();
+                        $('#newdate').hide(); 
+                        $('#flag').val(0);
+                      } else { 
+                        $('#datepicker').hide();   
+                        $('#newdate').show();   
+                        $('#newdate').val(data.success);
+                        $('#flag').val(1);
+				   
+                      }  
+                  } 
+		});
+  $("select").change(function(){
+   var productsize_id = $(this).children("option:selected").val();
+   var product_id=$(this).children("option:selected").attr('data-id');
+		$('#productsize_id').val(productsize_id);
+    $.ajax({
+		  		url: "{{ route('checkprice') }}",
+		  		type:'GET',
+		  		data: {
+                  product_id:product_id,
+                   productsize_id:productsize_id, 
+                },
+		  		success: function(data){  
+		  			console.log(data);
+                      if(data.error==0) {  
+                        $('#datepicker').show();
+                        $('#newdate').hide(); 
+                        $('#flag').val(0);
+                      } else { 
+                        $('#datepicker').hide();   
+                        $('#newdate').show();   
+                        $('#newdate').val(data.success);
+                        $('#flag').val(1);
+				   
+                      }  
+                  } 
+		});
+});
 
 $('#productPriceForm').validate({ 
   errorPlacement: $.datepicker.errorPlacement, 
@@ -81,6 +142,9 @@ $('#productPriceForm').validate({
         price: {
           required: true,
           number: true
+        },
+        size: {
+          required: true
         }
     },
     messages: {

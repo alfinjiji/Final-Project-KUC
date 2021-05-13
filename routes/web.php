@@ -19,6 +19,8 @@ Route::group(['namespace'=>'Admin'],function(){
     Route::get('login',['as'=>'login','uses'=>'LoginController@login']);
     Route::post('do-login',['as'=>'do.login','uses'=>'LoginController@doLogin']);
     Route::get('logout',['as'=>'logout','uses'=>'LoginController@logout']);
+    Route::get('confirmmail',['as'=>'confirmmail','uses'=>'AdminController@showConfirMail']);
+    Route::get('deliveredmail',['as'=>'deliveredmail','uses'=>'AdminController@showDeliveredMail']);
 
     Route::group(['middleware'=>'AdminCheck'],function(){
         //Route::get('demo',['as'=>'demo','uses'=>'AdminController@demo'] );
@@ -51,6 +53,7 @@ Route::group(['namespace'=>'Admin'],function(){
         Route::post('store-price/{id}',['as'=>'store.price','uses'=>'ProductController@storePrice'] );
         Route::get('show-pricelist/{id}',['as'=>'show.pricelist','uses'=>'ProductController@showPricelist'] );
         Route::get('destroy-price/{id}',['as'=>'destroy.price','uses'=>'ProductController@destroyPrice'] );
+        Route::get('checkprice',['as'=>'checkprice','uses'=>'ProductController@checkPrice'] );
         //Customer
         Route::get('customer-show',['as'=>'customer.show','uses'=>'CustomerController@show'] );
         Route::get('test',[CustomerController::class,'demo']);
@@ -94,11 +97,15 @@ Route::group(['namespace'=>'User'],function(){
     Route::post('user-register',['as'=>'user.register','uses'=>'RegisterController@userRegister']);
     Route::post('user-login',['as'=>'user.login','uses'=>'LoginController@userLogin']);
     Route::get('user-logout',['as'=>'user.logout','uses'=>'LoginController@userLogout']);
+    Route::post('user-sendmail',['as'=>'user.sendmail','uses'=>'LoginController@sendMail']);
     Route::get('single-product/{id}',['as'=>'single.product','uses'=>'ProductController@showSingleProduct']);
     Route::get('products/{name}',['as'=>'products.show','uses'=>'ProductController@show']);
     Route::get('banner-product/{id}',['as'=>'banner.show','uses'=>'ProductController@showBanner']);
     Route::post('filter',['as'=>'filter','uses'=>'ProductController@filter']);
     Route::get('product-sort',['as'=>'product.sort','uses'=>'ProductController@sort']);
+    Route::get('showresetpassword/{id}',['as'=>'showresetpassword','uses'=>'LoginController@showResetPassword']);
+    Route::post('setpassword',['as'=>'setpassword','uses'=>'LoginController@setPassword']);
+    Route::get('sizevariant',['as'=>'sizevariant','uses'=>'ProductController@sizeVariant']);
     // cart
     Route::get('cart',['as'=>'cart','uses'=>'CartController@index']);
     Route::get('cart/store-all',['as'=>'cart.store.all','uses'=>'CartController@storeAll']);
@@ -127,13 +134,14 @@ Route::group(['namespace'=>'User'],function(){
         // user order
         Route::get('orders',['as'=>'orders','uses'=>'OrderController@index']);
         Route::get('order/{id}',['as'=>'order.destroy','uses'=>'OrderController@destroy']);
-        Route::get('checkout/{id}',['as'=>'checkout','uses'=>'OrderController@show']);
+        Route::post('show-checkout',['as'=>'show.checkout','uses'=>'OrderController@show']);
         Route::post('checkout',['as'=>'checkout.store','uses'=>'OrderController@store']);
         Route::get('checkout-cart',['as'=>'checkout.cart','uses'=>'OrderController@showCartCheckout']);
         Route::post('checkout-cart-store',['as'=>'checkout.cart.store','uses'=>'OrderController@storeCartCheckout']);
         //rate product
         Route::get('rate-store',['as'=>'rate.store','uses'=>'UserController@rateStore']);
         Route::post('review-store',['as'=>'review.store','uses'=>'UserController@reviewStore']);
+      
     });
     
 });

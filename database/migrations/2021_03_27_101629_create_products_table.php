@@ -17,7 +17,6 @@ class CreateProductsTable extends Migration
             $table->bigIncrements('product_id');
             $table->String('product_name');
             $table->text('description');
-            $table->String('size');
             $table->String('color');
             //$table->foreignId('material_id')->constrained('materials','material_id')->onUpdate('cascade')->onDelete('cascade');
             //$table->foreignId('category_id')->constrained('categories','category_id')->onUpdate('cascade')->onDelete('cascade');

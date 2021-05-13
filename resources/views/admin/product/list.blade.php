@@ -50,7 +50,10 @@
                       <td>{{$loop->iteration}}</td>
                       <td>{{$product->product_name}}</td>
                       <td>{{$product->description}}</td>
-                      <td>{{$product->size}}</td>
+                      <td>@foreach($product->productsize as $productsize)
+                          {{$productsize->size->size}}<br>
+                          @endforeach
+                      </td>
                       <td>{{$product->color}}</td>
                       <td>{{$product->material->material_name}}</td>
                       <td>{{$product->category->category_name}}</td>

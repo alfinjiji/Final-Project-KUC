@@ -94,18 +94,18 @@
 										<div class="cart-product-info">
 											<span class="product-color">COLOR :</span><span>{{$cart->product->color}}</span>
 											<br>
-											<span class="product-color">Size :</span><span>{{$cart->product->size}}</span>
+											<span class="product-color">Size :</span><span>{{$cart->productsize->size->size}}</span>
 										</div>
 								   </div>
-                                </td>
+                                </td> 
                                 <td class="cart-product-quantity">
                                     <div class="quant-input ">
                                         <input type="number" size="4" data-id="{{ $loop->iteration }}" data-cart="{{$cart->cart_id}}" class="input-text qty text Btn" title="Qty" value="{{$cart->quantity}}" name="quantity[113]" max="119" min="1" step="1" id="Qty{{ $loop->iteration }}">
                                     </div>
                                 </td>
-                                <td class="cart-product-price"><div class="cc-pr">{{$cart->product->pricelist->price}} <input type="hidden" id="price{{ $loop->iteration }}" value="{{$cart->product->pricelist->price}}"></div></td>
+                                <td class="cart-product-price"><div class="cc-pr">{{$cart->price}} <input type="hidden" id="price{{ $loop->iteration }}" value="{{$cart->price}}"></div></td>
                                 <td class="cart-product-delivery"><div class="cc-pr">free shipping</div></td>
-                                <td class="cart-product-sub-total"><div class="cc-pr"><input type="text"  class="form-control" readonly="true" id="sum{{ $loop->iteration }}" value="{{$cart->product->pricelist->price * $cart->quantity}}" style="background-color:transparent; border: transparent" ></div></td>
+                                <td class="cart-product-sub-total"><div class="cc-pr"><input type="text"  class="form-control" readonly="true" id="sum{{ $loop->iteration }}" value="{{$cart->price * $cart->quantity}}" style="background-color:transparent; border: transparent" ></div></td>
                                 <td class="romove-item">
                                     <a href="{{route('cart.destroy',['id'=>encrypt($cart->cart_id)])}}"><img src="{{ asset('public/user-templates/images/remove.png')}}" alt="">
                                     </a>

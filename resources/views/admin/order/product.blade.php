@@ -29,6 +29,7 @@
                   <th>#</th>
                   <th>Image</th>
                   <th>Product</th>
+                  <th>Size</th>
                   <th>Qty</th>
                   <th>Unit Price</th>
                   <th>Subtotal</th>
@@ -42,6 +43,7 @@
                     <img src="{{asset('storage/app/'.$orderline->product->productimage->image)}}" style="height: 75px; width: 75px">
                   </td>
                   <td>{{$orderline->product->product_name}}</td>
+                  <td>{{$orderline->productsize->size->size}}</td>
                   <td>{{$orderline->quantity}}</td>
                   <td>{{$orderline->unit_price}}</td>
                   <td>{{$orderline->sum}}</td>

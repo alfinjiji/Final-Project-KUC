@@ -119,7 +119,7 @@
 											<div class="cart-product-info">
 												<span class="product-color">COLOR :</span><span>{{ $product->color }}</span>
 												<br>
-												<span class="product-color">Size :</span><span>{{ $product->size }}</span>
+												<span class="product-color">Size :</span><span>{{ $pricelist->productsize->size->size }}</span>
 											</div>
 									   </div>
 									</td>
@@ -131,11 +131,12 @@
 										</div>
 									</td>
                                     <input type="hidden" id="product" value="{{ $product->product_id }}">
-                                    <input type="hidden" id="price" value="{{ $product->pricelist->price }}">
-									<td class="cart-product-price"><div class="cc-pr">${{ $product->pricelist->price }}</div></td>
+                                    <input type="hidden" id="price" value="{{ $pricelist->price }}">
+                                    <input type="hidden" id="size_id" value="{{ $pricelist->productsize_id }}">
+									<td class="cart-product-price"><div class="cc-pr">${{ $pricelist->price }}</div></td>
 									<td class="cart-product-sub-total">
                                         <div class="cc-pr">
-                                            <input type="text" class="form-control" readonly="true" id="sum" value="{{$product->pricelist->price}}" style="background-color:transparent; border: transparent" >
+                                            <input type="text" class="form-control" readonly="true" id="sum" value="{{$pricelist->price}}" style="background-color:transparent; border: transparent" >
                                         </div>
                                     </td>
 								</tr>
@@ -181,15 +182,15 @@
                     <div class="summary">
                         <h2>Products<span>Total</span></h2>
                         <p>{{ $product->product_name }}
-                            <span><input type="text" readonly="true" class="subtotal no-focus" value="{{$product->pricelist->price}}" style="background-color:transparent; border: transparent; width: 60px;" ></span>
+                            <span><input type="text" readonly="true" class="subtotal no-focus" value="{{$pricelist->price}}" style="background-color:transparent; border: transparent; width: 60px;" ></span>
                         </p>
                         <h3 class="line">Cart subtotal<span>
-                            <input type="text" readonly="true" class="subtotal no-focus" value="{{$product->pricelist->price}}" style="background-color:transparent; border: transparent; width: 60px; color: #3333;" >    
+                            <input type="text" readonly="true" class="subtotal no-focus" value="{{$pricelist->price}}" style="background-color:transparent; border: transparent; width: 60px; color: #3333;" >    
                         </span></h3>
                         <h3 class="line2">Discount<span style="padding-right: 7%;" id="discount_val">0</span></h3>
                         <h3 class="line2">Shipping<span class="mcolor">Free shipping</span></h3>
                         <h5>Order Total Price<span>
-                            <input type="text" id="total_price" readonly="true" class="subtotal no-focus" value="{{$product->pricelist->price}}" style="background-color:transparent; border: transparent; width: 70px;" >    
+                            <input type="text" id="total_price" readonly="true" class="subtotal no-focus" value="{{$pricelist->price}}" style="background-color:transparent; border: transparent; width: 70px;" >    
                         </span></h5>
                     </div>
                 </div>
@@ -234,8 +235,9 @@
                             <input type="hidden" name="coupon_id" id="coupon_id">
                             <input type="hidden" name="product_id" id="product_id" value="{{$product->product_id}}">
                             <input type="hidden" name="quantity" id="quantity">
-                            <input type="hidden" name="unit_price" id="unit_price" value="{{$product->pricelist->price}}">
+                            <input type="hidden" name="unit_price" id="unit_price" value="{{$pricelist->price}}">
                             <input type="hidden" name="payment_mode" id="payment_mode">
+                            <input type="hidden" name="productsize_id" id="productsize_id">
                             <button type="submit" id="place_order" class="btn btn-default right-cart">Place order</button>
                         </form>
                     </div>
@@ -314,6 +316,7 @@
             $('#payment').show();
             $('#placeOrder').show();
             $('#place_order').hide();
+            $('#productsize_id').val( $('#size_id').val());
             $wallet_balance = parseFloat($('#wallet').attr('data-walletBal'));
             $amount = parseFloat($('#amount').val());
             if($amount > $wallet_balance){

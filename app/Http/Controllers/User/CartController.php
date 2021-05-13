@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Favorite;
 use App\Models\Cart;
+use App\Models\Pricelist;
 
 class CartController 
 {
@@ -14,10 +15,27 @@ class CartController
   function index(){
     if(Auth::guard('customer')->check()){
       $customer_id=Auth::guard('customer')->user()->customer_id;
+      $current_date = date('Y-m-d');
       $carts=Cart::where('customer_id',$customer_id)->get();
       $count=Cart::where('customer_id',$customer_id)->count();
+      foreach($carts as $cart){
+        $pricelistcount=Pricelist::where('productsize_id',$cart->productsize_id)
+                            ->whereDate('date_to','>=',$current_date)
+                            ->whereDate('date_from','<=',$current_date)
+                            ->count();
+        if($pricelistcount==0){
+          $cart->price='0';
+        }else{
+          $pricelist=Pricelist::where('productsize_id',$cart->productsize_id)
+                            ->whereDate('date_to','>=',$current_date)
+                            ->whereDate('date_from','<=',$current_date)
+                            ->first();
+          $cart->price=$pricelist->price;   
+        }
+      }
+      //return $cart;
       return view('user.cart',compact('carts','count'));
-    } else {
+    } else { 
       return redirect()->back();
     }
   }
@@ -30,6 +48,7 @@ class CartController
         'product_id'=>$request->product_id,
         'customer_id' =>$customer_id,
         'quantity'=>1,
+        'productsize_id'=>$request->productsize_id,
       ]);
       return response()->json(['success'=>1]);
     } else {

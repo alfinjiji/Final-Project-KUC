@@ -32,6 +32,7 @@
                       <th style="width: 10px">Id</th>
                       <th>Date_From</th>
                       <th>Date_To</th>
+                      <th>Size</th>
                       <th>Price</th>
                       <th>Status</th>
                       <th>Action</th>
@@ -43,6 +44,7 @@
                       <td>{{$loop->iteration}}</td>
                       <td>{{$pricelist->date_from}}</td>
                       <td>{{$pricelist->date_to}}</td>
+                      <td>{{$pricelist->productsize->size->size}} </td>
                       <td>{{$pricelist->price}}</td>
                       @if($pricelist->status==1)
                       <td> <span class="badge bg-success">active</span></td>

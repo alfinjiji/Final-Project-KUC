@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Material;
 use App\Models\Productimage;
 use App\Models\Rating;
+use App\Models\ProductSize;
 
 class Product extends Model
 {
@@ -45,6 +46,11 @@ class Product extends Model
     public function rating()
     {
         return $this->hasMany(Rating::class,'product_id','product_id');
+    }
+    //size
+    public function productsize()
+    {
+        return $this->hasMany(ProductSize::class,'product_id','product_id');
     }
     
     // mutator for adding new field wishlist_flag for checking product is in wishlist or not.

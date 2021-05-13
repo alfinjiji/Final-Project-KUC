@@ -8,6 +8,10 @@ use Illuminate\Http\Request;
 use App\Models\Order;
 use App\Models\OrderLine;
 use App\Models\Rating;
+use Illuminate\Support\Facades\Mail;
+use App\Models\Customer;
+use App\Mail\OrderConfirm;
+use App\Mail\OrderDelivered;
 
 class OrderController
 {
@@ -40,6 +44,37 @@ class OrderController
                    ]);
                 }
             }
+            $customer_id=$order->customer_id;
+            $customer=Customer::where('customer_id',$customer_id)->first();
+            $email=$customer->email;
+            $details=[ 
+                'url' =>'http://localhost/Project/orders',
+                'name'=>$customer->first_name
+            ];
+     
+           Mail::to($email)->send(new OrderDelivered($details));
+        }
+        if( $request->status==2){
+            $customer_id=$order->customer_id;
+            $customer=Customer::where('customer_id',$customer_id)->first();
+            $email=$customer->email;
+            $orderlines=Orderline::where('order_id',decrypt($id))->get();
+            $url='http://localhost/Project/orders';
+                $details=[ 
+                   'url' =>$url,
+                   'first_name'=>$customer->first_name,
+                   'last_name'=>$customer->last_name,
+                   'addressline1'=>$order->address->house_name.'  '.$order->address->area,
+                   'addressline2'=>$order->address->city.' '.$order->address->state.'-'.$order->address->pincode,
+                   'addressline3'=>$order->address->mobile,
+                    'subtotal'=>$order->amount + $order->discount,
+                    'discount'=>$order->discount,
+                    'total'=>$order->amount
+
+               ];
+        
+              Mail::to($email)->send(new OrderConfirm($details,$orderlines));
+
         }
         return redirect()->route('order.show')->with('message','Order status updated!');
     }

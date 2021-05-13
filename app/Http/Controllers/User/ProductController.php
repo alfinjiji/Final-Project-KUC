@@ -16,6 +16,8 @@ use App\Models\Banner;
 use App\Models\Review;
 use App\Models\Pricelist;
 use App\Models\Material;
+use App\Models\ProductSize;
+use App\Models\Size;
 
 class ProductController 
 {
@@ -105,6 +107,7 @@ class ProductController
     }
    //single product view
     function showSingleProduct($id) {
+        
         $id = decrypt($id);
         $product = Product::find($id);
         $cart = Cart::where('product_id',$product->product_id)->count();
@@ -125,7 +128,12 @@ class ProductController
         $category_id=$product->category_id;
         $similar_products=Product::where('category_id',$category_id)
                                    ->orwhere('product_name','LIKE',"%$name%")->paginate(6);
-        return view('user.single-product',compact('product','cart','review_count','reviews','similar_products'));
+       
+        $productsizes=ProductSize::whereHas('pricelist', function($query) {$current_date = date('Y-m-d');
+            $query->whereDate('date_to','>=',$current_date)
+                 ->whereDate('date_from','<=',$current_date);
+                 })->where('product_id',$product->product_id)->get();
+        return view('user.single-product',compact('product','cart','review_count','reviews','similar_products','productsizes'));
     }
     //banner product
     function showBanner($id){
@@ -325,5 +333,23 @@ class ProductController
         $category_id = $request->category_id;
         
         //return response()->json($sorted);
+    }
+    function sizeVariant(Request $request){
+        $productsize_id=$request->productsize_id;
+        $current_date = date('Y-m-d');
+        $price=Pricelist::select('price')
+                             ->whereDate('date_to','>=',$current_date)
+                             ->whereDate('date_from','<=',$current_date)
+                             ->where('productsize_id',$productsize_id)
+                             ->first();
+         $customer=Auth::guard('customer')->user()->customer_id;
+         $count=Cart::where('customer_id',$customer)->where('productsize_id',$productsize_id)->count();
+         if($count==0){
+           return response()->json(['price'=>$price->price,'flag'=>0]);
+         }else{
+            return response()->json(['price'=>$price->price,'flag'=>1]);
+         }
+        
+        
     }
 }
