@@ -207,7 +207,7 @@ class ProductController
             if($request->date_from_ajax < $request->date_to){
                 $pricelist = Pricelist::create([
                    'product_id'=>decrypt($id),
-                   'date_from'=>$request->date_from,
+                   'date_from'=>$request->date_from_ajax,
                     'date_to'=>$request->date_to,
                     'price'=>$request->price,
                     'productsize_id'=>$request->productsize_id,
@@ -241,7 +241,7 @@ class ProductController
     // price list view
     function showPricelist($id){
         $product_id = decrypt($id);
-        $pricelist = Pricelist::where('product_id',$product_id)->get();
+       $pricelist = Pricelist::where('product_id',$product_id)->get();
         return view('admin.product.pricelist',compact('product_id', 'pricelist'));
     }
     // delete price list
@@ -271,9 +271,10 @@ class ProductController
         if($count==0){
             return response()->json(['error'=>0]);
         }else{
-            $pricelist=PriceList::where('product_id',$product_id)
+            $pricelist=PriceList::where('product_id',$product_id) 
                                 ->where('productsize_id',$productsize_id)
                                 ->latest()->first();
+          
             return response()->json(['success'=>$pricelist->date_to]);
         }
     }
