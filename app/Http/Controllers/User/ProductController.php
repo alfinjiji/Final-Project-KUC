@@ -200,9 +200,10 @@ class ProductController
                                    ->whereDate('date_from','<=',$current_date)
                                    ->whereBetween('price',[$min_price,$max_price])
                                    ->get(); 
-            $products=Product::where('category_id',$category_id)
-                                ->whereIn('size',$sizes)
-                                ->get();
+            $products=Product::WhereHas('productsize', function($query) use ($sizes) {
+                $query->whereIn('size_id',$sizes);
+            })->where('category_id',$category_id)->get();
+
             foreach($products as $product){
                 $product->price=0;
                 foreach($price_lists as $price_list){
@@ -258,10 +259,11 @@ class ProductController
                                    ->whereDate('date_from','<=',$current_date)
                                    ->whereBetween('price',[$min_price,$max_price])
                                    ->get(); 
-            $products=Product::where('category_id',$category_id)
-                                ->whereIn('material_id',$material_ids)
-                                ->whereIn('size',$sizes)
-                                ->get();
+            $products=Product::WhereHas('productsize', function($query) use ($sizes) {
+                $query->whereIn('size_id',$sizes);
+            })  ->where('category_id',$category_id)
+                ->whereIn('material_id',$material_ids)->get();
+
             foreach($products as $product){
                 $product->price=0;
                 foreach($price_lists as $price_list){
@@ -278,10 +280,12 @@ class ProductController
                                    ->whereDate('date_from','<=',$current_date)
                                    ->whereBetween('price',[$min_price,$max_price])
                                    ->get(); 
-            $products=Product::where('category_id',$category_id)
-                                ->whereIn('color', $colours)
-                                ->whereIn('size',$sizes)
-                                ->get();
+
+            $products=Product::WhereHas('productsize', function($query) use ($sizes) {
+                $query->whereIn('size_id',$sizes);
+            })  ->where('category_id',$category_id)
+                ->whereIn('color', $colours)->get();
+
             foreach($products as $product){
                 $product->price=0;
                 foreach($price_lists as $price_list){
@@ -298,11 +302,13 @@ class ProductController
                                    ->whereDate('date_from','<=',$current_date)
                                    ->whereBetween('price',[$min_price,$max_price])
                                    ->get(); 
-            $products=Product::where('category_id',$category_id)
-                                ->whereIn('color', $colours)
-                                ->whereIn('material_id',$material_ids)
-                                ->whereIn('size',$sizes)
-                                ->get();
+            
+            $products=Product::WhereHas('productsize', function($query) use ($sizes) {
+                $query->whereIn('size_id',$sizes);
+            })  ->where('category_id',$category_id)
+                ->whereIn('color', $colours)
+                ->whereIn('material_id',$material_ids)->get();
+
             foreach($products as $product){
                 $product->price=0;
                 foreach($price_lists as $price_list){

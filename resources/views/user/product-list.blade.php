@@ -67,7 +67,7 @@
 						</div>
                         <div class="brands">
 							<h3>Material <i id="show_material" class="fa fa-bars"></i></h3>
-						    <div  style='overflow-y:scroll; width:auto;height:200px;' id="material">
+						    <div  style='overflow-y:scroll; width:auto;height:250px;' id="material">
                                <ul >
 								   @foreach($materials as $material)
                                    <li> <input class="m" type="checkbox" name="material" value="{{$material->material_id}}"> {{$material->material_name}} </li>
@@ -77,7 +77,7 @@
                         </div>
 						<div class="brands">
 							<h3>Colours <i id="show_color" class="fa fa-bars"></i></h3>
-						    <div style='overflow-y:scroll; width:auto;height:200px;' id="color">
+						    <div style='overflow-y:scroll; width:auto;height:250px;' id="color">
                                  <ul>
 									@foreach($colors as $color)
 									<li> <input class="color" type="checkbox" name="color" value="{{$color->color}}"> {{$color->color}} </li>
@@ -88,13 +88,13 @@
                         </div>
                         <div class="brands">
 							<h3>size <i id="show_size" class="fa fa-bars"></i></h3>
-						    <div style='overflow-y:scroll; width:auto;height:200px;' id="size">
+						    <div style='overflow-y:scroll; width:auto;height:250px;' id="size">
                                  <ul>
-                                     <li> <input class="size" type="checkbox" name="size" value="S"> S</li>
-                                     <li> <input class="size" type="checkbox" name="size" value="M">  M</li>
-									 <li> <input class="size" type="checkbox" name="size" value="L">  L</li>
-									 <li> <input class="size" type="checkbox" name="size" value="XL">  XL</li>
-									 <li> <input class="size" type="checkbox" name="size" value="XXL">  XXL</li>
+                                     <li> <input class="size" type="checkbox" name="size" value="1"> S</li>
+                                     <li> <input class="size" type="checkbox" name="size" value="2">  M</li>
+									 <li> <input class="size" type="checkbox" name="size" value="3">  L</li>
+									 <li> <input class="size" type="checkbox" name="size" value="4">  XL</li>
+									 <li> <input class="size" type="checkbox" name="size" value="5">  XXL</li>
                                      
                                  </ul>
 						    </div>
