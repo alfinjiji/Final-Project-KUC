@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use App\Models\Productsize;
+use App\Models\ProductSize;
 class Pricelist extends Model
 {
     use HasFactory;
