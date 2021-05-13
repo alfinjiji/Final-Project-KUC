@@ -51,7 +51,7 @@
                       <td>{{$product->product_name}}</td>
                       <td>{{$product->description}}</td>
                       <td>@foreach($product->productsize as $productsize)
-                          {{$productsize->size->size}}&nbsp;
+                          {{$productsize->size->size}}<br>
                           @endforeach
                       </td>
                       <td>{{$product->color}}</td>

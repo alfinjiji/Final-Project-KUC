@@ -19,6 +19,8 @@ class CreateCartsTable extends Migration
             $table->foreign('customer_id')->references('customer_id')->on('customers');
             $table->unsignedBigInteger('product_id')->nullable();
             $table->foreign('product_id')->references('product_id')->on('products');
+            $table->unsignedBigInteger('productsize_id')->nullable();
+            $table->foreign('productsize_id')->references('productsize_id')->on('product_sizes');
             $table->integer('quantity');
             $table->boolean('status')->default('1')->comment('1 active, 0 inactive');
             $table->timestamps();

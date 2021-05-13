@@ -272,7 +272,7 @@
                                     </h4>
 									
                                         <div class="product-wid-price">
-                                            <ins>${{$product->pricelist->price}}</ins> <del>${{$product->pricelist->price+($product->pricelist->price*.2)}}</del>
+                                            <ins id="price">${{$product->pricelist->price}}</ins> <del id="del_price">${{$product->pricelist->price+($product->pricelist->price*.2)}}</del>
                                         </div>
                                         <p> </p>
                                     </div>
@@ -283,8 +283,8 @@
 										<div class="col-md-6">
 											<h4><b style="color: black;">Size </b>: 
 												<select name="size" id="size">
-													@foreach($sizes as $size)
-												     <option data-id="{{$size->product_id}}" value="{{$size->size}}">{{$size->size}}</option>
+													@foreach($productsizes as $productsize) 
+												     <option data-id="{{$productsize->size->size}}" value="{{$productsize->productsize_id}}">{{$productsize->size->size}}</option>
 												    @endforeach
 											  </select>
 											</h4>
@@ -368,7 +368,12 @@
 										</div>
 										<div class="col-md-4">
 											@if(Auth::guard('customer')->check())
-												<a href="{{ route('checkout',['id'=>encrypt($product->product_id)]) }}" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus"> Buy now</a>
+											  <form method="POST" action="{{route('show.checkout')}}">
+												  @csrf
+												  <input type="text" name="product_id" value="{{$product->product_id}}" >
+												  <input type="text" name="productsize_id" id="productsize_id">
+												  <input type="submit" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus" value="Buy now">
+											  </form>
 											@else 
 												<a href="" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus" data-toggle="modal" data-target="#myModal"> Buy now</a>
 											@endif
@@ -400,7 +405,7 @@
                             </li>
                             <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Reviews</a>
                             </li>
-                            
+                          
                         </ul>
                         <!-- Tab panes -->
                         <div class="tab-content">
@@ -488,17 +493,22 @@
     <script>
 		
 	$(document).ready(function(){
+		var  productsize_id = $('#size').val();
+		$('#productsize_id').val(productsize_id);
+		
 		// ajax wishlist
 		$("#cartBtn").click(function(e){
 			e.preventDefault();
 			//var _token = $("input[name='_token']").val();
 			var product_id = $("#cartBtn").attr('data-id');
+			productsize_id=$('#productsize_id').val();
 			console.log(product_id);
 			$.ajax({
 				url: "{{ route('cart.store') }}",
 				type:'GET',
 				data: {
 						product_id:product_id, 
+						productsize_id:productsize_id,
 					  },
 				success: function(data){  
 					console.log(data);
@@ -544,25 +554,29 @@
 				});
 
 				$("select").change(function(){
-                  var size = $(this).children("option:selected").val();
+                  var  productsize_id = $(this).children("option:selected").val();
                   var product_id=$(this).children("option:selected").attr('data-id');
 				  $.ajax({
 		        		url: "{{ route('sizevariant') }}",
 		        		type:'GET',
 		        		data: {
                                // _token:_token, 
-                                product_id:product_id, 
+                                productsize_id:productsize_id, 
 
                               },
 		        		success: function(data){  
 		        			console.log(data);
-                            if(data.error==0) {  
-                                
-								
-                            } else {    
-                             
-							   
-                            }  
+                           $('#price').html(data.price);
+						   var price=data.price+(data.price*.2);
+						   $('#del_price').html(price);
+                           $('#productsize_id').val(productsize_id);
+						   if(data.flag==1) {  
+						     //error
+						     $('#cartBtn').attr('disabled','true');
+					        } else {    
+					         //success
+					         $('#cartBtn').prop('disabled','false');
+					        }  
                         } 
 		        	});
                });

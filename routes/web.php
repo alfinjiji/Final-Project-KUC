@@ -104,6 +104,7 @@ Route::group(['namespace'=>'User'],function(){
     Route::post('filter',['as'=>'filter','uses'=>'ProductController@filter']);
     Route::get('showresetpassword/{id}',['as'=>'showresetpassword','uses'=>'LoginController@showResetPassword']);
     Route::post('setpassword',['as'=>'setpassword','uses'=>'LoginController@setPassword']);
+    Route::get('sizevariant',['as'=>'sizevariant','uses'=>'ProductController@sizeVariant']);
     // cart
     Route::get('cart',['as'=>'cart','uses'=>'CartController@index']);
     Route::get('cart/store-all',['as'=>'cart.store.all','uses'=>'CartController@storeAll']);
@@ -132,14 +133,14 @@ Route::group(['namespace'=>'User'],function(){
         // user order
         Route::get('orders',['as'=>'orders','uses'=>'OrderController@index']);
         Route::get('order/{id}',['as'=>'order.destroy','uses'=>'OrderController@destroy']);
-        Route::get('checkout/{id}',['as'=>'checkout','uses'=>'OrderController@show']);
+        Route::post('show-checkout',['as'=>'show.checkout','uses'=>'OrderController@show']);
         Route::post('checkout',['as'=>'checkout.store','uses'=>'OrderController@store']);
         Route::get('checkout-cart',['as'=>'checkout.cart','uses'=>'OrderController@showCartCheckout']);
         Route::post('checkout-cart-store',['as'=>'checkout.cart.store','uses'=>'OrderController@storeCartCheckout']);
         //rate product
         Route::get('rate-store',['as'=>'rate.store','uses'=>'UserController@rateStore']);
         Route::post('review-store',['as'=>'review.store','uses'=>'UserController@reviewStore']);
-        Route::get('sizevariant',['as'=>'sizevariant','uses'=>'ProductController@sizeVariant']);
+      
     });
     
 });

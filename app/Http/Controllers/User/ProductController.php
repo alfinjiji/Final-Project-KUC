@@ -16,6 +16,8 @@ use App\Models\Banner;
 use App\Models\Review;
 use App\Models\Pricelist;
 use App\Models\Material;
+use App\Models\ProductSize;
+use App\Models\Size;
 
 class ProductController 
 {
@@ -125,12 +127,12 @@ class ProductController
         $category_id=$product->category_id;
         $similar_products=Product::where('category_id',$category_id)
                                    ->orwhere('product_name','LIKE',"%$name%")->paginate(6);
-       // $sizes=Product::select('product_id','size')->where('product_name',$product->product_name)->get();
-        $sizes=Product::select('product_id','size')->whereHas('pricelist', function($query) {$current_date = date('Y-m-d');
+       
+        $productsizes=ProductSize::whereHas('pricelist', function($query) {$current_date = date('Y-m-d');
             $query->whereDate('date_to','>=',$current_date)
                  ->whereDate('date_from','<=',$current_date);
-                 })->where('product_name',$product->product_name)->get();
-        return view('user.single-product',compact('product','cart','review_count','reviews','similar_products','sizes'));
+                 })->where('product_id',$product->product_id)->get();
+        return view('user.single-product',compact('product','cart','review_count','reviews','similar_products','productsizes'));
     }
     //banner product
     function showBanner($id){
@@ -193,13 +195,20 @@ class ProductController
         
     }
     function sizeVariant(Request $request){
-        $product_id=$request->product_id;
-        $product=Product::find($product_id);
-        $price_list=Pricelist::whereDate('date_to','>=',$current_date)
+        $productsize_id=$request->productsize_id;
+        $current_date = date('Y-m-d');
+        $price=Pricelist::select('price')
+                             ->whereDate('date_to','>=',$current_date)
                              ->whereDate('date_from','<=',$current_date)
-                             ->where('product_id',$product_id)
-                             ->get();
-        $product->price=$price_list->price;
+                             ->where('productsize_id',$productsize_id)
+                             ->first();
+         $customer=Auth::guard('customer')->user()->customer_id;
+         $count=Cart::where('customer_id',$customer)->where('productsize_id',$productsize_id)->count();
+         if($count==0){
+           return response()->json(['price'=>$price->price,'flag'=>0]);
+         }else{
+            return response()->json(['price'=>$price->price,'flag'=>1]);
+         }
         
         
     }

@@ -26,15 +26,14 @@
                       <textarea class="form-control" rows="3" placeholder="Enter Description" name="description">{{$product->description}}</textarea>
                     </div>
                   <div class="form-group">
-                    <label>Size</label> <br>
+                    <label>Add Available Size</label> <br>
                     <div class="d-flex flex-row">
-                      @if($size->size_id==1)
-                    <div  style="padding-left: 25px;"><input class="size" type="checkbox" id="s" name="sizes" value="S">&nbsp;S<br></div>
-                    <div  style="padding-left: 25px;"><input class="size" type="checkbox" id="m" name="sizes" value="M">&nbsp;M<br></div>
-                    <div  style="padding-left: 25px;"><input class="size" type="checkbox" id="l" name="sizes" value="L">&nbsp;L<br></div>
-                    <div  style="padding-left: 25px;"><input class="size" type="checkbox" id="xl" name="sizes" value="XL">&nbsp;XL<br></div>
-                    <div  style="padding-left: 25px;"><input class="size" type="checkbox" id="xxl" name="sizes" value="XXL">&nbsp;XXL<br></div>
-                    <div style="padding-left: 25px;"><input type="text" id="size" name="size"><br></div>
+                      @foreach($sizes as $size)
+                       @if($size->flag!=0)
+                       <div  style="padding-left: 25px;"><input class="size" type="checkbox" id="{{$size->size}}"  value="{{$size->size}}" >&nbsp;{{$size->size}}<br></div>
+                       @endif
+                      @endforeach
+                       <div style="padding-left: 25px;"><input type="hidden" id="size" name="size"><br></div>
                     </div>
                   </div>
                   <div class="form-group">

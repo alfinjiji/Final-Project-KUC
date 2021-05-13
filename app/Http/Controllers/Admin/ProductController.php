@@ -92,12 +92,25 @@ class ProductController
         $categorys = Category::all();
         $materials = Material::all();
         $product =Product::find(decrypt($id));
-        $size=ProductSize::select('size_id')->where('product_id',decrypt($id))->get();
-        return view('admin.product.edit',compact('product', 'categorys', 'materials','size'));
+        $sizes=Size::all();
+        foreach($sizes as $size){
+            $count=ProductSize::where('product_id',decrypt($id))
+                                ->where('size_id',$size->size_id)
+                                ->count();
+            if($count==0){
+                $size->flag=1;
+            }else{
+                $size->flag=0;
+            }
+        }
+    
+        return view('admin.product.edit',compact('product', 'categorys', 'materials','sizes'));
     }
     // edit product
     function update(Request $request, $id){
         $product = Product::find(decrypt($id));
+        $sizes= explode(",",$request->size);
+    
         /*
         $product_image = Productimage::find($request->image_id);
         if($request->image!=''){ 
@@ -111,11 +124,19 @@ class ProductController
             */
         $product->product_name = $request->product_name;
         $product->description = $request->description;
-        $product->size = $request->size;
         $product->color = $request->color;
         $product->category_id = $request->category_id;
         $product->material_id = $request->material_id;
         $product->save();
+        if($request->size!=''){
+           foreach($sizes as $size){
+               $size_id=Size::select('size_id')->where('size',$size)->first();
+               ProductSize::create([
+                   'product_id'=>$product->product_id,
+                   'size_id'=>$size_id->size_id,
+               ]);
+           } 
+        } 
         return redirect()->route('product.show')->with('message', 'product updated!');
     }
     // delete product
@@ -182,20 +203,40 @@ class ProductController
     }
     // do add price
     function storePrice(Request $request, $id){
-        if($request->date_from < $request->date_to){
-           $pricelist = Pricelist::create([
-              'product_id'=>decrypt($id),
-              'date_from'=>$request->date_from,
-               'date_to'=>$request->date_to,
-               'price'=>$request->price,
-               'productsize_id'=>$request->productsize_id,
-            ]);
-            $product=Product::find(decrypt($id));
-            $product->status=1;
-            $product->save();
-            return redirect()->route('product.show')->with('message','Price list added successfully!');
+        if($request->flag==1){
+            if($request->date_from_ajax < $request->date_to){
+                $pricelist = Pricelist::create([
+                   'product_id'=>decrypt($id),
+                   'date_from'=>$request->date_from,
+                    'date_to'=>$request->date_to,
+                    'price'=>$request->price,
+                    'productsize_id'=>$request->productsize_id,
+                 ]);
+                 $product=Product::find(decrypt($id));
+                 $product->status=1;
+                 $product->save();
+                 return redirect()->route('product.show')->with('message','Price list added successfully!');
+             }
+             return redirect()->route('create.price',['id'=>$id])->with('message','Please confirm To-Date greater than From-Date');
         }
-         return redirect()->route('create.price',['id'=>$id])->with('message','Please confirm To-Date greater than From-Date');
+        if($request->flag==0){
+            if($request->date_from < $request->date_to){
+                $pricelist = Pricelist::create([
+                   'product_id'=>decrypt($id),
+                   'date_from'=>$request->date_from,
+                    'date_to'=>$request->date_to,
+                    'price'=>$request->price,
+                    'productsize_id'=>$request->productsize_id,
+                 ]);
+                 $product=Product::find(decrypt($id));
+                 $product->status=1;
+                 $product->save();
+                 return redirect()->route('product.show')->with('message','Price list added successfully!');
+             }
+             return redirect()->route('create.price',['id'=>$id])->with('message','Please confirm To-Date greater than From-Date');
+        }
+        
+         
     }
     // price list view
     function showPricelist($id){
@@ -232,7 +273,7 @@ class ProductController
         }else{
             $pricelist=PriceList::where('product_id',$product_id)
                                 ->where('productsize_id',$productsize_id)
-                                ->first();
+                                ->latest()->first();
             return response()->json(['success'=>$pricelist->date_to]);
         }
     }
