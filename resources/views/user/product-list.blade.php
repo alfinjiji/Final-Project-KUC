@@ -113,9 +113,92 @@
 					</form>
                 </div>
                 <div class="col-md-9 col-sm-9 col-xs-12">
-                    <div class="row">
+					<!-- filtered product -->
+                    <div class="row" id="filterProduct">
 						<input type="hidden" value="{{ $category_id }}" id="category_id">
                         @foreach($products as $product)
+						    @if($product->price!=0)
+                                <div class="col-md-4 col-sm-4 col-xs-12">
+                                    <div class="product-single">
+                                        <a href="{{route('single.product',['id'=>encrypt($product->product_id)])}}"><img src="{{asset('storage/app/'.$product->productimage->image)}}" alt="#"></a>
+						        		
+						        		@if(Auth::guard('customer')->check())
+						        			@if($product->wishlist_flag == 0)
+						        				<button type="submit" class="wishlist_btn" data-id="{{ $product->product_id }}">
+						        					<span class="PrdWishlist "><i id="{{ $product->product_id }}" class="PrdWishlistActive fa fa-heart color_change" aria-hidden="true"></i></span>
+						        				</button>
+						        			@else 
+						        				<button type="submit" class="wishlist_btn" data-id="{{ $product->product_id }}">
+						        					<span class="PrdWishlist "><i id="{{ $product->product_id }}" class="PrdWishlist fa fa-heart color_change" aria-hidden="true"></i></span>
+						        				</button>
+						        			@endif
+						        		@else 
+						        			<button type="submit" class="wishlist_btn" data-toggle="modal" data-target="#myModal">
+						        				<span class="PrdWishlist "><i class="PrdWishlistActive fa fa-heart color_change" aria-hidden="true"></i></span>
+						        			</button>
+						        		@endif
+                                        <div class="hot-wid-rating">
+                                            <h4><a href="{{route('single.product',['id'=>encrypt($product->product_id)])}}">{{$product->product_name}}</a></h4>
+						        			@for($i=1;$i<=$product->rating;$i++)
+						        			<i class="fa fa-star checked"></i>
+						        		   @endfor
+						        			@for($i=5-$product->rating;$i>0;$i--)
+						        			<i class = "fa fa-star unchecked"></i>
+						        			@endfor
+                                            <div class="product-wid-price">
+                                                <ins>${{$product->price}}</ins>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+							@endif
+                        @endforeach
+                    </div>
+					<!-- product by asc -->
+					<div class="row" id="productByAsc">
+						<input type="hidden" value="{{ $category_id }}" id="category_id">
+                        @foreach($products_asc as $product)
+						    @if($product->price!=0)
+                                <div class="col-md-4 col-sm-4 col-xs-12">
+                                    <div class="product-single">
+                                        <a href="{{route('single.product',['id'=>encrypt($product->product_id)])}}"><img src="{{asset('storage/app/'.$product->productimage->image)}}" alt="#"></a>
+						        		
+						        		@if(Auth::guard('customer')->check())
+						        			@if($product->wishlist_flag == 0)
+						        				<button type="submit" class="wishlist_btn" data-id="{{ $product->product_id }}">
+						        					<span class="PrdWishlist "><i id="{{ $product->product_id }}" class="PrdWishlistActive fa fa-heart color_change" aria-hidden="true"></i></span>
+						        				</button>
+						        			@else 
+						        				<button type="submit" class="wishlist_btn" data-id="{{ $product->product_id }}">
+						        					<span class="PrdWishlist "><i id="{{ $product->product_id }}" class="PrdWishlist fa fa-heart color_change" aria-hidden="true"></i></span>
+						        				</button>
+						        			@endif
+						        		@else 
+						        			<button type="submit" class="wishlist_btn" data-toggle="modal" data-target="#myModal">
+						        				<span class="PrdWishlist "><i class="PrdWishlistActive fa fa-heart color_change" aria-hidden="true"></i></span>
+						        			</button>
+						        		@endif
+                                        <div class="hot-wid-rating">
+                                            <h4><a href="{{route('single.product',['id'=>encrypt($product->product_id)])}}">{{$product->product_name}}</a></h4>
+						        			@for($i=1;$i<=$product->rating;$i++)
+						        			<i class="fa fa-star checked"></i>
+						        		   @endfor
+						        			@for($i=5-$product->rating;$i>0;$i--)
+						        			<i class = "fa fa-star unchecked"></i>
+						        			@endfor
+                                            <div class="product-wid-price">
+                                                <ins>${{$product->price}}</ins>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+							@endif
+                        @endforeach
+                    </div>
+					<!-- product by desc -->
+					<div class="row" id="productByDesc">
+						<input type="hidden" value="{{ $category_id }}" id="category_id">
+                        @foreach($products_desc as $product)
 						    @if($product->price!=0)
                                 <div class="col-md-4 col-sm-4 col-xs-12">
                                     <div class="product-single">
@@ -187,6 +270,8 @@
 				$('#color').hide();
 				$('#size').hide();
 				$('#price').show();
+				$('#productByAsc').hide();
+				$('#productByDesc').hide();
 				var material=[];
 				var size=[];
 				var color=[];
@@ -222,7 +307,9 @@
 					$('#info_text').text("");
 				});
 				$("#sort_desc").click(function(){
-					//
+					$('#filterProduct').hide();
+					$('#productByAsc').hide();
+					$('#productByDesc').show();
 				});
 
 				//sort asc info
@@ -232,33 +319,11 @@
                 $("#sort_asc").mouseout(function(){
 					$('#info_text').text("");
 				});
-				// ajax sort asc
-				$("#sort_asc").click(function(e){
-		        	e.preventDefault();
-					var products = {!! json_encode($products->toArray(), JSON_HEX_TAG) !!};
-					var category_id = $("#category_id").val();
-					var sort_by = 'asc';
-					console.log(products);
-					console.log(sort_by);
-		        	$.ajax({
-		        		url: "{{ route('product.sort') }}",
-		        		type:'GET',
-		        		data: {
-                               	// _token:_token, 
-								products:products,
-                            	category_id:category_id, 
-                            	sort_by:sort_by, 
-                              },
-		        		success: function(data){  
-		        			console.log(data);
-                            if(data.error==0) {  
-                                //remove from wishlist
-                            } else {    
-                               //add to wishlist 
-                            }  
-                        } 
-		        	});
-		        });
+				$("#sort_asc").click(function(){
+					$('#filterProduct').hide();
+					$('#productByDesc').hide();
+					$('#productByAsc').show();
+				});
 
                 // for selected material
                 $('.m').click(function(){

@@ -102,10 +102,10 @@ Route::group(['namespace'=>'User'],function(){
     Route::get('products/{name}',['as'=>'products.show','uses'=>'ProductController@show']);
     Route::get('banner-product/{id}',['as'=>'banner.show','uses'=>'ProductController@showBanner']);
     Route::post('filter',['as'=>'filter','uses'=>'ProductController@filter']);
-    Route::get('product-sort',['as'=>'product.sort','uses'=>'ProductController@sort']);
     Route::get('showresetpassword/{id}',['as'=>'showresetpassword','uses'=>'LoginController@showResetPassword']);
     Route::post('setpassword',['as'=>'setpassword','uses'=>'LoginController@setPassword']);
     Route::get('sizevariant',['as'=>'sizevariant','uses'=>'ProductController@sizeVariant']);
+    Route::get('product-sort/{category_id}',['as'=>'product.sort','uses'=>'ProductController@sort']);
     // cart
     Route::get('cart',['as'=>'cart','uses'=>'CartController@index']);
     Route::get('cart/store-all',['as'=>'cart.store.all','uses'=>'CartController@storeAll']);
