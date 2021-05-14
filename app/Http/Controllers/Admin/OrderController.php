@@ -53,6 +53,7 @@ class OrderController
             ];
      
            Mail::to($email)->send(new OrderDelivered($details));
+          
         }
         if( $request->status==2){
             $customer_id=$order->customer_id;

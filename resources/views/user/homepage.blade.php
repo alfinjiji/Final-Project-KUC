@@ -126,25 +126,27 @@ data-endspeed="1000"
                             </div>
                             <div role="tabpanel" class="tab-pane" id="profile">
                                 <div class="row">
+                                    @foreach($popular_men as $men)
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access4.png')}}" alt="">
+                                            <a href="{{route('single.product',['id'=>encrypt($men->product_id)])}}"><img src="{{ asset('storage/app/'.$men->productimage->image) }}" alt="">
                                             </a>
 
                                             <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">Trendy Shoes For Women</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
+                                                <h4><a href="single-product.html">{{$men->product_name}}</a></h4>
+                                                @for($i=1;$i<=$men->rating;$i++)
+                                                <i class="fa fa-star checked"></i>
+                                                @endfor
+                                                @for($i=5-$men->rating;$i>0;$i--)
+                                                <i class = "fa fa-star unchecked"></i>
+                                               @endfor
                                                 <div class="product-wid-price">
-                                                    <ins>$250.00</ins>
+                                                    <ins>{{$men->pricelist->price}}</ins>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    
+                                    @endforeach
                                 </div>
                             </div>
                            
@@ -240,25 +242,27 @@ data-endspeed="1000"
                             </div>
                             <div role="tabpanel" class="tab-pane" id="profilewomen">
                                 <div class="row">
+                                    @foreach($popular_women as $woman)
                                     <div class="col-md-3 col-sm-3 col-xs-12">
                                         <div class="women-single">
-                                            <a href="#"><img src="{{ asset('public/user-templates/images/women_access4.png')}}" alt="">
+                                            <a href="{{route('single.product',['id'=>encrypt($woman->product_id)])}}"><img src="{{ asset('storage/app/'.$woman->productimage->image) }}" alt="">
                                             </a>
 
                                             <div class="hot-wid-rating">
-                                                <h4><a href="single-product.html">Trendy Shoes For Women</a></h4>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star"></i>
-                                                <i class="fa fa-star-half-o"></i>
+                                                <h4><a href="single-product.html">{{$woman->product_name}}</a></h4>
+                                                @for($i=1;$i<=$woman->rating;$i++)
+                                                <i class="fa fa-star checked"></i>
+                                                @endfor
+                                                @for($i=5-$woman->rating;$i>0;$i--)
+                                                <i class = "fa fa-star unchecked"></i>
+                                               @endfor
                                                 <div class="product-wid-price">
-                                                    <ins>$250.00</ins>
+                                                    <ins>{{$woman->pricelist->price}}</ins>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    
+                                    @endforeach
                                 </div>
                             </div>
                            
@@ -361,7 +365,6 @@ data-endspeed="1000"
                         <a href="{{route('single.product',['id'=>encrypt($product->product_id)])}}"><img src="{{ asset('storage/app/'.$product->productimage->image) }}" alt="#">
                         </a>
                         <div class="tag new">
-                            <span>new</span>
                     </div>
                         <div class="hot-wid-rating">
                             <h4>{{$product->product_name}}</h4>

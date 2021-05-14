@@ -103,9 +103,21 @@
                                         <input type="number" size="4" data-id="{{ $loop->iteration }}" data-cart="{{$cart->cart_id}}" class="input-text qty text Btn" title="Qty" value="{{$cart->quantity}}" name="quantity[113]" max="119" min="1" step="1" id="Qty{{ $loop->iteration }}">
                                     </div>
                                 </td>
+                                @if($cart->price!=0)
                                 <td class="cart-product-price"><div class="cc-pr">{{$cart->price}} <input type="hidden" id="price{{ $loop->iteration }}" value="{{$cart->price}}"></div></td>
+                                @else 
+                                <td class="cart-product-price"><div style="color: red;"> Out of stock </div></td>
+                                @endif
+                                @if($cart->price!=0)
                                 <td class="cart-product-delivery"><div class="cc-pr">free shipping</div></td>
+                                @else 
+                                <td class="cart-product-price"><div> &nbsp;&nbsp;</div></td>
+                                @endif
+                                @if($cart->price!=0)
                                 <td class="cart-product-sub-total"><div class="cc-pr"><input type="text"  class="form-control" readonly="true" id="sum{{ $loop->iteration }}" value="{{$cart->price * $cart->quantity}}" style="background-color:transparent; border: transparent" ></div></td>
+                                @else 
+                                <td class="cart-product-sub-total"><div class="cc-pr"><input type="hidden"  class="form-control" readonly="true" id="sum{{ $loop->iteration }}" value="{{0}}" style="background-color:transparent; border: transparent"  ></div></td>
+                                @endif
                                 <td class="romove-item">
                                     <a href="{{route('cart.destroy',['id'=>encrypt($cart->cart_id)])}}"><img src="{{ asset('public/user-templates/images/remove.png')}}" alt="">
                                     </a>

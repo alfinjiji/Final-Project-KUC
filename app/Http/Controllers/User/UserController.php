@@ -29,10 +29,13 @@ class UserController
                       ->where('status',1)->latest()->get();
         $latest_product=Product::where('status',1)->latest()->get();
         $menus=Menu::latest()->get();
-        $products=OrderLine::select('product_id')->groupBy('product_id')->get();        
-       //return $products;
+        $products=OrderLine::select('product_id')->groupBy('product_id')->get(); 
+        $popular_men=Product::where('category_id',$category_men->category_id)
+                             ->orderBy('rating','DESC')->get();
+        $popular_women=Product::where('category_id',$category_women->category_id)
+                               ->orderBy('rating','DESC')->get();
       
-        return view('user.homepage',compact('banners','latest_men','latest_women','latest_product','menus'));
+        return view('user.homepage',compact('banners','latest_men','latest_women','latest_product','menus','popular_men','popular_women'));
     }
     // user profile
     function profile(){

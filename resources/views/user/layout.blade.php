@@ -168,8 +168,7 @@
 										<li><a href="{{route('coupon')}}">Coupon</a></li>
 										<li><a href="{{route('orders')}}">Orders</a></li>
 										<li><a href="{{route('products.show',['name'=>encrypt('all')])}}">Shopping</a></li>
-										@else 
-										<li><a href="{{route('products.show',['name'=>encrypt('all')])}}">Shopping</a></li>
+										 
 										@endif
 									</ul>
 								</li>
@@ -318,17 +317,10 @@
 											<a class="dropdown-toggle" data-toggle="dropdown" href="#">All Categories <b class="caret"></b></a>
 
 											<ul class="dropdown-menu" role="menu" >
-
-												<li role="presentation" ><a role="menuitem" tabindex="-1" href="#">Fashion</a>
+                                                @foreach($layout_categories as $category)
+												<li role="presentation" ><a role="menuitem" tabindex="-1" href="#">{{$category->category_name}}</a>
 												</li>
-												<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Watches</a>
-												</li>
-												<li role="presentation"><a role="menuitem" tabindex="-1" href="#">House Wares</a>
-												</li>
-												<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Desktop</a>
-												</li>
-												<li role="presentation"><a role="menuitem" tabindex="-1" href="#">Smartphones</a>
-												</li>
+												@endforeach
 
 
 											</ul>
@@ -358,25 +350,11 @@
 							<ul id="nav">
 								<li>Categories <i class="fa fa-bars"></i>
 									<ul>
-										<li><a href="#"><i class="fa fa-male"></i> Fashion</a> </li>
-										<li><a href="#"><i class="fa fa-clock-o"></i> Watches<i class="fa fa-angle-right icon-right"></i></a>
+										@foreach($layout_categories as $category)
+										<li><a href="#"><i class="fa fa-clock-o"></i> {{$category->category_name}}<i class="fa fa-angle-right icon-right"></i></a>
 										</li>
-										<li><a href="#"><i class="fa fa-home"></i>House Wares  <i class="fa fa-angle-right icon-right"></i></a> </li>
-										<li><a href="#"><i class="fa fa-desktop"></i> Desktop & Monitors <i class="fa fa-angle-right icon-right"></i></a>
-										</li>
-										<li><a href="#"><i class="fa fa-mobile"></i> Smartphones</a> </li>
-										<li><a href="#"><i class="fa fa-laptop"></i> Laptop & Tablates <i class="fa fa-angle-right icon-right"></i></a>
-										</li>
-										<li><a href="#"><i class="fa fa-lightbulb-o"></i> Light & Lamps <i class="fa fa-angle-right icon-right"></i></a>
-										</li>
-										<li><a href="#"><i class="fa fa-volume-up"></i> Sound & Audio</a>
-										</li>
-										<li><a href="#"><i class="fa fa-heart-o"></i> Health & Medical</a>
-										</li>
-										<li><a href="#"><i class="fa fa-wheelchair"></i> Gym Equipments</a>
-										</li>
-										<li class="last-li"><a href="#">View all categories</a>
-										</li>
+										@endforeach
+										
 									</ul>
 								</li>
 							</ul>
@@ -388,7 +366,7 @@
 								<li class="active"><a href="{{route('home')}}">Home </a>
 									
 								</li>
-								<li><a href="#">Pages <i class="fa fa-caret-down"></i></a>
+							<!--	<li><a href="#">Pages <i class="fa fa-caret-down"></i></a>
 									<ul class="drop_nav">
 										<li><a href="{{route('home')}}">Blog</a></li>
 										<li><a href="{{route('home')}}">Checkout</a></li>
@@ -400,23 +378,23 @@
 										<li><a href="">wishlist</a></li>
 										<li><a href="404.html">404</a></li>
 									</ul>
-								</li>
+								</li> -->
 								<!-- men -->
-								<li><a href="{{route('products.show',['name'=>encrypt('men')])}}">Men <i class="fa fa-caret-down"></i></a>
-									<ul class="drop_nav">
+								<li><a href="{{route('products.show',['name'=>encrypt('men')])}}">Men</a>
+								<!--	<ul class="drop_nav">
 										<li><a href="">Blog</a></li>
 										<li><a href="">Checkout</a></li>
 										<li><a href="">Product list</a></li>
 										<li><a href="">Search result</a></li>
 										<li><a href="">Single product</a></li>
 										<li><a href="">wishlist</a></li>
-										<li><a href="">404</a></li>
-									</ul>
+										<li><a href="">404</a></li> 
+									</ul>-->
 								</li>
 								<!-- end men -->
 								<!-- women -->
-								<li><a href="{{route('products.show',['name'=>encrypt('women')])}}">Women <i class="fa fa-caret-down"></i></a>
-									<ul class="drop_nav">
+								<li><a href="{{route('products.show',['name'=>encrypt('women')])}}">Women</a>
+									<!--<ul class="drop_nav">
 										<li><a href="">Blog</a></li>
 										<li><a href="">Checkout</a></li>
 										<li><a href="">Product list</a></li>
@@ -424,7 +402,7 @@
 										<li><a href="">Single product</a></li>
 										<li><a href="">wishlist</a></li>
 										<li><a href="">404</a></li>
-									</ul>
+									</ul> -->
 								</li>
 								<!-- end women -->
 							</ul>
@@ -482,7 +460,7 @@
 							@else
 							<a href=""  data-toggle="modal" data-target="#myModal"><i class="fa fa-shopping-cart"></i>My Cart</a>	
 							@endif
-							<span>2</span>
+							<span>{{$layout_count}}</span>
 
 						</div>
 					</div>
@@ -719,6 +697,13 @@
 		$('#back').show(); 
 		
 	});
+   $('#search').click(function(){
+	   var data=$('#element').val();
+	   if(data==''){
+		   return false;
+	   }
+   });
+
 	$("#back").click(function(){
     	$("#forgot_password_form").hide();
 		$('#loginForm').show(); 

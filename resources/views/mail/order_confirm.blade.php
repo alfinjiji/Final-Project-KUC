@@ -28,6 +28,7 @@
                         <th>No:</th>
                         <th>Image</th>
                         <th>Product</th>
+                        <th>Size</th>
                         <th>Qty</th>
                         <th>Unit Price</th>
                         <th>Subtotal</th>
@@ -40,6 +41,7 @@
                             <td>{{$loop->iteration}}</td>
                             <td><img style="height: 75px; width:100px;" src="http://localhost/Project/storage/app/"{{$orderline->product->productimage->image}}></td>
                             <td>{{$orderline->product->product_name}}</td>
+                            <td>{{$orderline->productsize->size->size}}</td>
                             <td>{{$orderline->quantity}}</td>
                             <td>{{$orderline->unit_price}}</td>
                             <td>{{$orderline->sum}}</td>

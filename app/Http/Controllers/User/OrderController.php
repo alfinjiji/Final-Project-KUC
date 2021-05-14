@@ -13,7 +13,7 @@ use App\Models\OrderLine;
 use App\Models\Cart;
 use App\Models\Wallet;
 use App\Models\Rating;
-use App\Models\Review;
+use App\Models\Review; 
 use App\Models\ProductSize;
 use App\Models\Pricelist;
 class OrderController
@@ -214,7 +214,7 @@ class OrderController
         $current_date = date('Y-m-d');
         $customer_id=Auth::guard('customer')->user()->customer_id;
         $carts = Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->get();
-        $cart_count = Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->count();
+        $cart_count = 0;
         $addresses = CustomerAddress::where('customer_id',Auth::guard('customer')->user()->customer_id)->get();
         $address_count = CustomerAddress::where('customer_id',Auth::guard('customer')->user()->customer_id)->count();
         $wallet=Customer::find($customer_id);
@@ -231,8 +231,10 @@ class OrderController
                                 ->whereDate('date_from','<=',$current_date)
                                 ->first();
               $cart->price=$pricelist->price;   
+              $cart_count=$cart_count+1;
             }
           }
+          
         return view('user.cart_checkout',compact('carts','cart_count','addresses','address_count','wallet'));
     }
     // order all products in cart

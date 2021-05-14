@@ -113,6 +113,7 @@ Route::group(['namespace'=>'User'],function(){
     Route::get('cart-clear',['as'=>'cart.clear','uses'=>'CartController@clear']);
     Route::get('cart-store',['as'=>'cart.store','uses'=>'CartController@store']);
     Route::get('cart-update',['as'=>'cart.update','uses'=>'CartController@update']);
+    Route::get('cart-check',['as'=>'cart.check','uses'=>'CartController@check']);
    
     Route::group(['middleware'=>'CustomerCheck'],function(){
         // profile

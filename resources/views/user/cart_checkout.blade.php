@@ -109,36 +109,38 @@
 							<!-- /thead -->
 							<tbody>
                                 @foreach($carts as $cart)
-								<tr>
-									<td class="cart-image">
-										<a href="#" class="entry-thumbnail">
-											<img src="{{asset('storage/app/'.$cart->product->productimage->image)}} " alt="">
-										</a>
-									</td>
-									<td class="cart-product-name-info">
-									   <div class="cc-tr-inner">
-											<h4 class="cart-product-description"><a href="#l">{{ $cart->product->product_name }}</a></h4>
-											<div class="cart-product-info">
-												<span class="product-color">COLOR :</span><span>{{ $cart->product->color }}</span>
-												<br>
-												<span class="product-color">Size :</span><span>{{ $cart->productsize->size->size }}</span>
-											</div>
-									   </div>
-									</td>
-									<td class="cart-product-quantity">
-										<div class="cart-quantity">
-											<div class="quant-input">
-												<input type="number" style="border: none;" class="input-text qty text no-focus" value="{{$cart->quantity}}" id="qty" name="quantity" readonly>
-											</div>
-										</div>
-									</td>
-									<td class="cart-product-price"><div class="cc-pr">${{ $cart->price }}</div></td>
-									<td class="cart-product-sub-total">
-                                        <div class="cc-pr float-right">
-                                            <input type="text" class="form-control" id="subtotal{{ $loop->iteration }}" data-subtotal{{$loop->iteration}}="{{$cart->price * $cart->quantity}}" readonly="true" value="${{$cart->price * $cart->quantity}}" style="background-color:transparent; border: transparent;" >
-                                        </div>
-                                    </td>
-								</tr>
+                                @if($cart->price!=0)
+								    <tr>
+								    	<td class="cart-image">
+								    		<a href="#" class="entry-thumbnail">
+								    			<img src="{{asset('storage/app/'.$cart->product->productimage->image)}} " alt="">
+								    		</a>
+								    	</td>
+								    	<td class="cart-product-name-info">
+								    	   <div class="cc-tr-inner">
+								    			<h4 class="cart-product-description"><a href="#l">{{ $cart->product->product_name }}</a></h4>
+								    			<div class="cart-product-info">
+								    				<span class="product-color">COLOR :</span><span>{{ $cart->product->color }}</span>
+								    				<br>
+								    				<span class="product-color">Size :</span><span>{{ $cart->productsize->size->size }}</span>
+								    			</div>
+								    	   </div>
+								    	</td>
+								    	<td class="cart-product-quantity">
+								    		<div class="cart-quantity">
+								    			<div class="quant-input">
+								    				<input type="number" style="border: none;" class="input-text qty text no-focus" value="{{$cart->quantity}}" id="qty" name="quantity" readonly>
+								    			</div>
+								    		</div>
+								    	</td>
+								    	<td class="cart-product-price"><div class="cc-pr">${{ $cart->price }}</div></td>
+								    	<td class="cart-product-sub-total">
+                                            <div class="cc-pr float-right">
+                                                <input type="text" class="form-control" id="subtotal{{ $loop->iteration }}" data-subtotal{{$loop->iteration}}="{{$cart->price * $cart->quantity}}" readonly="true" value="${{$cart->price * $cart->quantity}}" style="background-color:transparent; border: transparent;" >
+                                            </div>
+                                        </td>
+								    </tr>
+                                @endif
                                 @endforeach
 							</tbody>
 							<!-- /tbody -->
@@ -182,9 +184,11 @@
                     <div class="summary">
                         <h2>Products<span>Total</span></h2>
                         @foreach($carts as $cart)
+                        @if($cart->price!=0)
                             <p>{{ $cart->product->product_name }}
                                 <span><input type="text" readonly="true" class="subtotal no-focus" value="{{$cart->price * $cart->quantity}}" data-subtotal="{{$cart->price * $cart->quantity}}" style="background-color:transparent; border: transparent; width: 40px;" ></span>
                             </p>
+                        @endif
                         @endforeach
                         <h3 class="line">Cart subtotal<span>
                             <input type="text" readonly="true" id="cart_total" class="subtotal no-focus" value="" style="background-color:transparent; border: transparent; width: 60px;" >    

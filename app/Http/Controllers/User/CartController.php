@@ -42,7 +42,10 @@ class CartController
   // add to cart
   function store(Request $request){
     $customer_id=Auth::guard('customer')->user()->customer_id;
-    $count=Cart::where('product_id',$request->product_id)->count();
+    $count=Cart::where('product_id',$request->product_id)
+                -> where('productsize_id',$request->productsize_id)
+                -> where('customer_id',$customer_id)
+                ->count();
     if($count==0){
       Cart::create([
         'product_id'=>$request->product_id,
@@ -93,6 +96,20 @@ class CartController
     $cart = Cart::find($request->cart);
     $cart->quantity = $request->quantity;
     $cart->save();
+  }
+  //check product in cart
+  function check(Request $request){
+    $customer_id=Auth::guard('customer')->user()->customer_id;
+    $count=Cart::where('product_id',$request->product_id)
+                -> where('productsize_id',$request->productsize_id)
+                -> where('customer_id',$customer_id)
+                ->count();
+    if($count==0){
+      return response()->json(['error'=>0]);
+    }else{
+      return response()->json(['success'=>1]);
+    }
+
   }
 }
 

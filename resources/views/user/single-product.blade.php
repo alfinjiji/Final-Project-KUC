@@ -256,6 +256,7 @@
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <div class="single-product-content">
                                     <h3>{{ $product->product_name }}</h3>
+									<input type="hidden" value="{{ $product->product_id }}" id="product_id">
                                     <div class="product-review">
                                         <ul>
                                             <li>
@@ -357,13 +358,10 @@
 									<div class="row" style="padding-top: 20px;">
 										<div class="col-md-4">
 											@if(Auth::guard('customer')->check())
-												@if($cart == 0)
+												
 												    <input type="button"  id="cartBtn"  data-id="{{ $product->product_id}}" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus" value="Add to cart">
 													<!--<a href="" id="cartBtn" data-id="{{ $product->product_id}}" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus"> Add to cart</a> -->
-												@else 
-												<input type="button" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus" disabled value=" Add to cart">
-												<!--<a href="#" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus" disabled> Add to cart</a> -->
-												@endif
+												
 											@else
 												<a href=""  data-toggle="modal" data-target="#myModal" class="fa fa-shopping-cart btn btn-warning btn-block btn-cus"> Add to cart</a>	
 											@endif
@@ -497,8 +495,29 @@
 	$(document).ready(function(){
 		var  productsize_id = $('#size').val();
 		$('#productsize_id').val(productsize_id);
+		 product_id = $("#product_id").val();
+		//page load cart ajax
+		$.ajax({
+				url: "{{ route('cart.check') }}",
+				type:'GET',
+				data: {
+						product_id:product_id,  
+						productsize_id:productsize_id,
+					  },
+				success: function(data){  
+					console.log(data);
+					if(data.error==0) {  
+						//error
+						$('#cartBtn').attr('disabled',false);
+						//alert("already in cart");
+					} else {    
+					   //success
+					   $('#cartBtn').attr('disabled',true);
+					}  
+				} 
+			});
 		
-		// ajax wishlist
+			// ajax wishlist
 		$("#cartBtn").click(function(e){
 			e.preventDefault();
 			//var _token = $("input[name='_token']").val();
@@ -509,7 +528,7 @@
 				url: "{{ route('cart.store') }}",
 				type:'GET',
 				data: {
-						product_id:product_id, 
+						product_id:product_id,  
 						productsize_id:productsize_id,
 					  },
 				success: function(data){  
