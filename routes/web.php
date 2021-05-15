@@ -142,6 +142,8 @@ Route::group(['namespace'=>'User'],function(){
         //rate product
         Route::get('rate-store',['as'=>'rate.store','uses'=>'UserController@rateStore']);
         Route::post('review-store',['as'=>'review.store','uses'=>'UserController@reviewStore']);
+        // payment
+        Route::post('payment',['as'=>'payment.store','uses'=>'PaymentController@store']);
       
     });
     

@@ -8,6 +8,7 @@ use App\Models\CustomerAddress;
 use App\Models\Customer;
 use App\Models\Coupon;
 use App\Models\OrderLine;
+use App\Models\Payment;
 
 class Order extends Model
 {
@@ -24,8 +25,10 @@ class Order extends Model
     public function coupon(){
         return $this->hasOne(Coupon::class, 'coupon_id','coupon_id');
     }
-    public function orderline()
-    { 
+    public function orderline(){ 
         return $this->hasMany(OrderLine::class,'order_id','order_id');
+    }
+    public function payment(){
+        return $this->hasOne(Payment::class,'order_id','order_id');
     }
 }

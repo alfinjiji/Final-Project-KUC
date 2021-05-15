@@ -34,7 +34,7 @@ class CouponController
                 } else {
                     $subtotal = $subtotal - $coupon->type_value;
                 }
-            return response()->json(['grandtotal'=>$subtotal,'coupon_id'=>$coupon->coupon_id]);
+            return response()->json(['grandtotal'=>$subtotal,'coupon_code'=>$coupon->code]);
         } else {
             return response()->json(['error'=>0]);
         }
