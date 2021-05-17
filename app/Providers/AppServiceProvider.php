@@ -26,11 +26,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // every single view
-        if(Auth::guard('customer')->check()){
+        
             $count=Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->count();
-        }else{
-            $count=0;  
-        }
+       
         view()->share('layout_categories', Category::orderBy('category_name')->get());
         view()->share('layout_count', $count);
     }

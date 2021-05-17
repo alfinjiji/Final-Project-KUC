@@ -14,8 +14,11 @@ use App\Models\Menu;
 use App\Models\OrderLine;
 use App\Models\Rating;
 use App\Models\Review;
+use App\Models\Order;
+use App\Models\Address;
+use App\Models\CustomerAddress;
 use Illuminate\Support\Facades\Hash;
-
+use PDF;
 class UserController
 {   
     // home page
@@ -128,5 +131,32 @@ class UserController
             $review->save();
         }
        return redirect()->back();
+    }
+
+    function invoice($id){
+        $id=decrypt($id);
+        //return $id;
+        $orderline=Orderline::find($id);
+        $order_id=$orderline->order_id;
+        $order=Order::find($order_id);
+        $customer_id=$order->customer_id;
+        $customer=Customer::find($customer_id);
+        $customeraddress_id=$order->customer_address_id;
+        $customeraddress=CustomerAddress::find($customeraddress_id);
+        return view('user.invoice',compact('orderline','order','customeraddress','customer'));
+    }
+    function generatePdf($id){
+        $id=decrypt($id);
+        //return $id;
+        $orderline=Orderline::find($id);
+        $order_id=$orderline->order_id;
+        $order=Order::find($order_id);
+        $customer_id=$order->customer_id;
+        $customer=Customer::find($customer_id);
+        $customeraddress_id=$order->customer_address_id;
+        $customeraddress=CustomerAddress::find($customeraddress_id);
+       // return view('user.pdfinvoice',compact('orderline','order','customeraddress','customer'));
+        $pdf=PDF::loadView('user.pdfinvoice',compact('orderline','order','customeraddress','customer'));
+       return $pdf->download('invoice.pdf');
     }
 }

@@ -226,7 +226,8 @@
                                         </a>
                                         <a class="logg" href="#" data-toggle="modal" data-target="#review" data-id="{{$orderline->product_id}}">
                                           <br> Add Your Review
-                                        </a>
+                                        </a><br>
+                                        <a href="{{route('invoice',['id'=>encrypt($orderline->orderline_id)])}}" >Invoice</a>
                                       </td>
                                     </tr>
                                     @endforeach
