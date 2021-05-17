@@ -146,6 +146,7 @@ Route::group(['namespace'=>'User'],function(){
         Route::post('review-store',['as'=>'review.store','uses'=>'UserController@reviewStore']);
         // payment
         Route::post('payment',['as'=>'payment.store','uses'=>'PaymentController@store']);
+        Route::post('cart-payment',['as'=>'payment.cart','uses'=>'PaymentController@cartPayment']);
       
     });
     

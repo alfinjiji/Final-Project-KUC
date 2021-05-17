@@ -37,13 +37,13 @@
     <!-- BREADCRUMBS:END -->
 
     @if($message = Session::get('error'))
-                            <div class="alert alert-danger alert-dismissible fade in" role="alert">
-                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true">×</span>
-                                </button>
-                                <strong>Error!</strong> {{ $message }}
-                            </div>
-                        @endif
+        <div class="alert alert-danger alert-dismissible fade in" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">×</span>
+            </button>
+            <strong>Error!</strong> {{ $message }}
+        </div>
+     @endif
 
    <!-- ADDRESS-AREA   --> 
     <section class="payment-area" id="address">
@@ -222,11 +222,12 @@
                         <h2>Select Payment Mode</h2>
                     </div>
                     <div class="payment">
+                        <!--
                     <div class="bank">
                         <input type="radio" name="optradio" disabled>Direct Bank Transfer<br/>
                         <div class="b_text"><p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order wont be shipped
                             <br/>until the funds have cleared in our account.</p></div>
-                    </div>
+                    </div> -->
                     <div class="bank-radio">
                         
                         <form method="POST" action="{{ route('checkout.store') }}">

@@ -41,194 +41,69 @@
     <div class="search-result-area section-padding">
         <div class="container">
             <div class="row">
-                <div class="col-md-3 col-sm-3 col-xs-12">
-                    <div class="brands">
-                        <h3>Brands <i class="fa fa-bars"></i></h3>
-                        <ul>
-                            <li> <input type="checkbox" name="vehicle" value="Bike"> Awesome <span>(03)</span>
-                            </li>
-                            <li> <input type="checkbox" name="vehicle" value="Bike"> Beauty <span>(05)</span>
-                            </li>
-                            <li> <input type="checkbox" name="vehicle" value="Bike"> Elegant <span>(11)</span>
-                            </li>
-                            <li> <input type="checkbox" name="vehicle" value="Bike"> Fantastic <span>(01)</span>
-                            </li>
-                            <li> <input type="checkbox" name="vehicle" value="Bike"> Wonderful <span>(06)</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="filter">
-                        <h3>Filter by price</h3>
-						<div class="filter_inner">
-							<div id="slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 29.6%; width: 55.36%;"></div><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 29.6%;"></span><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 84.96%;"></span></div>
-							<div class="f_price">
-								<div class="filter_a">
-									<a href="">Filter</a>
-								</div>
-								<div class="cat_filter_box">
-									<p>
-									  <input type="text" id="amount" readonly="" style="border:0; color:#000; font-weight:bold;">
-									</p>
-								</div>
+                <div class="col-md-3 col-sm-3 col-xs-12" id="filter_bar"  >
+					<form method="POST" action="{{route('filter')}}" >
+						@csrf
+						<div class="brands">
+							<h3>Filter by price <i id="show_price" class="fa fa-bars"></i></h3>
+							 <div class="filter_inner" id="price">
+								 <div id="slider-range" class="ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all"><div class="ui-slider-range ui-widget-header ui-corner-all" style="left: 9%; width: 55.36%;"></div><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 9%;"></span><span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0" style="left: 9%;"></span></div>
+								 <div class="f_price">
+									 
+									 <div class="cat_filter_box">
+										 <p>
+										   <input type="text" id="amount" readonly="" style="border:0; color:#000; font-weight:bold;">
+										 </p>
+									 </div>
+								 </div>
+							 </div>
+						</div>
+                        <div class="brands">
+							<h3>Material <i id="show_material" class="fa fa-bars"></i></h3>
+						    <div  style='overflow-y:scroll; width:auto;height:250px;' id="material">
+                               <ul >
+								   @foreach($materials as $material)
+                                   <li> <input class="m" type="checkbox" name="material" value="{{$material->material_id}}"> {{$material->material_name}} </li>
+                                   @endforeach
+                               </ul>
+						    </div>
+                        </div>
+						<div class="brands">
+							<h3>Colours <i id="show_color" class="fa fa-bars"></i></h3>
+						    <div style='overflow-y:scroll; width:auto;height:250px;' id="color">
+                                 <ul>
+									@foreach($colors as $color)
+									<li> <input class="color" type="checkbox" name="color" value="{{$color->color}}"> {{$color->color}} </li>
+									@endforeach
+                                     
+                                 </ul>
+						    </div>
+                        </div>
+                        <div class="brands">
+							<h3>size <i id="show_size" class="fa fa-bars"></i></h3>
+						    <div style='overflow-y:scroll; width:auto;height:250px;' id="size">
+                                 <ul>
+                                     <li> <input class="size" type="checkbox" name="size" value="1"> S</li>
+                                     <li> <input class="size" type="checkbox" name="size" value="2">  M</li>
+									 <li> <input class="size" type="checkbox" name="size" value="3">  L</li>
+									 <li> <input class="size" type="checkbox" name="size" value="4">  XL</li>
+									 <li> <input class="size" type="checkbox" name="size" value="5">  XXL</li>
+                                     
+                                 </ul>
+						    </div>
+                        </div>
+						<div>
+							<div class="filter_a">
+								<input type="hidden" id="min_price" name="min_price">
+						    	<input type="hidden" id="max_price" name="max_price">
+						    	<input type="hidden" id="category" name="category">
+								<input type="hidden" id="sizes" name="sizes">
+								<input type="hidden" id="colors" name="colors">
+								<input type="hidden" id="materials" name="materials">
+								<input class="btn btn-warning" type="submit" id="filter" value="Filter" style="width: 270px; margin-top:20px;"  class="btn btn-default">
 							</div>
 						</div>
-                    </div>
-                    <div class="colours">
-                        <h3>Colours <i class="fa fa-bars"></i></h3>
-                        <ul>
-                            <li> <input type="checkbox" name="vehicle" value="Bike">  White <span>(03)</span>
-                            </li>
-                            <li> <input type="checkbox" name="vehicle" value="Bike">  Black <span>(05)</span>
-                            </li>
-                            <li> <input type="checkbox" name="vehicle" value="Bike">  Blue <span>(11)</span>
-                            </li>
-                            <li> <input type="checkbox" name="vehicle" value="Bike">  Yellow <span>(01)</span>
-                            </li>
-                            <li> <input type="checkbox" name="vehicle" value="Bike">  Red <span>(06)</span>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="best-sell">
-                        <h3>Best seller</h3>
-						
-						<div id="plCarousel" class="carousel slide" data-ride="carousel">
-
-						  <!-- Wrapper for slides -->
-						  <div class="carousel-inner" role="listbox">
-							<div class="item active">
-								<div class="single-wid-product sel-pd">
-									<a href="#"><img src="{{ asset('public/user-templates/images/sell1.png') }}" alt="" class="product-thumb">
-									</a>
-									<h2><a href="single-product.html">Canon mini model</a></h2>
-									<div class="product-wid-rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-									<div class="product-wid-price">
-										<ins>$250.00</ins>
-									</div>
-								</div>
-								<div class="single-wid-product sel-pd">
-									<a href="#"><img src="{{ asset('public/user-templates/images/sell2.png') }}" alt="" class="product-thumb">
-									</a>
-									<h2><a href="single-product.html">Nexus</a></h2>
-									<div class="product-wid-rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-									<div class="product-wid-price">
-										<ins>$250.00</ins>
-									</div>
-								</div>
-								<div class="single-wid-product sel-pd">
-									<a href="#"><img src="{{ asset('public/user-templates/images/sell3.png') }}" alt="" class="product-thumb">
-									</a>
-									<h2><a href="single-product.html">Pink women bag</a></h2>
-									<div class="product-wid-rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-									<div class="product-wid-price">
-										<ins>$250.00</ins>
-									</div>
-								</div>
-								<div class="single-wid-product sel-pd">
-									<a href="#"><img src="{{ asset('public/user-templates/images/sell4.png') }}" alt="" class="product-thumb">
-									</a>
-									<h2><a href="single-product.html">Trendy Watch</a></h2>
-									<div class="product-wid-rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-									<div class="product-wid-price">
-										<ins>$250.00</ins>
-									</div>
-								</div>
-							</div>
-							<div class="item">
-								<div class="single-wid-product sel-pd">
-									<a href="#"><img src="{{ asset('public/user-templates/images/sell1.png') }}" alt="" class="product-thumb">
-									</a>
-									<h2><a href="single-product.html">Canon mini model</a></h2>
-									<div class="product-wid-rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-									<div class="product-wid-price">
-										<ins>$250.00</ins>
-									</div>
-								</div>
-								<div class="single-wid-product sel-pd">
-									<a href="#"><img src="{{ asset('public/user-templates/images/sell2.png') }}" alt="" class="product-thumb">
-									</a>
-									<h2><a href="single-product.html">Nexus</a></h2>
-									<div class="product-wid-rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-									<div class="product-wid-price">
-										<ins>$250.00</ins>
-									</div>
-								</div>
-								<div class="single-wid-product sel-pd">
-									<a href="#"><img src="{{ asset('public/user-templates/images/sell3.png') }}" alt="" class="product-thumb">
-									</a>
-									<h2><a href="single-product.html">Pink women bag</a></h2>
-									<div class="product-wid-rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-									<div class="product-wid-price">
-										<ins>$250.00</ins>
-									</div>
-								</div>
-								<div class="single-wid-product sel-pd">
-									<a href="#"><img src="{{ asset('public/user-templates/images/sell4.png') }}" alt="" class="product-thumb">
-									</a>
-									<h2><a href="single-product.html">Trendy Watch</a></h2>
-									<div class="product-wid-rating">
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-									<div class="product-wid-price">
-										<ins>$250.00</ins>
-									</div>
-								</div>
-							</div>
-						  </div>
-						  <!-- Left and right controls -->
-						  <a class="left carousel-control" href="#plCarousel" role="button" data-slide="prev">
-							<i class="fa fa-angle-left"></i>
-						  </a>
-						  <a class="right carousel-control" href="#plCarousel" role="button" data-slide="next">
-							<i class="fa fa-angle-right"></i>
-						  </a>
-						</div>
-                    </div>
+					</form>
                 </div>
                 <div class="col-md-9 col-sm-9 col-xs-12">
                     <div class="row">

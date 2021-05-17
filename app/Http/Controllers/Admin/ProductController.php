@@ -19,6 +19,17 @@ class ProductController
     // product list
     function show(){
         $products = Product::latest()->get();
+        $current_date=date('Y-m-d');
+        foreach ($products as $product) {
+            $pricelist_count = Pricelist::where('product_id',$product->product_id)
+                                    ->whereDate('date_to','>=',$current_date)
+                                    ->whereDate('date_from','<=',$current_date)
+                                    ->count();
+            if ($pricelist_count == 0){
+                $product->status=0;
+                $product->save();
+            }
+        }
         return view('admin.product.list',compact('products'));
     }
     // create view
@@ -241,8 +252,15 @@ class ProductController
     // price list view
     function showPricelist($id){
         $product_id = decrypt($id);
-       $pricelist = Pricelist::where('product_id',$product_id)->get();
-        return view('admin.product.pricelist',compact('product_id', 'pricelist'));
+        $current_date=date('Y-m-d');
+        $pricelists = Pricelist::where('product_id',$product_id)->latest()->get();
+        foreach($pricelists as $pricelist){
+            if($pricelist->date_to < $current_date){
+                $pricelist->status = 0;
+                $pricelist->save();
+            }
+        }
+        return view('admin.product.pricelist',compact('product_id', 'pricelists'));
     }
     // delete price list
     function destroyPrice($id){
@@ -252,7 +270,7 @@ class ProductController
         Pricelist::find($id)->delete();
         $count=Pricelist::where('product_id',$product_id)->count();
         if($count!=0){
-            return redirect()->route('product.show')->with('message','Price deleted!');
+            return redirect()->route('show.pricelist',['id'=>encrypt($product_id)])->with('message','Price deleted!');
         }else {
             $product=Product::find($product_id);
             $product->status=0;

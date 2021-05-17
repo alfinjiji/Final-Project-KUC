@@ -149,11 +149,11 @@ class ProductController
         $max_price=$request->max_price;
         $category_id=$request->category;
         $color=$request->colors;
-        $size=$request->sizes;
-        $material=$request->materials;
         $colours = explode(",", $color);
-        $material_ids = explode(",", $material);
+        $size=$request->sizes;
         $sizes = explode(",", $size);
+        $material=$request->materials;
+        $material_ids = explode(",", $material);
         $colors=Product::select('color')
                                 ->where('category_id',$category_id)
                                 ->where('status',1)
@@ -350,7 +350,7 @@ class ProductController
                 $pre_result=$result;
               }*/
     }
-    
+    // price variance bt size
     function sizeVariant(Request $request){
         $productsize_id=$request->productsize_id;
         $current_date = date('Y-m-d');

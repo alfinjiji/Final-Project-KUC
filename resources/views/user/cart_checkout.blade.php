@@ -222,17 +222,18 @@
                     <form method="POST" action="{{ route('checkout.cart.store') }}">
                         @csrf  
                     <div class="payment">
+                        <!--
                     <div class="bank">
                         <input type="radio" id="bank" name="optradio" disabled>Direct Bank Transfer<br/>
                         <div class="b_text"><p>Make your payment directly into our bank account. Please use your Order ID as the payment reference. Your order wont be shipped
                             <br/>until the funds have cleared in our account.</p></div>
-                    </div>
+                    </div> -->
                     <div class="bank-radio">
                         <label>
                             <input type="radio" id="cod" name="optradio">Cash On Delivery</label>
                         <br/>
                         <label>
-                            <input type="radio" id="paypal" name="optradio" disabled>Paypal<img src="{{ asset('public/user-templates/images/master-card.png') }}" alt="">
+                            <input type="radio" name="optradio" id="razorpay"><img src="{{ asset('public/user-templates/images/razorpay.svg') }}" alt="" style="height: 29px; margin-left: 0px; background-color: black; padding: 5px; border-radius: 3px;">
                         </label><br/>
                         <label>
                             <input type="radio" name="optradio" id="wallet">wallet &nbsp;<span style="color: rgb(0, 88, 38);">[$<span id="balance" style="color: rgb(0, 88, 38);">{{$wallet->wallet_amount}}</span>]</span></label>
@@ -240,9 +241,10 @@
                       <input type="hidden" name="address_id" id="address_id">
                         <input type="hidden" name="amount" id="amount">
                         <input type="hidden" name="discount" id="discount" value="0">
-                        <input type="hidden" name="coupon_id" id="coupon_id">
+                        <input type="hidden" name="coupon_code" id="coupon_id">
                         <input type="hidden" name="pay_method" id="paymethod">
                         <button type="submit" class="btn btn-default right-cart" id="submit">Place order</button>
+                        <button type="button" id="razorpay_btn" class="btn btn-default right-cart">Razorpay</button>
                     </div>
                 </div>
             </form>
@@ -256,12 +258,14 @@
 	@endsection
 
     @section('custom_script')
+    <script src = "https://checkout.razorpay.com/v1/checkout.js"></script>
     <script>
     $(document).ready(function () {
         $('#product').hide();
         $('#orderSummary').hide();
         $('#placeOrder').hide();
         $('#payment').hide();
+        $('#razorpay_btn').hide();
         var price=0;
         $('#next').click(function(){
             $count = $('#next').attr('data-count');
@@ -298,8 +302,6 @@
             $('#amount').val(total);
             // total amount after discount
             $('#total_price').val(total);
-
-
         });
         $('#prev').click(function(){
             $('#product').hide();
@@ -347,7 +349,7 @@
                             $('#coupon_error').html("coupen verified");
                             $('#coupon_error').css('color','green'); 
                             $('#coupon_code').css('border-color','green');
-                            $('#coupon_id').val(data.coupon_id);
+                            $('#coupon_id').val(data.coupon_code);
                             $('#amount').val(parseInt(data.grandtotal));
                             $('#discount').val(subtot - parseInt(data.grandtotal));
                             $('#discount_price').val(subtot - parseInt(data.grandtotal));
@@ -394,6 +396,7 @@
             $('#balance').html([wallet]);
             $('#paymethod').val('cod');
             $('#prev3').hide();
+            $('#razorpay_btn').hide();
         });
         $('#bank').click(function(){
             var wallet=parseInt($('#placeorder').attr('data-id'));
@@ -401,14 +404,63 @@
             $('#balance').html([wallet]);
             $('#paymethod').val('bank');
             $('#prev3').hide();
+            $('#razorpay_btn').hide();
         });
-        $('#paypal').click(function(){
-            var wallet=parseInt($('#placeorder').attr('data-id'));
-            $('#submit').show();
-            $('#balance').html([wallet]);
-            $('#paymethod').val('paypal');
+        $('#razorpay').click(function(){
             $('#prev3').hide();
+            $('#submit').hide();
+            $('#razorpay_btn').show();
+        })
+        // razorpay payment
+        $('body').on('click','#razorpay_btn',function(e){
+            e.preventDefault();
+            var amount = $('#amount').val();
+            var total_amount = amount * 100;         
+            var address_id = $('#address_id').val();       
+            var coupon_code = $('#coupon_id').val();   
+            console.log(coupon_code);
+            console.log("Address id : " +address_id);  
+            console.log("coupon : "+coupon_code);
+            var name = {!! json_encode(auth()->guard('customer')->user()->first_name . " " . auth()->guard('customer')->user()->last_name) !!}; 
+            var email = {!! json_encode(auth()->guard('customer')->user()->email) !!}; 
+            var mobile = {!! json_encode(auth()->guard('customer')->user()->mobile) !!};
+            var options = {
+                "key": "{{ env('RAZOR_KEY') }}", // Enter the Key ID generated from the Dashboard
+                "amount": total_amount, // Amount is in currency subunits. Default currency is INR. Hence, 10 refers to 1000 paise
+                "currency": "INR",
+                "name": name.toUpperCase(),
+                "description": "",
+                "image": "",
+                "order_id": "", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                "handler": function (response){
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    $.ajax({
+                        type:'POST',
+                        url:"{{ route('payment.cart') }}",
+                        data:{razorpay_payment_id:response.razorpay_payment_id, amount:amount, address_id:address_id, coupon_code:coupon_code},
+                        success:function(data){
+                            alert(data.success);
+                        }
+                    });
+                },
+                "prefill": {
+                    "name": name,
+                    "email": email,
+                    "contact": mobile
+                },
+                "theme": {
+                    "color": "#528FF0"
+                }
+            };
+            var rzp1 = new Razorpay(options);
+            rzp1.open();
         });
     });
+       
+       
      </script>   
     @endsection

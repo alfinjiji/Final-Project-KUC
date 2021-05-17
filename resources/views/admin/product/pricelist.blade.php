@@ -7,11 +7,14 @@
   <section class="content">
     <div class="container-fluid">
       <div class="row">
-        @if(session('message'))
-                <div class="alert alert-success">
-                     {{ session('message') }}
-                </div>
-         @endif
+        <!-- alert message -->
+        <div class="col-md-12">
+          @if(session()->has('message'))
+            <div class="alert alert-success">
+                 {{ session()->get('message') }}
+            </div>
+          @endif
+        </div>
         <!--category table-->
         <div class="col-md-12">
           <div class="card card-primary">
@@ -39,7 +42,7 @@
                     </tr>
                   </thead>
                   <tbody>
-                    @foreach ($pricelist as $pricelist)
+                    @foreach ($pricelists as $pricelist)
                     <tr>
                       <td>{{$loop->iteration}}</td>
                       <td>{{$pricelist->date_from}}</td>

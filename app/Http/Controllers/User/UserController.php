@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Customer;
 use App\Models\Category;
+use App\Models\Material;
 use App\Models\Product;
 use App\Models\Banner;
 use App\Models\Menu;
@@ -66,15 +67,22 @@ class UserController
                    $wishlist=Favorite::where('customer_id',$customer)
                                        ->where('product_id',$product->product_id)
                                        ->count();
-                       if($wishlist != 0){
-                           $product->wishlist_flag = 1;
-                       } else {
-                           $product->wishlist_flag = 0;
-                       }
+                    if($wishlist != 0){
+                        $product->wishlist_flag = 1;
+                    } else {
+                        $product->wishlist_flag = 0;
+                    }
               }
           }
         }
-        return view('user.search-result',compact('count','products'));
+        $colors=Product::select('color')
+                                ->where('status',1)
+                                ->distinct()
+                                ->get();  
+        $materials=Material::all();
+        $products_asc = $products->sortBy('price')->all();
+        $products_desc = $products->sortByDesc('price')->all();
+        return view('user.search-result',compact('count','products','materials','colors','products_asc','products_desc'));
     }
     // single product
     function singleProduct(){

@@ -32,29 +32,22 @@ class Product extends Model
     public function productimages(){
         return $this->hasMany(Productimage::class,'product_id','product_id');
     }
-    public function price()
-    { 
-       
+    public function price(){ 
         return $this->hasMany(Pricelist::class,'product_id','product_id');
     }
     //for whishlist
-    public function pricelist()
-    { 
+    public function pricelist(){ 
         $current_date=date('Y-m-d');
         return $this->hasOne(Pricelist::class,'product_id','product_id')->whereDate('date_to','>=',$current_date)
         ->whereDate('date_from','<=',$current_date);
     }
     //rate
-    public function rating()
-    {
+    public function rating(){
         return $this->hasMany(Rating::class,'product_id','product_id');
     }
     //size
-    public function productsize()
-    {
+    public function productsize(){
         return $this->hasMany(ProductSize::class,'product_id','product_id');
     }
     
-    // mutator for adding new field wishlist_flag for checking product is in wishlist or not.
-   
 }
