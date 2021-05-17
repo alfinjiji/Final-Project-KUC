@@ -39,8 +39,10 @@ class Product extends Model
     }
     //for whishlist
     public function pricelist()
-    {
-        return $this->hasOne(Pricelist::class,'product_id','product_id');
+    { 
+        $current_date=date('Y-m-d');
+        return $this->hasOne(Pricelist::class,'product_id','product_id')->whereDate('date_to','>=',$current_date)
+        ->whereDate('date_from','<=',$current_date);
     }
     //rate
     public function rating()
