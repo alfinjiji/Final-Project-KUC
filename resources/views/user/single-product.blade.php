@@ -496,6 +496,29 @@
 		var  productsize_id = $('#size').val();
 		$('#productsize_id').val(productsize_id);
 		 product_id = $("#product_id").val();
+		 // show price on page load
+		 $.ajax({
+		        	url: "{{ route('sizevariant') }}",
+		        	type:'GET',
+		        	data: {
+                           // _token:_token, 
+                            productsize_id:productsize_id, 
+                          },
+		        	success: function(data){  
+		        		console.log(data);
+                       $('#price').html(data.price);
+					   var price=data.price+(data.price*.2);
+					   $('#del_price').html(price);
+                       $('#productsize_id').val(productsize_id);
+					   if(data.flag==0) {  
+					     //error
+					     $('#cartBtn').attr('disabled',false);
+				        } else {    
+				         //success
+				         $('#cartBtn').attr('disabled', true);
+				        }  
+                    } 
+		        });
 		//page load cart ajax
 		$.ajax({
 				url: "{{ route('cart.check') }}",
@@ -524,6 +547,7 @@
 			var product_id = $("#cartBtn").attr('data-id');
 			productsize_id=$('#productsize_id').val();
 			console.log(product_id);
+			//cart
 			$.ajax({
 				url: "{{ route('cart.store') }}",
 				type:'GET',

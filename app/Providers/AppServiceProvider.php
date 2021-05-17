@@ -27,9 +27,9 @@ class AppServiceProvider extends ServiceProvider
     {
         // every single view
         
-            $count=Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->count();
+            //$count=Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->count();
        
         view()->share('layout_categories', Category::orderBy('category_name')->get());
-        view()->share('layout_count', $count);
+        view()->share('layout_count', 0);
     }
 }

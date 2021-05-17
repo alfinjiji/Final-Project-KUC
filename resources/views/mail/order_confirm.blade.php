@@ -39,7 +39,7 @@
                           @foreach($order_lines as $orderline)
                           <tr>
                             <td>{{$loop->iteration}}</td>
-                            <td><img style="height: 75px; width:100px;" src="http://localhost/Project/storage/app/"{{$orderline->product->productimage->image}}></td>
+                            <td><img style="height: 75px; width:100px;" src="http://localhost/Final-Project-KUC//storage/app/"{{$orderline->product->productimage->image}}></td>
                             <td>{{$orderline->product->product_name}}</td>
                             <td>{{$orderline->productsize->size->size}}</td>
                             <td>{{$orderline->quantity}}</td>

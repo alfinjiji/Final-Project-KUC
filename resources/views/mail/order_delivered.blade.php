@@ -75,7 +75,7 @@ html {
 <body>
 
 <div class="header">
-  <img src="http://localhost/Project/public/user-templates/images/logo.png" alt="">
+  <img src="http://localhost/Final-Project-KUC/public/user-templates/images/logo.png" alt="">
 </div>
 
 <div class="row" style="text-align: center">
