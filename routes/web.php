@@ -108,7 +108,7 @@ Route::group(['namespace'=>'User'],function(){
     Route::get('product-sort/{category_id}',['as'=>'product.sort','uses'=>'ProductController@sort']);
     // cart
     Route::get('cart',['as'=>'cart','uses'=>'CartController@index']);
-    Route::get('cart/store-all',['as'=>'cart.store.all','uses'=>'CartController@storeAll']);
+    Route::get('cart/store-all',['as'=>'cart.store.all','uses'=>'CartController@storeAll']); 
     Route::get('cart/{id}',['as'=>'cart.destroy','uses'=>'CartController@destroy']);
     Route::get('cart-clear',['as'=>'cart.clear','uses'=>'CartController@clear']);
     Route::get('cart-store',['as'=>'cart.store','uses'=>'CartController@store']);
