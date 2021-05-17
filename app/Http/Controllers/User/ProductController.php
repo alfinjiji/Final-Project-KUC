@@ -69,7 +69,8 @@ class ProductController
                 }
                 $products_asc = $products->sortBy('price')->all();
                 $products_desc = $products->sortByDesc('price')->all();
-                return view('user.product-list',compact('products','materials','colors','category_id','products_asc','products_desc'));
+                $category = $category_id;
+                return view('user.product-list',compact('products','materials','colors','category','products_asc','products_desc'));
             } else {
                 return redirect('/');
             }
@@ -148,6 +149,7 @@ class ProductController
         $min_price=$request->min_price;
         $max_price=$request->max_price;
         $category_id=$request->category;
+        $category = explode(',',$category_id);
         $color=$request->colors;
         $colours = explode(",", $color);
         $size=$request->sizes;
@@ -155,7 +157,7 @@ class ProductController
         $material=$request->materials;
         $material_ids = explode(",", $material);
         $colors=Product::select('color')
-                                ->where('category_id',$category_id)
+                                ->whereIn('category_id',$category)
                                 ->where('status',1)
                                 ->distinct()
                                 ->get(); 
@@ -165,7 +167,7 @@ class ProductController
                                    ->whereDate('date_from','<=',$current_date)
                                    ->whereBetween('price',[$min_price,$max_price])
                                    ->get(); 
-            $products=Product::where('category_id',$category_id)->get();
+            $products=Product::whereIn('category_id',$category)->get();
             foreach($products as $product){
                 $product->price=0;
                 foreach($price_lists as $price_list){
@@ -176,7 +178,7 @@ class ProductController
             }  
             $products_asc = $products->sortBy('price')->all();
             $products_desc = $products->sortByDesc('price')->all();
-            return view('user.product-list',compact('products','colors','materials','category_id','products_asc','products_desc'));
+            return view('user.product-list',compact('products','colors','materials','category','products_asc','products_desc'));
         } 
         // filter by material and price
         elseif($color=='' && $size==''){
@@ -184,7 +186,7 @@ class ProductController
                                    ->whereDate('date_from','<=',$current_date)
                                    ->whereBetween('price',[$min_price,$max_price])
                                    ->get(); 
-            $products=Product::where('category_id',$category_id)
+            $products=Product::whereIn('category_id',$category)
                                 ->whereIn('material_id',$material_ids)
                                 ->get();
             foreach($products as $product){
@@ -197,7 +199,7 @@ class ProductController
             }  
             $products_asc = $products->sortBy('price')->all();
             $products_desc = $products->sortByDesc('price')->all();
-            return view('user.product-list',compact('products','colors','materials','category_id','products_asc','products_desc'));
+            return view('user.product-list',compact('products','colors','materials','category','products_asc','products_desc'));
         } 
         // filter by size and price
         elseif($color=='' && $material=='') {
@@ -207,7 +209,7 @@ class ProductController
                                    ->get(); 
             $products=Product::WhereHas('productsize', function($query) use ($sizes) {
                 $query->whereIn('size_id',$sizes);
-            })->where('category_id',$category_id)->get();
+            })->whereIn('category_id',$category)->get();
 
             foreach($products as $product){
                 $product->price=0;
@@ -217,9 +219,10 @@ class ProductController
                     }
                 }
             }   
+            return $
             $products_asc = $products->sortBy('price')->all();
             $products_desc = $products->sortByDesc('price')->all();
-            return view('user.product-list',compact('products','colors','materials','category_id','products_asc','products_desc'));
+            return view('user.product-list',compact('products','colors','materials','category','products_asc','products_desc'));
         }
         // filter by color and price
         elseif($size=='' && $material==''){
@@ -227,7 +230,7 @@ class ProductController
                                    ->whereDate('date_from','<=',$current_date)
                                    ->whereBetween('price',[$min_price,$max_price])
                                    ->get(); 
-            $products=Product::where('category_id',$category_id)
+            $products=Product::whereIn('category_id',$category)
                                 ->whereIn('color', $colours)
                                 ->get();
             foreach($products as $product){
@@ -240,7 +243,7 @@ class ProductController
             }   
             $products_asc = $products->sortBy('price')->all();
             $products_desc = $products->sortByDesc('price')->all();
-            return view('user.product-list',compact('products','colors','materials','category_id','products_asc','products_desc'));
+            return view('user.product-list',compact('products','colors','materials','category','products_asc','products_desc'));
         }
         // filter by material, color and price
         elseif($size==''){
@@ -248,7 +251,7 @@ class ProductController
                                    ->whereDate('date_from','<=',$current_date)
                                    ->whereBetween('price',[$min_price,$max_price])
                                    ->get(); 
-            $products=Product::where('category_id',$category_id)
+            $products=Product::whereIn('category_id',$category)
                                 ->whereIn('color', $colours)
                                 ->whereIn('material_id',$material_ids)
                                 ->get();
@@ -262,7 +265,7 @@ class ProductController
             }   
             $products_asc = $products->sortBy('price')->all();
             $products_desc = $products->sortByDesc('price')->all();
-            return view('user.product-list',compact('products','colors','materials','category_id','products_asc','products_desc'));
+            return view('user.product-list',compact('products','colors','materials','category','products_asc','products_desc'));
         }
         // filter by material, size and price
         elseif($color==''){
@@ -272,7 +275,7 @@ class ProductController
                                    ->get(); 
             $products=Product::WhereHas('productsize', function($query) use ($sizes) {
                 $query->whereIn('size_id',$sizes);
-            })  ->where('category_id',$category_id)
+            })  ->whereIn('category_id',$category)
                 ->whereIn('material_id',$material_ids)->get();
 
             foreach($products as $product){
@@ -285,7 +288,7 @@ class ProductController
             }   
             $products_asc = $products->sortBy('price')->all();
             $products_desc = $products->sortByDesc('price')->all();
-            return view('user.product-list',compact('products','colors','materials','category_id','products_asc','products_desc'));
+            return view('user.product-list',compact('products','colors','materials','category','products_asc','products_desc'));
         }
         // filter by color, size and price
         elseif($material==''){
@@ -296,7 +299,7 @@ class ProductController
 
             $products=Product::WhereHas('productsize', function($query) use ($sizes) {
                 $query->whereIn('size_id',$sizes);
-            })  ->where('category_id',$category_id)
+            })  ->whereIn('category_id',$category)
                 ->whereIn('color', $colours)->get();
 
             foreach($products as $product){
@@ -309,7 +312,7 @@ class ProductController
             }  
             $products_asc = $products->sortBy('price')->all();
             $products_desc = $products->sortByDesc('price')->all(); 
-            return view('user.product-list',compact('products','colors','materials','category_id','products_asc','products_desc'));
+            return view('user.product-list',compact('products','colors','materials','category','products_asc','products_desc'));
         }
         // filter by all (material, color, size and price)
         else {
@@ -320,7 +323,7 @@ class ProductController
             
             $products=Product::WhereHas('productsize', function($query) use ($sizes) {
                 $query->whereIn('size_id',$sizes);
-            })  ->where('category_id',$category_id)
+            })  ->whereIn('category_id',$category)
                 ->whereIn('color', $colours)
                 ->whereIn('material_id',$material_ids)->get();
 
@@ -334,7 +337,7 @@ class ProductController
             }   
             $products_asc = $products->sortBy('price')->all();
             $products_desc = $products->sortByDesc('price')->all();
-            return view('user.product-list',compact('products','colors','materials','category_id','products_asc','products_desc'));
+            return view('user.product-list',compact('products','colors','materials','category','products_asc','products_desc'));
         }
        
                /*$length=count($colours);

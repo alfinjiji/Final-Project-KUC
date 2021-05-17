@@ -80,9 +80,18 @@ class UserController
                                 ->distinct()
                                 ->get();  
         $materials=Material::all();
+        $categories=Category::all();
+        $category_ids = '';
+        foreach($categories as $category){
+            if($category_ids == ''){
+                $category_ids = $category->category_id;
+            } else {
+                $category_ids = $category_ids .','. $category->category_id;
+            }
+        }
         $products_asc = $products->sortBy('price')->all();
         $products_desc = $products->sortByDesc('price')->all();
-        return view('user.search-result',compact('count','products','materials','colors','products_asc','products_desc'));
+        return view('user.search-result',compact('count','products','materials','colors','categories','category_ids','products_asc','products_desc'));
     }
     // single product
     function singleProduct(){

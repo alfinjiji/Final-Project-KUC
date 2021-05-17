@@ -21,12 +21,11 @@
             <div class="row">
                 <div class="col-md-12 col-sm-12 col-xs-12">
                     <div class="bred-title" >
-                        <h3>Product list</h3>
-						
+                        <h3>Product list &nbsp; &nbsp;
 							<i class="fa fa-filter "  aria-hidden="true" id="info" style="display: inline-block ; color: whitesmoke ;padding-right: 20px;"></i>
 						    <i class="fa fa-sort-amount-desc" aria-hidden="true" id="sort_desc" style="display: inline-block ; color: whitesmoke;padding-right: 20px;"></i>
 							<i class="fa fa-sort-amount-asc" aria-hidden="true" id="sort_asc" style="display: inline-block ; color: whitesmoke;padding-right: 20px;"></i>
-							
+						</h3>
 					</div>
                     <ol class="breadcrumb">
                         <li><a href="index.html">Home</a>
@@ -39,9 +38,6 @@
             </div>
         </div>
     </div>
-	<div  class="info">
-	<p style="color:rgb(73, 14, 14) ;" id="info_text"></p>
-	</div>
     <!-- BREADCRUMBS:END  -->
 	
     <!-- PRODUCT-LIST-AREA  -->
@@ -115,7 +111,6 @@
                 <div class="col-md-9 col-sm-9 col-xs-12">
 					<!-- filtered product -->
                     <div class="row" id="filterProduct">
-						<input type="hidden" value="{{ $category_id }}" id="category_id">
                         @foreach($products as $product)
 						    @if($product->price!=0)
                                 <div class="col-md-4 col-sm-4 col-xs-12">
@@ -156,7 +151,6 @@
                     </div>
 					<!-- product by asc -->
 					<div class="row" id="productByAsc">
-						<input type="hidden" value="{{ $category_id }}" id="category_id">
                         @foreach($products_asc as $product)
 						    @if($product->price!=0)
                                 <div class="col-md-4 col-sm-4 col-xs-12">
@@ -197,7 +191,6 @@
                     </div>
 					<!-- product by desc -->
 					<div class="row" id="productByDesc">
-						<input type="hidden" value="{{ $category_id }}" id="category_id">
                         @foreach($products_desc as $product)
 						    @if($product->price!=0)
                                 <div class="col-md-4 col-sm-4 col-xs-12">
@@ -265,7 +258,7 @@
 	<!-- end filter -->
 		<script>
 			$(document).ready(function(){
-				$('#filter_bar').hide();
+				$('#filter_bar').show();
 				$('#material').hide();
 				$('#color').hide();
 				$('#size').hide();
@@ -275,7 +268,8 @@
 				var material=[];
 				var size=[];
 				var color=[];
-				$("#category").val($("#category_id").val());
+				var category = {!! json_encode($category) !!};
+				$("#category").val(category).val();
 				$('#show_material').click(function(){
 					$('#material').toggle();
 				});
@@ -289,23 +283,11 @@
 					$('#price').toggle();
 				});
 				// filter info
-				$("#info").mouseover(function(){
-					$('#info_text').text("Apply Filter");
-				});
-                $("#info").mouseout(function(){
-					$('#info_text').text("");
-				});
 				$("#info").click(function(){
 					$('#filter_bar').toggle();
 				});
 
 				//sort desc info
-				$("#sort_desc").mouseover(function(){
-					$('#info_text').text("Price--High to Low");
-				});
-                $("#sort_desc").mouseout(function(){
-					$('#info_text').text("");
-				});
 				$("#sort_desc").click(function(){
 					$('#filterProduct').hide();
 					$('#productByAsc').hide();
@@ -313,12 +295,6 @@
 				});
 
 				//sort asc info
-				$("#sort_asc").mouseover(function(){
-					$('#info_text').text("Price--Low to High");
-				});
-                $("#sort_asc").mouseout(function(){
-					$('#info_text').text("");
-				});
 				$("#sort_asc").click(function(){
 					$('#filterProduct').hide();
 					$('#productByDesc').hide();
