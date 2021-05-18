@@ -41,6 +41,11 @@
     <section class="pessonal-detail section-padding">
         <div class="container">
             <div class="row">
+                <!--btn for change password transction toggle view-->
+                <div class="col-md-12" style="text-align: end;">
+                    <button class="btn btn-success" id="changePassBtn">Change Password</button>
+                    <button class="btn btn-success" id="viewWalletBtn">View Wallet Transaction</button>
+                </div>
 				<div class="col-md-6 col-sm-12 col-xs-12">
 					<div class="headline">
 						<h2>Personal details</h2>
@@ -71,7 +76,8 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-md-6 col-sm-12 col-xs-12">
+                <!--change password-->
+                <div class="col-md-6 col-sm-12 col-xs-12" id="pass_change">
                     <div class="headline">
                         <h2>Change your password</h2>
                     </div>
@@ -97,6 +103,25 @@
                         </div>
                     </div>
                 </div>
+                <!--wallet transaction-->
+                <div class="col-md-6 col-sm-12 col-xs-12" id="wallet_tran">
+                    <div class="headline">
+                        <h2>Wallet Transaction</h2>
+                    </div>
+                    <div class="col-md-12 col-sm-12 col-xs-12" style='overflow-y:scroll; height:435px;'>
+                        <div class="text-center" style="background-color: #eee; padding:5px; border-radius: 10px; margin-bottom:15px;">
+                            <p>Your Balance</p>
+                            <h4>${{auth()->guard('customer')->user()->wallet_amount}}</h4>
+                        </div>
+                        @foreach ($wallets as $wallet)
+                            @if($wallet->flag==0)
+                                <div class="alert alert-success" role="alert">+ ${{$wallet->amount}}<span style="text-align: right; position: absolute; right: 90px;">{{$wallet->created_at->isoFormat('L')}}</span></div>
+                            @else
+                                <div class="alert alert-danger" role="alert">- ${{$wallet->amount}}<span style="text-align: right; position: absolute; right: 90px;">{{$wallet->created_at->isoFormat('L')}}</span></div>
+                            @endif
+                        @endforeach
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -107,6 +132,22 @@
     @section('custom_script')
         <script>
             $(document).ready(function () {
+                $('#pass_change').hide();
+                $('#viewWalletBtn').hide();
+                //change password view
+                $('#changePassBtn').click(function(){
+                    $('#wallet_tran').hide();
+                    $('#changePassBtn').hide();
+                    $('#pass_change').show();
+                    $('#viewWalletBtn').show();
+                });
+                //wallet transaction view
+                $('#viewWalletBtn').click(function(){
+                    $('#wallet_tran').show();
+                    $('#changePassBtn').show();
+                    $('#pass_change').hide();
+                    $('#viewWalletBtn').hide();
+                })
                 // check old password validation
                 $("#old_password").on("keypress keyup",function(){
                     var old_password = $("#old_password").val();

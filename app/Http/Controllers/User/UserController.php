@@ -17,6 +17,7 @@ use App\Models\Rating;
 use App\Models\Review;
 use App\Models\Order;
 use App\Models\Address;
+use App\Models\Wallet;
 use App\Models\CustomerAddress;
 use Illuminate\Support\Facades\Hash;
 use PDF;
@@ -43,7 +44,8 @@ class UserController
     }
     // user profile
     function profile(){
-        return view('user.profile');
+        $wallets=Wallet::where('customer_id',Auth::guard('customer')->user()->customer_id)->latest()->get();
+        return view('user.profile', compact('wallets'));
     }
     // update profile
     function updateProfile(Request $request, $id){
