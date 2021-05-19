@@ -12,6 +12,8 @@ use App\Models\Pricelist;
 use App\Models\Order;
 use App\Models\OrderLine;
 use App\Models\Cart;
+use App\Models\Wallet;
+use App\Models\Customer;
 use Session;
 use Redirect;
 
@@ -162,6 +164,35 @@ class PaymentController
         Payment::create([
             'razorpay_payment_id' => $request->razorpay_payment_id,
             'order_id' => $order->order_id,
+            'amount' => $request->amount,
+        ]);
+
+        return response()->json(['success' => 'Payment successful']);
+    }
+     // Wallet Top
+     function walletTopup(Request $request){
+        $input = $request->all();
+        $api = new Api(env('RAZOR_KEY'), env('RAZOR_SECRET'));
+        $payment = $api->payment->fetch($request->razorpay_payment_id);
+        if(count($input)  && !empty($input['razorpay_payment_id'])) {
+            try {
+                $payment->capture(array('amount'=>$payment['amount']));
+            } catch (\Exception $e) {
+                return  $e->getMessage();
+                \Session::put('error',$e->getMessage());
+                return redirect()->back();
+            }
+        }
+        $customer = Customer::find(Auth::guard('customer')->user()->customer_id);
+        $customer->wallet_amount = $customer->wallet_amount + $request->amount;
+        $customer->save();
+        Wallet::create([
+            'customer_id'=>Auth::guard('customer')->user()->customer_id,
+            'amount'=>$request->amount,
+            'flag'=>0,
+        ]);
+        Payment::create([
+            'razorpay_payment_id' => $request->razorpay_payment_id,
             'amount' => $request->amount,
         ]);
 

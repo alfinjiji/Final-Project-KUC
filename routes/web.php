@@ -147,7 +147,7 @@ Route::group(['namespace'=>'User'],function(){
         // payment
         Route::post('payment',['as'=>'payment.store','uses'=>'PaymentController@store']);
         Route::post('cart-payment',['as'=>'payment.cart','uses'=>'PaymentController@cartPayment']);
-      
+        Route::post('wallet-topup',['as'=>'payment.topup','uses'=>'PaymentController@walletTopup']);
     });
     
 });
