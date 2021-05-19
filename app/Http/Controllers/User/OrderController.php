@@ -17,6 +17,7 @@ use App\Models\Rating;
 use App\Models\Review; 
 use App\Models\ProductSize;
 use App\Models\Pricelist;
+use App\Models\Payment;
 class OrderController
 {
     // order view
@@ -82,7 +83,7 @@ class OrderController
         $discount=$order->discount; 
         $wallet=0;  
         //return $sum." ".$amount." ".$discount;                           // discount
-        if($paymentmode=='wallet'){
+        if($paymentmode=='wallet'||$paymentmode=='razorpay'){
             $percent=($sum*100)/($amount+$discount);   
             //return $percent;        // % of single product in total amount
             if($percent==100){
@@ -95,6 +96,9 @@ class OrderController
             $orderline=OrderLine::find($id)->delete();
             $count=OrderLine::where('order_id',$order_id)->count();
             if($count==0){
+                if($paymentmode=='razorpay'){
+                    Payment::where('order_id',$order_id)->delete();
+                }
                 $order=Order::find($order_id)->delete();
                  //return $wallet;
                 Wallet::create([ 
@@ -112,6 +116,11 @@ class OrderController
                 'amount'=>$wallet,
                 'flag'=>'0',
                 ]);
+                if($paymentmode=='razorpay'){
+                    $payment=Payment::where('order_id',$order_id)->first();
+                    $payment->amount= $payment->amount-$wallet;
+                    $payment->save();
+                }
                 $order=Order::find($order_id);
                 $order->amount= $order->amount-$wallet;
                 $order->discount=round($order->discount-($discount*($percent/100)));

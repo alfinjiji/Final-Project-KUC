@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ProductSize;
+use App\Models\Product;
 class Pricelist extends Model
 {
     use HasFactory;
@@ -15,5 +16,9 @@ class Pricelist extends Model
     public function productsize()
     {
         return $this->hasOne(ProductSize::class,'productsize_id','productsize_id');
+    }
+    public function product()
+    {
+        return $this->hasMany(Product::class,'product_id','product_id');
     }
 }

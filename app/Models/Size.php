@@ -10,4 +10,6 @@ class Size extends Model
     use HasFactory;
     protected $primaryKey = "size_id";
     protected $fillable = ['size'];
+   
 }
+

@@ -174,7 +174,7 @@
 									</ul>
 								</li>
 								@if(auth()->guard('customer')->check())
-								<li><a href=""><i class="fa fa-money"></i> Wallet ( <i class="fa fa-usd">{{auth()->guard('customer')->user()->wallet_amount}}</i>)</a>
+								<li><a href="{{route('profile')}}"><i class="fa fa-money"></i> Wallet ( <i class="fa fa-usd">{{auth()->guard('customer')->user()->wallet_amount}}</i>)</a>
 								</li>
 								<li><a href="{{route('wishlist.show',['id'=>encrypt(auth()->guard('customer')->user()->customer_id)])}}"><i class="fa fa-heart-o"></i> Wishlist</a>
 								</li>

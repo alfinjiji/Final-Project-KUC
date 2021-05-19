@@ -19,6 +19,8 @@ use App\Models\Order;
 use App\Models\Address;
 use App\Models\Wallet;
 use App\Models\CustomerAddress;
+use App\Models\ProductSize;
+use App\Models\Size;
 use Illuminate\Support\Facades\Hash;
 use PDF;
 class UserController
@@ -36,9 +38,9 @@ class UserController
         $menus=Menu::latest()->get();
         $products=OrderLine::select('product_id')->groupBy('product_id')->get(); 
         $popular_men=Product::where('category_id',$category_men->category_id)
-                             ->orderBy('rating','DESC')->get();
+                             ->orderBy('rating','DESC')->where('status',1)->get();
         $popular_women=Product::where('category_id',$category_women->category_id)
-                               ->orderBy('rating','DESC')->get();
+                               ->orderBy('rating','DESC')->where('status',1)->get();
       
         return view('user.homepage',compact('banners','latest_men','latest_women','latest_product','menus','popular_men','popular_women'));
     }
@@ -91,9 +93,25 @@ class UserController
                 $category_ids = $category_ids .','. $category->category_id;
             }
         }
+        //for size--->
+        $product_id=[];
+        foreach($products as $product){
+            $product_id[]=$product->product_id;
+        }
+        $size_ids=ProductSize::select('size_id')->whereHas('pricelist',function($query) use ($product_id){
+            $query->WhereHas('product', function($query) use ($product_id)  {
+                $query->whereIn('product_id',$product_id);
+            });
+        })->distinct()->get();
+        $sizeids=[];
+        foreach($size_ids as $size_id){
+            $sizeids[]=$size_id->size_id;
+        }
+        $sizes=Size::whereIn('size_id',$sizeids)->get();
+        //<---end
         $products_asc = $products->sortBy('price')->all();
         $products_desc = $products->sortByDesc('price')->all();
-        return view('user.search-result',compact('count','products','materials','colors','categories','category_ids','products_asc','products_desc'));
+        return view('user.search-result',compact('count','products','materials','colors','categories','category_ids','products_asc','products_desc','sizes'));
     }
     // single product
     function singleProduct(){

@@ -442,6 +442,7 @@
                         data:{razorpay_payment_id:response.razorpay_payment_id, amount:amount, address_id:address_id, coupon_code:coupon_code, product_id:product_id, quantity:quantity, productsize_id:productsize_id},
                         success:function(data){
                             alert(data.success);
+                            window.location.href = "http://localhost/Project/";
                         }
                     });
                 },
