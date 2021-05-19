@@ -61,6 +61,17 @@
 								 </div>
 							 </div>
 						</div>
+						<div class="brands">
+							<h3>Category <i id="show_category" class="fa fa-bars"></i></h3>
+						    <div  style='overflow-y:scroll; width:auto;height:100px;' id="category">
+                               <ul>
+								    <input type="hidden" id="category_count" data-id="{{$categories->count()}}">
+									@foreach($categories as $category)
+										<li> <input class="c" id="cid{{$loop->iteration}}" data-id{{$loop->iteration}}="{{$category->category_id}}" type="checkbox" name="material" value="{{$category->category_id}}"> {{$category->category_name}} </li>
+                                   @endforeach
+                               </ul>
+						    </div>
+                        </div>
                         <div class="brands">
 							<h3>Material <i id="show_material" class="fa fa-bars"></i></h3>
 						    <div  style='overflow-y:scroll; width:auto;height:250px;' id="material">
@@ -99,7 +110,7 @@
 							<div class="filter_a">
 								<input type="hidden" id="min_price" name="min_price">
 						    	<input type="hidden" id="max_price" name="max_price">
-						    	<input type="hidden" id="category" name="category">
+						    	<input type="hidden" id="category_id" name="category">
 								<input type="hidden" id="sizes" name="sizes">
 								<input type="hidden" id="colors" name="colors">
 								<input type="hidden" id="materials" name="materials">
@@ -268,8 +279,23 @@
 				var material=[];
 				var size=[];
 				var color=[];
-				var category = {!! json_encode($category) !!};
-				$("#category").val(category).val();
+				var category = {!! json_encode($category_id) !!};
+				console.log(typeof category);
+				$("#category_id").val(category).val();
+				//category check mark
+				var c_len = category.length;
+				var category_count = $('#category_count').attr('data-id');
+				if(c_len != 0){
+					for(var i=1;i<=category_count;i++){
+						for(var j=0;j<=c_len;j++){
+							$v =$('#cid'+i).attr('data-id'+i);
+							//console.log(category[0]+' data-id'+$v);
+							if($v == category[j]){
+								$('#cid'+i).prop('checked', true);
+							}
+						}
+					}
+				}
 				$('#show_material').click(function(){
 					$('#material').toggle();
 				});
@@ -300,7 +326,32 @@
 					$('#productByDesc').hide();
 					$('#productByAsc').show();
 				});
-
+				// for selected category
+				$('.c').click(function(){
+					if($(this).is(":checked")){
+						var category_val = $(this).val();
+						var len = category.length;
+						if(len == 0){
+							category[0] = category_val;
+						} else {
+							category[len] = category_val;
+						}
+					} else {
+						var category_val = $(this).val();
+						var len = category.length;
+						for(var i=0;i<len;i++){
+                           if(category[i]==category_val){
+							   break;
+						   }
+						}
+						for(;i<len-1;i++){
+							category[i]=category[i+1];
+						}
+						category.pop();
+					}
+					
+					$('#category_id').val(category);
+				});
                 // for selected material
                 $('.m').click(function(){
 					if($(this).is(":checked")){

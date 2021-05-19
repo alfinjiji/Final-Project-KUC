@@ -85,8 +85,8 @@ class ProductController
                 //<---end
                 $products_asc = $products->sortBy('price')->all();
                 $products_desc = $products->sortByDesc('price')->all();
-                $category = $category_id;
-                return view('user.product-list',compact('products','materials','colors','category','products_asc','products_desc','sizes'));
+                $categories=Category::all();
+                return view('user.product-list',compact('products','materials','colors','category_id','products_asc','products_desc','sizes','categories'));
             } else {
                 return redirect('/');
             }
@@ -179,7 +179,9 @@ class ProductController
             // //<---end
             $products_asc = $products->sortBy('price')->all();
             $products_desc = $products->sortByDesc('price')->all();
-            return view('user.product-list',compact('products','colors','materials','category','products_asc','products_desc'));
+            $categories=Category::all();
+            $category_id = $category;
+            return view('user.product-list',compact('products','colors','materials','category_id','products_asc','products_desc','categories'));
         } 
         // filter by material and price
         elseif($color=='' && $size==''){
@@ -201,7 +203,9 @@ class ProductController
             
             $products_asc = $products->sortBy('price')->all();
             $products_desc = $products->sortByDesc('price')->all();
-            return view('user.product-list',compact('products','colors','materials','category','products_asc','products_desc'));
+            $categories=Category::all();
+            $category_id = $category;
+            return view('user.product-list',compact('products','colors','materials','category_id','products_asc','products_desc','categories'));
         } 
         // filter by size and price
         elseif($color=='' && $material=='') {
@@ -226,7 +230,9 @@ class ProductController
            
             $products_asc = $products->sortBy('price')->all();
             $products_desc = $products->sortByDesc('price')->all();
-            return view('user.product-list',compact('products','colors','materials','category','products_asc','products_desc'));
+            $category_id = $category;
+            $categories=Category::all();
+            return view('user.product-list',compact('products','colors','materials','category_id','products_asc','products_desc','categories'));
         }
         // filter by color and price
         elseif($size=='' && $material==''){
@@ -248,7 +254,9 @@ class ProductController
             
             $products_asc = $products->sortBy('price')->all();
             $products_desc = $products->sortByDesc('price')->all();
-            return view('user.product-list',compact('products','colors','materials','category','products_asc','products_desc'));
+            $categories=Category::all();
+            $category_id = $category;
+            return view('user.product-list',compact('products','colors','materials','category_id','products_asc','products_desc','categories'));
         }
         // filter by material, color and price
         elseif($size==''){
@@ -271,7 +279,9 @@ class ProductController
            
             $products_asc = $products->sortBy('price')->all();
             $products_desc = $products->sortByDesc('price')->all();
-            return view('user.product-list',compact('products','colors','materials','category','products_asc','products_desc'));
+            $categories=Category::all();
+            $category_id = $category;
+            return view('user.product-list',compact('products','colors','materials','category_id','products_asc','products_desc','categories'));
         }
         // filter by material, size and price
         elseif($color==''){
@@ -300,7 +310,9 @@ class ProductController
           
             $products_asc = $products->sortBy('price')->all();
             $products_desc = $products->sortByDesc('price')->all();
-            return view('user.product-list',compact('products','colors','materials','category','products_asc','products_desc'));
+            $categories=Category::all();
+            $category_id = $category;
+            return view('user.product-list',compact('products','colors','materials','category_id','products_asc','products_desc','categories'));
         }
         // filter by color, size and price
         elseif($material==''){
@@ -330,7 +342,9 @@ class ProductController
         
             $products_asc = $products->sortBy('price')->all();
             $products_desc = $products->sortByDesc('price')->all(); 
-            return view('user.product-list',compact('products','colors','materials','category','products_asc','products_desc'));
+            $categories=Category::all();
+            $category_id = $category;
+            return view('user.product-list',compact('products','colors','materials','category_id','products_asc','products_desc','categories'));
         }
         // filter by all (material, color, size and price)
         else {
@@ -362,7 +376,9 @@ class ProductController
             
             $products_asc = $products->sortBy('price')->all();
             $products_desc = $products->sortByDesc('price')->all();
-            return view('user.product-list',compact('products','colors','materials','category','products_asc','products_desc'));
+            $categories=Category::all();
+            $category_id = $category;
+            return view('user.product-list',compact('products','colors','materials','category_id','products_asc','products_desc','categories'));
         }
     }
     // price variance bt size

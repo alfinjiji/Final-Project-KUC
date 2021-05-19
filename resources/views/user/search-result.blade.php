@@ -124,7 +124,7 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12">
                             <div class="headline">
-                                <h2>Search result <span>{{$count}}(items)</span></h2>
+                                <h2>Search result <span>({{$count}} items)</span></h2>
                             </div>
                             <div class="product-tab">
                                 
