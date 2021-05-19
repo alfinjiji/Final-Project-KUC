@@ -43,8 +43,8 @@
             <div class="row">
                 <!--btn for change password transction toggle view-->
                 <div class="col-md-12" style="text-align: end;">
-                    <button class="btn btn-success" id="changePassBtn">Change Password</button>
-                    <button class="btn btn-success" id="viewWalletBtn">View Wallet Transaction</button>
+                    <button class="btn btn-success btn-focus" id="changePassBtn">Change Password</button>
+                    <button class="btn btn-success btn-focus" id="viewWalletBtn">View Wallet Transaction</button>
                 </div>
 				<div class="col-md-6 col-sm-12 col-xs-12">
 					<div class="headline">
@@ -110,8 +110,33 @@
                     </div>
                     <div class="col-md-12 col-sm-12 col-xs-12" style='overflow-y:scroll; height:435px;'>
                         <div class="text-center" style="background-color: #eee; padding:5px; border-radius: 10px; margin-bottom:15px;">
-                            <p>Your Balance</p>
-                            <h4>${{auth()->guard('customer')->user()->wallet_amount}}</h4>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <p>Your Balance</p>
+                                    <h4>${{auth()->guard('customer')->user()->wallet_amount}}</h4>
+                                </div>
+                                <div class="col-md-4" style="width: auto; padding-top:20px;">
+                                    <button class="btn btn-success btn-sm btn-focus" data-toggle="modal" data-target="#exampleModalCenter">Top-up</button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                      <div class="modal-dialog modal-dialog-centered" role="document">
+                                        <div class="modal-content">
+                                          <div class="modal-header" style="background-color: #f89d18; border-radius:5px;">
+                                            <h5 class="modal-title" style="color:white; font-size:20px;">Wallet Top-up</h5>
+                                          </div>
+                                          <div class="modal-body" style="background-color: #eee; color:black;">
+                                            <form class="form-inline">
+                                                @csrf
+                                                <label style="color: black; padding-right:5px;">Amount</label>
+                                                <input type="number" class="form-control" placeholder="Enter Amount" id="amount">
+                                                <button type="button" class="btn btn-success" id="topup_btn">Top-up</button>
+                                            </form>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         @foreach ($wallets as $wallet)
                             @if($wallet->flag==0)
@@ -130,6 +155,7 @@
 	@endsection
 
     @section('custom_script')
+    <script src = "https://checkout.razorpay.com/v1/checkout.js"></script>
         <script>
             $(document).ready(function () {
                 $('#pass_change').hide();
@@ -243,6 +269,50 @@
 		        	});
 		           }
 		        });
+                // razorpay payment
+                $('body').on('click','#topup_btn',function(e){
+                    e.preventDefault();
+                    var amount = $('#amount').val();
+                    var total_amount = amount * 100;    
+                    var name = {!! json_encode(auth()->guard('customer')->user()->first_name . " " . auth()->guard('customer')->user()->last_name) !!}; 
+                    var email = {!! json_encode(auth()->guard('customer')->user()->email) !!}; 
+                    var mobile = {!! json_encode(auth()->guard('customer')->user()->mobile) !!};
+                    var options = {
+                        "key": "{{ env('RAZOR_KEY') }}", // Enter the Key ID generated from the Dashboard
+                        "amount": total_amount, // Amount is in currency subunits. Default currency is INR. Hence, 10 refers to 1000 paise
+                        "currency": "INR",
+                        "name": name.toUpperCase(),
+                        "description": "",
+                        "image": "",
+                        "order_id": "", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+                        "handler": function (response){
+                            $.ajaxSetup({
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                }
+                            });
+                            $.ajax({
+                                type:'POST',
+                                url:"{{ route('payment.topup') }}",
+                                data:{razorpay_payment_id:response.razorpay_payment_id, amount:amount},
+                                success:function(data){
+                                    alert(data.success);
+                                    location.reload();
+                                }
+                            });
+                        },
+                        "prefill": {
+                            "name": name,
+                            "email": email,
+                            "contact": mobile
+                        },
+                        "theme": {
+                            "color": "#528FF0"
+                        }
+                    };
+                    var rzp1 = new Razorpay(options);
+                    rzp1.open();
+                });
             });
         </script>
     @endsection
