@@ -21,8 +21,10 @@ use App\Models\Wallet;
 use App\Models\CustomerAddress;
 use App\Models\ProductSize;
 use App\Models\Size;
+use App\Models\Cart;
 use Illuminate\Support\Facades\Hash;
 use PDF;
+use Session;
 class UserController
 {   
     // home page
@@ -41,7 +43,12 @@ class UserController
                              ->orderBy('rating','DESC')->where('status',1)->get();
         $popular_women=Product::where('category_id',$category_women->category_id)
                                ->orderBy('rating','DESC')->where('status',1)->get();
-      
+        if(!Auth::guard('customer')->check()){
+           session()->put('cartcount', 0);
+        }else{
+           $count=Cart::where('customer_id',Auth::guard('customer')->user()->customer_id)->count();
+           session()->put('cartcount', $count);
+        }
         return view('user.homepage',compact('banners','latest_men','latest_women','latest_product','menus','popular_men','popular_women'));
     }
     // user profile

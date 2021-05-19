@@ -461,7 +461,7 @@
 							@else
 							<a href=""  data-toggle="modal" data-target="#myModal"><i class="fa fa-shopping-cart"></i>My Cart</a>	
 							@endif
-							<span>{{$layout_count}}</span>
+							<span>{{Session()->get('cartcount')}}</span>
 
 						</div>
 					</div>

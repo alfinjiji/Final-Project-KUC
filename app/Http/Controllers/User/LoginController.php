@@ -8,7 +8,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use App\Models\Customer;
+use App\Models\Cart;
 use App\Mail\ResetPassword;
+use Session;
 
 class LoginController extends Controller
 {
@@ -17,6 +19,7 @@ class LoginController extends Controller
         $input = ['email'=>request('email'),'password'=>request('pwd')];
         if(Auth::guard('customer')->attempt($input)){
            // login success
+           
             return response()->json(['success'=>1]);
         } else {  
            // login failed
